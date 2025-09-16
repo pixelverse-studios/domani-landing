@@ -7,7 +7,8 @@ interface CountResponse {
   error?: boolean
 }
 
-export const runtime = 'edge'
+// Removed edge runtime to allow access to server-side environment variables
+// export const runtime = 'edge'
 export const revalidate = 60 // Cache for 1 minute
 
 export async function GET() {
@@ -18,7 +19,7 @@ export async function GET() {
 
     // If Supabase is not configured, return a mock count
     if (!clientToUse) {
-      console.log('NO SUPABASE')
+      console.log('No Supabase client available, returning mock')
       return NextResponse.json<CountResponse>(
         { count: 1247, mock: true },
         {
@@ -35,7 +36,6 @@ export async function GET() {
       .from('waitlist')
       .select('*', { count: 'exact', head: true })
 
-      console.log('count: ', count)
 
     if (error) {
       console.error('Error fetching user count:', error)
