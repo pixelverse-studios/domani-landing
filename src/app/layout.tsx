@@ -18,6 +18,7 @@ const abrilFatface = Abril_Fatface({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://domani.app'),
   title: 'Domani - Plan Tomorrow Tonight, Wake Up Ready',
   description: 'Transform your productivity with evening planning psychology. Add tomorrow\'s tasks when you\'re calm, execute when you\'re focused.',
   keywords: 'productivity app, evening planning, task management, morning routine, productivity psychology',

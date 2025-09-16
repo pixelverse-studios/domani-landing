@@ -2,12 +2,10 @@
 
 [build]
   command = "npm run build"
-  publish = "out"
+  publish = ".next"
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+# Remove the catch-all redirect since we're using Next.js server-side rendering
+# API routes need to be handled by Next.js, not redirected to index.html
 
 [[headers]]
   for = "/*"
