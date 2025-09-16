@@ -1,88 +1,99 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import Image from 'next/image'
+import { useEffect, useState } from 'react'
 
-interface SocialProofProps {
-  count: number
-}
+export default function SocialProof() {
+  const [userCount, setUserCount] = useState<number | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [displayCount, setDisplayCount] = useState(0)
 
-export default function SocialProof({ count }: SocialProofProps) {
-  const avatars = [
-    { id: 1, name: 'User 1' },
-    { id: 2, name: 'User 2' },
-    { id: 3, name: 'User 3' },
-    { id: 4, name: 'User 4' },
-    { id: 5, name: 'User 5' },
-  ]
+  // Fetch the actual user count from the API
+  useEffect(() => {
+    const fetchUserCount = async () => {
+      try {
+        const response = await fetch('/api/users/count', {
+          next: { revalidate: 60 } // Cache for 1 minute
+        })
+        const data = await response.json()
+        setUserCount(data.count || 1000)
+      } catch (error) {
+        console.error('Error fetching user count:', error)
+        setUserCount(1000) // Fallback count
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchUserCount()
+
+    // Refresh count every minute
+    const interval = setInterval(fetchUserCount, 60000)
+
+    return () => clearInterval(interval)
+  }, [])
+
+  // Animate the count when it changes
+  useEffect(() => {
+    if (userCount === null) return
+
+    const duration = 1500 // Animation duration in ms
+    const steps = 60
+    const stepDuration = duration / steps
+    const increment = (userCount - displayCount) / steps
+
+    let currentStep = 0
+    const timer = setInterval(() => {
+      currentStep++
+      if (currentStep === steps) {
+        setDisplayCount(userCount)
+        clearInterval(timer)
+      } else {
+        setDisplayCount(prev => Math.floor(prev + increment))
+      }
+    }, stepDuration)
+
+    return () => clearInterval(timer)
+  }, [userCount])
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center gap-3">
+        <div className="h-6 w-32 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-md"></div>
+      </div>
+    )
+  }
 
   return (
-    <div className="flex items-center gap-4">
-      {/* Avatar Stack */}
-      <div className="flex -space-x-3">
-        {avatars.map((avatar, index) => (
-          <motion.div
-            key={avatar.id}
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: index * 0.1 }}
-            className="relative"
-          >
-            <div 
-              className="w-10 h-10 rounded-full bg-gradient-to-br from-primary-400 to-evening-400 border-2 border-white dark:border-dark-elevated flex items-center justify-center text-white font-semibold text-sm"
-              style={{ zIndex: 5 - index }}
-            >
-              {avatar.name.charAt(0)}
-            </div>
-          </motion.div>
-        ))}
-        
-        {/* Additional Users Indicator */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.5 }}
-          className="relative z-0"
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="inline-flex items-center gap-3"
+    >
+      {/* Main text with number */}
+      <div className="flex items-baseline gap-2">
+        <span className="text-sm text-gray-600 dark:text-gray-400">Join</span>
+        <motion.span
+          key={displayCount}
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+          className="text-2xl font-bold bg-gradient-to-r from-primary-600 to-evening-600 dark:from-primary-500 dark:to-evening-500 bg-clip-text text-transparent"
         >
-          <div className="w-10 h-10 rounded-full bg-gray-200 dark:bg-dark-card border-2 border-white dark:border-dark-elevated flex items-center justify-center">
-            <span className="text-xs text-gray-600 dark:text-gray-400 font-semibold">+{count - 5}</span>
-          </div>
-        </motion.div>
+          {displayCount.toLocaleString()}
+        </motion.span>
+        <span className="text-sm text-gray-600 dark:text-gray-400">early adopters</span>
       </div>
 
-      {/* Text */}
-      <div className="flex flex-col">
-        <motion.p 
-          initial={{ opacity: 0, x: -10 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.6 }}
-          className="text-sm font-semibold text-gray-900 dark:text-white"
-        >
-          Join {count.toLocaleString()}+ early adopters
-        </motion.p>
-        <motion.p 
-          initial={{ opacity: 0, x: -10 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.7 }}
-          className="text-xs text-gray-500 dark:text-gray-400"
-        >
-          Growing daily
-        </motion.p>
-      </div>
-
-      {/* Live Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.8 }}
-        className="flex items-center gap-1 ml-auto"
-      >
+      {/* Live indicator */}
+      <div className="flex items-center gap-1.5">
         <span className="relative flex h-2 w-2">
           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
           <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
         </span>
-        <span className="text-xs text-gray-500">Live</span>
-      </motion.div>
-    </div>
+        <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">Live</span>
+      </div>
+    </motion.div>
   )
 }

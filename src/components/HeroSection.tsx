@@ -48,14 +48,6 @@ export default function HeroSection({
   variant = 'A'
 }: HeroSectionProps) {
   const [waitlistOpen, setWaitlistOpen] = useState(false)
-  const [earlyAdopters, setEarlyAdopters] = useState(1042)
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setEarlyAdopters(prev => prev + Math.floor(Math.random() * 3))
-    }, 30000)
-    return () => clearInterval(interval)
-  }, [])
 
   const handleCTAClick = () => {
     setWaitlistOpen(true)
@@ -155,7 +147,7 @@ export default function HeroSection({
 
               {/* Social Proof */}
               <motion.div variants={itemVariants} className="mt-8">
-                <SocialProof count={earlyAdopters} />
+                <SocialProof />
               </motion.div>
             </div>
 
