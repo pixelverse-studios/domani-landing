@@ -52,6 +52,7 @@ export function BenefitsSection({ className }: BenefitsSectionProps) {
           {benefitsData.map((benefit, index) => (
             <motion.div
               key={benefit.id}
+              className="h-full"
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{
@@ -60,7 +61,7 @@ export function BenefitsSection({ className }: BenefitsSectionProps) {
                 ease: [0.25, 0.46, 0.45, 0.94],
               }}
             >
-              <BenefitCard benefit={benefit} />
+              <BenefitCard benefit={benefit} className="h-full" />
             </motion.div>
           ))}
         </div>

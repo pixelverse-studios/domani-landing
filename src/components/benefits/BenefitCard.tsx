@@ -18,7 +18,7 @@ export function BenefitCard({ benefit, className }: BenefitCardProps) {
   return (
     <motion.div
       className={cn(
-        'relative bg-white dark:bg-dark-card rounded-2xl shadow-lg transition-all duration-300',
+        'relative h-full bg-white dark:bg-dark-card rounded-2xl shadow-lg transition-all duration-300',
         'hover:shadow-xl hover:-translate-y-1',
         'border border-gray-200 dark:border-gray-700',
         className
