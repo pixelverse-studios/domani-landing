@@ -1,14 +1,25 @@
 import { NextResponse } from 'next/server'
-import { supabase } from '@/lib/supabase'
+import { supabase, supabaseAdmin } from '@/lib/supabase'
+
+interface CountResponse {
+  count: number
+  mock?: boolean
+  error?: boolean
+}
 
 export const runtime = 'edge'
 export const revalidate = 60 // Cache for 1 minute
 
 export async function GET() {
   try {
+    // Use supabaseAdmin for counting to bypass RLS policies
+    // This is safe as we're only returning a count, not exposing user data
+    const clientToUse = supabaseAdmin || supabase
+
     // If Supabase is not configured, return a mock count
-    if (!supabase) {
-      return NextResponse.json(
+    if (!clientToUse) {
+      console.log('NO SUPABASE')
+      return NextResponse.json<CountResponse>(
         { count: 1247, mock: true },
         {
           status: 200,
@@ -19,15 +30,17 @@ export async function GET() {
       )
     }
 
-    // Fetch the count from the waitlist table
-    const { count, error } = await supabase
+    // Fetch the count from the waitlist table using admin client
+    const { count, error } = await clientToUse
       .from('waitlist')
       .select('*', { count: 'exact', head: true })
+
+      console.log('count: ', count)
 
     if (error) {
       console.error('Error fetching user count:', error)
       // Return a fallback count if there's an error
-      return NextResponse.json(
+      return NextResponse.json<CountResponse>(
         { count: 1000, error: true },
         {
           status: 200,
@@ -38,7 +51,7 @@ export async function GET() {
       )
     }
 
-    return NextResponse.json(
+    return NextResponse.json<CountResponse>(
       { count: count || 0 },
       {
         status: 200,

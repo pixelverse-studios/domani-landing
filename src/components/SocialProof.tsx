@@ -1,41 +1,37 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 
 export default function SocialProof() {
   const [userCount, setUserCount] = useState<number | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
   const [displayCount, setDisplayCount] = useState(0)
 
   // Fetch the actual user count from the API
   useEffect(() => {
     const fetchUserCount = async () => {
       try {
-        const response = await fetch('/api/users/count', {
-          next: { revalidate: 60 } // Cache for 1 minute
-        })
+        const response = await fetch('/api/users/count')
         const data = await response.json()
-        setUserCount(data.count || 1000)
+        setUserCount(data.count)
       } catch (error) {
-        console.error('Error fetching user count:', error)
-        setUserCount(1000) // Fallback count
+        console.error(error)
       } finally {
         setIsLoading(false)
       }
     }
 
-    fetchUserCount()
+    if (userCount == null && !isLoading) {
+      setIsLoading(true)
+      fetchUserCount()
+    }
 
-    // Refresh count every minute
-    const interval = setInterval(fetchUserCount, 60000)
-
-    return () => clearInterval(interval)
-  }, [])
+  }, [userCount, isLoading])
 
   // Animate the count when it changes
   useEffect(() => {
-    if (userCount === null) return
+    if (userCount === null || userCount === displayCount) return
 
     const duration = 1500 // Animation duration in ms
     const steps = 60
@@ -54,7 +50,7 @@ export default function SocialProof() {
     }, stepDuration)
 
     return () => clearInterval(timer)
-  }, [userCount])
+  }, [userCount, displayCount])
 
   if (isLoading) {
     return (
