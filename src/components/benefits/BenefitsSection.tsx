@@ -1,10 +1,11 @@
 'use client'
 
-import { motion, useInView } from 'framer-motion'
+import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
 import { cn } from '@/lib/utils'
 import { BenefitCard } from './BenefitCard'
 import { benefitsData } from './benefitsData'
+import { SectionDivider } from '@/components/ui/SectionDivider'
 
 interface BenefitsSectionProps {
   className?: string
@@ -14,11 +15,20 @@ export function BenefitsSection({ className }: BenefitsSectionProps) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
+  // Parallax effect for background elements
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  })
+
+  const y = useTransform(scrollYProgress, [0, 1], [-50, 50])
+  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.3, 1, 0.3])
+
   return (
-    <section 
+    <section
       ref={ref}
       className={cn(
-        'relative py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-primary-50/20 to-white dark:from-dark-gradient-from dark:via-dark-gradient-via dark:to-dark-gradient-to',
+        'relative pt-16 pb-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-primary-50/10 via-white to-white dark:from-dark-gradient-to/95 dark:via-dark-gradient-via dark:to-dark-gradient-from overflow-clip',
         className
       )}
     >
@@ -56,11 +66,32 @@ export function BenefitsSection({ className }: BenefitsSectionProps) {
         </div>
       </div>
 
-      {/* Background Pattern - matching Hero section */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute top-0 -left-4 w-72 h-72 bg-evening-300 dark:bg-evening-600/20 rounded-full mix-blend-multiply dark:mix-blend-color-dodge filter blur-xl opacity-20 dark:opacity-30 animate-float"></div>
-        <div className="absolute top-0 -right-4 w-72 h-72 bg-primary-300 dark:bg-primary-600/20 rounded-full mix-blend-multiply dark:mix-blend-color-dodge filter blur-xl opacity-20 dark:opacity-30 animate-float animate-float-delay-1"></div>
-        <div className="absolute -bottom-8 left-20 w-72 h-72 bg-accent dark:bg-accent/20 rounded-full mix-blend-multiply dark:mix-blend-color-dodge filter blur-xl opacity-20 dark:opacity-30 animate-float animate-float-delay-2"></div>
+      {/* Background Pattern - Connected flow from hero with parallax */}
+      <motion.div className="absolute inset-0 -z-10 overflow-hidden" style={{ opacity }}>
+        {/* Continuation from hero section with parallax */}
+        <motion.div
+          className="absolute -top-32 left-40 w-96 h-96 bg-primary-200/50 dark:bg-primary-600/10 rounded-full mix-blend-multiply dark:mix-blend-color-dodge filter blur-3xl opacity-15 dark:opacity-20"
+          style={{ y }}
+          animate={{ scale: [1, 1.1, 1] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute top-20 right-0 w-80 h-80 bg-evening-200 dark:bg-evening-600/15 rounded-full mix-blend-multiply dark:mix-blend-color-dodge filter blur-2xl opacity-15 dark:opacity-20"
+          style={{ y: useTransform(scrollYProgress, [0, 1], [-30, 30]) }}
+          animate={{ scale: [1, 1.15, 1] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        />
+        <div className="absolute bottom-0 left-20 w-72 h-72 bg-primary-100 dark:bg-primary-500/10 rounded-full mix-blend-multiply dark:mix-blend-color-dodge filter blur-xl opacity-20 dark:opacity-25 animate-float animate-float-delay-2"></div>
+        {/* New connecting element */}
+        <motion.div
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-primary-100/20 to-transparent dark:from-primary-500/5 dark:to-transparent rounded-full opacity-50 dark:opacity-30"
+          style={{ scale: useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8]) }}
+        />
+      </motion.div>
+
+      {/* Section Divider - Smooth transition to showcase section */}
+      <div className="absolute bottom-0 left-0 right-0 transform translate-y-px">
+        <SectionDivider variant="curve" className="text-white dark:text-dark-gradient-from" />
       </div>
     </section>
   )

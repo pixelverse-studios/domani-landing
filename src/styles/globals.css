@@ -38,12 +38,28 @@
   * {
     border-color: hsl(var(--border));
   }
-  
+
+  html {
+    overflow-x: hidden;
+    scrollbar-gutter: stable;
+    height: 100%;
+  }
+
   body {
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
     font-feature-settings: "rlig" 1, "calt" 1;
+    overflow-x: hidden;
+    min-height: 100%;
+    position: relative;
+  }
+
+  /* Prevent horizontal scroll from absolutely positioned elements */
+  #__next,
+  main {
+    overflow-x: clip;
+    position: relative;
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -85,14 +101,62 @@
   }
   
   .hero-gradient {
-    background: linear-gradient(135deg, 
-      rgba(99, 102, 241, 0.1) 0%, 
-      rgba(139, 92, 246, 0.05) 50%, 
+    background: linear-gradient(135deg,
+      rgba(99, 102, 241, 0.1) 0%,
+      rgba(139, 92, 246, 0.05) 50%,
       rgba(99, 102, 241, 0.1) 100%);
+  }
+
+  .bg-gradient-radial {
+    background: radial-gradient(circle, var(--tw-gradient-stops));
+  }
+
+  /* Section transition enhancements */
+  .section-transition {
+    position: relative;
+  }
+
+  .section-transition::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(to bottom, transparent, rgba(99, 102, 241, 0.02));
+    pointer-events: none;
   }
 }
 
 @layer utilities {
+  /* Modern viewport units with fallback */
+  .min-h-dvh {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  .h-dvh {
+    height: 100vh;
+    height: 100dvh;
+  }
+
+  /* Overflow containment */
+  .overflow-clip-x {
+    overflow-x: clip;
+  }
+
+  .contain-layout {
+    contain: layout;
+  }
+
+  .contain-paint {
+    contain: paint;
+  }
+
+  .contain-all {
+    contain: layout style paint;
+  }
+
   .text-balance {
     text-wrap: balance;
   }

@@ -6,6 +6,7 @@ import { motion } from 'framer-motion'
 import WaitlistForm from './WaitlistForm'
 import WaitlistInline from './WaitlistInline'
 import SocialProof from './SocialProof'
+import { SectionDivider } from '@/components/ui/SectionDivider'
 
 const heroVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -75,15 +76,18 @@ export default function HeroSection({
 
   return (
     <>
-      <section 
-        className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-white via-primary-50/20 to-white dark:from-dark-gradient-from dark:via-dark-gradient-via dark:to-dark-gradient-to"
+      <section
+        className="relative min-h-screen flex items-center justify-center overflow-clip bg-gradient-to-b from-white via-primary-50/30 to-primary-50/10 dark:from-dark-gradient-from dark:via-dark-gradient-via dark:to-dark-gradient-to/95"
         aria-label="Hero section"
       >
-        {/* Background Pattern */}
-        <div className="absolute inset-0 -z-10">
-          <div className="absolute top-0 -left-4 w-72 h-72 bg-evening-300 dark:bg-evening-600/20 rounded-full mix-blend-multiply dark:mix-blend-color-dodge filter blur-xl opacity-20 dark:opacity-30 animate-float"></div>
-          <div className="absolute top-0 -right-4 w-72 h-72 bg-primary-300 dark:bg-primary-600/20 rounded-full mix-blend-multiply dark:mix-blend-color-dodge filter blur-xl opacity-20 dark:opacity-30 animate-float animate-float-delay-1"></div>
-          <div className="absolute -bottom-8 left-20 w-72 h-72 bg-accent dark:bg-accent/20 rounded-full mix-blend-multiply dark:mix-blend-color-dodge filter blur-xl opacity-20 dark:opacity-30 animate-float animate-float-delay-2"></div>
+        {/* Background Pattern - Enhanced with better flow */}
+        <div className="absolute inset-0 -z-10 overflow-hidden">
+          <div className="absolute top-0 left-0 w-72 h-72 bg-evening-300 dark:bg-evening-600/20 rounded-full mix-blend-multiply dark:mix-blend-color-dodge filter blur-xl opacity-20 dark:opacity-30 animate-float"></div>
+          <div className="absolute top-0 right-0 w-72 h-72 bg-primary-300 dark:bg-primary-600/20 rounded-full mix-blend-multiply dark:mix-blend-color-dodge filter blur-xl opacity-20 dark:opacity-30 animate-float animate-float-delay-1"></div>
+          {/* Extended blob that flows into next section */}
+          <div className="absolute -bottom-32 left-20 w-96 h-96 bg-primary-200 dark:bg-primary-500/20 rounded-full mix-blend-multiply dark:mix-blend-color-dodge filter blur-2xl opacity-15 dark:opacity-20 animate-float animate-float-delay-2"></div>
+          {/* Additional connector blob */}
+          <div className="absolute -bottom-48 right-32 w-80 h-80 bg-evening-200 dark:bg-evening-500/15 rounded-full mix-blend-multiply dark:mix-blend-color-dodge filter blur-2xl opacity-10 dark:opacity-15 animate-float"></div>
         </div>
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16 md:pt-24 md:pb-20">
@@ -226,8 +230,8 @@ export default function HeroSection({
                     </div>
                   </div>
                   
-                  {/* Floating Elements */}
-                  <div className="absolute -top-4 -right-4 bg-white dark:bg-gray-800 rounded-xl p-3 shadow-lg">
+                  {/* Floating Elements - Fixed positioning */}
+                  <div className="absolute top-0 right-0 transform translate-x-2 -translate-y-2 bg-white dark:bg-gray-800 rounded-xl p-3 shadow-lg">
                     <div className="flex items-center gap-2 text-sm">
                       <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
                         <span className="text-green-600 font-bold">3</span>
@@ -235,8 +239,8 @@ export default function HeroSection({
                       <span className="text-gray-700 dark:text-gray-300 font-medium">Tasks Set</span>
                     </div>
                   </div>
-                  
-                  <div className="absolute -bottom-4 -left-4 bg-white dark:bg-gray-800 rounded-xl p-3 shadow-lg">
+
+                  <div className="absolute bottom-0 left-0 transform -translate-x-2 translate-y-2 bg-white dark:bg-gray-800 rounded-xl p-3 shadow-lg">
                     <div className="flex items-center gap-2 text-sm">
                       <span className="text-2xl">🔥</span>
                       <span className="text-gray-700 dark:text-gray-300 font-medium">7 Day Streak</span>
@@ -246,6 +250,11 @@ export default function HeroSection({
               </div>
             </motion.div>
           </motion.div>
+        </div>
+
+        {/* Section Divider - Smooth transition to next section */}
+        <div className="absolute bottom-0 left-0 right-0 transform translate-y-px">
+          <SectionDivider variant="wave" className="text-white dark:text-dark-gradient-from" />
         </div>
       </section>
 

@@ -53,9 +53,11 @@ export default function RootLayout({
       <head>
         <ThemeScript />
       </head>
-      <body className="font-sans antialiased bg-background text-foreground transition-colors">
+      <body className="font-sans antialiased bg-white dark:bg-dark-gradient-from text-foreground transition-colors overflow-x-hidden">
         <ThemeProvider>
-          {children}
+          <div className="min-h-screen overflow-x-clip">
+            {children}
+          </div>
         </ThemeProvider>
       </body>
     </html>
