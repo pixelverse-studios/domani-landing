@@ -22,12 +22,12 @@ const heroVariants = {
 
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
     transition: {
       duration: 0.5,
-      ease: [0.645, 0.045, 0.355, 1]
+      ease: "easeOut" as const
     }
   }
 }
