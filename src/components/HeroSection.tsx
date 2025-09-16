@@ -165,29 +165,34 @@ export default function HeroSection({
               className="relative lg:pl-8"
             >
               <div className="relative mx-auto max-w-md lg:max-w-none">
-                {/* Phone Mockup Container */}
+                {/* Floating App Screenshot Container */}
                 <div className="relative">
-                  {/* Gradient Background */}
+                  {/* Gradient Background Blur */}
                   <div className="absolute inset-0 bg-gradient-to-r from-primary-500 to-evening-500 rounded-3xl transform rotate-6 scale-105 opacity-10 blur-xl"></div>
-                  
-                  {/* Phone Frame */}
-                  <div className="relative bg-gray-900 dark:bg-gray-800 rounded-[3rem] p-4 shadow-2xl">
-                    {/* Screen */}
-                    <div className="bg-white dark:bg-gray-900 rounded-[2.5rem] overflow-hidden">
+
+                  {/* Floating App Interface */}
+                  <motion.div
+                    whileHover={{
+                      y: -8,
+                      transition: { duration: 0.3, ease: "easeOut" }
+                    }}
+                    className="relative"
+                  >
+                    <div className="relative rounded-3xl overflow-hidden shadow-[0_4px_8px_rgba(0,0,0,0.12),0_8px_24px_rgba(0,0,0,0.08),0_16px_48px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_8px_rgba(0,0,0,0.3),0_8px_24px_rgba(0,0,0,0.25),0_16px_48px_rgba(0,0,0,0.15)] transition-shadow duration-300 hover:shadow-[0_8px_16px_rgba(0,0,0,0.15),0_16px_32px_rgba(0,0,0,0.1),0_24px_56px_rgba(0,0,0,0.05)] dark:hover:shadow-[0_8px_16px_rgba(0,0,0,0.35),0_16px_32px_rgba(0,0,0,0.3),0_24px_56px_rgba(0,0,0,0.2)] bg-white dark:bg-gray-900">
                       {/* Status Bar */}
-                      <div className="bg-gray-900 dark:bg-gray-800 text-white px-6 py-2 text-xs flex justify-between items-center">
+                      <div className="bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-6 py-2 text-xs flex justify-between items-center border-b border-gray-100 dark:border-gray-700">
                         <span>8:00 PM</span>
                         <div className="flex gap-1">
-                          <div className="w-4 h-2 bg-white rounded-sm"></div>
-                          <div className="w-4 h-2 bg-white rounded-sm"></div>
-                          <div className="w-4 h-2 bg-white rounded-sm"></div>
+                          <div className="w-4 h-2 bg-gray-400 dark:bg-gray-500 rounded-sm"></div>
+                          <div className="w-4 h-2 bg-gray-400 dark:bg-gray-500 rounded-sm"></div>
+                          <div className="w-4 h-2 bg-gray-400 dark:bg-gray-500 rounded-sm"></div>
                         </div>
                       </div>
-                      
+
                       {/* App Content */}
                       <div className="p-6 bg-gradient-to-b from-primary-50 to-white dark:from-dark-elevated dark:to-dark-surface min-h-[500px]">
                         <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Tomorrow's Plan</h3>
-                        
+
                         {/* Task Cards */}
                         <div className="space-y-3">
                           <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
@@ -200,7 +205,7 @@ export default function HeroSection({
                               <span className="text-yellow-500">⭐</span>
                             </div>
                           </div>
-                          
+
                           <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
                             <div className="flex items-start gap-3">
                               <div className="w-5 h-5 rounded-full border-2 border-green-500 mt-0.5"></div>
@@ -210,7 +215,7 @@ export default function HeroSection({
                               </div>
                             </div>
                           </div>
-                          
+
                           <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
                             <div className="flex items-start gap-3">
                               <div className="w-5 h-5 rounded-full border-2 border-purple-500 mt-0.5"></div>
@@ -221,14 +226,14 @@ export default function HeroSection({
                             </div>
                           </div>
                         </div>
-                        
+
                         {/* Lock Button */}
                         <button className="w-full mt-6 py-3 bg-gradient-to-r from-primary-600 to-evening-600 text-white font-semibold rounded-xl shadow-lg">
                           Lock Tonight's Plan
                         </button>
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                   
                   {/* Floating Elements - Fixed positioning */}
                   <div className="absolute top-0 right-0 transform translate-x-2 -translate-y-2 bg-white dark:bg-gray-800 rounded-xl p-3 shadow-lg">

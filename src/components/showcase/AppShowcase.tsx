@@ -136,22 +136,24 @@ export function AppShowcase() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="grid lg:grid-cols-2 gap-12 items-center"
         >
-          {/* Phone mockup */}
+          {/* Floating app screenshot */}
           <div className="relative">
             <motion.div
               key={activeScreen}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3 }}
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
               className="relative mx-auto max-w-[320px]"
             >
-              {/* Phone frame */}
-              <div className="relative bg-gray-900 dark:bg-gray-800 rounded-[3rem] p-3 shadow-2xl">
-                {/* Notch */}
-                <div className="absolute top-3 left-1/2 -translate-x-1/2 w-32 h-6 bg-gray-900 dark:bg-gray-800 rounded-full z-10"></div>
-
-                {/* Screen */}
-                <div className="relative bg-white dark:bg-gray-900 rounded-[2.5rem] overflow-hidden">
+              {/* Floating screenshot with multi-layer shadows */}
+              <motion.div
+                whileHover={{
+                  y: -8,
+                  transition: { duration: 0.3, ease: "easeOut" }
+                }}
+                className="relative"
+              >
+                <div className="relative rounded-3xl overflow-hidden shadow-[0_4px_8px_rgba(0,0,0,0.12),0_8px_24px_rgba(0,0,0,0.08),0_16px_48px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_8px_rgba(0,0,0,0.3),0_8px_24px_rgba(0,0,0,0.25),0_16px_48px_rgba(0,0,0,0.15)] transition-shadow duration-300 hover:shadow-[0_8px_16px_rgba(0,0,0,0.15),0_16px_32px_rgba(0,0,0,0.1),0_24px_56px_rgba(0,0,0,0.05)] dark:hover:shadow-[0_8px_16px_rgba(0,0,0,0.35),0_16px_32px_rgba(0,0,0,0.3),0_24px_56px_rgba(0,0,0,0.2)]">
                   <Image
                     src={currentScreen.image}
                     alt={`${currentScreen.title} Screenshot`}
@@ -159,16 +161,16 @@ export function AppShowcase() {
                     priority
                   />
                 </div>
+              </motion.div>
 
-                {/* Home indicator */}
-                <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-32 h-1 bg-gray-600 rounded-full"></div>
-              </div>
-
-              {/* Floating badges */}
+              {/* Floating badge */}
               <motion.div
-                animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -top-4 -right-4 bg-gradient-to-r from-primary-500 to-evening-500 text-white px-4 py-2 rounded-full shadow-lg text-sm font-semibold"
+                animate={{
+                  y: [0, -10, 0],
+                  rotate: [0, 2, -2, 0]
+                }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute -top-4 -right-4 bg-gradient-to-r from-primary-500 to-evening-500 text-white px-4 py-2 rounded-full shadow-lg text-sm font-semibold z-10"
               >
                 Live Preview
               </motion.div>
