@@ -67,6 +67,7 @@ const config = {
       },
       fontFamily: {
         sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        abril: ['var(--font-abril)', 'serif'],
       },
       animation: {
         'fade-in': 'fadeIn 0.6s ease-out',
