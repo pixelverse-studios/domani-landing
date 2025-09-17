@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter, Abril_Fatface } from 'next/font/google'
+import Script from 'next/script'
 import '@/styles/globals.css'
 import { ThemeProvider } from '@/components/ThemeProvider'
 import { ThemeScript } from '@/components/ThemeScript'
@@ -67,6 +68,32 @@ export default function RootLayout({
             {children}
           </div>
         </ThemeProvider>
+
+        {/* SiteBehaviour Analytics */}
+        <Script
+          id="sitebehaviour-tracking"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  if(window.location && window.location.search && window.location.search.indexOf('capture-sitebehaviour-heatmap') !== -1) {
+                    sessionStorage.setItem('capture-sitebehaviour-heatmap', '_');
+                  }
+
+                  var sbSiteSecret = '59dd84d0-342e-4caa-b723-040c094d92fa';
+                  window.sitebehaviourTrackingSecret = sbSiteSecret;
+                  var scriptElement = document.createElement('script');
+                  scriptElement.defer = true;
+                  scriptElement.id = 'site-behaviour-script-v2';
+                  scriptElement.src = 'https://sitebehaviour-cdn.fra1.cdn.digitaloceanspaces.com/index.min.js?sitebehaviour-secret=' + sbSiteSecret;
+                  document.head.appendChild(scriptElement);
+                }
+                catch (e) {console.error(e)}
+              })()
+            `,
+          }}
+        />
       </body>
     </html>
   )
