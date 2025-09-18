@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { cn } from '@/lib/utils'
+import { scrollToEmailSignup } from '@/lib/scroll-utils'
 import todayMockup from '@/media/Today.png'
 import analyticsMockup from '@/media/Analytics.png'
 import { Calendar, BarChart3, Clock, Target, Brain, Sparkles } from 'lucide-react'
@@ -153,7 +154,7 @@ export function AppShowcase() {
                 }}
                 className="relative"
               >
-                <div className="relative rounded-3xl overflow-hidden shadow-[0_4px_8px_rgba(0,0,0,0.12),0_8px_24px_rgba(0,0,0,0.08),0_16px_48px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_8px_rgba(0,0,0,0.3),0_8px_24px_rgba(0,0,0,0.25),0_16px_48px_rgba(0,0,0,0.15)] transition-shadow duration-300 hover:shadow-[0_8px_16px_rgba(0,0,0,0.15),0_16px_32px_rgba(0,0,0,0.1),0_24px_56px_rgba(0,0,0,0.05)] dark:hover:shadow-[0_8px_16px_rgba(0,0,0,0.35),0_16px_32px_rgba(0,0,0,0.3),0_24px_56px_rgba(0,0,0,0.2)]">
+                <div className="relative rounded-3xl overflow-hidden duration-300">
                   <Image
                     src={currentScreen.image}
                     alt={`${currentScreen.title} Screenshot`}
@@ -229,7 +230,11 @@ export function AppShowcase() {
               transition={{ duration: 0.6, delay: 0.5 }}
               className="mt-8"
             >
-              <button className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-primary-600 to-evening-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 hover:-translate-y-0.5">
+              <button
+                onClick={() => scrollToEmailSignup()}
+                className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-primary-600 to-evening-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 hover:-translate-y-0.5"
+                aria-label="Get Early Access - Scroll to email signup"
+              >
                 Get Early Access
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

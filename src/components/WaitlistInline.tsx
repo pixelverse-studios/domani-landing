@@ -121,11 +121,12 @@ export default function WaitlistInline() {
                 className={`
                   w-full px-5 py-3.5 text-base border rounded-xl
                   bg-white dark:bg-dark-card text-gray-900 dark:text-white
-                  ${error 
-                    ? 'border-red-500 focus:ring-2 focus:ring-red-500/20' 
-                    : 'border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 dark:focus:border-primary-400'
+                  ${error
+                    ? 'border-red-500 focus:ring-2 focus:ring-red-500/20'
+                    : 'border-gray-300 dark:border-gray-600 focus:ring-4 focus:ring-primary-500/30 focus:border-primary-500 dark:focus:border-primary-400'
                   }
                   placeholder:text-gray-400 dark:placeholder:text-gray-500 outline-none transition-all duration-200
+                  focus:scale-[1.02] focus:shadow-lg
                 `}
                 disabled={isSubmitting}
                 autoComplete="email"

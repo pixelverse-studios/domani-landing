@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase'
 import { validateEmail, validateName } from '@/utils/validation'
+import { sendWaitlistWelcomeEmail, sendAdminNotification } from '@/lib/email/resend'
 
 // Simple in-memory rate limiting store
 const rateLimitStore = new Map<string, { count: number; resetTime: number }>()
@@ -161,11 +162,39 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // Send welcome email to the user
+    // Note: We send emails asynchronously and don't block the response
+    // If email fails, we still return success since the primary action (DB insert) succeeded
+    sendWaitlistWelcomeEmail({
+      to: normalizedEmail,
+      name: normalizedName
+    }).catch(error => {
+      // Log email errors but don't fail the request
+      console.error('Failed to send welcome email:', error)
+    })
+
+    // Send admin notification (optional)
+    // Uncomment if you want to receive notifications for new signups
+    /*
+    sendAdminNotification({
+      email: normalizedEmail,
+      name: normalizedName,
+      source: 'website',
+      metadata: {
+        ip: ip === 'unknown' ? null : ip,
+        userAgent: request.headers.get('user-agent') || null,
+        referrer: request.headers.get('referer') || null,
+      }
+    }).catch(error => {
+      console.error('Failed to send admin notification:', error)
+    })
+    */
+
     // Return success response
     return NextResponse.json(
       {
         success: true,
-        message: 'Successfully added to waitlist'
+        message: 'Successfully added to waitlist! Check your email for confirmation.'
       },
       {
         status: 200,
