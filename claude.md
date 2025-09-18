@@ -3,6 +3,19 @@
 ## Project Overview
 Domani's landing page is a high-converting marketing site that showcases the evening planning productivity concept. Built with Next.js 14, it focuses on emotional storytelling, social proof, and clear value proposition to drive conversions to free tier signups.
 
+## Documentation Requirements
+**IMPORTANT: ALL documentation and audit files MUST be created in the `docs/` directory**
+
+### Directory Structure:
+```
+docs/
+├── audits/
+│   └── landing/        # Landing page audit files
+├── features/           # Feature documentation
+├── technical/          # Technical documentation
+└── planning/           # Planning and strategy documents
+```
+
 ## Audit Trail Requirements
 **IMPORTANT: Create an audit file after EVERY prompt**
 
@@ -10,9 +23,9 @@ After completing any task or answering any prompt, create an audit file with the
 
 ### File Naming Convention:
 ```
-audits/landing/YYYY-MM-DD-HH-MM-SS-[brief-description].md
+docs/audits/landing/YYYY-MM-DD-HH-MM-SS-[brief-description].md
 ```
-Example: `audits/landing/2025-01-15-14-30-45-hero-section.md`
+Example: `docs/audits/landing/2025-01-15-14-30-45-hero-section.md`
 
 ### Audit File Template:
 ```markdown
@@ -188,7 +201,11 @@ apps/landing/
 │       ├── images/
 │       ├── animations/               # Lottie/Rive files
 │       └── og/                       # Open Graph images
-├── audits/landing/                   # Landing-specific audits
+├── docs/                              # All documentation
+│   ├── audits/landing/                # Landing-specific audits
+│   ├── features/                      # Feature documentation
+│   ├── technical/                     # Technical docs
+│   └── planning/                      # Planning docs
 └── tests/
 ```
 
@@ -1017,6 +1034,7 @@ describe('Waitlist Flow', () => {
 8. **Accessibility**: WCAG 2.1 AA compliance minimum
 9. **Progressive Enhancement**: Core functionality works without JS
 10. **Audit Everything**: Document all changes for history
+11. **Documentation in /docs**: ALL documentation must be in the docs/ directory
 
 ## Resources & References
 - [Next.js 14 Docs](https://nextjs.org/docs)
@@ -1043,3 +1061,4 @@ describe('Waitlist Flow', () => {
 - "Mobile-first, always"
 - "Test, iterate, improve"
 - "Document with audit trails"
+- "All docs in /docs directory"

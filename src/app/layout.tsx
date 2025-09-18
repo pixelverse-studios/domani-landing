@@ -4,6 +4,8 @@ import Script from 'next/script'
 import '@/styles/globals.css'
 import { ThemeProvider } from '@/components/ThemeProvider'
 import { ThemeScript } from '@/components/ThemeScript'
+import QueryProvider from '@/providers/QueryProvider'
+import { Toaster } from 'sonner'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -64,9 +66,21 @@ export default function RootLayout({
       </head>
       <body className="font-sans antialiased bg-white dark:bg-dark-gradient-from text-foreground transition-colors overflow-x-hidden">
         <ThemeProvider>
-          <div className="min-h-screen overflow-x-clip">
-            {children}
-          </div>
+          <QueryProvider>
+            <div className="min-h-screen overflow-x-clip">
+              {children}
+            </div>
+            <Toaster
+              richColors
+              position="top-right"
+              toastOptions={{
+                className: 'font-sans',
+                style: {
+                  fontSize: '14px',
+                },
+              }}
+            />
+          </QueryProvider>
         </ThemeProvider>
 
         {/* SiteBehaviour Analytics */}
