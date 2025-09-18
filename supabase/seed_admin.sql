@@ -11,7 +11,7 @@
 DO $$
 DECLARE
   v_user_id UUID;
-  v_admin_email TEXT := 'admin@domani.app'; -- Change this to your admin email
+  v_admin_email TEXT := 'phil@pixelversestudios.io'; -- Change this to your admin email
 BEGIN
   -- Get the user ID from auth.users by email
   SELECT id INTO v_user_id
