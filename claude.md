@@ -56,6 +56,71 @@ Created: YYYY-MM-DD HH:MM:SS
 Page Section: [hero/features/pricing/etc]
 ```
 
+## Pull Request Workflow
+**IMPORTANT: Create a pull request after completing each scope of work**
+
+After completing a scope of work (a feature, bug fix, or meaningful set of changes), create a pull request for review:
+
+### Workflow Steps:
+1. **Ensure all changes are committed** to the current branch
+2. **Create a pull request** against the `dev` branch using:
+   ```bash
+   gh pr create --base dev --title "[Brief description of changes]" --body "[Detailed description]"
+   ```
+
+### PR Title Format:
+```
+[Type]: Brief description
+```
+Types: `feat`, `fix`, `refactor`, `docs`, `style`, `test`, `perf`
+
+Example: `feat: Add hero section with animations`
+
+### PR Body Template:
+```markdown
+## Summary
+Brief description of what was changed and why
+
+## Changes Made
+- List of specific changes
+- Components added/modified
+- Logic changes
+
+## Testing
+- What was tested
+- How to test the changes
+
+## Screenshots (if UI changes)
+[Add screenshots if applicable]
+
+## Related Issues
+Closes #[issue number] (if applicable)
+```
+
+### When to Create PRs:
+- After completing a feature or section
+- After fixing a bug
+- After refactoring code
+- Before starting a new unrelated task
+- At natural breakpoints in development
+
+### Example Command:
+```bash
+gh pr create --base dev --title "feat: Add hero section with scroll animations" --body "## Summary
+Added new hero section with smooth scroll animations and responsive design
+
+## Changes Made
+- Created Hero component with gradient background
+- Added scroll indicator animation
+- Implemented responsive typography
+- Added social proof section
+
+## Testing
+- Tested on desktop/tablet/mobile viewports
+- Verified animations work smoothly
+- Checked accessibility with screen readers"
+```
+
 ## Technology Stack
 - **Framework**: Next.js 14 (App Router)
 - **Language**: TypeScript
