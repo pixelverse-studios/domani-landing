@@ -54,7 +54,8 @@ export async function POST(request: NextRequest) {
     if (adminId) {
       await createAdminAuditLog({
         action: 'logout',
-        adminId,
+        userId: sessionPayload?.userId || null,  // Use the auth user ID from session
+        adminId,                                  // Use the admin user ID
         details: {
           sessionId,
           ipAddress,

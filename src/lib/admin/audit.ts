@@ -21,7 +21,8 @@ export interface AuditLogEntry {
  */
 export interface AdminAuditLogEntry {
   action: string
-  adminId: string | null
+  userId?: string | null    // auth.users.id - the Supabase auth user
+  adminId?: string | null    // admin_users.id - the admin profile if exists
   details?: Record<string, any>
   status: 'success' | 'failure'
   ipAddress: string
@@ -30,8 +31,8 @@ export interface AdminAuditLogEntry {
 
 export async function createAdminAuditLog(entry: AdminAuditLogEntry): Promise<void> {
   await logAdminAction({
-    userId: entry.adminId || null,
-    adminId: entry.adminId || undefined,
+    userId: entry.userId || null,      // Use the auth user id
+    adminId: entry.adminId || undefined, // Use the admin user id if exists
     action: entry.action,
     resource: 'admin',
     description: `${entry.action} - ${entry.status}`,

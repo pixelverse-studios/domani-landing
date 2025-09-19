@@ -177,7 +177,9 @@ export interface AdminLoginRequest {
 }
 
 export interface AdminLoginResponse {
-  user: AdminUserWithDetails
+  user: AdminUserWithDetails & {
+    auth_user_id?: string  // The auth.users.id for audit logging
+  }
   session: {
     access_token: string
     refresh_token: string

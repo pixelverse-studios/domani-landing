@@ -219,7 +219,10 @@ export async function authenticateAdmin(
     }).catch(console.error)
 
     return {
-      user: adminUser as AdminUserWithDetails,
+      user: {
+        ...(adminUser as AdminUserWithDetails),
+        auth_user_id: authData.user.id  // Include auth user ID for audit logging
+      },
       session: {
         access_token: accessToken,
         refresh_token: refreshToken,

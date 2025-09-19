@@ -38,6 +38,7 @@ export async function GET(request: NextRequest) {
     if (error || !adminUser) {
       await createAdminAuditLog({
         action: 'login_error',
+        userId: sessionPayload.userId || null,  // Use the auth user ID from session
         adminId: adminId,
         details: { error: error?.message || 'User not found' },
         status: 'failure',
@@ -54,6 +55,7 @@ export async function GET(request: NextRequest) {
     if (!adminUser.is_active) {
       await createAdminAuditLog({
         action: 'login_error',
+        userId: adminUser.user_id || null,  // Use the auth user ID from admin_users
         adminId: adminId,
         details: { reason: 'Account deactivated' },
         status: 'failure',

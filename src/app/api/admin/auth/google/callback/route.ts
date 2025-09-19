@@ -35,6 +35,7 @@ export async function GET(request: NextRequest) {
     try {
       await createAdminAuditLog({
         action: 'login_attempt',
+        userId: null,  // No auth user available yet
         adminId: null,
         details: {
           provider: 'google',
@@ -82,6 +83,7 @@ export async function GET(request: NextRequest) {
 
       await createAdminAuditLog({
         action: 'login_attempt',
+        userId: null,  // Session failed to create
         adminId: null,
         details: {
           error: sessionError?.message || 'No session created',
@@ -103,9 +105,10 @@ export async function GET(request: NextRequest) {
     if (!userEmail) {
       await createAdminAuditLog({
         action: 'login_attempt',
+        userId: session.user.id,  // Auth user exists
         adminId: null,
         details: {
-          userId: session.user.id,
+          reason: 'no_email',
           ipAddress,
           userAgent,
         },
@@ -128,10 +131,11 @@ export async function GET(request: NextRequest) {
 
       await createAdminAuditLog({
         action: 'login_attempt',
-        adminId: null,
+        userId: session.user.id,  // Auth user exists
+        adminId: null,  // No admin profile
         details: {
           email: userEmail,
-          userId: session.user.id,
+          reason: 'email_not_allowed',
           ipAddress,
           userAgent,
         },
@@ -160,10 +164,11 @@ export async function GET(request: NextRequest) {
 
       await createAdminAuditLog({
         action: 'login_attempt',
-        adminId: null,
+        userId: session.user.id,  // Auth user exists
+        adminId: adminCheck?.id || null,  // Admin profile may exist but not active
         details: {
           email: userEmail,
-          userId: session.user.id,
+          reason: 'not_admin_or_inactive',
           ipAddress,
           userAgent,
         },
@@ -189,7 +194,8 @@ export async function GET(request: NextRequest) {
 
       await createAdminAuditLog({
         action: 'login_attempt',
-        adminId: null,
+        userId: session.user.id,  // Auth user exists
+        adminId: null,  // Admin profile not found
         details: {
           email: userEmail,
           error: adminError?.message,
@@ -249,7 +255,8 @@ export async function GET(request: NextRequest) {
     // Log successful login
     await createAdminAuditLog({
       action: 'login',
-      adminId: adminUser.id,
+      userId: session.user.id,  // Auth user
+      adminId: adminUser.id,     // Admin profile
       details: {
         email: userEmail,
         provider: 'google',
@@ -275,6 +282,7 @@ export async function GET(request: NextRequest) {
 
     await createAdminAuditLog({
       action: 'login_attempt',
+      userId: null,  // Unknown state
       adminId: null,
       details: {
         error: error instanceof Error ? error.message : 'Unknown error',

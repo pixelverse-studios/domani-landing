@@ -32,39 +32,10 @@ export async function POST(request: NextRequest) {
     const ipAddress = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown';
     const userAgent = request.headers.get('user-agent') || 'unknown';
 
-    // Authenticate the admin
-    const authResult = await authenticateAdmin(email, password);
-
-    if (!authResult.success) {
-      // Log failed attempt
-      await createAdminAuditLog({
-        action: 'login_attempt',
-        adminId: null,
-        details: {
-          email,
-          reason: authResult.error,
-          ipAddress,
-          userAgent
-        },
-        status: 'failure',
-        ipAddress,
-        userAgent
-      });
-
-      // Return appropriate error based on the failure reason
-      const statusCode = authResult.error === 'Account deactivated' ? 403 : 401;
-      return NextResponse.json(
-        {
-          error: authResult.error,
-          message: authResult.error === 'Invalid credentials'
-            ? 'Invalid email or password'
-            : authResult.error
-        },
-        { status: statusCode }
-      );
-    }
-
-    const { user: admin, session } = authResult;
+    try {
+      // Authenticate the admin
+      const authResult = await authenticateAdmin({ email, password }, request);
+      const { user: admin, session } = authResult;
 
     // Create response with user data
     const response = NextResponse.json({
@@ -86,8 +57,10 @@ export async function POST(request: NextRequest) {
     // Log successful login
     await createAdminAuditLog({
       action: 'login',
-      adminId: admin.id,
+      userId: admin.auth_user_id || null,  // Use the auth user ID
+      adminId: admin.id,                    // Use the admin user ID
       details: {
+        email: admin.email,
         rememberMe,
         ipAddress,
         userAgent
@@ -99,12 +72,44 @@ export async function POST(request: NextRequest) {
 
     return response;
 
+    } catch (authError: any) {
+      // Handle authentication errors
+      if (authError.status === 403 || authError.status === 401 || authError.status === 429) {
+        // Log failed attempt
+        await createAdminAuditLog({
+          action: 'login_attempt',
+          userId: null,  // No auth user available
+          adminId: null,
+          details: {
+            email,
+            reason: authError.message,
+            ipAddress,
+            userAgent
+          },
+          status: 'failure',
+          ipAddress,
+          userAgent
+        });
+
+        return NextResponse.json(
+          {
+            error: authError.message,
+            message: authError.message
+          },
+          { status: authError.status }
+        );
+      }
+
+      throw authError;  // Re-throw for general error handler
+    }
+
   } catch (error) {
     console.error('Login error:', error);
 
     // Log system error
     await createAdminAuditLog({
       action: 'login_error',
+      userId: null,  // No auth user available
       adminId: null,
       details: {
         error: error instanceof Error ? error.message : 'Unknown error',

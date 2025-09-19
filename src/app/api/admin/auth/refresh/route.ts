@@ -38,6 +38,7 @@ export async function POST(request: NextRequest) {
       // Log failed refresh attempt
       await createAdminAuditLog({
         action: 'login_error',
+        userId: null,  // Can't get user ID from failed refresh
         adminId: null,
         details: {
           reason: error instanceof Error ? error.message : 'Unknown error',
@@ -71,6 +72,7 @@ export async function POST(request: NextRequest) {
     // Log system error
     await createAdminAuditLog({
       action: 'login_error',
+      userId: null,  // No user context available
       adminId: null,
       details: {
         error: error instanceof Error ? error.message : 'Unknown error',
