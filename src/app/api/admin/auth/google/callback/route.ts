@@ -27,6 +27,19 @@ export async function GET(request: NextRequest) {
   const ipAddress = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown'
   const userAgent = request.headers.get('user-agent') || 'unknown'
 
+  // Debug logging for production
+  console.log('Google OAuth Callback:', {
+    url: request.url,
+    code: code ? 'present' : 'missing',
+    error,
+    errorDescription,
+    origin: requestUrl.origin,
+    headers: {
+      host: request.headers.get('host'),
+      referer: request.headers.get('referer'),
+    }
+  })
+
   // Handle OAuth errors from Supabase
   if (error) {
     console.error('OAuth error from Supabase:', { error, errorDescription })
@@ -280,22 +293,30 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error('Google OAuth callback error:', error)
 
-    await createAdminAuditLog({
-      action: 'login_attempt',
-      userId: null,  // Unknown state
-      adminId: null,
-      details: {
-        error: error instanceof Error ? error.message : 'Unknown error',
+    // Try to create audit log but don't fail if it doesn't work
+    try {
+      await createAdminAuditLog({
+        action: 'login_attempt',
+        userId: null,  // Unknown state
+        adminId: null,
+        details: {
+          error: error instanceof Error ? error.message : 'Unknown error',
+          stack: error instanceof Error ? error.stack : undefined,
+          ipAddress,
+          userAgent,
+        },
+        status: 'failure',
         ipAddress,
         userAgent,
-      },
-      status: 'failure',
-      ipAddress,
-      userAgent,
-    })
+      })
+    } catch (auditErr) {
+      console.error('Failed to create audit log:', auditErr)
+    }
 
+    // Return a more detailed error response
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error'
     return NextResponse.redirect(
-      new URL('/admin/login?error=callback_error', requestUrl.origin)
+      new URL(`/admin/login?error=callback_error&details=${encodeURIComponent(errorMessage)}`, requestUrl.origin)
     )
   }
 }

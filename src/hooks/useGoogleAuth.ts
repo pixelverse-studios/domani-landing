@@ -31,15 +31,19 @@ export function useGoogleAuth(): UseGoogleAuthReturn {
       const supabase = createClient()
 
       // Get the current URL for the OAuth callback
-      // Use environment variable in production, fallback to window.location.origin
-      const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || window.location.origin
-      const redirectUrl = `${baseUrl}/api/admin/auth/google/callback`
+      // Important: In production, we must use the actual window.location.origin
+      // because Supabase validates the redirect URL against the request origin
+      const redirectUrl = `${window.location.origin}/api/admin/auth/google/callback`
+
+      // Add next parameter to preserve intended redirect after auth
+      const callbackUrl = new URL(redirectUrl)
+      callbackUrl.searchParams.set('next', redirectTo)
 
       // Initiate Google OAuth flow
       const { data, error: authError } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: redirectUrl,
+          redirectTo: callbackUrl.toString(),
           queryParams: {
             access_type: 'offline',
             prompt: 'consent',
