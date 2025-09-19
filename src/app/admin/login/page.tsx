@@ -8,6 +8,7 @@ import { toast } from 'sonner'
 import { useAdminUser } from '@/hooks/useAdminUser'
 import { useGoogleAuth } from '@/hooks/useGoogleAuth'
 import { GoogleSignInButton } from '@/components/auth/GoogleSignInButton'
+import { OAuthDevNotice } from './oauth-dev-notice'
 import {
   Shield,
   AlertCircle,
@@ -231,6 +232,18 @@ function AdminLoginForm() {
                 className="shadow-lg hover:shadow-xl transition-shadow"
               />
             </motion.div>
+
+            {/* Development Notice */}
+            {process.env.NODE_ENV === 'development' && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.65 }}
+                className="mt-6"
+              >
+                <OAuthDevNotice />
+              </motion.div>
+            )}
 
             {/* Security Features */}
             <motion.div

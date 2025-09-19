@@ -1,5 +1,7 @@
 'use client'
 
+import { useEffect } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import HeroSection from '@/components/HeroSection'
 import Analytics from '@/components/Analytics'
 import Header from '@/components/Header'
@@ -10,6 +12,34 @@ import { useABTest } from '@/hooks/useABTest'
 
 export default function HomePage() {
   const variant = useABTest()
+  const router = useRouter()
+  const searchParams = useSearchParams()
+
+  useEffect(() => {
+    // Check if this is an OAuth callback
+    const code = searchParams.get('code')
+    const error = searchParams.get('error')
+
+    if (code || error) {
+      console.log('OAuth callback detected on home page, redirecting...', { code: !!code, error })
+      // This is an OAuth callback, redirect to the callback handler
+      const params = new URLSearchParams(searchParams.toString())
+      router.push(`/api/admin/auth/google/callback?${params.toString()}`)
+    }
+  }, [searchParams, router])
+
+  // Show loading state if this is an OAuth callback
+  const isOAuthCallback = searchParams.get('code') || searchParams.get('error')
+  if (isOAuthCallback) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-xl font-semibold mb-2">Completing sign in...</h2>
+          <p className="text-gray-600">Please wait while we authenticate you.</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <>
