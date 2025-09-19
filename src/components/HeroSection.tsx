@@ -1,7 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import Image from 'next/image'
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import WaitlistForm from './WaitlistForm'
 import WaitlistInline from './WaitlistInline'
@@ -41,26 +40,11 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({
-  headline = "Plan Tomorrow Tonight, Wake Up Ready",
-  subheadline = "Transform your productivity with evening planning psychology. Add tomorrow's tasks when you're calm, execute when you're focused.",
-  ctaText = "Join Waitlist",
-  secondaryCtaText = "See How It Works",
-  variant = 'A'
+  subheadline = "Transform your productivity with evening planning psychology. Add tomorrow&apos;s tasks when you&apos;re calm, execute when you&apos;re focused."
 }: HeroSectionProps) {
   const [waitlistOpen, setWaitlistOpen] = useState(false)
 
-  const handleCTAClick = () => {
-    setWaitlistOpen(true)
-    trackEvent('hero_cta_click', { variant, text: ctaText })
-  }
-
-  const handleSecondaryCTA = () => {
-    trackEvent('hero_secondary_cta_click', { variant, text: secondaryCtaText })
-    const demoSection = document.getElementById('demo')
-    demoSection?.scrollIntoView({ behavior: 'smooth' })
-  }
-
-  const trackEvent = (eventName: string, data: any) => {
+  const _trackEvent = (eventName: string, data: any) => {
     if (typeof window !== 'undefined' && (window as any).gtag) {
       (window as any).gtag('event', eventName, data)
     }
@@ -183,7 +167,7 @@ export default function HeroSection({
 
                       {/* App Content */}
                       <div className="p-6 bg-gradient-to-b from-primary-50 to-white dark:from-dark-elevated dark:to-dark-surface min-h-[500px]">
-                        <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Tomorrow's Plan</h3>
+                        <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Tomorrow&apos;s Plan</h3>
 
                         {/* Task Cards */}
                         <div className="space-y-3">
@@ -221,7 +205,7 @@ export default function HeroSection({
 
                         {/* Lock Button */}
                         <button className="w-full mt-6 py-3 bg-gradient-to-r from-primary-600 to-evening-600 text-white font-semibold rounded-xl shadow-lg">
-                          Lock Tonight's Plan
+                          Lock Tonight&apos;s Plan
                         </button>
                       </div>
                     </div>

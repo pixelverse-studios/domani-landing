@@ -3,7 +3,7 @@ interface WaitlistWelcomeEmailProps {
   position?: number
 }
 
-export function WaitlistWelcomeEmail({ name, position }: WaitlistWelcomeEmailProps) {
+export function WaitlistWelcomeEmail({ name }: WaitlistWelcomeEmailProps) {
   const firstName = name.split(' ')[0]
 
   return `

@@ -10,15 +10,10 @@ import {
   Quote,
   Undo,
   Redo,
-  Link2,
-  Image,
   Code,
   Heading1,
   Heading2,
   Heading3,
-  AlignLeft,
-  AlignCenter,
-  AlignRight,
   Smartphone,
   Monitor,
   Variables,
@@ -38,7 +33,6 @@ interface EmailComposerProps {
 export function EmailComposer({
   content = '',
   onChange,
-  placeholder = 'Start writing your email...',
   className,
   variables = [],
 }: EmailComposerProps) {

@@ -42,7 +42,7 @@ export async function GET(request: NextRequest) {
       for (const log of auditLogs) {
         const metadata = log.metadata as any || {}
         let action = ''
-        let user = metadata.email || 'System'
+        const user = metadata.email || 'System'
 
         // Format action based on audit log type
         switch (log.action) {
@@ -100,7 +100,7 @@ export async function GET(request: NextRequest) {
     activities.sort((a, b) =>
       new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
     )
-    const recentActivity = activities.slice(0, 10).map(({ timestamp, ...rest }) => rest)
+    const recentActivity = activities.slice(0, 10).map(({ timestamp: _timestamp, ...rest }) => rest)
 
     return NextResponse.json({ activities: recentActivity })
 

@@ -25,7 +25,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const { adminId, email, role, permissions, sessionId, expiresAt } = sessionPayload;
+    const { adminId, sessionId, expiresAt } = sessionPayload;
 
     // Get fresh user data from database
     const supabase = await createClient();

@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useMemo, useCallback } from 'react'
-import { useRouter } from 'next/navigation'
 import { DataTable } from '@/components/admin/DataTable'
 import {
   useWaitlist,
@@ -10,7 +9,7 @@ import {
   useExportWaitlist,
   WaitlistEntry,
 } from '@/hooks/useWaitlist'
-import { ColumnDef, Row } from '@tanstack/react-table'
+import { ColumnDef } from '@tanstack/react-table'
 import {
   MoreHorizontal,
   Mail,
@@ -19,8 +18,6 @@ import {
   Clock,
   UserCheck,
   Trash2,
-  Download,
-  Send,
 } from 'lucide-react'
 import { format } from 'date-fns'
 import { cn } from '@/lib/utils'
@@ -128,7 +125,6 @@ function ActionMenu({
 }
 
 export default function WaitlistPage() {
-  const router = useRouter()
   const [page, setPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
   const [selectedRows, setSelectedRows] = useState<WaitlistEntry[]>([])

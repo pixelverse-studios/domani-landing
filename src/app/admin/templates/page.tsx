@@ -8,7 +8,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
   Plus,
   Search,
-  Filter,
   MoreHorizontal,
   Edit,
   Copy,
@@ -16,7 +15,6 @@ import {
   Eye,
   Mail,
   Tag,
-  Calendar,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { EmailTemplate } from '@/types/email'
@@ -151,7 +149,6 @@ function TemplateCard({ template }: { template: EmailTemplate }) {
 }
 
 export default function TemplatesPage() {
-  const router = useRouter()
   const [searchQuery, setSearchQuery] = useState('')
   const [categoryFilter, setCategoryFilter] = useState('all')
   const [page, setPage] = useState(1)

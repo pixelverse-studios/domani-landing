@@ -27,7 +27,7 @@ export default function UnauthorizedPage() {
             Unauthorized Access
           </h1>
           <p className="text-lg text-gray-600 dark:text-gray-400">
-            You don't have permission to access this resource.
+            You don&apos;t have permission to access this resource.
           </p>
           <p className="text-sm text-gray-500 dark:text-gray-500">
             This incident has been logged for security purposes.

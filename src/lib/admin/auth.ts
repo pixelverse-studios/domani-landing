@@ -2,7 +2,6 @@ import { NextRequest } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase'
 import { jwtVerify } from 'jose'
 import {
-  AdminUser,
   AdminRole,
   AdminLoginRequest,
   AdminLoginResponse,
@@ -11,8 +10,7 @@ import {
 import {
   createAdminToken,
   createRefreshToken,
-  AdminSessionPayload,
-  verifyAdminToken
+  AdminSessionPayload
 } from './middleware'
 import { logAdminAction } from './audit'
 import { AdminAuthError } from './errors'

@@ -110,7 +110,7 @@ export async function createRefreshToken(userId: string, sessionId: string): Pro
 /**
  * Get admin session from request cookies
  */
-export async function getAdminSession(request: NextRequest): Promise<AdminSessionPayload | null> {
+export async function getAdminSession(_request: NextRequest): Promise<AdminSessionPayload | null> {
   const cookieStore = await cookies()
   const token = cookieStore.get(ADMIN_TOKEN_COOKIE)?.value
 

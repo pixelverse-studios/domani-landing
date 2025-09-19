@@ -51,7 +51,7 @@ describe('Admin Middleware', () => {
       }
 
       // Create token with immediate expiration
-      const expiredPayload = {
+      const _expiredPayload = {
         ...payload,
         issuedAt: Date.now() - 1000000,
         expiresAt: Date.now() - 1000
@@ -92,7 +92,7 @@ describe('Admin Middleware', () => {
 
   describe('withAdminAuth HOF', () => {
     it('should return 401 when no authentication is provided', async () => {
-      const handler = withAdminAuth(async (req, { admin }) => {
+      const handler = withAdminAuth(async (_req, { admin: _admin }) => {
         return NextResponse.json({ success: true })
       })
 
@@ -117,7 +117,7 @@ describe('Admin Middleware', () => {
 
   describe('Error Handling', () => {
     it('should handle errors gracefully', async () => {
-      const handler = withAdminAuth(async (req, { admin }) => {
+      const handler = withAdminAuth(async (_req, { admin: _admin }) => {
         throw new Error('Test error')
       })
 

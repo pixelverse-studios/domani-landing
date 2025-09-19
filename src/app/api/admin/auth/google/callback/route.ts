@@ -150,7 +150,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Then verify if the user exists in admin_users table
-    const { data: adminCheck, error: adminCheckError } = await supabase
+    const { data: adminCheck } = await supabase
       .from('admin_users')
       .select('id, is_active')
       .eq('user_id', session.user.id)

@@ -210,7 +210,7 @@ function AdminLoginForm() {
                 <div className="flex items-start">
                   <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 mr-2 mt-0.5 flex-shrink-0" />
                   <p className="text-sm text-red-800 dark:text-red-200">
-                    Your account doesn't have admin privileges. Please contact support if you believe this is an error.
+                    Your account doesn&apos;t have admin privileges. Please contact support if you believe this is an error.
                   </p>
                 </div>
               </motion.div>

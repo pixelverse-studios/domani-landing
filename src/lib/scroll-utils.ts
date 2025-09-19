@@ -67,7 +67,7 @@ export function scrollToElement(
             onComplete?.()
           }, duration)
         }
-      } catch (error) {
+      } catch {
         // Fallback for browsers that don't support smooth scroll
         window.scrollTo(0, targetScrollPosition)
         if (focusAfterScroll) {

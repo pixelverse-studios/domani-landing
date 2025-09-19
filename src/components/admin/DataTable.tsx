@@ -25,15 +25,12 @@ import {
   X,
   Download,
   Filter,
-  MoreHorizontal,
-  Check,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
-  searchKey?: string
   searchPlaceholder?: string
   enableRowSelection?: boolean
   onRowSelectionChange?: (rows: Row<TData>[]) => void
@@ -53,7 +50,6 @@ interface DataTableProps<TData, TValue> {
 export function DataTable<TData, TValue>({
   columns,
   data,
-  searchKey,
   searchPlaceholder = 'Search...',
   enableRowSelection = false,
   onRowSelectionChange,
@@ -122,7 +118,7 @@ export function DataTable<TData, TValue>({
     onRowSelectionChange: (updater) => {
       setRowSelection(updater)
       if (onRowSelectionChange) {
-        const newSelection = typeof updater === 'function' ? updater(rowSelection) : updater
+        typeof updater === 'function' ? updater(rowSelection) : updater
         const selectedRows = table.getFilteredSelectedRowModel().rows
         onRowSelectionChange(selectedRows)
       }

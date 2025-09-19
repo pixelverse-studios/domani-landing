@@ -17,7 +17,6 @@ import {
   Save,
   Calendar,
   Users,
-  Tag,
   FileText,
   AlertCircle,
   CheckCircle,
@@ -52,7 +51,7 @@ export default function NewCampaignPage() {
     handleSubmit,
     watch,
     setValue,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm<CampaignFormData>({
     resolver: zodResolver(campaignSchema),
     defaultValues: {
@@ -98,7 +97,7 @@ export default function NewCampaignPage() {
       
       toast.success(isScheduling ? 'Campaign scheduled successfully!' : 'Campaign saved as draft!')
       router.push('/admin/campaigns')
-    } catch (error) {
+    } catch {
       toast.error('Failed to create campaign')
     }
   }
@@ -524,7 +523,7 @@ export default function NewCampaignPage() {
                         className="bg-green-600 hover:bg-green-700 text-white"
                         onClick={() => {
                           if (confirm('Are you sure you want to send this campaign now?')) {
-                            handleSubmit((data) => {
+                            handleSubmit((_data) => {
                               // TODO: Implement immediate send
                               toast.info('Immediate send will be implemented in Phase 9')
                             })()

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { X, CheckCircle, AlertCircle, Loader2, Mail, Users, TrendingUp } from 'lucide-react'
+import { X, CheckCircle, AlertCircle, Loader2, TrendingUp } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 interface SendProgressModalProps {

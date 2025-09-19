@@ -32,9 +32,11 @@ function createWrapper() {
     },
   })
 
-  return ({ children }: { children: ReactNode }) => (
+  const wrapper = ({ children }: { children: ReactNode }) => (
     <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
   )
+  wrapper.displayName = 'QueryClientWrapper'
+  return wrapper
 }
 
 describe('Admin Authentication Hooks', () => {

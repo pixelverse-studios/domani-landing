@@ -127,7 +127,7 @@ export async function GET(request: NextRequest) {
 
     // Sort alerts by priority and return top 5
     alerts.sort((a, b) => a.priority - b.priority)
-    const topAlerts = alerts.slice(0, 5).map(({ priority, ...rest }) => rest)
+    const topAlerts = alerts.slice(0, 5).map(({ priority: _priority, ...rest }) => rest)
 
     return NextResponse.json({ alerts: topAlerts })
 

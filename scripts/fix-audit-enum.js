@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable @typescript-eslint/no-require-imports */
 /**
  * Script to fix audit_action enum in Supabase database
  * Run with: node scripts/fix-audit-enum.js
@@ -27,7 +29,7 @@ async function fixAuditEnum() {
   try {
     // Step 1: Check current enum values
     console.log('📋 Checking current enum values...');
-    const { data: currentValues, error: checkError } = await supabase
+    const { data: _currentValues, error: checkError } = await supabase
       .rpc('get_enum_values', { enum_type: 'audit_action' })
       .single();
 

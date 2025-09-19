@@ -13,20 +13,15 @@ import {
   XCircle,
   Plus,
   Search,
-  Filter,
-  MoreHorizontal,
   Edit,
-  Copy,
-  Trash2,
   Eye,
   TrendingUp,
   MousePointerClick,
   Users,
-  BarChart3,
 } from 'lucide-react'
 import { format } from 'date-fns'
 import { cn } from '@/lib/utils'
-import { CampaignStatus, getCampaignStatusColor, formatCampaignType } from '@/types/email'
+import { CampaignStatus, formatCampaignType } from '@/types/email'
 
 // Status badge component
 function StatusBadge({ status }: { status: CampaignStatus }) {

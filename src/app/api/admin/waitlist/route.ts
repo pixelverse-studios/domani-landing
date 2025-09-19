@@ -45,13 +45,13 @@ async function handleGET(req: NextRequest) {
     }
 
     // Get stats for all statuses (unfiltered counts)
-    let statsQuery = supabase
+    const statsQuery = supabase
       .from('waitlist')
       .select('status', { count: 'exact', head: true })
 
     // Apply search filter to stats if present
     if (search) {
-      statsQuery = statsQuery.or(`email.ilike.%${search}%,first_name.ilike.%${search}%`)
+      statsQuery.or(`email.ilike.%${search}%,first_name.ilike.%${search}%`)
     }
 
     const [pendingResult, invitedResult, registeredResult] = await Promise.all([
