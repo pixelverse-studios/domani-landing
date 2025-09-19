@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { validateEmail, validateName } from '@/utils/validation'
 
@@ -266,7 +266,7 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
               </div>
               {!touched.email || !errors.email ? (
                 <p id="email-description" className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                  We'll never share your email or spam you.
+                  We&apos;ll never share your email or spam you.
                 </p>
               ) : (
                 <motion.p
@@ -344,7 +344,7 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
             </svg>
           </motion.div>
           <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-            You're on the list!
+            You&apos;re on the list!
           </h3>
           <p className="text-gray-600 dark:text-gray-300 mb-4">
             Check your email for a confirmation message.

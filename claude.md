@@ -3,6 +3,19 @@
 ## Project Overview
 Domani's landing page is a high-converting marketing site that showcases the evening planning productivity concept. Built with Next.js 14, it focuses on emotional storytelling, social proof, and clear value proposition to drive conversions to free tier signups.
 
+## Documentation Requirements
+**IMPORTANT: ALL documentation and audit files MUST be created in the `docs/` directory**
+
+### Directory Structure:
+```
+docs/
+├── audits/
+│   └── landing/        # Landing page audit files
+├── features/           # Feature documentation
+├── technical/          # Technical documentation
+└── planning/           # Planning and strategy documents
+```
+
 ## Audit Trail Requirements
 **IMPORTANT: Create an audit file after EVERY prompt**
 
@@ -10,9 +23,9 @@ After completing any task or answering any prompt, create an audit file with the
 
 ### File Naming Convention:
 ```
-audits/landing/YYYY-MM-DD-HH-MM-SS-[brief-description].md
+docs/audits/landing/YYYY-MM-DD-HH-MM-SS-[brief-description].md
 ```
-Example: `audits/landing/2025-01-15-14-30-45-hero-section.md`
+Example: `docs/audits/landing/2025-01-15-14-30-45-hero-section.md`
 
 ### Audit File Template:
 ```markdown
@@ -54,6 +67,71 @@ Example: `audits/landing/2025-01-15-14-30-45-hero-section.md`
 ## Timestamp
 Created: YYYY-MM-DD HH:MM:SS
 Page Section: [hero/features/pricing/etc]
+```
+
+## Pull Request Workflow
+**IMPORTANT: Create a pull request after completing each scope of work**
+
+After completing a scope of work (a feature, bug fix, or meaningful set of changes), create a pull request for review:
+
+### Workflow Steps:
+1. **Ensure all changes are committed** to the current branch
+2. **Create a pull request** against the `dev` branch using:
+   ```bash
+   gh pr create --base dev --title "[Brief description of changes]" --body "[Detailed description]"
+   ```
+
+### PR Title Format:
+```
+[Type]: Brief description
+```
+Types: `feat`, `fix`, `refactor`, `docs`, `style`, `test`, `perf`
+
+Example: `feat: Add hero section with animations`
+
+### PR Body Template:
+```markdown
+## Summary
+Brief description of what was changed and why
+
+## Changes Made
+- List of specific changes
+- Components added/modified
+- Logic changes
+
+## Testing
+- What was tested
+- How to test the changes
+
+## Screenshots (if UI changes)
+[Add screenshots if applicable]
+
+## Related Issues
+Closes #[issue number] (if applicable)
+```
+
+### When to Create PRs:
+- After completing a feature or section
+- After fixing a bug
+- After refactoring code
+- Before starting a new unrelated task
+- At natural breakpoints in development
+
+### Example Command:
+```bash
+gh pr create --base dev --title "feat: Add hero section with scroll animations" --body "## Summary
+Added new hero section with smooth scroll animations and responsive design
+
+## Changes Made
+- Created Hero component with gradient background
+- Added scroll indicator animation
+- Implemented responsive typography
+- Added social proof section
+
+## Testing
+- Tested on desktop/tablet/mobile viewports
+- Verified animations work smoothly
+- Checked accessibility with screen readers"
 ```
 
 ## Technology Stack
@@ -123,7 +201,11 @@ apps/landing/
 │       ├── images/
 │       ├── animations/               # Lottie/Rive files
 │       └── og/                       # Open Graph images
-├── audits/landing/                   # Landing-specific audits
+├── docs/                              # All documentation
+│   ├── audits/landing/                # Landing-specific audits
+│   ├── features/                      # Feature documentation
+│   ├── technical/                     # Technical docs
+│   └── planning/                      # Planning docs
 └── tests/
 ```
 
@@ -952,6 +1034,7 @@ describe('Waitlist Flow', () => {
 8. **Accessibility**: WCAG 2.1 AA compliance minimum
 9. **Progressive Enhancement**: Core functionality works without JS
 10. **Audit Everything**: Document all changes for history
+11. **Documentation in /docs**: ALL documentation must be in the docs/ directory
 
 ## Resources & References
 - [Next.js 14 Docs](https://nextjs.org/docs)
@@ -978,3 +1061,4 @@ describe('Waitlist Flow', () => {
 - "Mobile-first, always"
 - "Test, iterate, improve"
 - "Document with audit trails"
+- "All docs in /docs directory"

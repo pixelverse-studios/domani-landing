@@ -37,7 +37,7 @@ export default function WaitlistInline() {
         }),
       })
 
-      const data = await response.json()
+      await response.json()
 
       if (!response.ok) {
         if (response.status === 409) {
@@ -70,7 +70,7 @@ export default function WaitlistInline() {
       setTimeout(() => {
         setIsSuccess(false)
       }, 5000)
-    } catch (err) {
+    } catch {
       setError('Something went wrong. Please try again.')
     } finally {
       setIsSubmitting(false)
@@ -91,7 +91,7 @@ export default function WaitlistInline() {
             </svg>
           </div>
           <div className="flex-1">
-            <p className="text-green-800 dark:text-green-300 font-medium">You're on the list!</p>
+            <p className="text-green-800 dark:text-green-300 font-medium">You&apos;re on the list!</p>
             <p className="text-green-700 dark:text-green-400 text-sm">Check your email for confirmation.</p>
           </div>
         </div>

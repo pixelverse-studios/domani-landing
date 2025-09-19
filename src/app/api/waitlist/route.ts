@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase'
 import { validateEmail, validateName } from '@/utils/validation'
-import { sendWaitlistWelcomeEmail, sendAdminNotification } from '@/lib/email/resend'
+import { sendWaitlistWelcomeEmail } from '@/lib/email/resend'
 
 // Simple in-memory rate limiting store
 const rateLimitStore = new Map<string, { count: number; resetTime: number }>()
@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
     let body
     try {
       body = await request.json()
-    } catch (error) {
+    } catch {
       return NextResponse.json(
         { error: 'Invalid request body' },
         { status: 400 }
@@ -129,7 +129,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Insert new waitlist entry
-    const { data, error } = await supabaseAdmin
+    const { error } = await supabaseAdmin
       .from('waitlist')
       .insert({
         email: normalizedEmail,
