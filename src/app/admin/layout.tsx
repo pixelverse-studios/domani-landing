@@ -1,27 +1,58 @@
-import type { Metadata } from 'next'
+'use client'
 
-export const metadata: Metadata = {
-  title: {
-    template: '%s | Domani Admin',
-    default: 'Admin Dashboard | Domani',
-  },
-  description: 'Domani admin dashboard for managing waitlist and campaigns',
-  robots: {
-    index: false,
-    follow: false,
-  },
-}
+import { useEffect } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
+import { AdminSidebar } from '@/components/admin/AdminSidebar'
+import { useAdminAuth } from '@/hooks/useAdminAuth'
 
 interface AdminLayoutProps {
   children: React.ReactNode
 }
 
 export default function AdminLayout({ children }: AdminLayoutProps) {
-  // Minimal layout for admin pages
-  // The actual dashboard layout with sidebar will be added in Phase 4
+  const pathname = usePathname()
+  const router = useRouter()
+  const { isAuthenticated, isLoading } = useAdminAuth()
+
+  // Don't apply authentication check on login page
+  const isLoginPage = pathname === '/admin/login'
+  const isUnauthorizedPage = pathname === '/admin/unauthorized'
+
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated && !isLoginPage && !isUnauthorizedPage) {
+      router.push('/admin/login')
+    }
+  }, [isLoading, isAuthenticated, isLoginPage, isUnauthorizedPage, router])
+
+  // Show loading state while checking authentication
+  if (isLoading && !isLoginPage && !isUnauthorizedPage) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    )
+  }
+
+  // For login and unauthorized pages, render without sidebar
+  if (isLoginPage || isUnauthorizedPage || !isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+        {children}
+      </div>
+    )
+  }
+
+  // Main admin layout with sidebar
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      {children}
+      <AdminSidebar />
+
+      {/* Main content area - offset for sidebar */}
+      <div className="lg:pl-64">
+        <main className="min-h-screen">
+          {children}
+        </main>
+      </div>
     </div>
   )
 }
