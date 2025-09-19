@@ -18,7 +18,9 @@ import {
   X,
   ChevronDown,
   UserCircle,
-  UserPlus
+  UserPlus,
+  Mail,
+  FileText
 } from 'lucide-react'
 
 interface NavItem {
@@ -31,6 +33,8 @@ interface NavItem {
 const navigation: NavItem[] = [
   { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
   { name: 'Waitlist', href: '/admin/waitlist', icon: UserPlus },
+  { name: 'Campaigns', href: '/admin/campaigns', icon: Mail },
+  { name: 'Templates', href: '/admin/templates', icon: FileText },
   { name: 'Users', href: '/admin/users', icon: Users },
   { name: 'Audit Logs', href: '/admin/audit', icon: Activity },
   { name: 'Security', href: '/admin/security', icon: Shield },
