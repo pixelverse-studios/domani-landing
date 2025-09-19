@@ -15,13 +15,26 @@ export interface WaitlistEntry {
   metadata?: Record<string, any>
 }
 
+export interface WaitlistResponse {
+  entries: WaitlistEntry[]
+  total: number
+  page: number
+  limit: number
+  totalPages: number
+  stats: {
+    pending: number
+    invited: number
+    registered: number
+  }
+}
+
 // Fetch waitlist entries
 async function fetchWaitlist(params?: {
   page?: number
   limit?: number
   search?: string
   status?: string
-}) {
+}): Promise<WaitlistResponse> {
   const queryParams = new URLSearchParams()
   if (params?.page) queryParams.append('page', params.page.toString())
   if (params?.limit) queryParams.append('limit', params.limit.toString())

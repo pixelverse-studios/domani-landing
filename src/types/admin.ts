@@ -26,6 +26,7 @@ export enum AdminAction {
 
 export enum AuditAction {
   Create = 'create',
+  Read = 'read',
   Update = 'update',
   Delete = 'delete',
   Login = 'login',

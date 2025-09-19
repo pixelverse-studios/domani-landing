@@ -40,6 +40,14 @@ interface DataTableProps<TData, TValue> {
   onExport?: () => void
   isLoading?: boolean
   emptyMessage?: string
+  // Server-side pagination props
+  serverSidePagination?: boolean
+  totalRows?: number
+  currentPage?: number
+  pageSize?: number
+  totalPages?: number
+  onPageChange?: (page: number) => void
+  onPageSizeChange?: (pageSize: number) => void
 }
 
 export function DataTable<TData, TValue>({
@@ -52,6 +60,13 @@ export function DataTable<TData, TValue>({
   onExport,
   isLoading = false,
   emptyMessage = 'No results found.',
+  serverSidePagination = false,
+  totalRows = 0,
+  currentPage = 1,
+  pageSize = 10,
+  totalPages = 1,
+  onPageChange,
+  onPageSizeChange,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
@@ -95,9 +110,12 @@ export function DataTable<TData, TValue>({
         ]
       : columns,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
+    getPaginationRowModel: serverSidePagination ? undefined : getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
+    getFilteredRowModel: serverSidePagination ? undefined : getFilteredRowModel(),
+    manualPagination: serverSidePagination,
+    manualFiltering: serverSidePagination,
+    pageCount: serverSidePagination ? totalPages : undefined,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     onColumnVisibilityChange: setColumnVisibility,
@@ -117,6 +135,12 @@ export function DataTable<TData, TValue>({
       columnVisibility,
       rowSelection,
       globalFilter,
+      ...(serverSidePagination && {
+        pagination: {
+          pageIndex: currentPage - 1,
+          pageSize: pageSize,
+        },
+      }),
     },
   })
 
@@ -291,59 +315,109 @@ export function DataTable<TData, TValue>({
         <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
           <span>Showing</span>
           <select
-            value={table.getState().pagination.pageSize}
-            onChange={(e) => table.setPageSize(Number(e.target.value))}
+            value={serverSidePagination ? pageSize : table.getState().pagination.pageSize}
+            onChange={(e) => {
+              const newPageSize = Number(e.target.value)
+              if (serverSidePagination && onPageSizeChange) {
+                onPageSizeChange(newPageSize)
+              } else {
+                table.setPageSize(newPageSize)
+              }
+            }}
             className="h-8 w-20 rounded border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
           >
-            {[10, 20, 30, 40, 50].map((pageSize) => (
-              <option key={pageSize} value={pageSize}>
-                {pageSize}
+            {[10, 20, 30, 40, 50].map((size) => (
+              <option key={size} value={size}>
+                {size}
               </option>
             ))}
           </select>
           <span>
-            of {table.getFilteredRowModel().rows.length} result(s)
+            of {serverSidePagination ? totalRows : table.getFilteredRowModel().rows.length} result(s)
           </span>
         </div>
 
         <div className="flex items-center gap-1">
-          <button
-            onClick={() => table.setPageIndex(0)}
-            disabled={!table.getCanPreviousPage()}
-            className="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-          >
-            <ChevronsLeft className="h-4 w-4" />
-          </button>
-          <button
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-            className="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </button>
+          {serverSidePagination ? (
+            <>
+              <button
+                onClick={() => onPageChange?.(1)}
+                disabled={currentPage === 1}
+                className="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                <ChevronsLeft className="h-4 w-4" />
+              </button>
+              <button
+                onClick={() => onPageChange?.(currentPage - 1)}
+                disabled={currentPage === 1}
+                className="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </button>
 
-          {/* Page Numbers */}
-          <div className="flex items-center gap-1 px-2">
-            <span className="text-sm text-gray-600 dark:text-gray-400">
-              Page {table.getState().pagination.pageIndex + 1} of{' '}
-              {table.getPageCount()}
-            </span>
-          </div>
+              {/* Page Numbers */}
+              <div className="flex items-center gap-1 px-2">
+                <span className="text-sm text-gray-600 dark:text-gray-400">
+                  Page {currentPage} of {totalPages}
+                </span>
+              </div>
 
-          <button
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-            className="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-          >
-            <ChevronRight className="h-4 w-4" />
-          </button>
-          <button
-            onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-            disabled={!table.getCanNextPage()}
-            className="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-          >
-            <ChevronsRight className="h-4 w-4" />
-          </button>
+              <button
+                onClick={() => onPageChange?.(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                <ChevronRight className="h-4 w-4" />
+              </button>
+              <button
+                onClick={() => onPageChange?.(totalPages)}
+                disabled={currentPage === totalPages}
+                className="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                <ChevronsRight className="h-4 w-4" />
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                onClick={() => table.setPageIndex(0)}
+                disabled={!table.getCanPreviousPage()}
+                className="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                <ChevronsLeft className="h-4 w-4" />
+              </button>
+              <button
+                onClick={() => table.previousPage()}
+                disabled={!table.getCanPreviousPage()}
+                className="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </button>
+
+              {/* Page Numbers */}
+              <div className="flex items-center gap-1 px-2">
+                <span className="text-sm text-gray-600 dark:text-gray-400">
+                  Page {table.getState().pagination.pageIndex + 1} of{' '}
+                  {table.getPageCount()}
+                </span>
+              </div>
+
+              <button
+                onClick={() => table.nextPage()}
+                disabled={!table.getCanNextPage()}
+                className="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                <ChevronRight className="h-4 w-4" />
+              </button>
+              <button
+                onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+                disabled={!table.getCanNextPage()}
+                className="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                <ChevronsRight className="h-4 w-4" />
+              </button>
+            </>
+          )}
         </div>
       </div>
     </div>

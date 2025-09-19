@@ -130,11 +130,16 @@ function ActionMenu({
 export default function WaitlistPage() {
   const router = useRouter()
   const [page, setPage] = useState(1)
+  const [pageSize, setPageSize] = useState(10)
   const [selectedRows, setSelectedRows] = useState<WaitlistEntry[]>([])
   const [statusFilter, setStatusFilter] = useState('all')
 
   // Queries and mutations
-  const { data, isLoading } = useWaitlist({ page, limit: 10, status: statusFilter })
+  const { data, isLoading } = useWaitlist({
+    page,
+    limit: pageSize,
+    status: statusFilter
+  })
   const deleteEntries = useDeleteWaitlistEntries()
   const updateStatus = useUpdateWaitlistStatus()
   const exportWaitlist = useExportWaitlist()
@@ -166,6 +171,18 @@ export default function WaitlistPage() {
   const handleExport = useCallback(() => {
     exportWaitlist.mutate({ status: statusFilter === 'all' ? undefined : statusFilter })
   }, [statusFilter, exportWaitlist])
+
+  // Handle pagination changes
+  const handlePageChange = useCallback((newPage: number) => {
+    setPage(newPage)
+    setSelectedRows([])
+  }, [])
+
+  const handlePageSizeChange = useCallback((newPageSize: number) => {
+    setPageSize(newPageSize)
+    setPage(1) // Reset to first page when changing page size
+    setSelectedRows([])
+  }, [])
 
   // Table columns
   const columns = useMemo<ColumnDef<WaitlistEntry>[]>(() => [
@@ -246,7 +263,7 @@ export default function WaitlistPage() {
             <Clock className="h-4 w-4 text-yellow-500" />
           </div>
           <p className="text-2xl font-bold">
-            {data?.entries?.filter((e: WaitlistEntry) => e.status === 'pending').length || 0}
+            {data?.stats?.pending || 0}
           </p>
         </div>
 
@@ -256,7 +273,7 @@ export default function WaitlistPage() {
             <Mail className="h-4 w-4 text-blue-500" />
           </div>
           <p className="text-2xl font-bold">
-            {data?.entries?.filter((e: WaitlistEntry) => e.status === 'invited').length || 0}
+            {data?.stats?.invited || 0}
           </p>
         </div>
 
@@ -266,7 +283,7 @@ export default function WaitlistPage() {
             <CheckCircle className="h-4 w-4 text-green-500" />
           </div>
           <p className="text-2xl font-bold">
-            {data?.entries?.filter((e: WaitlistEntry) => e.status === 'registered').length || 0}
+            {data?.stats?.registered || 0}
           </p>
         </div>
       </div>
@@ -276,7 +293,11 @@ export default function WaitlistPage() {
         {['all', 'pending', 'invited', 'registered'].map((status) => (
           <button
             key={status}
-            onClick={() => setStatusFilter(status)}
+            onClick={() => {
+              setStatusFilter(status)
+              setPage(1) // Reset to first page when changing filter
+              setSelectedRows([]) // Clear selection when changing filter
+            }}
             className={cn(
               'px-4 py-2 text-sm font-medium rounded-md transition-colors capitalize',
               statusFilter === status
@@ -326,6 +347,13 @@ export default function WaitlistPage() {
         onExport={handleExport}
         isLoading={isLoading}
         emptyMessage="No waitlist entries found."
+        serverSidePagination={true}
+        totalRows={data?.total || 0}
+        currentPage={page}
+        pageSize={pageSize}
+        totalPages={data?.totalPages || 1}
+        onPageChange={handlePageChange}
+        onPageSizeChange={handlePageSizeChange}
       />
     </div>
   )

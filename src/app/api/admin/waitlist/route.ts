@@ -44,6 +44,34 @@ async function handleGET(req: NextRequest) {
       )
     }
 
+    // Get stats for all statuses (unfiltered counts)
+    let statsQuery = supabase
+      .from('waitlist')
+      .select('status', { count: 'exact', head: true })
+
+    // Apply search filter to stats if present
+    if (search) {
+      statsQuery = statsQuery.or(`email.ilike.%${search}%,first_name.ilike.%${search}%`)
+    }
+
+    const [pendingResult, invitedResult, registeredResult] = await Promise.all([
+      supabase
+        .from('waitlist')
+        .select('*', { count: 'exact', head: true })
+        .eq('status', 'pending')
+        .then(r => r.count || 0),
+      supabase
+        .from('waitlist')
+        .select('*', { count: 'exact', head: true })
+        .eq('status', 'invited')
+        .then(r => r.count || 0),
+      supabase
+        .from('waitlist')
+        .select('*', { count: 'exact', head: true })
+        .eq('status', 'registered')
+        .then(r => r.count || 0),
+    ])
+
     // Transform data to match our interface
     const transformedEntries = (entries || []).map(entry => ({
       id: entry.id,
@@ -63,6 +91,11 @@ async function handleGET(req: NextRequest) {
       page,
       limit,
       totalPages: Math.ceil((count || 0) / limit),
+      stats: {
+        pending: pendingResult,
+        invited: invitedResult,
+        registered: registeredResult,
+      },
     })
   } catch (error) {
     console.error('Waitlist fetch error:', error)
