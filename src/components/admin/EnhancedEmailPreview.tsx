@@ -70,7 +70,8 @@ export function EnhancedEmailPreview({
     setError(null)
     
     try {
-      const url = new URL(`/api/admin/campaigns/${campaignId}/preview`, window.location.origin)
+      const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || window.location.origin
+      const url = new URL(`/api/admin/campaigns/${campaignId}/preview`, baseUrl)
       if (recipientEmail) {
         url.searchParams.set('email', recipientEmail)
       }
