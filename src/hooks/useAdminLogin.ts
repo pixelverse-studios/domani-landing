@@ -164,7 +164,7 @@ export function useAdminLogin() {
     } catch (error) {
       // Handle validation errors
       if (error instanceof z.ZodError) {
-        const firstError = error.errors[0]
+        const firstError = error.issues[0]
         const errorMessage = firstError?.message || 'Invalid input'
         toast.error('Validation error', {
           description: errorMessage,

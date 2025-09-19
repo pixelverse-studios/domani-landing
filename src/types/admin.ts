@@ -29,6 +29,8 @@ export enum AuditAction {
   Update = 'update',
   Delete = 'delete',
   Login = 'login',
+  LoginAttempt = 'login_attempt',
+  LoginError = 'login_error',
   Logout = 'logout',
   Export = 'export',
   Import = 'import',

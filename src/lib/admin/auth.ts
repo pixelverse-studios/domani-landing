@@ -1,5 +1,6 @@
 import { NextRequest } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase'
+import { jwtVerify } from 'jose'
 import {
   AdminUser,
   AdminRole,
@@ -120,7 +121,7 @@ export async function authenticateAdmin(
       await logAdminAction({
         userId: email,
         adminId: undefined,
-        action: 'login_failed',
+        action: 'login_attempt',
         resource: 'admin_auth',
         metadata: {
           reason: authError?.message || 'Invalid credentials',
@@ -138,15 +139,7 @@ export async function authenticateAdmin(
     // Check if user has admin privileges
     const { data: adminUser, error: adminError } = await supabaseAdmin
       .from('admin_users')
-      .select(`
-        *,
-        user:auth.users!admin_users_user_id_fkey (
-          email,
-          created_at,
-          last_sign_in_at,
-          user_metadata
-        )
-      `)
+      .select('*')
       .eq('user_id', authData.user.id)
       .eq('is_active', true)
       .single()
@@ -158,7 +151,7 @@ export async function authenticateAdmin(
       await logAdminAction({
         userId: authData.user.id,
         adminId: undefined,
-        action: 'unauthorized_access',
+        action: 'login_error',
         resource: 'admin_panel',
         metadata: {
           email,
@@ -192,7 +185,7 @@ export async function authenticateAdmin(
     const accessToken = await createAdminToken({
       userId: authData.user.id,
       adminId: adminUser.id,
-      email: adminUser.user.email,
+      email: authData.user.email || email,
       role: adminUser.role as AdminRole,
       permissions: adminUser.permissions || {},
       sessionId
@@ -216,7 +209,7 @@ export async function authenticateAdmin(
     await logAdminAction({
       userId: authData.user.id,
       adminId: adminUser.id,
-      action: 'login_success',
+      action: 'login',
       resource: 'admin_auth',
       metadata: {
         role: adminUser.role,
@@ -253,9 +246,11 @@ export async function refreshAdminSession(
 ): Promise<{ accessToken: string; expiresAt: number }> {
   try {
     // Verify refresh token
-    const payload = await verifyAdminToken(refreshToken)
+    const { payload: rawPayload } = await jwtVerify(refreshToken, new TextEncoder().encode(process.env.JWT_SECRET!), {
+      algorithms: ['HS256']
+    })
 
-    if (!payload || payload.type !== 'refresh') {
+    if (!rawPayload || rawPayload.type !== 'refresh') {
       throw new AdminAuthError('Invalid refresh token', 401)
     }
 
@@ -266,13 +261,8 @@ export async function refreshAdminSession(
     // Get admin user details
     const { data: adminUser, error } = await supabaseAdmin
       .from('admin_users')
-      .select(`
-        *,
-        user:auth.users!admin_users_user_id_fkey (
-          email
-        )
-      `)
-      .eq('user_id', payload.userId)
+      .select('*')
+      .eq('user_id', rawPayload.userId as string)
       .eq('is_active', true)
       .single()
 
@@ -284,7 +274,7 @@ export async function refreshAdminSession(
     const { data: session, error: sessionError } = await supabaseAdmin
       .from('admin_sessions')
       .select('*')
-      .eq('id', payload.sessionId)
+      .eq('id', rawPayload.sessionId as string)
       .eq('admin_user_id', adminUser.id)
       .single()
 
@@ -296,14 +286,17 @@ export async function refreshAdminSession(
       throw new AdminAuthError('Session expired', 401)
     }
 
+    // Get user email
+    const { data: authUser } = await supabaseAdmin.auth.admin.getUserById(rawPayload.userId as string)
+
     // Create new access token
     const accessToken = await createAdminToken({
-      userId: payload.userId,
+      userId: rawPayload.userId as string,
       adminId: adminUser.id,
-      email: adminUser.user.email,
+      email: authUser?.user?.email || '',
       role: adminUser.role as AdminRole,
       permissions: adminUser.permissions || {},
-      sessionId: payload.sessionId
+      sessionId: rawPayload.sessionId as string
     })
 
     // Update session activity
@@ -313,16 +306,16 @@ export async function refreshAdminSession(
         last_activity_at: new Date().toISOString(),
         token_hash: await hashToken(accessToken)
       })
-      .eq('id', payload.sessionId)
+      .eq('id', rawPayload.sessionId as string)
 
     // Log token refresh
     await logAdminAction({
-      userId: payload.userId,
+      userId: rawPayload.userId as string,
       adminId: adminUser.id,
-      action: 'token_refresh',
+      action: 'update',
       resource: 'admin_auth',
       metadata: {
-        sessionId: payload.sessionId,
+        sessionId: rawPayload.sessionId as string,
         ip: request?.headers.get('x-forwarded-for') || 'unknown'
       }
     }).catch(console.error)

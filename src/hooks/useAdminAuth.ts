@@ -168,7 +168,7 @@ export function useAdminAuth(options?: {
     isAuthenticated: userHook.isAuthenticated,
     isUnauthenticated: userHook.isUnauthenticated,
     isLoading: userHook.isLoading,
-    isRefreshing: userHook.isRefreshing,
+    isRefreshing: userHook.isRefetching,
     error: userHook.error,
 
     // Role checks

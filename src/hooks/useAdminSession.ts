@@ -80,9 +80,9 @@ export function useAdminSession(options?: {
   const queryClient = useQueryClient()
   const { forceLogout } = useAdminLogout()
   const [sessionInfo, setSessionInfo] = useState<SessionInfo | null>(null)
-  const refreshTimeoutRef = useRef<NodeJS.Timeout>()
-  const warningTimeoutRef = useRef<NodeJS.Timeout>()
-  const updateIntervalRef = useRef<NodeJS.Timeout>()
+  const refreshTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const warningTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const updateIntervalRef = useRef<NodeJS.Timeout | null>(null)
   const hasShownWarning = useRef(false)
 
   // Mutation for refreshing session
@@ -146,6 +146,12 @@ export function useAdminSession(options?: {
     }
   }, [forceLogout, onSessionExpiry])
 
+  // Store refresh mutation in a ref to avoid recreating callbacks
+  const refreshMutationRef = useRef(refreshMutation)
+  useEffect(() => {
+    refreshMutationRef.current = refreshMutation
+  }, [refreshMutation])
+
   // Schedule automatic refresh
   const scheduleRefresh = useCallback((session: SessionInfo) => {
     // Clear existing timeout
@@ -160,10 +166,10 @@ export function useAdminSession(options?: {
 
     if (refreshIn > 0) {
       refreshTimeoutRef.current = setTimeout(() => {
-        refreshMutation.mutate()
+        refreshMutationRef.current.mutate()
       }, refreshIn)
     }
-  }, [autoRefresh, refreshMutation])
+  }, [autoRefresh])
 
   // Schedule warning notification
   const scheduleWarning = useCallback((session: SessionInfo) => {
@@ -184,7 +190,7 @@ export function useAdminSession(options?: {
           duration: 10000,
           action: {
             label: 'Extend session',
-            onClick: () => refreshMutation.mutate(),
+            onClick: () => refreshMutationRef.current.mutate(),
           },
         })
 
@@ -195,13 +201,21 @@ export function useAdminSession(options?: {
         } : null)
       }, warnIn)
     }
-  }, [refreshMutation])
+  }, [])
 
-  // Initialize session from user data
-  const { data: adminUser } = useQuery({
-    queryKey: ['adminUser'],
-    enabled: false, // Don't fetch, just read from cache
-  })
+  // Initialize session from user data (read from cache only)
+  const adminUser = queryClient.getQueryData(['adminUser'])
+
+  // Store callbacks in refs to use in the effect
+  const scheduleRefreshRef = useRef(scheduleRefresh)
+  const scheduleWarningRef = useRef(scheduleWarning)
+  const handleSessionExpiryRef = useRef(handleSessionExpiry)
+
+  useEffect(() => {
+    scheduleRefreshRef.current = scheduleRefresh
+    scheduleWarningRef.current = scheduleWarning
+    handleSessionExpiryRef.current = handleSessionExpiry
+  }, [scheduleRefresh, scheduleWarning, handleSessionExpiry])
 
   // Update session info periodically
   useEffect(() => {
@@ -221,8 +235,8 @@ export function useAdminSession(options?: {
     }
 
     setSessionInfo(initialSession)
-    scheduleRefresh(initialSession)
-    scheduleWarning(initialSession)
+    scheduleRefreshRef.current(initialSession)
+    scheduleWarningRef.current(initialSession)
 
     // Update time remaining every second
     updateIntervalRef.current = setInterval(() => {
@@ -233,7 +247,7 @@ export function useAdminSession(options?: {
         const timeRemaining = prev.expiresAt - now
 
         if (timeRemaining <= 0) {
-          handleSessionExpiry()
+          handleSessionExpiryRef.current()
           return null
         }
 
@@ -251,14 +265,14 @@ export function useAdminSession(options?: {
       if (warningTimeoutRef.current) clearTimeout(warningTimeoutRef.current)
       if (updateIntervalRef.current) clearInterval(updateIntervalRef.current)
     }
-  }, [adminUser, handleSessionExpiry, scheduleRefresh, scheduleWarning, warningThreshold])
+  }, [adminUser, warningThreshold])
 
   // Multi-tab synchronization via storage events
   useEffect(() => {
     const handleStorageChange = (e: StorageEvent) => {
       if (e.key === 'admin_logout' && e.newValue === 'true') {
         // Another tab logged out
-        handleSessionExpiry('You have been logged out in another tab.')
+        handleSessionExpiryRef.current('You have been logged out in another tab.')
       }
 
       if (e.key === 'admin_session_refresh' && e.newValue) {
@@ -274,8 +288,8 @@ export function useAdminSession(options?: {
           }
 
           setSessionInfo(newSessionInfo)
-          scheduleRefresh(newSessionInfo)
-          scheduleWarning(newSessionInfo)
+          scheduleRefreshRef.current(newSessionInfo)
+          scheduleWarningRef.current(newSessionInfo)
         } catch (error) {
           console.error('Failed to parse session refresh data:', error)
         }
@@ -284,7 +298,7 @@ export function useAdminSession(options?: {
 
     window.addEventListener('storage', handleStorageChange)
     return () => window.removeEventListener('storage', handleStorageChange)
-  }, [handleSessionExpiry, scheduleRefresh, scheduleWarning, warningThreshold])
+  }, [warningThreshold])
 
   // Notify other tabs on refresh
   useEffect(() => {
@@ -345,7 +359,7 @@ export function useActivityTracking(options?: {
 
   const [isIdle, setIsIdle] = useState(false)
   const [lastActivity, setLastActivity] = useState(Date.now())
-  const idleTimerRef = useRef<NodeJS.Timeout>()
+  const idleTimerRef = useRef<NodeJS.Timeout | null>(null)
 
   const handleActivity = useCallback(() => {
     setLastActivity(Date.now())

@@ -111,7 +111,7 @@ export async function createRefreshToken(userId: string, sessionId: string): Pro
  * Get admin session from request cookies
  */
 export async function getAdminSession(request: NextRequest): Promise<AdminSessionPayload | null> {
-  const cookieStore = cookies()
+  const cookieStore = await cookies()
   const token = cookieStore.get(ADMIN_TOKEN_COOKIE)?.value
 
   if (!token) {
@@ -195,7 +195,7 @@ export function withAdminAuth<T extends any[] = []>(
       if (!session) {
         // Check if we should try refresh token
         if (options.allowExpiredRefresh) {
-          const cookieStore = cookies()
+          const cookieStore = await cookies()
           const refreshToken = cookieStore.get(ADMIN_REFRESH_COOKIE)?.value
 
           if (refreshToken) {
@@ -220,7 +220,7 @@ export function withAdminAuth<T extends any[] = []>(
           await logAdminAction({
             userId: session.userId,
             adminId: session.adminId,
-            action: 'permission_denied',
+            action: 'login_error',
             resource: request.nextUrl.pathname,
             metadata: {
               requiredRole: options.requiredRole,
@@ -249,7 +249,7 @@ export function withAdminAuth<T extends any[] = []>(
             await logAdminAction({
               userId: session.userId,
               adminId: session.adminId,
-              action: 'permission_denied',
+              action: 'login_error',
               resource: options.requiredPermission.resource,
               metadata: {
                 requiredAction: options.requiredPermission.action,
@@ -278,7 +278,7 @@ export function withAdminAuth<T extends any[] = []>(
         await logAdminAction({
           userId: session.userId,
           adminId: session.adminId,
-          action: 'api_access',
+          action: 'read',
           resource: request.nextUrl.pathname,
           metadata: {
             method: request.method,
@@ -333,13 +333,14 @@ export async function adminRouteMiddleware(request: NextRequest): Promise<NextRe
     return null
   }
 
-  // Skip the login page
-  if (request.nextUrl.pathname === '/admin/login') {
+  // Skip the login and unauthorized pages
+  if (request.nextUrl.pathname === '/admin/login' ||
+      request.nextUrl.pathname === '/admin/unauthorized') {
     return null
   }
 
   // Check for admin token
-  const cookieStore = cookies()
+  const cookieStore = await cookies()
   const token = cookieStore.get(ADMIN_TOKEN_COOKIE)?.value
 
   if (!token) {

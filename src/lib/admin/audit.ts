@@ -1,11 +1,11 @@
 import { supabaseAdmin } from '@/lib/supabase'
-import { AuditAction } from '@/types/admin'
+import { AuditAction, AdminAction } from '@/types/admin'
 
 /**
  * Audit log entry interface
  */
 export interface AuditLogEntry {
-  userId: string
+  userId: string | null
   adminId?: string
   action: string
   resource: string
@@ -14,6 +14,34 @@ export interface AuditLogEntry {
   oldValues?: Record<string, any>
   newValues?: Record<string, any>
   metadata?: Record<string, any>
+}
+
+/**
+ * Create an admin audit log entry (simplified interface for API routes)
+ */
+export interface AdminAuditLogEntry {
+  action: string
+  adminId: string | null
+  details?: Record<string, any>
+  status: 'success' | 'failure'
+  ipAddress: string
+  userAgent: string
+}
+
+export async function createAdminAuditLog(entry: AdminAuditLogEntry): Promise<void> {
+  await logAdminAction({
+    userId: entry.adminId || null,
+    adminId: entry.adminId || undefined,
+    action: entry.action,
+    resource: 'admin',
+    description: `${entry.action} - ${entry.status}`,
+    metadata: {
+      ...entry.details,
+      status: entry.status,
+      ipAddress: entry.ipAddress,
+      userAgent: entry.userAgent
+    }
+  })
 }
 
 /**
