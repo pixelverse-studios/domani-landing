@@ -152,7 +152,7 @@ async function updateRecipientStatus(
 ) {
   try {
     const cookieStore = await cookies()
-    const supabase = createServerComponentClient({ cookies: () => cookieStore })
+    const supabase = createServerComponentClient({ cookies: async () => cookieStore })
     
     const updateData: any = {
       status,
@@ -187,7 +187,7 @@ export async function sendCampaign(options: SendCampaignOptions) {
   
   try {
     const cookieStore = await cookies()
-    const supabase = createServerComponentClient({ cookies: () => cookieStore })
+    const supabase = createServerComponentClient({ cookies: async () => cookieStore })
     
     // Fetch campaign with recipients
     const { data: campaign, error: campaignError } = await supabase
@@ -328,7 +328,7 @@ export async function sendCampaign(options: SendCampaignOptions) {
     if (!preview) {
       try {
         const cookieStore = await cookies()
-        const supabase = createServerComponentClient({ cookies: () => cookieStore })
+        const supabase = createServerComponentClient({ cookies: async () => cookieStore })
         await supabase
           .from('email_campaigns')
           .update({ status: CampaignStatus.Failed })
@@ -355,7 +355,7 @@ export async function generateEmailPreview(
 ) {
   try {
     const cookieStore = await cookies()
-    const supabase = createServerComponentClient({ cookies: () => cookieStore })
+    const supabase = createServerComponentClient({ cookies: async () => cookieStore })
     
     // Fetch campaign
     const { data: campaign, error: campaignError } = await supabase
@@ -390,8 +390,8 @@ export async function generateEmailPreview(
       previewRecipient = {
         id: recipient?.id || 'preview',
         email: recipientEmail,
-        firstName: recipient?.waitlist?.first_name || 'John',
-        lastName: recipient?.waitlist?.last_name || 'Doe'
+        firstName: recipient?.waitlist?.[0]?.first_name || 'John',
+        lastName: recipient?.waitlist?.[0]?.last_name || 'Doe'
       }
     } else {
       // Use sample data for preview

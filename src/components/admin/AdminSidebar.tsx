@@ -146,7 +146,7 @@ export function AdminSidebar() {
                     <UserCircle className="h-8 w-8 text-gray-400 flex-shrink-0" />
                     <div className="min-w-0 flex-1">
                       <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
-                        {user.name || user.email?.split('@')[0]}
+                        {user.user?.email?.split('@')[0] || 'Admin'}
                       </p>
                       <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
                         {user.role}
@@ -167,7 +167,7 @@ export function AdminSidebar() {
                     <div className="px-3 py-2 border-b border-gray-200 dark:border-gray-700">
                       <p className="text-xs text-gray-500 dark:text-gray-400">Signed in as</p>
                       <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
-                        {user.email}
+                        {user.user?.email || 'admin@domani.app'}
                       </p>
                     </div>
                     <button

@@ -13,10 +13,11 @@ export async function POST(request: NextRequest) {
 
     let adminId: string | null = null;
     let sessionId: string | null = null;
+    let sessionPayload: any = null;
 
     if (token) {
       // Verify the current session before logout
-      const sessionPayload = await verifyAdminToken(token);
+      sessionPayload = await verifyAdminToken(token);
 
       if (sessionPayload) {
         adminId = sessionPayload.adminId;

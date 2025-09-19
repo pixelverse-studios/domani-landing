@@ -120,7 +120,7 @@ export async function GET(request: NextRequest) {
         title: 'Total Users',
         value: totalUsers?.toLocaleString() || '0',
         icon: 'Users',
-        change: userGrowth !== '0' ? `${userGrowth > 0 ? '+' : ''}${userGrowth}% from last month` : 'No change',
+        change: userGrowth !== '0' ? `${parseFloat(userGrowth) > 0 ? '+' : ''}${userGrowth}% from last month` : 'No change',
         trend: parseFloat(userGrowth) > 0 ? 'up' : parseFloat(userGrowth) < 0 ? 'down' : 'neutral'
       },
       {

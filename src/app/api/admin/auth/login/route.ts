@@ -41,8 +41,8 @@ export async function POST(request: NextRequest) {
     const response = NextResponse.json({
       user: {
         id: admin.id,
-        email: admin.email,
-        name: admin.name,
+        email: admin.user.email,
+        name: admin.user.user_metadata?.name || admin.user.email,
         role: admin.role,
         permissions: admin.permissions
       },
@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
       userId: admin.auth_user_id || null,  // Use the auth user ID
       adminId: admin.id,                    // Use the admin user ID
       details: {
-        email: admin.email,
+        email: admin.user.email,
         rememberMe,
         ipAddress,
         userAgent

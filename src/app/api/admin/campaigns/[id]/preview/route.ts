@@ -1,15 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { withAdminAuth } from '@/lib/admin/middleware'
 import { generateEmailPreview } from '@/lib/email/campaigns'
+import { AdminAction } from '@/types/admin'
 
 // GET /api/admin/campaigns/[id]/preview - Generate email preview
 export const GET = withAdminAuth(async (
   request: NextRequest,
-  user,
-  { params }: { params: { id: string } }
+  context
 ) => {
   try {
-    const { id: campaignId } = params
+    const { id: campaignId } = context.params || {}
     const searchParams = request.nextUrl.searchParams
     const recipientEmail = searchParams.get('email') || undefined
     
@@ -33,4 +33,4 @@ export const GET = withAdminAuth(async (
       { status: 500 }
     )
   }
-}, ['email_campaigns:read'])
+}, { requiredPermission: { resource: 'email_campaigns', action: AdminAction.Read } })

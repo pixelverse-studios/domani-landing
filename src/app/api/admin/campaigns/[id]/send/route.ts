@@ -2,15 +2,15 @@ import { NextRequest, NextResponse } from 'next/server'
 import { withAdminAuth } from '@/lib/admin/middleware'
 import { logAdminAction } from '@/lib/admin/audit'
 import { sendCampaign, sendTestCampaign } from '@/lib/email/campaigns'
+import { AdminAction } from '@/types/admin'
 
 // POST /api/admin/campaigns/[id]/send - Send campaign or test email
 export const POST = withAdminAuth(async (
   request: NextRequest,
-  user,
-  { params }: { params: { id: string } }
+  context
 ) => {
   try {
-    const { id: campaignId } = params
+    const { id: campaignId } = context.params || {}
     const body = await request.json()
     const { type = 'send', testEmail } = body
     
@@ -34,13 +34,14 @@ export const POST = withAdminAuth(async (
       }
       
       // Log the action
-      await logAdminAction(
-        user.id,
-        'update',
-        'email_campaigns',
-        campaignId,
-        { action: 'test_send', testEmail }
-      )
+      await logAdminAction({
+        userId: context.admin?.userId || null,
+        adminId: context.admin?.adminId,
+        action: 'update',
+        resource: 'email_campaigns',
+        resourceId: campaignId,
+        metadata: { action: 'test_send', testEmail }
+      })
       
       return NextResponse.json({
         success: true,
@@ -62,16 +63,17 @@ export const POST = withAdminAuth(async (
       }
       
       // Log the action
-      await logAdminAction(
-        user.id,
-        'update',
-        'email_campaigns',
-        campaignId,
-        { 
+      await logAdminAction({
+        userId: context.admin?.userId || null,
+        adminId: context.admin?.adminId,
+        action: 'update',
+        resource: 'email_campaigns',
+        resourceId: campaignId,
+        metadata: {
           action: 'campaign_send',
           results: result.results
         }
-      )
+      })
       
       return NextResponse.json({
         success: true,
@@ -86,4 +88,4 @@ export const POST = withAdminAuth(async (
       { status: 500 }
     )
   }
-}, ['email_campaigns:update'])
+}, { requiredPermission: { resource: 'email_campaigns', action: AdminAction.Update } })

@@ -17,7 +17,7 @@ import {
   Tag,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { EmailTemplate } from '@/types/email'
+import { EmailTemplate, EmailTemplateCategory } from '@/types/email'
 
 function TemplateCard({ template }: { template: EmailTemplate }) {
   const router = useRouter()
@@ -167,10 +167,10 @@ export default function TemplatesPage() {
   const stats = {
     total: total,
     byCategory: {
-      welcome: templates.filter(t => t.category === 'welcome').length,
-      newsletter: templates.filter(t => t.category === 'newsletter').length,
-      promotion: templates.filter(t => t.category === 'promotion').length,
-      system: templates.filter(t => t.category === 'system').length,
+      welcome: templates.filter(t => t.category === EmailTemplateCategory.Welcome).length,
+      newsletter: templates.filter(t => t.category === EmailTemplateCategory.Newsletter).length,
+      promotion: templates.filter(t => t.category === EmailTemplateCategory.Promotion).length,
+      transactional: templates.filter(t => t.category === EmailTemplateCategory.Transactional).length,
     }
   }
   

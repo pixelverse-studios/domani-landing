@@ -307,8 +307,12 @@ export interface CreateCampaignRequest {
   htmlContent?: string
   textContent?: string
   recipientFilter?: RecipientFilter
+  recipientIds?: string[]  // Array of waitlist user IDs
   scheduledAt?: Date
+  scheduledFor?: string  // ISO date string for scheduling
   settings?: Partial<CampaignSettings>
+  status?: CampaignStatus
+  metadata?: Record<string, any>
 }
 
 /**
@@ -482,7 +486,7 @@ export function canSendCampaign(campaign: EmailCampaign): boolean {
   return campaign.status === CampaignStatus.Draft &&
          campaign.recipientCount > 0 &&
          campaign.subject.length > 0 &&
-         (campaign.htmlContent?.length > 0 || campaign.templateId)
+         ((campaign.htmlContent?.length ?? 0) > 0 || !!campaign.templateId)
 }
 
 // ============================================
