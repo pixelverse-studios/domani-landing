@@ -335,7 +335,7 @@ export default function NewCampaignPage() {
                         />
                         <div className="flex-1">
                           <div className="text-sm font-medium">
-                            {entry.firstName} {entry.lastName}
+                            {entry.firstName}
                           </div>
                           <div className="text-xs text-gray-500 dark:text-gray-400">
                             {entry.email}

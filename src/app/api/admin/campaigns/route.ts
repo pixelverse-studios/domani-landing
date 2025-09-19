@@ -4,12 +4,13 @@ import { cookies } from 'next/headers'
 import { withAdminAuth } from '@/lib/admin/middleware'
 import { logAdminAction } from '@/lib/admin/audit'
 import { CampaignStatus, CreateCampaignRequest } from '@/types/email'
+import { AdminAction } from '@/types/admin'
 
 // GET /api/admin/campaigns - List campaigns
-export const GET = withAdminAuth(async (request: NextRequest, user) => {
+export const GET = withAdminAuth(async (request: NextRequest, { admin }) => {
   try {
     const cookieStore = await cookies()
-    const supabase = createServerComponentClient({ cookies: () => cookieStore })
+    const supabase = createServerComponentClient({ cookies: async () => cookieStore })
     
     // Parse query parameters
     const searchParams = request.nextUrl.searchParams
@@ -84,13 +85,13 @@ export const GET = withAdminAuth(async (request: NextRequest, user) => {
     }) || []
     
     // Log the action
-    await logAdminAction(
-      user.id,
-      'read',
-      'email_campaigns',
-      undefined,
-      { page, limit, status, search }
-    )
+    await logAdminAction({
+      userId: admin.userId || null,
+      adminId: admin.adminId,
+      action: 'read',
+      resource: 'email_campaigns',
+      metadata: { page, limit, status, search }
+    })
     
     return NextResponse.json({
       campaigns: campaignsWithMetrics,
@@ -105,13 +106,13 @@ export const GET = withAdminAuth(async (request: NextRequest, user) => {
       { status: 500 }
     )
   }
-}, ['email_campaigns:read'])
+}, { requiredPermission: { resource: 'email_campaigns', action: AdminAction.Read } })
 
 // POST /api/admin/campaigns - Create new campaign
-export const POST = withAdminAuth(async (request: NextRequest, user) => {
+export const POST = withAdminAuth(async (request: NextRequest, { admin }) => {
   try {
     const cookieStore = await cookies()
-    const supabase = createServerComponentClient({ cookies: () => cookieStore })
+    const supabase = createServerComponentClient({ cookies: async () => cookieStore })
     
     // Parse request body
     const body: CreateCampaignRequest = await request.json()
@@ -194,17 +195,18 @@ export const POST = withAdminAuth(async (request: NextRequest, user) => {
     }
     
     // Log the action
-    await logAdminAction(
-      user.id,
-      'create',
-      'email_campaigns',
-      campaign.id,
-      {
+    await logAdminAction({
+      userId: admin.userId || null,
+      adminId: admin.adminId,
+      action: 'create',
+      resource: 'email_campaigns',
+      resourceId: campaign.id,
+      metadata: {
         name: body.name,
         status: body.status,
         recipientCount: body.recipientIds?.length || 0,
       }
-    )
+    })
     
     return NextResponse.json(campaign, { status: 201 })
   } catch (error) {
@@ -214,4 +216,4 @@ export const POST = withAdminAuth(async (request: NextRequest, user) => {
       { status: 500 }
     )
   }
-}, ['email_campaigns:create'])
+}, { requiredPermission: { resource: 'email_campaigns', action: AdminAction.Create } })

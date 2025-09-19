@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { withAdminAuth } from '@/lib/admin/middleware'
+import { AdminRole } from '@/types/admin'
 import { createClient } from '@supabase/supabase-js'
 
 const supabase = createClient(
@@ -59,4 +60,4 @@ async function handlePATCH(req: NextRequest) {
   }
 }
 
-export const PATCH = withAdminAuth(handlePATCH, ['editor', 'admin', 'super_admin'])
+export const PATCH = withAdminAuth(handlePATCH, { requiredRole: AdminRole.Editor })

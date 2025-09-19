@@ -4,17 +4,17 @@ import { cookies } from 'next/headers'
 import { withAdminAuth } from '@/lib/admin/middleware'
 import { logAdminAction } from '@/lib/admin/audit'
 import { UpdateCampaignRequest } from '@/types/email'
+import { AdminAction } from '@/types/admin'
 
 // GET /api/admin/campaigns/[id] - Get single campaign
 export const GET = withAdminAuth(async (
   request: NextRequest,
-  user,
-  { params }: { params: { id: string } }
+  context
 ) => {
   try {
     const cookieStore = await cookies()
-    const supabase = createServerComponentClient({ cookies: () => cookieStore })
-    const { id } = params
+    const supabase = createServerComponentClient({ cookies: async () => cookieStore })
+    const { id } = context.params || {}
     
     // Fetch campaign with recipients
     const { data: campaign, error } = await supabase
@@ -71,13 +71,14 @@ export const GET = withAdminAuth(async (
     }
     
     // Log the action
-    await logAdminAction(
-      user.id,
-      'read',
-      'email_campaigns',
-      id,
-      { campaignName: campaign.name }
-    )
+    await logAdminAction({
+      userId: context.admin?.userId || null,
+      adminId: context.admin?.adminId,
+      action: 'read',
+      resource: 'email_campaigns',
+      resourceId: id,
+      metadata: { campaignName: campaign.name }
+    })
     
     return NextResponse.json(response)
   } catch (error) {
@@ -87,18 +88,17 @@ export const GET = withAdminAuth(async (
       { status: 500 }
     )
   }
-}, ['email_campaigns:read'])
+}, { requiredPermission: { resource: 'email_campaigns', action: AdminAction.Read } })
 
 // PATCH /api/admin/campaigns/[id] - Update campaign
 export const PATCH = withAdminAuth(async (
   request: NextRequest,
-  user,
-  { params }: { params: { id: string } }
+  context
 ) => {
   try {
     const cookieStore = await cookies()
-    const supabase = createServerComponentClient({ cookies: () => cookieStore })
-    const { id } = params
+    const supabase = createServerComponentClient({ cookies: async () => cookieStore })
+    const { id } = context.params || {}
     const body: UpdateCampaignRequest = await request.json()
     
     // Check if campaign exists and is editable
@@ -151,13 +151,14 @@ export const PATCH = withAdminAuth(async (
     }
     
     // Log the action
-    await logAdminAction(
-      user.id,
-      'update',
-      'email_campaigns',
-      id,
-      { changes: body }
-    )
+    await logAdminAction({
+      userId: context.admin?.userId || null,
+      adminId: context.admin?.adminId,
+      action: 'update',
+      resource: 'email_campaigns',
+      resourceId: id,
+      newValues: body
+    })
     
     return NextResponse.json(campaign)
   } catch (error) {
@@ -167,18 +168,17 @@ export const PATCH = withAdminAuth(async (
       { status: 500 }
     )
   }
-}, ['email_campaigns:update'])
+}, { requiredPermission: { resource: 'email_campaigns', action: AdminAction.Update } })
 
 // DELETE /api/admin/campaigns/[id] - Delete campaign
 export const DELETE = withAdminAuth(async (
   request: NextRequest,
-  user,
-  { params }: { params: { id: string } }
+  context
 ) => {
   try {
     const cookieStore = await cookies()
-    const supabase = createServerComponentClient({ cookies: () => cookieStore })
-    const { id } = params
+    const supabase = createServerComponentClient({ cookies: async () => cookieStore })
+    const { id } = context.params || {}
     
     // Check if campaign exists and can be deleted
     const { data: existing, error: fetchError } = await supabase
@@ -223,13 +223,14 @@ export const DELETE = withAdminAuth(async (
     }
     
     // Log the action
-    await logAdminAction(
-      user.id,
-      'delete',
-      'email_campaigns',
-      id,
-      { campaignName: existing.name }
-    )
+    await logAdminAction({
+      userId: context.admin?.userId || null,
+      adminId: context.admin?.adminId,
+      action: 'delete',
+      resource: 'email_campaigns',
+      resourceId: id,
+      metadata: { campaignName: existing.name }
+    })
     
     return NextResponse.json({ success: true })
   } catch (error) {
@@ -239,4 +240,4 @@ export const DELETE = withAdminAuth(async (
       { status: 500 }
     )
   }
-}, ['email_campaigns:delete'])
+}, { requiredPermission: { resource: 'email_campaigns', action: AdminAction.Delete } })

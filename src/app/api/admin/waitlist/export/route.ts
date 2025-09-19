@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { withAdminAuth } from '@/lib/admin/middleware'
+import { AdminRole } from '@/types/admin'
 import { createClient } from '@supabase/supabase-js'
 
 const supabase = createClient(
@@ -83,4 +84,4 @@ async function handleGET(req: NextRequest) {
   }
 }
 
-export const GET = withAdminAuth(handleGET, ['viewer', 'editor', 'admin', 'super_admin'])
+export const GET = withAdminAuth(handleGET, { requiredRole: AdminRole.Viewer })

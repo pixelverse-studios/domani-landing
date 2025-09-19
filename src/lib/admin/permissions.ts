@@ -45,6 +45,7 @@ export const RESOURCE_PERMISSIONS: Record<string, { minRole: AdminRole, restrict
   'admin_users': {
     minRole: AdminRole.Admin,
     restrictedActions: {
+      [AdminRole.SuperAdmin]: [], // SuperAdmins can do everything
       [AdminRole.Admin]: [AdminAction.Delete], // Admins can't delete other admins
       [AdminRole.Editor]: [],
       [AdminRole.Viewer]: []
@@ -56,6 +57,7 @@ export const RESOURCE_PERMISSIONS: Record<string, { minRole: AdminRole, restrict
   'admin_audit_log': {
     minRole: AdminRole.SuperAdmin,
     restrictedActions: {
+      [AdminRole.SuperAdmin]: [], // SuperAdmins can do everything
       [AdminRole.Admin]: [AdminAction.Read, AdminAction.Export],
       [AdminRole.Editor]: [],
       [AdminRole.Viewer]: []
@@ -67,6 +69,9 @@ export const RESOURCE_PERMISSIONS: Record<string, { minRole: AdminRole, restrict
   'campaigns': {
     minRole: AdminRole.Viewer,
     restrictedActions: {
+      [AdminRole.SuperAdmin]: [], // SuperAdmins can do everything
+      [AdminRole.Admin]: [],
+      [AdminRole.Editor]: [],
       [AdminRole.Viewer]: [AdminAction.Read, AdminAction.Export]
     }
   },

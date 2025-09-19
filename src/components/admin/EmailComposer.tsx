@@ -16,7 +16,7 @@ import {
   Heading3,
   Smartphone,
   Monitor,
-  Variables,
+  Variable,
   Eye,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -202,7 +202,7 @@ export function EmailComposer({
                 onClick={() => setShowVariables(!showVariables)}
                 title="Insert Variable"
               >
-                <Variables className="h-4 w-4" />
+                <Variable className="h-4 w-4" />
               </ToolbarButton>
 
               {showVariables && (

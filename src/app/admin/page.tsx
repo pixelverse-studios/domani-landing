@@ -77,7 +77,7 @@ export default function AdminDashboard() {
           Dashboard
         </h1>
         <p className="text-gray-500 dark:text-gray-400 mt-1">
-          Welcome back, {user?.name || user?.email || 'Admin'}
+          Welcome back, {user?.user?.email || 'Admin'}
         </p>
       </div>
         {/* Stats Grid */}
