@@ -24,7 +24,7 @@ export function OAuthDevNotice() {
             Temporarily update your Supabase Site URL to http://localhost:3000 (remember to change back for production)
           </li>
           <li>
-            Add "127.0.0.1 www.domani-app.com" to /etc/hosts and access via http://www.domani-app.com:3000
+            Add &quot;127.0.0.1 www.domani-app.com&quot; to /etc/hosts and access via http://www.domani-app.com:3000
           </li>
         </ol>
         <p className="mt-2 text-xs">
