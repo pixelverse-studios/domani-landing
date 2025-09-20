@@ -33,21 +33,19 @@ After they've signed in once, go to Supabase:
 4. Run this query (replace email):
 
 ```sql
--- Get the user ID
+-- Step 1: Get the user ID
 SELECT id, email FROM auth.users WHERE email = 'sami@pixelversestudios.io';
 
--- Copy the ID from above result, then run:
+-- Step 2: Copy the ID from above result, then run:
 INSERT INTO admin_users (
     user_id,
-    email,
     role,
     is_active,
     permissions,
     created_at,
     updated_at
 ) VALUES (
-    'PASTE_USER_ID_HERE',  -- From the query above
-    'sami@pixelversestudios.io',
+    'PASTE_USER_ID_HERE',  -- From step 1
     'admin',
     true,
     '{"dashboard": true, "users": true, "settings": true}'::jsonb,
