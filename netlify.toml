@@ -4,9 +4,15 @@
   command = "npm run build"
   publish = ".next"
 
-# Remove the catch-all redirect since we're using Next.js server-side rendering
-# API routes need to be handled by Next.js, not redirected to index.html
+# Enable Next.js plugin for proper API route handling
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
 
+# Environment variables for production
+[build.environment]
+  NEXT_ENABLE_EXPERIMENTAL_ROUTE_HANDLER = "true"
+
+# Headers for security and caching
 [[headers]]
   for = "/*"
   [headers.values]
