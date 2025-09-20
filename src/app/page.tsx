@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import HeroSection from '@/components/HeroSection'
 import Analytics from '@/components/Analytics'
@@ -10,7 +10,7 @@ import { AppShowcase } from '@/components/showcase/AppShowcase'
 // import { AppPreviewSection } from '@/components/preview/AppPreviewSection'
 import { useABTest } from '@/hooks/useABTest'
 
-export default function HomePage() {
+function HomePageContent() {
   const variant = useABTest()
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -71,5 +71,25 @@ export default function HomePage() {
         </div>
       </main>
     </>
+  )
+}
+
+export default function HomePage() {
+  return (
+    <Suspense fallback={
+      <>
+        <Analytics />
+        <Header />
+        <main className="min-h-screen pt-16 overflow-x-clip bg-white dark:bg-dark-gradient-from">
+          <div className="overflow-x-clip">
+            <HeroSection />
+            <BenefitsSection />
+            <AppShowcase />
+          </div>
+        </main>
+      </>
+    }>
+      <HomePageContent />
+    </Suspense>
   )
 }
