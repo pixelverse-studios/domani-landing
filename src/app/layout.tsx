@@ -6,6 +6,7 @@ import { ThemeProvider } from '@/components/ThemeProvider'
 import { ThemeScript } from '@/components/ThemeScript'
 import QueryProvider from '@/providers/QueryProvider'
 import { Toaster } from 'sonner'
+import { AuthHandler } from '@/components/auth/AuthHandler'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -67,6 +68,7 @@ export default function RootLayout({
       <body className="font-sans antialiased bg-white dark:bg-dark-gradient-from text-foreground transition-colors overflow-x-hidden">
         <ThemeProvider>
           <QueryProvider>
+            <AuthHandler />
             <div className="min-h-screen overflow-x-clip">
               {children}
             </div>
