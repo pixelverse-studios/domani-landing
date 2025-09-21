@@ -10,7 +10,7 @@ const supabase = createClient(
 )
 
 // Valid referral types for the dropdown
-export const ALLOWED_REFERRAL_TYPES = [
+const ALLOWED_REFERRAL_TYPES = [
   'early_adopter',
   'friends_family',
   'beta_tester',
