@@ -163,13 +163,35 @@ export async function GET(request: NextRequest) {
     }
 
     // Then verify if the user exists in admin_users table
-    const { data: adminCheck } = await supabase
+    const { data: adminCheck, error: adminCheckError } = await supabase
       .from('admin_users')
       .select('id, is_active')
       .eq('user_id', session.user.id)
       .single()
 
-    const isAdmin = adminCheck && adminCheck.is_active === true
+    // Debug logging
+    console.log('Admin check for user:', {
+      userId: session.user.id,
+      email: userEmail,
+      adminCheck,
+      adminCheckError: adminCheckError?.message
+    })
+
+    let isAdmin = adminCheck && adminCheck.is_active === true
+
+    // If there was an error querying admin_users, try without .single()
+    if (!isAdmin && adminCheckError) {
+      console.log('Retrying admin check without .single()')
+      const { data: adminCheckRetry } = await supabase
+        .from('admin_users')
+        .select('id, is_active')
+        .eq('user_id', session.user.id)
+
+      if (adminCheckRetry && adminCheckRetry.length > 0 && adminCheckRetry[0].is_active === true) {
+        console.log('Admin found on retry:', adminCheckRetry)
+        isAdmin = true
+      }
+    }
 
     if (!isAdmin) {
       // Sign out the user since they're not an admin
