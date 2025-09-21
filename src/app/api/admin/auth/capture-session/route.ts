@@ -2,13 +2,13 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 
 // This endpoint captures what session data Google OAuth provides
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
     const supabase = await createClient()
 
     // Get the current session
-    const { data: { session }, error: sessionError } = await supabase.auth.getSession()
-    const { data: { user }, error: userError } = await supabase.auth.getUser()
+    const { data: { session } } = await supabase.auth.getSession()
+    const { data: { user } } = await supabase.auth.getUser()
 
     if (!session && !user) {
       return NextResponse.json({
