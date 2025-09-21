@@ -1,5 +1,4 @@
 import { createClient } from '@supabase/supabase-js'
-import type { Database } from '@/types/database'
 
 /**
  * Create a Supabase client with service role key for admin operations
@@ -14,7 +13,7 @@ export function createServiceRoleClient() {
     throw new Error('Missing Supabase environment variables for service role client')
   }
 
-  return createClient<Database>(supabaseUrl, serviceRoleKey, {
+  return createClient(supabaseUrl, serviceRoleKey, {
     auth: {
       autoRefreshToken: false,
       persistSession: false
