@@ -79,7 +79,7 @@ export async function createAdminToken(payload: Omit<AdminSessionPayload, 'issue
   })
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
-    .setExpirationTime('15m')
+    .setExpirationTime('4h')
     .sign(secret)
 
   return token
