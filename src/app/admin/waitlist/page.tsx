@@ -6,9 +6,11 @@ import {
   useWaitlist,
   useDeleteWaitlistEntries,
   useUpdateWaitlistStatus,
+  useUpdateReferralType,
   useExportWaitlist,
   WaitlistEntry,
 } from '@/hooks/useWaitlist'
+import { UpdateReferralTypeSheet } from '@/components/admin/UpdateReferralTypeSheet'
 import { ColumnDef } from '@tanstack/react-table'
 import {
   MoreHorizontal,
@@ -18,6 +20,8 @@ import {
   Clock,
   UserCheck,
   Trash2,
+  Tag,
+  Users,
 } from 'lucide-react'
 import { format } from 'date-fns'
 import { cn } from '@/lib/utils'
@@ -27,7 +31,8 @@ function StatusBadge({ status }: { status: string }) {
   const config = {
     pending: { icon: Clock, label: 'Pending', className: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400' },
     invited: { icon: Mail, label: 'Invited', className: 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400' },
-    registered: { icon: CheckCircle, label: 'Registered', className: 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400' },
+    confirmed: { icon: CheckCircle, label: 'Confirmed', className: 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400' },
+    registered: { icon: UserCheck, label: 'Registered', className: 'bg-purple-100 text-purple-800 dark:bg-purple-900/20 dark:text-purple-400' },
   }
 
   const { icon: Icon, label, className } = config[status as keyof typeof config] || config.pending
@@ -125,19 +130,21 @@ function ActionMenu({
 }
 
 export default function WaitlistPage() {
-  const [page, setPage] = useState(1)
-  const [pageSize, setPageSize] = useState(10)
+  // const [page, setPage] = useState(1)
+  // const [pageSize, setPageSize] = useState(1000) // Load all records (adjust if you have more)
   const [selectedRows, setSelectedRows] = useState<WaitlistEntry[]>([])
   const [statusFilter, setStatusFilter] = useState('all')
+  const [isReferralSheetOpen, setIsReferralSheetOpen] = useState(false)
 
   // Queries and mutations
   const { data, isLoading } = useWaitlist({
-    page,
-    limit: pageSize,
+    page: 1, // Always load first page since we're loading all
+    limit: 500, // Load up to 500 records by default
     status: statusFilter
   })
   const deleteEntries = useDeleteWaitlistEntries()
   const updateStatus = useUpdateWaitlistStatus()
+  const updateReferralType = useUpdateReferralType()
   const exportWaitlist = useExportWaitlist()
 
   // Handle individual status change
@@ -163,22 +170,36 @@ export default function WaitlistPage() {
     setSelectedRows([])
   }, [selectedRows, deleteEntries])
 
+  // Handle bulk referral type update
+  const handleBulkReferralTypeUpdate = useCallback((referralType: string) => {
+    const ids = selectedRows.map(row => row.id)
+    updateReferralType.mutate(
+      { ids, referralType },
+      {
+        onSuccess: () => {
+          setSelectedRows([])
+          setIsReferralSheetOpen(false)
+        },
+      }
+    )
+  }, [selectedRows, updateReferralType])
+
   // Handle export
   const handleExport = useCallback(() => {
     exportWaitlist.mutate({ status: statusFilter === 'all' ? undefined : statusFilter })
   }, [statusFilter, exportWaitlist])
 
-  // Handle pagination changes
-  const handlePageChange = useCallback((newPage: number) => {
-    setPage(newPage)
-    setSelectedRows([])
-  }, [])
+  // // Handle pagination changes
+  // const handlePageChange = useCallback((newPage: number) => {
+  //   setPage(newPage)
+  //   setSelectedRows([])
+  // }, [])
 
-  const handlePageSizeChange = useCallback((newPageSize: number) => {
-    setPageSize(newPageSize)
-    setPage(1) // Reset to first page when changing page size
-    setSelectedRows([])
-  }, [])
+  // const handlePageSizeChange = useCallback((newPageSize: number) => {
+  //   setPageSize(newPageSize)
+  //   setPage(1) // Reset to first page when changing page size
+  //   setSelectedRows([])
+  // }, [])
 
   // Table columns
   const columns = useMemo<ColumnDef<WaitlistEntry>[]>(() => [
@@ -193,19 +214,30 @@ export default function WaitlistPage() {
       ),
     },
     {
-      accessorKey: 'firstName',
-      header: 'Name',
-      cell: ({ row }) => row.original.firstName || '-',
-    },
-    {
       accessorKey: 'status',
       header: 'Status',
       cell: ({ row }) => <StatusBadge status={row.original.status} />,
     },
     {
-      accessorKey: 'source',
-      header: 'Source',
-      cell: ({ row }) => row.original.source || 'Direct',
+      accessorKey: 'referralType',
+      header: 'Referral Type',
+      cell: ({ row }) => {
+        const type = row.original.referralType || 'website'
+        const typeLabels: Record<string, string> = {
+          website: 'Website',
+          early_adopter: 'Early Adopter',
+          friends_family: 'Friends & Family',
+          beta_tester: 'Beta Tester',
+          vip: 'VIP',
+          partner: 'Partner',
+          influencer: 'Influencer',
+          employee: 'Employee',
+          investor: 'Investor',
+          press: 'Press',
+          other: 'Other'
+        }
+        return typeLabels[type] || type
+      },
     },
     {
       accessorKey: 'createdAt',
@@ -232,9 +264,9 @@ export default function WaitlistPage() {
   ], [handleStatusChange, handleDelete])
 
   return (
-    <div className="p-8">
+    <div className="flex flex-col h-full p-8 overflow-hidden">
       {/* Page Header */}
-      <div className="mb-8">
+      <div className="mb-8 flex-shrink-0">
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
           Waitlist Management
         </h1>
@@ -244,7 +276,7 @@ export default function WaitlistPage() {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8 flex-shrink-0">
         <div className="p-6 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between mb-2">
             <span className="text-sm text-gray-500 dark:text-gray-400">Total Signups</span>
@@ -285,13 +317,13 @@ export default function WaitlistPage() {
       </div>
 
       {/* Filter Tabs */}
-      <div className="flex gap-1 mb-6 p-1 bg-gray-100 dark:bg-gray-800 rounded-lg w-fit">
+      <div className="flex gap-1 mb-6 p-1 bg-gray-100 dark:bg-gray-800 rounded-lg w-fit flex-shrink-0">
         {['all', 'pending', 'invited', 'registered'].map((status) => (
           <button
             key={status}
             onClick={() => {
               setStatusFilter(status)
-              setPage(1) // Reset to first page when changing filter
+              // setPage(1) // Reset to first page when changing filter
               setSelectedRows([]) // Clear selection when changing filter
             }}
             className={cn(
@@ -308,11 +340,18 @@ export default function WaitlistPage() {
 
       {/* Bulk Actions */}
       {selectedRows.length > 0 && (
-        <div className="mb-4 p-4 bg-primary-50 dark:bg-primary-900/20 rounded-lg flex items-center justify-between">
+        <div className="mb-4 p-4 bg-primary-50 dark:bg-primary-900/20 rounded-lg flex items-center justify-between flex-shrink-0">
           <span className="text-sm text-primary-600 dark:text-primary-400">
             {selectedRows.length} item(s) selected
           </span>
           <div className="flex gap-2">
+            <button
+              onClick={() => setIsReferralSheetOpen(true)}
+              className="flex items-center gap-2 px-3 py-1.5 text-sm bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"
+            >
+              <Tag className="h-4 w-4" />
+              Update Referral Type
+            </button>
             <button
               onClick={() => handleBulkStatusChange('invited')}
               className="flex items-center gap-2 px-3 py-1.5 text-sm bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"
@@ -331,29 +370,31 @@ export default function WaitlistPage() {
         </div>
       )}
 
-      {/* Data Table */}
-      <DataTable
-        columns={columns}
-        data={data?.entries || []}
-        searchPlaceholder="Search by email or name..."
-        enableRowSelection={true}
-        onRowSelectionChange={(rows) => {
-          setSelectedRows(rows.map(r => r.original))
-        }}
-        onExport={handleExport}
-        isLoading={isLoading}
-        emptyMessage="No waitlist entries found."
-        serverSidePagination={true}
-        totalRows={data?.total || 0}
-        currentPage={page}
-        pageSize={pageSize}
-        totalPages={data?.totalPages || 1}
-        onPageChange={handlePageChange}
-        onPageSizeChange={handlePageSizeChange}
+      {/* Data Table - Scrollable Container */}
+      <div className="flex-1 overflow-auto min-h-0">
+        <DataTable
+          columns={columns}
+          data={data?.entries || []}
+          searchPlaceholder="Search by email or name..."
+          enableRowSelection={true}
+          onRowSelectionChange={(rows) => {
+            setSelectedRows(rows.map(r => r.original))
+          }}
+          onExport={handleExport}
+          isLoading={isLoading}
+          emptyMessage="No waitlist entries found."
+          serverSidePagination={false}  // Disable server-side pagination
+        />
+      </div>
+
+      {/* Update Referral Type Sheet */}
+      <UpdateReferralTypeSheet
+        isOpen={isReferralSheetOpen}
+        onClose={() => setIsReferralSheetOpen(false)}
+        selectedEntries={selectedRows}
+        onSubmit={handleBulkReferralTypeUpdate}
+        isLoading={updateReferralType.isPending}
       />
     </div>
   )
 }
-
-// Add Users import to the imports at the top
-import { Users } from 'lucide-react'

@@ -7,7 +7,7 @@ export interface WaitlistEntry {
   id: string
   email: string
   firstName: string
-  source?: string
+  referralType?: string
   referrer?: string
   status: 'pending' | 'invited' | 'registered'
   createdAt: string
@@ -24,6 +24,7 @@ export interface WaitlistResponse {
   stats: {
     pending: number
     invited: number
+    confirmed: number
     registered: number
   }
 }
@@ -89,6 +90,25 @@ async function updateWaitlistStatus(data: { ids: string[]; status: string }) {
   if (!response.ok) {
     const error = await response.json().catch(() => ({ message: 'Failed to update status' }))
     throw new Error(error.message || 'Failed to update status')
+  }
+
+  return response.json()
+}
+
+// Update referral type for multiple entries
+async function updateReferralType(data: { ids: string[]; referralType: string }) {
+  const response = await fetch('/api/admin/waitlist/referral-type', {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+    credentials: 'include',
+  })
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({ message: 'Failed to update referral type' }))
+    throw new Error(error.message || 'Failed to update referral type')
   }
 
   return response.json()
@@ -176,6 +196,22 @@ export function useUpdateWaitlistStatus() {
     },
     onError: (error: Error) => {
       toast.error(error.message || 'Failed to update status')
+    },
+  })
+}
+
+export function useUpdateReferralType() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: updateReferralType,
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: ['waitlist'] })
+      const count = variables.ids.length
+      toast.success(`Referral type updated for ${count} ${count === 1 ? 'entry' : 'entries'}`)
+    },
+    onError: (error: Error) => {
+      toast.error(error.message || 'Failed to update referral type')
     },
   })
 }

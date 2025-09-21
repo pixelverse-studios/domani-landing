@@ -30,12 +30,12 @@ const eslintConfig = [
       'react/prop-types': 'off',
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
-      'no-console': [
-        'warn',
-        {
-          allow: ['warn', 'error'],
-        },
-      ],
+      // 'no-console': [
+      //   'warn',
+      //   {
+      //     allow: ['warn', 'error'],
+      //   },
+      // ],
       'no-debugger': 'error',
       'prefer-const': 'error',
       'no-var': 'error',

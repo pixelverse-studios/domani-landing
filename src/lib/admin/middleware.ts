@@ -11,7 +11,7 @@ const ADMIN_TOKEN_COOKIE = 'domani_admin_token'
 const ADMIN_REFRESH_COOKIE = 'domani_admin_refresh'
 
 // Token configuration
-const ACCESS_TOKEN_DURATION = 15 * 60 * 1000 // 15 minutes
+const ACCESS_TOKEN_DURATION = 4 * 60 * 60 * 1000 // 4 hours (more reasonable for admin dashboard)
 const REFRESH_TOKEN_DURATION = 7 * 24 * 60 * 60 * 1000 // 7 days
 
 // Secret key for JWT signing

@@ -22,7 +22,7 @@ async function handleGET(req: NextRequest) {
 
     // Add search filter
     if (search) {
-      query = query.or(`email.ilike.%${search}%,first_name.ilike.%${search}%`)
+      query = query.or(`email.ilike.%${search}%,name.ilike.%${search}%`)
     }
 
     // Add status filter
@@ -41,12 +41,12 @@ async function handleGET(req: NextRequest) {
     }
 
     // Create CSV content
-    const headers = ['Email', 'First Name', 'Status', 'Source', 'Referrer', 'Created At', 'Invited At']
+    const headers = ['Email', 'First Name', 'Status', 'Referral Type', 'Referrer', 'Created At', 'Invited At']
     const rows = (entries || []).map(entry => [
       entry.email,
-      entry.first_name || '',
+      entry.name || '',
       entry.status || 'pending',
-      entry.source || '',
+      entry.referral_type || '',
       entry.referrer || '',
       new Date(entry.created_at).toLocaleString(),
       entry.invited_at ? new Date(entry.invited_at).toLocaleString() : '',

@@ -34,7 +34,7 @@ async function refreshSession(): Promise<{ expiresAt: number }> {
 
   const data = await response.json()
   return {
-    expiresAt: data.expiresAt || Date.now() + 15 * 60 * 1000, // Default 15 minutes
+    expiresAt: data.expiresAt || Date.now() + 4 * 60 * 60 * 1000, // Default 4 hours
   }
 }
 
@@ -224,8 +224,8 @@ export function useAdminSession(options?: {
       return
     }
 
-    // Start with a 15-minute session (will be updated by actual data)
-    const expiresAt = Date.now() + 15 * 60 * 1000
+    // Start with a 4-hour session (will be updated by actual data)
+    const expiresAt = Date.now() + 4 * 60 * 60 * 1000
     const initialSession: SessionInfo = {
       expiresAt,
       refreshAt: expiresAt - warningThreshold * 60 * 1000,

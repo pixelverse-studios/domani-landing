@@ -128,14 +128,15 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Insert new waitlist entry
+    // Insert new waitlist entry with 'confirmed' status by default
     const { error } = await supabaseAdmin
       .from('waitlist')
       .insert({
         email: normalizedEmail,
         name: normalizedName,
-        source: 'website',
-        confirmed: false,
+        referral_type: 'website',
+        status: 'confirmed', // Set status to 'confirmed' by default
+        confirmed: true, // Keep for backwards compatibility until column is removed
         created_at: new Date().toISOString(),
         metadata: {
           ip: ip === 'unknown' ? null : ip,

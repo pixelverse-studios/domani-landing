@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -59,7 +59,7 @@ export function DataTable<TData, TValue>({
   serverSidePagination = false,
   totalRows = 0,
   currentPage = 1,
-  pageSize = 10,
+  pageSize = 500,
   totalPages = 1,
   onPageChange,
   onPageSizeChange,
@@ -69,6 +69,10 @@ export function DataTable<TData, TValue>({
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = useState({})
   const [globalFilter, setGlobalFilter] = useState('')
+  const [internalPageSize, setInternalPageSize] = useState(500)
+
+  // Determine if we should paginate - only if we have more than 500 records
+  const shouldPaginate = data.length > 500
 
   const table = useReactTable({
     data,
@@ -106,7 +110,7 @@ export function DataTable<TData, TValue>({
         ]
       : columns,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: serverSidePagination ? undefined : getPaginationRowModel(),
+    getPaginationRowModel: (shouldPaginate || serverSidePagination) ? getPaginationRowModel() : undefined,
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: serverSidePagination ? undefined : getFilteredRowModel(),
     manualPagination: serverSidePagination,
@@ -115,16 +119,14 @@ export function DataTable<TData, TValue>({
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     onColumnVisibilityChange: setColumnVisibility,
-    onRowSelectionChange: (updater) => {
-      setRowSelection(updater)
-      if (onRowSelectionChange) {
-        typeof updater === 'function' ? updater(rowSelection) : updater
-        const selectedRows = table.getFilteredSelectedRowModel().rows
-        onRowSelectionChange(selectedRows)
-      }
-    },
+    onRowSelectionChange: setRowSelection,
     onGlobalFilterChange: setGlobalFilter,
     globalFilterFn: 'includesString',
+    initialState: {
+      pagination: {
+        pageSize: 10000, // Set a very high page size to show all records
+      },
+    },
     state: {
       sorting,
       columnFilters,
@@ -137,8 +139,23 @@ export function DataTable<TData, TValue>({
           pageSize: pageSize,
         },
       }),
+      ...(shouldPaginate && !serverSidePagination && {
+        pagination: {
+          pageIndex: 0,
+          pageSize: internalPageSize,
+        },
+      }),
     },
   })
+
+  // Handle row selection changes
+  useEffect(() => {
+    if (onRowSelectionChange && enableRowSelection) {
+      const selectedRows = table.getFilteredSelectedRowModel().rows
+      onRowSelectionChange(selectedRows)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rowSelection])
 
   return (
     <div className="space-y-4">
@@ -227,10 +244,10 @@ export function DataTable<TData, TValue>({
       )}
 
       {/* Table */}
-      <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
+      <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 overflow-hidden flex flex-col h-full">
+        <div className="overflow-auto flex-1">
+          <table className="w-full relative">
+            <thead className="sticky top-0 z-10">
               <tr className="border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50">
                 {table.getHeaderGroups().map((headerGroup) => (
                   headerGroup.headers.map((header) => (
@@ -306,31 +323,42 @@ export function DataTable<TData, TValue>({
         </div>
       </div>
 
-      {/* Pagination */}
+      {/* Pagination - Only show when needed */}
+      {(serverSidePagination || shouldPaginate) && (
       <div className="flex items-center justify-between px-2">
         <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-          <span>Showing</span>
-          <select
-            value={serverSidePagination ? pageSize : table.getState().pagination.pageSize}
-            onChange={(e) => {
-              const newPageSize = Number(e.target.value)
-              if (serverSidePagination && onPageSizeChange) {
-                onPageSizeChange(newPageSize)
-              } else {
-                table.setPageSize(newPageSize)
-              }
-            }}
-            className="h-8 w-20 rounded border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-          >
-            {[10, 20, 30, 40, 50].map((size) => (
-              <option key={size} value={size}>
-                {size}
-              </option>
-            ))}
-          </select>
-          <span>
-            of {serverSidePagination ? totalRows : table.getFilteredRowModel().rows.length} result(s)
-          </span>
+          {/* Only show page size selector when there are more than 500 records */}
+          {(serverSidePagination ? totalRows : table.getFilteredRowModel().rows.length) > 500 ? (
+            <>
+              <span>Showing</span>
+              <select
+                value={serverSidePagination ? pageSize : table.getState().pagination.pageSize}
+                onChange={(e) => {
+                  const newPageSize = Number(e.target.value)
+                  if (serverSidePagination && onPageSizeChange) {
+                    onPageSizeChange(newPageSize)
+                  } else {
+                    setInternalPageSize(newPageSize)
+                    table.setPageSize(newPageSize)
+                  }
+                }}
+                className="h-8 w-24 rounded border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+              >
+                {[500, 1000, 2000].map((size) => (
+                  <option key={size} value={size}>
+                    {size}
+                  </option>
+                ))}
+              </select>
+              <span>
+                of {serverSidePagination ? totalRows : table.getFilteredRowModel().rows.length} result(s)
+              </span>
+            </>
+          ) : (
+            <span>
+              Showing all {serverSidePagination ? totalRows : table.getFilteredRowModel().rows.length} result(s)
+            </span>
+          )}
         </div>
 
         <div className="flex items-center gap-1">
@@ -416,6 +444,7 @@ export function DataTable<TData, TValue>({
           )}
         </div>
       </div>
+      )}
     </div>
   )
 }

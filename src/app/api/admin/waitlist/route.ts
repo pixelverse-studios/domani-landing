@@ -27,7 +27,7 @@ async function handleGET(req: NextRequest) {
 
     // Add search filter
     if (search) {
-      query = query.or(`email.ilike.%${search}%,first_name.ilike.%${search}%`)
+      query = query.or(`email.ilike.%${search}%,name.ilike.%${search}%`)
     }
 
     // Add status filter
@@ -52,10 +52,10 @@ async function handleGET(req: NextRequest) {
 
     // Apply search filter to stats if present
     if (search) {
-      statsQuery.or(`email.ilike.%${search}%,first_name.ilike.%${search}%`)
+      statsQuery.or(`email.ilike.%${search}%,name.ilike.%${search}%`)
     }
 
-    const [pendingResult, invitedResult, registeredResult] = await Promise.all([
+    const [pendingResult, invitedResult, confirmedResult, registeredResult] = await Promise.all([
       supabase
         .from('waitlist')
         .select('*', { count: 'exact', head: true })
@@ -69,6 +69,11 @@ async function handleGET(req: NextRequest) {
       supabase
         .from('waitlist')
         .select('*', { count: 'exact', head: true })
+        .eq('status', 'confirmed')
+        .then(r => r.count || 0),
+      supabase
+        .from('waitlist')
+        .select('*', { count: 'exact', head: true })
         .eq('status', 'registered')
         .then(r => r.count || 0),
     ])
@@ -77,8 +82,8 @@ async function handleGET(req: NextRequest) {
     const transformedEntries = (entries || []).map(entry => ({
       id: entry.id,
       email: entry.email,
-      firstName: entry.first_name,
-      source: entry.source,
+      firstName: entry.name, // Using 'name' field from DB
+      referralType: entry.referral_type,
       referrer: entry.referrer,
       status: entry.status || 'pending',
       createdAt: entry.created_at,
@@ -95,6 +100,7 @@ async function handleGET(req: NextRequest) {
       stats: {
         pending: pendingResult,
         invited: invitedResult,
+        confirmed: confirmedResult,
         registered: registeredResult,
       },
     })

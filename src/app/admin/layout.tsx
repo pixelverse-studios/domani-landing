@@ -44,12 +44,12 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
 
   // Main admin layout with sidebar
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="h-screen bg-gray-50 dark:bg-gray-900 flex">
       <AdminSidebar />
 
       {/* Main content area - offset for sidebar */}
-      <div className="lg:pl-64">
-        <main className="min-h-screen">
+      <div className="lg:pl-64 flex-1 flex flex-col overflow-hidden">
+        <main className="flex-1 overflow-hidden">
           {children}
         </main>
       </div>
