@@ -1,5 +1,6 @@
 'use client'
 
+import { useCallback } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { AdminUserWithDetails } from '@/types/admin'
 import { toast } from 'sonner'
@@ -72,9 +73,9 @@ export function useAdminUser() {
       // Retry up to 3 times for other errors
       return failureCount < 3
     },
-    refetchOnMount: 'always',
-    refetchOnWindowFocus: true,
-    refetchOnReconnect: true,
+    refetchOnMount: true,  // Refetch if stale on mount
+    refetchOnWindowFocus: false,  // Don't refetch on every focus to prevent loops
+    refetchOnReconnect: true,  // Do refetch on reconnect
   })
 
   // Computed values
@@ -86,7 +87,8 @@ export function useAdminUser() {
   const canView = !!user // Any authenticated user can view
 
   // Helper functions
-  const hasRole = (requiredRole: string): boolean => {
+  // Use user?.role instead of user to reduce dependency changes
+  const hasRole = useCallback((requiredRole: string): boolean => {
     if (!user) return false
 
     const roleHierarchy: Record<string, number> = {
@@ -100,11 +102,13 @@ export function useAdminUser() {
     const requiredLevel = roleHierarchy[requiredRole] || 100
 
     return userLevel >= requiredLevel
-  }
+  }, [user?.role])
 
-  const hasPermission = (resource: string, action: string): boolean => {
+  const hasPermission = useCallback((resource: string, action: string): boolean => {
     if (!user) return false
-    if (isSuperAdmin) return true // Super admins have all permissions
+
+    // Check super admin first
+    if (user.role === 'super_admin') return true
 
     // Check user's permissions object
     if (user.permissions && user.permissions[resource]) {
@@ -137,7 +141,7 @@ export function useAdminUser() {
     if (!rolePerms) return false
 
     return rolePerms.resources.includes(resource) && rolePerms.actions.includes(action)
-  }
+  }, [user?.role, user?.permissions])
 
   // Force refresh user data
   const refreshUser = async () => {

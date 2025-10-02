@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyAdminToken } from '@/lib/admin/middleware';
 import { createClient } from '@/lib/supabase/server';
+import { createServiceRoleClient } from '@/lib/supabase/admin';
 import { createAdminAuditLog } from '@/lib/admin/audit';
 
 export async function GET(request: NextRequest) {
@@ -27,8 +28,10 @@ export async function GET(request: NextRequest) {
 
     const { adminId, sessionId, expiresAt } = sessionPayload;
 
-    // Get fresh user data from database
+    // Get fresh user data from database with user email
     const supabase = await createClient();
+
+    // First get the admin user data
     const { data: adminUser, error } = await supabase
       .from('admin_users')
       .select('id, user_id, role, permissions, is_active, created_at, last_login_at')
@@ -69,9 +72,35 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Return user data with session info
+    // Fetch the auth user email using service role client
+    let userData = null;
+    if (adminUser.user_id) {
+      try {
+        // Use service role client to bypass RLS and fetch from auth.users
+        const serviceClient = createServiceRoleClient();
+        const { data: authUserData, error: authError } = await serviceClient.auth.admin.getUserById(adminUser.user_id);
+
+        if (!authError && authUserData?.user) {
+          userData = {
+            email: authUserData.user.email,
+            created_at: authUserData.user.created_at,
+            last_sign_in_at: authUserData.user.last_sign_in,
+            user_metadata: authUserData.user.user_metadata
+          };
+        } else {
+          console.error('Error fetching user from auth.users:', authError);
+        }
+      } catch (e) {
+        console.error('Error fetching user email:', e);
+      }
+    }
+
+    // Return user data with email and session info
     return NextResponse.json({
-      user: adminUser,
+      user: {
+        ...adminUser,
+        user: userData
+      },
       session: {
         id: sessionId,
         expiresAt: expiresAt

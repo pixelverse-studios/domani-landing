@@ -16,7 +16,6 @@ import {
   LogOut,
   Menu,
   X,
-  ChevronDown,
   UserCircle,
   UserPlus,
   Mail,
@@ -43,10 +42,9 @@ const navigation: NavItem[] = [
 
 export function AdminSidebar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
   const pathname = usePathname()
   const router = useRouter()
-  const { user, logout } = useAdminAuth()
+  const { user, logout } = useAdminAuth({ requireAuth: false })
 
   const handleLogout = async () => {
     await logout()
@@ -136,58 +134,36 @@ export function AdminSidebar() {
           {/* User section */}
           {user && (
             <div className="border-t border-gray-200 dark:border-gray-700 p-4">
-              {/* User info dropdown */}
-              <div className="relative">
-                <button
-                  onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                  className="flex items-center justify-between w-full px-3 py-2 text-left rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors"
-                >
-                  <div className="flex items-center gap-3 min-w-0">
-                    <UserCircle className="h-8 w-8 text-gray-400 flex-shrink-0" />
-                    <div className="min-w-0 flex-1">
-                      <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
-                        {user.user?.email?.split('@')[0] || 'Admin'}
-                      </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
-                        {user.role}
-                      </p>
-                    </div>
-                  </div>
-                  <ChevronDown
-                    className={cn(
-                      'h-4 w-4 text-gray-400 transition-transform',
-                      isUserMenuOpen && 'rotate-180'
-                    )}
-                  />
-                </button>
-
-                {/* Dropdown menu */}
-                {isUserMenuOpen && (
-                  <div className="absolute bottom-full left-0 right-0 mb-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg overflow-hidden">
-                    <div className="px-3 py-2 border-b border-gray-200 dark:border-gray-700">
-                      <p className="text-xs text-gray-500 dark:text-gray-400">Signed in as</p>
-                      <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
-                        {user.user?.email || 'admin@domani.app'}
-                      </p>
-                    </div>
-                    <button
-                      onClick={handleLogout}
-                      className="flex items-center gap-2 w-full px-3 py-2 text-sm text-left text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/50"
-                    >
-                      <LogOut className="h-4 w-4" />
-                      Sign out
-                    </button>
-                  </div>
-                )}
+              <div className="flex items-center gap-3 px-3 py-2">
+                <UserCircle className="h-8 w-8 text-gray-400 flex-shrink-0" />
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
+                    {user.user?.email || 'Admin User'}
+                  </p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                    {user.role.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                  </p>
+                </div>
               </div>
             </div>
           )}
 
-          {/* Theme toggle */}
+          {/* Bottom controls */}
           <div className="border-t border-gray-200 dark:border-gray-700 p-4">
             <div className="flex items-center justify-between">
               <span className="text-sm text-gray-600 dark:text-gray-400">Theme</span>
-              <ThemeToggle />
+              <div className="flex items-center gap-2">
+                <ThemeToggle />
+                {user && (
+                  <button
+                    onClick={handleLogout}
+                    className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors group"
+                    title="Sign out"
+                  >
+                    <LogOut className="h-5 w-5 text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300" />
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         </div>

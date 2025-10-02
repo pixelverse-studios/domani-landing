@@ -82,20 +82,26 @@ export function useAdminAuth(options?: {
       if (requireAuth && !userHook.isAuthenticated) {
         const currentPath = window.location.pathname
         router.push(`${redirectOnUnauthenticated}?from=${encodeURIComponent(currentPath)}`)
+        return
       }
 
-      // Check role requirements
-      if (requiredRole && userHook.isAuthenticated && !userHook.hasRole(requiredRole)) {
-        router.push('/admin/unauthorized')
-      }
+      // For role and permission checks, we only check when explicitly required
+      // to avoid unnecessary calls to potentially changing functions
+      if (userHook.isAuthenticated) {
+        // Check role requirements
+        if (requiredRole && !userHook.hasRole(requiredRole)) {
+          router.push('/admin/unauthorized')
+          return
+        }
 
-      // Check permission requirements
-      if (
-        requiredPermission &&
-        userHook.isAuthenticated &&
-        !userHook.hasPermission(requiredPermission.resource, requiredPermission.action)
-      ) {
-        router.push('/admin/unauthorized')
+        // Check permission requirements
+        if (
+          requiredPermission &&
+          !userHook.hasPermission(requiredPermission.resource, requiredPermission.action)
+        ) {
+          router.push('/admin/unauthorized')
+          return
+        }
       }
     }
   }, [

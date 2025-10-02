@@ -238,7 +238,8 @@ export function useAdminSession(options?: {
     scheduleRefreshRef.current(initialSession)
     scheduleWarningRef.current(initialSession)
 
-    // Update time remaining every second
+    // Update time remaining every 10 seconds instead of every second to reduce re-renders
+    // Only update more frequently when near expiry (last 2 minutes)
     updateIntervalRef.current = setInterval(() => {
       setSessionInfo(prev => {
         if (!prev) return null
@@ -251,14 +252,23 @@ export function useAdminSession(options?: {
           return null
         }
 
+        // Only update if there's a meaningful change
+        const newIsNearExpiry = timeRemaining <= warningThreshold * 60 * 1000
+
+        // If state hasn't meaningfully changed and we're not near expiry, don't update
+        if (!newIsNearExpiry && prev.isNearExpiry === newIsNearExpiry) {
+          // Skip update if nothing important changed
+          return prev
+        }
+
         return {
           ...prev,
           timeRemaining,
-          isExpired: timeRemaining <= 0,
-          isNearExpiry: timeRemaining <= warningThreshold * 60 * 1000,
+          isExpired: false,
+          isNearExpiry: newIsNearExpiry,
         }
       })
-    }, 1000)
+    }, 10000) // Update every 10 seconds instead of every second
 
     return () => {
       if (refreshTimeoutRef.current) clearTimeout(refreshTimeoutRef.current)
