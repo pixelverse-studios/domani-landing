@@ -7,6 +7,8 @@ import { ThemeScript } from '@/components/ThemeScript'
 import QueryProvider from '@/providers/QueryProvider'
 import { Toaster } from 'sonner'
 import { AuthHandler } from '@/components/auth/AuthHandler'
+import { StructuredData } from '@/components/seo/StructuredData'
+import { mergeMetadata } from '@/lib/seo/metadata'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -21,15 +23,25 @@ const abrilFatface = Abril_Fatface({
   display: 'swap',
 })
 
-export const metadata: Metadata = {
-  metadataBase: new URL('https://domani.app'),
-  title: 'Domani - Plan Tomorrow Tonight, Wake Up Ready',
-  description: 'Transform your productivity with evening planning psychology. Add tomorrow\'s tasks when you\'re calm, execute when you\'re focused.',
-  keywords: 'productivity app, evening planning, task management, morning routine, productivity psychology',
-  authors: [{ name: 'Domani' }],
+export const metadata: Metadata = mergeMetadata({
+  title: {
+    default: 'Domani - Plan Tomorrow Tonight, Wake Up Ready to Execute',
+    template: '%s | Domani',
+  },
+  description: 'Transform chaotic mornings into focused execution. Plan tomorrow tonight when you\'re calm, wake up ready to execute. Free daily planner app.',
+  keywords: [
+    'daily planner app',
+    'evening planning app',
+    'morning routine app',
+    'task management',
+    'productivity app',
+    'time blocking app',
+    'decision fatigue',
+    'plan tomorrow tonight',
+  ],
   openGraph: {
-    title: 'Domani - Plan Tomorrow Tonight, Wake Up Ready',
-    description: 'Transform your productivity with evening planning psychology.',
+    title: 'Domani - Plan Tomorrow Tonight, Wake Up Ready to Execute',
+    description: 'Transform chaotic mornings into focused execution with evening planning psychology.',
     type: 'website',
     locale: 'en_US',
     url: 'https://domani.app',
@@ -43,11 +55,13 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
+    site: '@domaniapp',
+    creator: '@domaniapp',
     title: 'Domani - Plan Tomorrow Tonight',
-    description: 'Transform your productivity with evening planning psychology.',
+    description: 'Transform chaotic mornings into focused execution with evening planning.',
     images: ['/twitter-image.png'],
   },
-}
+})
 
 export const viewport = {
   width: 'device-width',
@@ -64,6 +78,11 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${abrilFatface.variable}`} suppressHydrationWarning>
       <head>
         <ThemeScript />
+        <StructuredData type="organization" />
+        <StructuredData type="website" />
+        <StructuredData type="software" />
+        {/* Google Search Console Verification - Replace with your actual verification code */}
+        <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE_HERE" />
       </head>
       <body className="font-sans antialiased bg-white dark:bg-dark-gradient-from text-foreground transition-colors overflow-x-hidden">
         <ThemeProvider>

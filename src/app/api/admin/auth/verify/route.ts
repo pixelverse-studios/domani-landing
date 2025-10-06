@@ -84,7 +84,7 @@ export async function GET(request: NextRequest) {
           userData = {
             email: authUserData.user.email,
             created_at: authUserData.user.created_at,
-            last_sign_in_at: authUserData.user.last_sign_in,
+            last_sign_in_at: authUserData.user.last_sign_in_at,
             user_metadata: authUserData.user.user_metadata
           };
         } else {

@@ -197,3 +197,6 @@ $RECYCLE.BIN/
 .directory
 .Trash-*
 .nfs*
+
+# Documentation - ignore specs folder
+docs/specs/
