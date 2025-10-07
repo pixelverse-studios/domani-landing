@@ -1,12 +1,12 @@
 import { Metadata } from 'next'
 import { aboutMetadata } from '@/lib/seo/metadata'
 import Header from '@/components/Header'
-import { AboutContent } from '@/components/about/AboutContent'
+import { AboutContent, type AboutValue } from '@/components/about/AboutContent'
 
 export const metadata: Metadata = aboutMetadata
 
 export default function AboutPage() {
-  const values = [
+  const values: AboutValue[] = [
     {
       icon: 'heart',
       title: 'Evening Over Morning',

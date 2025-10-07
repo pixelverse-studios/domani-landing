@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import { Heart, Target, Wallet, Zap } from 'lucide-react'
 import WaitlistInline from '@/components/WaitlistInline'
 
-type IconName = 'heart' | 'target' | 'zap' | 'wallet'
+export type IconName = 'heart' | 'target' | 'zap' | 'wallet'
 
 const ICONS: Record<IconName, typeof Heart> = {
   heart: Heart,
@@ -14,7 +14,7 @@ const ICONS: Record<IconName, typeof Heart> = {
   wallet: Wallet,
 }
 
-interface AboutValue {
+export interface AboutValue {
   icon: IconName
   title: string
   description: string

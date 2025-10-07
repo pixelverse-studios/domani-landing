@@ -51,7 +51,7 @@ export const baseMetadata: Metadata = {
 export const homepageMetadata: Metadata = {
   title: TITLE_TEMPLATES.homepage,
   description: META_TEMPLATES.homepage,
-  keywords: PAGE_KEYWORDS.homepage,
+  keywords: [...PAGE_KEYWORDS.homepage],
   openGraph: {
     type: 'website',
     locale: 'en_US',
@@ -87,7 +87,7 @@ export const homepageMetadata: Metadata = {
 export const pricingMetadata: Metadata = {
   title: TITLE_TEMPLATES.pricing,
   description: META_TEMPLATES.pricing,
-  keywords: PAGE_KEYWORDS.pricing,
+  keywords: [...PAGE_KEYWORDS.pricing],
   openGraph: {
     type: 'website',
     locale: 'en_US',
@@ -123,7 +123,7 @@ export const pricingMetadata: Metadata = {
 export const aboutMetadata: Metadata = {
   title: TITLE_TEMPLATES.about,
   description: META_TEMPLATES.about,
-  keywords: PAGE_KEYWORDS.about,
+  keywords: [...PAGE_KEYWORDS.about],
   openGraph: {
     type: 'website',
     locale: 'en_US',
@@ -159,7 +159,7 @@ export const aboutMetadata: Metadata = {
 export const faqMetadata: Metadata = {
   title: TITLE_TEMPLATES.faq,
   description: META_TEMPLATES.faq,
-  keywords: PAGE_KEYWORDS.faq,
+  keywords: [...PAGE_KEYWORDS.faq],
   openGraph: {
     type: 'website',
     locale: 'en_US',

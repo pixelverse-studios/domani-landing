@@ -158,7 +158,8 @@ export const TITLE_TEMPLATES = {
  * Get optimized keywords for a specific page
  */
 export function getPageKeywords(page: keyof typeof PAGE_KEYWORDS): string[] {
-  return PAGE_KEYWORDS[page] || []
+  const keywords = PAGE_KEYWORDS[page]
+  return keywords ? [...keywords] : []
 }
 
 /**

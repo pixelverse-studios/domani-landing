@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { Inter, Abril_Fatface } from 'next/font/google'
 import Script from 'next/script'
 import '@/styles/globals.css'
 import { ThemeProvider } from '@/components/ThemeProvider'
@@ -9,19 +8,6 @@ import { Toaster } from 'sonner'
 import { AuthHandler } from '@/components/auth/AuthHandler'
 import { StructuredData } from '@/components/seo/StructuredData'
 import { mergeMetadata } from '@/lib/seo/metadata'
-
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-  display: 'swap',
-})
-
-const abrilFatface = Abril_Fatface({
-  weight: '400',
-  subsets: ['latin'],
-  variable: '--font-abril',
-  display: 'swap',
-})
 
 export const metadata: Metadata = mergeMetadata({
   title: {
@@ -75,7 +61,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${abrilFatface.variable}`} suppressHydrationWarning>
+    <html lang="en" className="font-sans" suppressHydrationWarning>
       <head>
         <ThemeScript />
         <StructuredData type="organization" />

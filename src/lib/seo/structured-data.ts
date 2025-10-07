@@ -3,7 +3,7 @@
  * Optimized for search engine rich results and visibility
  */
 
-import { Organization, WebSite, SoftwareApplication, FAQPage } from 'schema-dts'
+import { Organization, WebSite, SoftwareApplication, FAQPage, SearchAction } from 'schema-dts'
 
 const SITE_URL = 'https://domani.app'
 const SITE_NAME = 'Domani'
@@ -25,7 +25,7 @@ export function createOrganizationSchema(): Organization {
       height: '512',
     },
     description: 'Transform chaotic mornings into focused execution with evening planning psychology. Plan tomorrow tonight, wake up ready to execute.',
-    foundedDate: '2024',
+    foundingDate: '2024',
     founders: [
       {
         '@type': 'Person',
@@ -51,20 +51,24 @@ export function createOrganizationSchema(): Organization {
  * Enables sitelinks search box in Google results
  */
 export function createWebsiteSchema(): WebSite {
+  type SearchActionWithQueryInput = SearchAction & { 'query-input': string }
+
+  const searchAction: SearchActionWithQueryInput = {
+    '@type': 'SearchAction',
+    target: {
+      '@type': 'EntryPoint',
+      urlTemplate: `${SITE_URL}/search?q={search_term_string}`,
+    },
+    'query-input': 'required name=search_term_string',
+  }
+
   return {
     '@type': 'WebSite',
     '@id': `${SITE_URL}#website`,
     name: SITE_NAME,
     url: SITE_URL,
     description: 'Evening planning app that transforms chaotic mornings into focused execution',
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate: `${SITE_URL}/search?q={search_term_string}`,
-      },
-      'query-input': 'required name=search_term_string',
-    },
+    potentialAction: searchAction,
   }
 }
 
@@ -134,7 +138,7 @@ export function stringifyJsonLd(data: Organization | WebSite | SoftwareApplicati
   return JSON.stringify(
     {
       '@context': 'https://schema.org',
-      ...data,
+      ...(data as unknown as Record<string, unknown>),
     },
     null,
     2
