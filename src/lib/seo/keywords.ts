@@ -138,7 +138,7 @@ export const PAGE_KEYWORDS = {
  */
 export const META_TEMPLATES = {
   homepage: 'Transform chaotic mornings into focused execution. Plan tomorrow tonight when you\'re calm, wake up ready to execute. Free daily planner app.',
-  pricing: 'Start free, upgrade when ready. Plans from $0 to $4.99/month. 80% cheaper than Sunsama. No credit card required.',
+  pricing: 'Start free, upgrade when ready. Plans from $0 to $3.99/month. 80% cheaper than Sunsama. No credit card required.',
   about: 'Discover why planning the night before reduces morning anxiety by 73%. The science behind evening planning psychology.',
   faq: 'Get answers about evening planning, morning routines, and productivity methods. Learn how to reduce decision fatigue and start focused.',
 } as const
