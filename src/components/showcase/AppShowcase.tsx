@@ -5,8 +5,8 @@ import Image from 'next/image'
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { cn } from '@/lib/utils'
+import domaniApp from '/public/Domani-app.png'
 import { scrollToEmailSignup } from '@/lib/scroll-utils'
-import todayMockup from '@/media/Today.png'
 import analyticsMockup from '@/media/Analytics.png'
 import { Calendar, BarChart3, Clock, Target, Brain, Sparkles } from 'lucide-react'
 
@@ -27,7 +27,7 @@ const screens: ScreenData[] = [
     id: 'today',
     title: 'Today View',
     subtitle: 'Your command center for focused execution',
-    image: todayMockup,
+    image: domaniApp,
     features: [
       {
         icon: <Target className="w-5 h-5" />,
