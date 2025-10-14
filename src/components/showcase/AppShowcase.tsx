@@ -100,8 +100,7 @@ export function AppShowcase() {
             See Domani in Action
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            Experience the interface that thousands use to transform their chaotic mornings into
-            productive powerhouses.
+            Experience the interface everyone is using to transform their chaotic mornings into productive powerhouses.
           </p>
         </motion.div>
 
