@@ -1,8 +1,17 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import WaitlistForm from './WaitlistForm'
+
+const PRIVACY_URL = process.env.NEXT_PUBLIC_PRIVACY_URL ?? '/privacy'
+const TERMS_URL = process.env.NEXT_PUBLIC_TERMS_URL ?? '/terms'
+
+const legalLinkProps = (url: string) =>
+  url.startsWith('http')
+    ? { target: '_blank', rel: 'noreferrer' as const }
+    : {}
 
 export default function WaitlistInline() {
   const [showModal, setShowModal] = useState(false)
@@ -10,6 +19,7 @@ export default function WaitlistInline() {
   const [isSuccess, setIsSuccess] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState('')
+  const hasLegalLinks = Boolean(PRIVACY_URL || TERMS_URL)
 
   const handleQuickSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -178,8 +188,35 @@ export default function WaitlistInline() {
         </form>
 
         {/* Privacy Note */}
-        <p className="text-center text-xs text-gray-500 dark:text-gray-400 mt-8">
-          No spam, ever. Unsubscribe anytime.{' '}
+        <p className="mt-8 flex flex-wrap items-center justify-center gap-x-1 gap-y-1 text-center text-xs text-gray-500 dark:text-gray-400">
+          <span>No spam, ever. Unsubscribe anytime.</span>
+          {hasLegalLinks ? (
+            <span>
+              Read our{' '}
+              {PRIVACY_URL && (
+                <Link
+                  href={PRIVACY_URL}
+                  className="underline hover:text-gray-700 dark:hover:text-gray-300"
+                  {...legalLinkProps(PRIVACY_URL)}
+                >
+                  Privacy Policy
+                </Link>
+              )}
+              {PRIVACY_URL && TERMS_URL && ' and '}
+              {TERMS_URL && (
+                <Link
+                  href={TERMS_URL}
+                  className="underline hover:text-gray-700 dark:hover:text-gray-300"
+                  {...legalLinkProps(TERMS_URL)}
+                >
+                  Terms of Service
+                </Link>
+              )}
+              .
+            </span>
+          ) : (
+            <span>Privacy details coming soon.</span>
+          )}
           <button
             type="button"
             onClick={() => setShowModal(true)}

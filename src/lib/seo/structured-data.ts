@@ -3,7 +3,8 @@
  * Optimized for search engine rich results and visibility
  */
 
-import { Organization, WebSite, SoftwareApplication, FAQPage, SearchAction } from 'schema-dts'
+import { Organization, WebSite, SoftwareApplication, FAQPage } from 'schema-dts'
+import { testimonials, averageRating } from '@/data/testimonials'
 
 const SITE_URL = 'https://domani.app'
 const SITE_NAME = 'Domani'
@@ -48,27 +49,15 @@ export function createOrganizationSchema(): Organization {
 
 /**
  * WebSite schema - Used in root layout
- * Enables sitelinks search box in Google results
+ * Basic site identity (search action removed until on-site search ships)
  */
 export function createWebsiteSchema(): WebSite {
-  type SearchActionWithQueryInput = SearchAction & { 'query-input': string }
-
-  const searchAction: SearchActionWithQueryInput = {
-    '@type': 'SearchAction',
-    target: {
-      '@type': 'EntryPoint',
-      urlTemplate: `${SITE_URL}/search?q={search_term_string}`,
-    },
-    'query-input': 'required name=search_term_string',
-  }
-
   return {
     '@type': 'WebSite',
     '@id': `${SITE_URL}#website`,
     name: SITE_NAME,
     url: SITE_URL,
     description: 'Evening planning app that transforms chaotic mornings into focused execution',
-    potentialAction: searchAction,
   }
 }
 
@@ -77,6 +66,28 @@ export function createWebsiteSchema(): WebSite {
  * Critical for app visibility in search results
  */
 export function createSoftwareApplicationSchema(): SoftwareApplication {
+  const reviewEntries = testimonials.map((testimonial) => ({
+    '@type': 'Review' as const,
+    author: {
+      '@type': 'Person' as const,
+      name: testimonial.name,
+      jobTitle: testimonial.role,
+      worksFor: {
+        '@type': 'Organization' as const,
+        name: testimonial.company,
+      },
+    },
+    datePublished: testimonial.date,
+    reviewBody: testimonial.quote,
+    name: `${testimonial.company} review`,
+    reviewRating: {
+      '@type': 'Rating' as const,
+      ratingValue: testimonial.rating.toFixed(1),
+      bestRating: '5',
+      worstRating: '1',
+    },
+  }))
+
   return {
     '@type': 'SoftwareApplication',
     '@id': `${SITE_URL}#softwareapplication`,
@@ -91,13 +102,6 @@ export function createSoftwareApplicationSchema(): SoftwareApplication {
       priceCurrency: 'USD',
       availability: 'https://schema.org/InStock',
     },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.8',
-      ratingCount: '1247',
-      bestRating: '5',
-      worstRating: '1',
-    },
     description: 'Plan tomorrow tonight when you\'re calm, wake up ready to execute. The evening planning app that reduces morning decision fatigue.',
     screenshot: `${SITE_URL}/images/app-screenshot.png`,
     featureList: [
@@ -108,6 +112,15 @@ export function createSoftwareApplicationSchema(): SoftwareApplication {
       'Progress Tracking',
       'Multi-device Sync',
     ],
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: averageRating.toFixed(2),
+      reviewCount: testimonials.length,
+      ratingCount: testimonials.length,
+      bestRating: '5',
+      worstRating: '1',
+    },
+    review: reviewEntries,
   }
 }
 

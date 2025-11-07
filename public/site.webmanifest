@@ -1,0 +1,25 @@
+{
+  "name": "Domani",
+  "short_name": "Domani",
+  "description": "Plan tomorrow tonight with Domani, the evening planning companion for calmer, more focused mornings.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0d0a1d",
+  "theme_color": "#512bd4",
+  "icons": [
+    {
+      "src": "/logo-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -14,6 +14,7 @@ const navLinks = [
   { href: '/about', label: 'About' },
   { href: '/pricing', label: 'Pricing' },
   { href: '/faq', label: 'FAQ' },
+  { href: '/blog', label: 'Blog' },
 ]
 
 interface NavLinkProps {

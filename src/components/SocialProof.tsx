@@ -1,33 +1,45 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 export default function SocialProof() {
   const [userCount, setUserCount] = useState<number | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [displayCount, setDisplayCount] = useState(0)
+  const hasRequested = useRef(false)
 
   // Fetch the actual user count from the API
   useEffect(() => {
+    if (hasRequested.current) {
+      return
+    }
+    hasRequested.current = true
+    let isActive = true
+
     const fetchUserCount = async () => {
       try {
         const response = await fetch('/api/users/count')
         const data = await response.json()
-        setUserCount(data.count)
+        if (!isActive) return
+        setUserCount(typeof data.count === 'number' ? data.count : 0)
       } catch (error) {
-        console.error(error)
+        if (!isActive) return
+        console.error('Failed to fetch waitlist count', error)
+        setUserCount((prev) => prev ?? 1200)
       } finally {
+        if (!isActive) return
         setIsLoading(false)
       }
     }
 
-    if (userCount == null && !isLoading) {
-      setIsLoading(true)
-      fetchUserCount()
-    }
+    setIsLoading(true)
+    fetchUserCount()
 
-  }, [userCount, isLoading])
+    return () => {
+      isActive = false
+    }
+  }, [])
 
   // Animate the count when it changes
   useEffect(() => {

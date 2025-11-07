@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import Script from 'next/script'
 import '@/styles/globals.css'
 import { ThemeProvider } from '@/components/ThemeProvider'
 import { ThemeScript } from '@/components/ThemeScript'
@@ -8,6 +7,9 @@ import { Toaster } from 'sonner'
 import { AuthHandler } from '@/components/auth/AuthHandler'
 import { StructuredData } from '@/components/seo/StructuredData'
 import { mergeMetadata } from '@/lib/seo/metadata'
+import Header from '@/components/Header'
+import { SiteBehaviourConsentGate } from '@/components/privacy/SiteBehaviourConsentGate'
+import { Footer } from '@/components/Footer'
 
 export const metadata: Metadata = mergeMetadata({
   title: {
@@ -67,16 +69,14 @@ export default function RootLayout({
         <StructuredData type="organization" />
         <StructuredData type="website" />
         <StructuredData type="software" />
-        {/* Google Search Console Verification - Replace with your actual verification code */}
-        <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE_HERE" />
       </head>
       <body className="font-sans antialiased bg-white dark:bg-dark-gradient-from text-foreground transition-colors overflow-x-hidden">
         <ThemeProvider>
           <QueryProvider>
             <AuthHandler />
-            <div className="min-h-screen overflow-x-clip">
-              {children}
-            </div>
+            <Header />
+            <div className="min-h-screen overflow-x-clip">{children}</div>
+            <Footer />
             <Toaster
               richColors
               position="top-right"
@@ -88,33 +88,8 @@ export default function RootLayout({
               }}
             />
           </QueryProvider>
+          <SiteBehaviourConsentGate />
         </ThemeProvider>
-
-        {/* SiteBehaviour Analytics */}
-        <Script
-          id="sitebehaviour-tracking"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  if(window.location && window.location.search && window.location.search.indexOf('capture-sitebehaviour-heatmap') !== -1) {
-                    sessionStorage.setItem('capture-sitebehaviour-heatmap', '_');
-                  }
-
-                  var sbSiteSecret = '59dd84d0-342e-4caa-b723-040c094d92fa';
-                  window.sitebehaviourTrackingSecret = sbSiteSecret;
-                  var scriptElement = document.createElement('script');
-                  scriptElement.defer = true;
-                  scriptElement.id = 'site-behaviour-script-v2';
-                  scriptElement.src = 'https://sitebehaviour-cdn.fra1.cdn.digitaloceanspaces.com/index.min.js?sitebehaviour-secret=' + sbSiteSecret;
-                  document.head.appendChild(scriptElement);
-                }
-                catch (e) {console.error(e)}
-              })()
-            `,
-          }}
-        />
       </body>
     </html>
   )

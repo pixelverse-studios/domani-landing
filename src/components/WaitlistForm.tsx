@@ -1,8 +1,17 @@
 'use client'
 
 import { useState, useCallback } from 'react'
+import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { validateEmail, validateName } from '@/utils/validation'
+
+const PRIVACY_URL = process.env.NEXT_PUBLIC_PRIVACY_URL ?? '/privacy'
+const TERMS_URL = process.env.NEXT_PUBLIC_TERMS_URL ?? '/terms'
+
+const legalLinkProps = (url: string) =>
+  url.startsWith('http')
+    ? { target: '_blank', rel: 'noreferrer' as const }
+    : {}
 
 interface WaitlistFormProps {
   variant?: 'modal' | 'inline'
@@ -18,6 +27,7 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
   const [errors, setErrors] = useState<{ email?: string; name?: string; general?: string }>({})
   const [touched, setTouched] = useState<{ email?: boolean; name?: boolean }>({})
   const [fieldStatus, setFieldStatus] = useState<{ email?: 'valid' | 'invalid'; name?: 'valid' | 'invalid' }>({})
+  const hasLegalLinks = Boolean(PRIVACY_URL || TERMS_URL)
 
   // Validate email on blur
   const validateEmailField = useCallback((value: string) => {
@@ -318,11 +328,35 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
               )}
             </button>
 
-            <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
+            <p className="text-center text-xs text-gray-500 dark:text-gray-400">
               By joining, you agree to our{' '}
-              <a href="/privacy" className="underline hover:text-gray-700 dark:hover:text-gray-200">
-                Privacy Policy
-              </a>
+              {hasLegalLinks ? (
+                <>
+                  {PRIVACY_URL && (
+                    <Link
+                      href={PRIVACY_URL}
+                      className="underline hover:text-gray-700 dark:hover:text-gray-200"
+                      {...legalLinkProps(PRIVACY_URL)}
+                    >
+                      Privacy Policy
+                    </Link>
+                  )}
+                  {PRIVACY_URL && TERMS_URL && ' and '}
+                  {TERMS_URL && (
+                    <Link
+                      href={TERMS_URL}
+                      className="underline hover:text-gray-700 dark:hover:text-gray-200"
+                      {...legalLinkProps(TERMS_URL)}
+                    >
+                      Terms of Service
+                    </Link>
+                  )}
+                </>
+              ) : (
+                <span className="font-medium text-gray-600 dark:text-gray-300">
+                  privacy commitments (publishing soon)
+                </span>
+              )}
               . Unsubscribe anytime.
             </p>
           </form>

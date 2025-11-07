@@ -63,6 +63,11 @@ export default function WelcomePage() {
             <Home className="w-4 h-4 mr-2" />
             Back to Home
           </Link>
+          <p className="text-xs text-gray-500 dark:text-gray-400">
+            By continuing you agree to our{' '}
+            <Link href="/terms" className="underline">Terms</Link> and{' '}
+            <Link href="/privacy" className="underline">Privacy Policy</Link>.
+          </p>
         </div>
       </div>
     </div>
