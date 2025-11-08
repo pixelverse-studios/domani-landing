@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import { pricingMetadata } from '@/lib/seo/metadata'
 import Header from '@/components/Header'
 import { PricingContent } from '@/components/pricing/PricingContent'
-import { TestimonialsSection } from '@/components/testimonials/TestimonialsSection'
+// import { TestimonialsSection } from '@/components/testimonials/TestimonialsSection'
 
 export const metadata: Metadata = pricingMetadata
 
@@ -81,11 +81,11 @@ export default function PricingPage() {
       <Header />
       <main className="min-h-screen bg-gradient-to-b from-purple-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 pt-24">
         <PricingContent plans={plans} faqs={faqs} />
-        <TestimonialsSection
+        {/* <TestimonialsSection
           background="transparent"
           heading="Proof it’s worth the upgrade"
           subtitle="Operators across product, revenue, and design teams rely on Domani’s evening planning ritual every night."
-        />
+        /> */}
       </main>
     </>
   )

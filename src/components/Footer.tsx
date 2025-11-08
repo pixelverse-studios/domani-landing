@@ -25,7 +25,7 @@ export function Footer({ className }: FooterProps) {
           <p className="font-semibold text-gray-900 dark:text-white">Domani</p>
           <p className="text-xs text-gray-500 dark:text-gray-400">Plan tomorrow tonight, wake up ready.</p>
           <p className="mt-2 text-xs">
-            Need help? <a href="mailto:info@pixelversestudios.io" className="underline hover:text-primary-600 dark:hover:text-primary-300">info@pixelversestudios.io</a>
+            Need help? <a href="mailto:support@domani-app.com" className="underline hover:text-primary-600 dark:hover:text-primary-300">support@domani-app.com</a>
           </p>
         </div>
         <nav className="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
@@ -35,7 +35,18 @@ export function Footer({ className }: FooterProps) {
             </Link>
           ))}
         </nav>
-        <p className="text-xs text-gray-500 dark:text-gray-500">&copy; {new Date().getFullYear()} Domani Labs. All rights reserved.</p>
+        <p className="text-xs text-gray-500 dark:text-gray-500">
+          &copy; {new Date().getFullYear()} Domani Labs. All rights reserved. Powered by{' '}
+          <a
+            href="https://www.pixelversestudios.io"
+            target="_blank"
+            rel="noreferrer"
+            className="underline hover:text-primary-600 dark:hover:text-primary-300"
+          >
+            PixelVerse Studios
+          </a>
+          .
+        </p>
       </div>
     </footer>
   )

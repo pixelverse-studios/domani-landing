@@ -68,7 +68,7 @@ export function FAQContent({ faqs }: FAQContentProps) {
             Can&apos;t find the answer you&apos;re looking for? Reach out to our support team.
           </p>
           <motion.a
-            href="mailto:info@pixelversestudios.io"
+            href="mailto:support@domani-app.com"
             whileHover={{ scale: 1.03, boxShadow: '0 20px 45px -20px rgba(99,102,241,0.6)' }}
             whileTap={{ scale: 0.97 }}
             className="inline-flex items-center justify-center bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition-shadow"

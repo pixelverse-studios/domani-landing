@@ -35,7 +35,7 @@ export function createOrganizationSchema(): Organization {
     ],
     contactPoint: {
       '@type': 'ContactPoint',
-      email: 'support@domani.app',
+      email: 'support@domani-app.com',
       contactType: 'customer support',
       availableLanguage: 'English',
     },

@@ -180,7 +180,7 @@ Sitemap: https://domani.app/sitemap.xml
   ],
   "contactPoint": {
     "@type": "ContactPoint",
-    "email": "support@domani.app",
+    "email": "support@domani-app.com",
     "contactType": "Customer Support"
   }
 }
@@ -1073,7 +1073,7 @@ Domani has been featured in:
 ```html
 <footer>
   <div class="contact">
-    <p>Email: support@domani.app</p>
+    <p>Email: support@domani-app.com</p>
     <p>Address: [Full business address]</p>
     <p>Phone: [Support phone number]</p>
   </div>
@@ -1768,7 +1768,7 @@ export function OrganizationSchema() {
     ],
     "contactPoint": {
       "@type": "ContactPoint",
-      "email": "support@domani.app",
+      "email": "support@domani-app.com",
       "contactType": "Customer Support"
     }
   };

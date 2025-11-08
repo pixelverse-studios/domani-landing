@@ -13,7 +13,7 @@ const sections = [
       'Account basics: name, email, and authentication details so we can create and secure your workspace.',
       'Product analytics: button clicks, feature usage, and device information to improve the experience.',
       'Payment info: processed securely by Stripe when you upgrade to Premium or Lifetime plans.',
-      'Support context: messages sent to support@domani.app or in-app chat so we can resolve issues.',
+      'Support context: messages sent to support@domani-app.com or in-app chat so we can resolve issues.',
     ],
   },
   {
@@ -37,7 +37,7 @@ const sections = [
   {
     title: 'Your controls',
     items: [
-      'Export or delete your account anytime from settings or by emailing support@domani.app.',
+      'Export or delete your account anytime from settings or by emailing support@domani-app.com.',
       'Opt out of marketing messages directly in each email footer.',
       'Update consent for analytics/tracking via the SiteBehaviour banner in the footer.',
       'Residents covered by GDPR or CCPA can request access, correction, or erasure at any time.',
@@ -83,7 +83,7 @@ export default function PrivacyPage() {
         <div className="mt-12 rounded-3xl bg-gradient-to-r from-primary-600 to-evening-600 p-6 text-white shadow-xl">
           <h3 className="text-xl font-semibold">Need to talk to a human?</h3>
           <p className="mt-2 text-sm text-white/80">
-            Email <a href="mailto:info@pixelversestudios.io" className="underline">info@pixelversestudios.io</a> or{' '}
+            Email <a href="mailto:support@domani-app.com" className="underline">support@domani-app.com</a> or{' '}
             <Link href="/security" className="underline">learn about our security practices</Link>. We respond to privacy requests within 3 business days.
           </p>
         </div>

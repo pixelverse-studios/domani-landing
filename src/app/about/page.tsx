@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import { aboutMetadata } from '@/lib/seo/metadata'
 import Header from '@/components/Header'
 import { AboutContent, type AboutValue } from '@/components/about/AboutContent'
-import { TestimonialsSection } from '@/components/testimonials/TestimonialsSection'
+// import { TestimonialsSection } from '@/components/testimonials/TestimonialsSection'
 
 export const metadata: Metadata = aboutMetadata
 
@@ -39,11 +39,11 @@ export default function AboutPage() {
       <Header />
       <main className="min-h-screen bg-gradient-to-b from-purple-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 pt-24">
         <AboutContent values={values} />
-        <TestimonialsSection
+        {/* <TestimonialsSection
           background="transparent"
           heading="Early adopters betting on calm mornings"
           subtitle="Operators across design, product, and revenue share how Domani keeps their teams focused."
-        />
+        /> */}
       </main>
     </>
   )

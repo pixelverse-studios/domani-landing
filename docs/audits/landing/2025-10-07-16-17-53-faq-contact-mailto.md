@@ -1,7 +1,7 @@
 # Audit Log - Landing Page - 2025-10-07 16:17:53
 
 ## Prompt Summary
-Updated FAQ contact CTA to open an email draft to info@pixelversestudios.io.
+Updated FAQ contact CTA to open an email draft to support@domani-app.com.
 
 ## Actions Taken
 1. Swapped the FAQ CTA motion button for an anchor with `mailto:` while preserving hover/tap animations.

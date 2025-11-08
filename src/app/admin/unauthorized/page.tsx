@@ -74,7 +74,7 @@ export default function UnauthorizedPage() {
           <p className="text-sm text-gray-500 dark:text-gray-400">
             If you believe this is an error, please{' '}
             <a
-              href="mailto:support@domani.app"
+              href="mailto:support@domani-app.com"
               className="font-medium text-purple-600 dark:text-purple-400 hover:text-purple-500"
             >
               contact support

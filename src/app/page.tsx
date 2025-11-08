@@ -4,7 +4,6 @@ import { BenefitsSection } from '@/components/benefits/BenefitsSection'
 import { AppShowcase } from '@/components/showcase/AppShowcase'
 import { HomePageClient } from '@/components/home/HomePageClient'
 import Analytics from '@/components/Analytics'
-import { TestimonialsSection } from '@/components/testimonials/TestimonialsSection'
 
 function LandingFallback() {
   return (
@@ -15,7 +14,7 @@ function LandingFallback() {
           <HeroSection />
           <BenefitsSection />
           <AppShowcase />
-          <TestimonialsSection />
+          {/* Testimonials temporarily disabled until real quotes are ready */}
         </div>
       </main>
     </>
@@ -29,7 +28,7 @@ export default function HomePage() {
         <HeroSection />
         <BenefitsSection />
         <AppShowcase />
-        <TestimonialsSection />
+        {/* Testimonials temporarily disabled until real quotes are ready */}
       </HomePageClient>
     </Suspense>
   )

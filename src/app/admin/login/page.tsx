@@ -278,7 +278,7 @@ function AdminLoginForm() {
               <p className="text-sm text-gray-600 dark:text-gray-400">
                 Having trouble signing in?{' '}
                 <a
-                  href="mailto:support@domani.app"
+                  href="mailto:support@domani-app.com"
                   className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium"
                 >
                   Contact support

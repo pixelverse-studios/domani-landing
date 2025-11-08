@@ -37,7 +37,7 @@ export interface EmailTemplate {
 // Default configuration
 export const emailConfig = {
   from: process.env.RESEND_FROM_EMAIL || 'noreply@domani.app',
-  replyTo: process.env.RESEND_REPLY_TO || 'support@domani.app',
+  replyTo: process.env.RESEND_REPLY_TO || 'support@domani-app.com',
   defaultTags: [
     { name: 'environment', value: process.env.NODE_ENV },
     { name: 'app', value: 'domani-landing' }
@@ -950,7 +950,7 @@ export class EmailServiceFactory {
 # Resend Configuration
 RESEND_API_KEY=re_123456789
 RESEND_FROM_EMAIL=noreply@domani.app
-RESEND_REPLY_TO=support@domani.app
+RESEND_REPLY_TO=support@domani-app.com
 RESEND_WEBHOOK_SECRET=whsec_123456789
 
 # Supabase Configuration
