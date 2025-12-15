@@ -4,7 +4,7 @@ import Image, { StaticImageData } from 'next/image'
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Calendar, BarChart3, Clock, Target, Brain, Sparkles, type LucideIcon } from 'lucide-react'
-import domaniApp from '/public/Domani-app.png'
+import domaniApp from '@/media/Domani-app.png'
 import analyticsMockup from '@/media/Analytics.png'
 import { cn } from '@/lib/utils'
 
