@@ -39,7 +39,7 @@ export default function PricingPage() {
       'All future updates',
       'Priority support',
     ],
-    cta: 'Start Free Trial',
+    cta: 'Start 14-Day Free Trial',
   }
 
   const faqs = [

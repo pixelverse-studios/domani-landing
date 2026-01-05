@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { Check, Sparkles } from 'lucide-react'
+import DownloadButtons from '@/components/DownloadButtons'
 
 interface PricingPlan {
   name: string
@@ -146,15 +147,13 @@ export function PricingContent({ plan, faqs }: PricingContentProps) {
             ))}
           </motion.ul>
 
-          {/* CTA Button - Hidden for now since app isn't live */}
-          {/* <motion.button
-            variants={fadeInUp}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="w-full py-4 px-6 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-shadow"
-          >
-            {plan.cta}
-          </motion.button> */}
+          {/* Download CTAs */}
+          <motion.div variants={fadeInUp}>
+            <DownloadButtons showSubtext={false} />
+            <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-3">
+              Download free, then unlock lifetime access
+            </p>
+          </motion.div>
         </motion.div>
       </motion.div>
 
