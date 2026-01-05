@@ -91,7 +91,7 @@ export default function HeroSection({
               <div className="relative overflow-hidden rounded-3xl bg-white shadow-[0_4px_8px_rgba(0,0,0,0.12),0_8px_24px_rgba(0,0,0,0.08),0_16px_48px_rgba(0,0,0,0.04)] transition-shadow duration-300 hover:shadow-[0_8px_16px_rgba(0,0,0,0.15),0_16px_32px_rgba(0,0,0,0.1),0_24px_56px_rgba(0,0,0,0.05)] dark:bg-gray-900 dark:shadow-[0_4px_8px_rgba(0,0,0,0.3),0_8px_24px_rgba(0,0,0,0.25),0_16px_48px_rgba(0,0,0,0.15)] dark:hover:shadow-[0_8px_16px_rgba(0,0,0,0.35),0_16px_32px_rgba(0,0,0,0.3),0_24px_56px_rgba(0,0,0,0.2)]">
                 {/* Phone status bar */}
                 <div className="flex items-center justify-between border-b border-gray-100 bg-gray-50 px-6 py-2 text-xs text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300">
-                  <span>8:00 PM</span>
+                  <span>9:00 PM</span>
                   <div className="flex gap-1">
                     <div className="h-2 w-4 rounded-sm bg-gray-400 dark:bg-gray-500" />
                     <div className="h-2 w-4 rounded-sm bg-gray-400 dark:bg-gray-500" />
