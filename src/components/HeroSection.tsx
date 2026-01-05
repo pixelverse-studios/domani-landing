@@ -124,9 +124,9 @@ export default function HeroSection({
                     <div className="flex items-center justify-between">
                       <div>
                         <p className="text-xs text-gray-500 dark:text-gray-400">Tasks Planned</p>
-                        <p className="text-2xl font-bold text-gray-900 dark:text-white">3</p>
+                        <p className="text-2xl font-bold text-gray-900 dark:text-white">4</p>
                       </div>
-                      <div className="flex gap-2">
+                      <div className="flex flex-wrap gap-2">
                         <div className="flex items-center gap-1 rounded-full bg-yellow-50 px-2 py-1 dark:bg-yellow-900/30">
                           <svg className="h-3 w-3 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
@@ -145,6 +145,12 @@ export default function HeroSection({
                           </svg>
                           <span className="text-xs font-medium text-blue-700 dark:text-blue-300">1</span>
                         </div>
+                        <div className="flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 dark:bg-green-900/30">
+                          <svg className="h-3 w-3 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z" />
+                          </svg>
+                          <span className="text-xs font-medium text-green-700 dark:text-green-300">1</span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -155,7 +161,7 @@ export default function HeroSection({
                   </button>
 
                   {/* Planned Tasks section header */}
-                  <p className="mb-3 text-sm font-medium text-gray-500 dark:text-gray-400">Planned Tasks (3)</p>
+                  <p className="mb-3 text-sm font-medium text-gray-500 dark:text-gray-400">Planned Tasks (4)</p>
 
                   {/* Task cards */}
                   <div className="space-y-3">
@@ -263,6 +269,41 @@ export default function HeroSection({
                         </div>
                       </div>
                     </div>
+
+                    {/* Task 4: Low priority, Education */}
+                    <div className="overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                      <div className="flex">
+                        <div className="w-1 bg-green-500" />
+                        <div className="flex flex-1 items-start justify-between p-3">
+                          <div className="flex-1">
+                            <p className="font-medium text-gray-900 dark:text-white">Read productivity book</p>
+                            <div className="mt-1.5 flex items-center gap-2">
+                              <span className="rounded bg-green-100 px-1.5 py-0.5 text-xs font-medium text-green-700 dark:bg-green-900/50 dark:text-green-300">
+                                Low
+                              </span>
+                            </div>
+                            <div className="mt-1.5 flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400">
+                              <svg className="h-3 w-3 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z" />
+                              </svg>
+                              <span>Education</span>
+                            </div>
+                          </div>
+                          <div className="flex gap-1">
+                            <button className="rounded p-1 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+                              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                              </svg>
+                            </button>
+                            <button className="rounded p-1 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+                              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -271,7 +312,7 @@ export default function HeroSection({
               <div className="absolute top-0 right-0 -translate-y-2 translate-x-2 rounded-xl bg-white p-3 shadow-lg dark:bg-gray-800">
                 <div className="flex items-center gap-2 text-sm">
                   <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/50">
-                    <span className="font-bold text-green-600 dark:text-green-400">3</span>
+                    <span className="font-bold text-green-600 dark:text-green-400">4</span>
                   </div>
                   <span className="font-medium text-gray-700 dark:text-gray-300">Tasks Set</span>
                 </div>
