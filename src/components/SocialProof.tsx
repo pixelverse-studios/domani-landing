@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from 'react'
 
 export default function SocialProof() {
   const [userCount, setUserCount] = useState<number | null>(null)
-  const [isLoading, setIsLoading] = useState(false)
   const [displayCount, setDisplayCount] = useState(0)
   const hasRequested = useRef(false)
 
@@ -26,14 +25,10 @@ export default function SocialProof() {
       } catch (error) {
         if (!isActive) return
         console.error('Failed to fetch waitlist count', error)
-        setUserCount((prev) => prev ?? 1200)
-      } finally {
-        if (!isActive) return
-        setIsLoading(false)
+        setUserCount(1200)
       }
     }
 
-    setIsLoading(true)
     fetchUserCount()
 
     return () => {
@@ -63,17 +58,6 @@ export default function SocialProof() {
 
     return () => clearInterval(timer)
   }, [userCount, displayCount])
-
-  if (isLoading) {
-    return (
-      <div className="inline-flex items-center gap-3 opacity-0">
-        <div className="flex items-baseline gap-2">
-          <span className="text-2xl font-bold">0</span>
-          <span className="text-sm">people planning smarter</span>
-        </div>
-      </div>
-    )
-  }
 
   return (
     <motion.div
