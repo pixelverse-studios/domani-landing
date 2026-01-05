@@ -1,6 +1,5 @@
 import dynamic from 'next/dynamic'
-import WaitlistInline from './WaitlistInline'
-import SocialProof from './SocialProof'
+import DownloadButtons from './DownloadButtons'
 import { SectionDivider } from '@/components/ui/SectionDivider'
 
 const HeroMotionLayer = dynamic(() => import('./hero/HeroMotionLayer').then((mod) => mod.HeroMotionLayer), {
@@ -19,7 +18,7 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({
-  subheadline = "Transform your productivity with evening planning psychology. Add tomorrow's tasks when you're calm, execute when you're focused.",
+  subheadline = "Make better decisions when you're calm, not rushed. Execute with clarity.",
 }: HeroSectionProps) {
   return (
     <section
@@ -39,9 +38,9 @@ export default function HeroSection({
           <div className="text-center lg:text-left">
             <span
               data-hero-motion
-              className="inline-block rounded-full bg-primary-100 px-4 py-2 text-sm font-semibold text-primary-700 dark:bg-primary-900/50 dark:text-primary-300"
+              className="inline-block rounded-full bg-green-100 px-4 py-2 text-sm font-semibold text-green-700 dark:bg-green-900/50 dark:text-green-300"
             >
-              ✨ Early Access Available
+              Public Beta Now Live
             </span>
 
             <h1
@@ -49,7 +48,7 @@ export default function HeroSection({
               data-hero-copy="headline"
               className="mt-6 text-4xl font-bold leading-tight text-gray-900 dark:text-white sm:text-5xl md:text-6xl"
             >
-              Plan Tomorrow Tonight, Wake Up Ready
+              Plan Tomorrow, Tonight
             </h1>
 
             <p data-hero-motion className="mt-6 text-lg text-gray-600 dark:text-gray-300 sm:text-xl lg:max-w-2xl">
@@ -57,7 +56,7 @@ export default function HeroSection({
             </p>
 
             <div data-hero-motion className="mt-8">
-              <WaitlistInline />
+              <DownloadButtons size="large" />
             </div>
 
             <div
@@ -68,24 +67,20 @@ export default function HeroSection({
                 <svg className="h-5 w-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                3 tasks daily forever
+                14-day free trial
               </span>
               <span className="flex items-center gap-2">
                 <svg className="h-5 w-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                No credit card required
+                Full premium access
               </span>
               <span className="flex items-center gap-2">
                 <svg className="h-5 w-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                Cancel anytime
+                One-time purchase
               </span>
-            </div>
-
-            <div data-hero-motion className="mt-8">
-              <SocialProof />
             </div>
           </div>
 
@@ -94,6 +89,7 @@ export default function HeroSection({
               <div className="absolute inset-0 rotate-6 scale-105 rounded-3xl bg-gradient-to-r from-primary-500 to-evening-500 opacity-10 blur-xl" />
 
               <div className="relative overflow-hidden rounded-3xl bg-white shadow-[0_4px_8px_rgba(0,0,0,0.12),0_8px_24px_rgba(0,0,0,0.08),0_16px_48px_rgba(0,0,0,0.04)] transition-shadow duration-300 hover:shadow-[0_8px_16px_rgba(0,0,0,0.15),0_16px_32px_rgba(0,0,0,0.1),0_24px_56px_rgba(0,0,0,0.05)] dark:bg-gray-900 dark:shadow-[0_4px_8px_rgba(0,0,0,0.3),0_8px_24px_rgba(0,0,0,0.25),0_16px_48px_rgba(0,0,0,0.15)] dark:hover:shadow-[0_8px_16px_rgba(0,0,0,0.35),0_16px_32px_rgba(0,0,0,0.3),0_24px_56px_rgba(0,0,0,0.2)]">
+                {/* Phone status bar */}
                 <div className="flex items-center justify-between border-b border-gray-100 bg-gray-50 px-6 py-2 text-xs text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300">
                   <span>8:00 PM</span>
                   <div className="flex gap-1">
@@ -103,61 +99,189 @@ export default function HeroSection({
                   </div>
                 </div>
 
-                <div className="min-h-[500px] bg-gradient-to-b from-primary-50 to-white p-6 dark:from-dark-elevated dark:to-dark-surface">
-                  <h3 className="mb-4 text-lg font-bold text-gray-900 dark:text-white">Tomorrow&apos;s Plan</h3>
-
-                  <div className="space-y-3">
-                    <div className="rounded-xl border border-gray-100 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-                      <div className="flex items-start gap-3">
-                        <div className="mt-0.5 h-5 w-5 rounded-full border-2 border-blue-500" />
-                        <div className="flex-1">
-                          <p className="font-medium text-gray-900 dark:text-white">Morning team standup</p>
-                          <span className="mt-1 inline-block rounded-full bg-blue-50 px-2 py-1 text-xs text-blue-600">💼 Work</span>
-                        </div>
-                        <span className="text-yellow-500">⭐</span>
-                      </div>
+                <div className="min-h-[500px] bg-gradient-to-b from-primary-50 to-white p-5 dark:from-dark-elevated dark:to-dark-surface">
+                  {/* Planning for header with toggle */}
+                  <div className="mb-4 flex items-center justify-between">
+                    <span className="text-sm text-gray-500 dark:text-gray-400">Planning for</span>
+                    <div className="flex rounded-full bg-gray-100 p-1 dark:bg-gray-800">
+                      <button className="rounded-full bg-primary-600 px-3 py-1 text-xs font-medium text-white">
+                        Tomorrow
+                      </button>
+                      <button className="rounded-full px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400">
+                        Today
+                      </button>
                     </div>
+                  </div>
 
-                    <div className="rounded-xl border border-gray-100 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-                      <div className="flex items-start gap-3">
-                        <div className="mt-0.5 h-5 w-5 rounded-full border-2 border-green-500" />
-                        <div className="flex-1">
-                          <p className="font-medium text-gray-900 dark:text-white">30 min morning run</p>
-                          <span className="mt-1 inline-block rounded-full bg-red-50 px-2 py-1 text-xs text-red-600">❤️ Health</span>
-                        </div>
+                  {/* Title with date */}
+                  <div className="mb-4">
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">Tomorrow</h3>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">Tuesday, January 6th</p>
+                  </div>
+
+                  {/* Stats card */}
+                  <div className="mb-4 rounded-xl bg-white p-4 shadow-sm dark:bg-gray-800">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">Tasks Planned</p>
+                        <p className="text-2xl font-bold text-gray-900 dark:text-white">3</p>
                       </div>
-                    </div>
-
-                    <div className="rounded-xl border border-gray-100 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-                      <div className="flex items-start gap-3">
-                        <div className="mt-0.5 h-5 w-5 rounded-full border-2 border-purple-500" />
-                        <div className="flex-1">
-                          <p className="font-medium text-gray-900 dark:text-white">Grocery shopping</p>
-                          <span className="mt-1 inline-block rounded-full bg-green-50 px-2 py-1 text-xs text-green-600">🏠 Personal</span>
+                      <div className="flex gap-2">
+                        <div className="flex items-center gap-1 rounded-full bg-yellow-50 px-2 py-1 dark:bg-yellow-900/30">
+                          <svg className="h-3 w-3 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                          </svg>
+                          <span className="text-xs font-medium text-yellow-700 dark:text-yellow-300">1</span>
+                        </div>
+                        <div className="flex items-center gap-1 rounded-full bg-red-50 px-2 py-1 dark:bg-red-900/30">
+                          <svg className="h-3 w-3 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
+                          </svg>
+                          <span className="text-xs font-medium text-red-700 dark:text-red-300">1</span>
+                        </div>
+                        <div className="flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 dark:bg-blue-900/30">
+                          <svg className="h-3 w-3 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+                          </svg>
+                          <span className="text-xs font-medium text-blue-700 dark:text-blue-300">1</span>
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  <button className="mt-6 w-full rounded-xl bg-gradient-to-r from-primary-600 to-evening-600 py-3 font-semibold text-white shadow-lg">
-                    Lock Tonight&apos;s Plan
+                  {/* Add New Task button */}
+                  <button className="mb-4 w-full rounded-xl bg-gradient-to-r from-primary-600 to-evening-600 py-3 font-semibold text-white shadow-lg">
+                    + Add New Task
                   </button>
+
+                  {/* Planned Tasks section header */}
+                  <p className="mb-3 text-sm font-medium text-gray-500 dark:text-gray-400">Planned Tasks (3)</p>
+
+                  {/* Task cards */}
+                  <div className="space-y-3">
+                    {/* Task 1: High priority, Work */}
+                    <div className="overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                      <div className="flex">
+                        <div className="w-1 bg-red-500" />
+                        <div className="flex flex-1 items-start justify-between p-3">
+                          <div className="flex-1">
+                            <p className="font-medium text-gray-900 dark:text-white">Review quarterly report</p>
+                            <div className="mt-1.5 flex items-center gap-2">
+                              <span className="rounded bg-red-100 px-1.5 py-0.5 text-xs font-medium text-red-700 dark:bg-red-900/50 dark:text-red-300">
+                                High
+                              </span>
+                            </div>
+                            <div className="mt-1.5 flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400">
+                              <svg className="h-3 w-3 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                              </svg>
+                              <span>Work</span>
+                            </div>
+                          </div>
+                          <div className="flex gap-1">
+                            <button className="rounded p-1 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+                              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                              </svg>
+                            </button>
+                            <button className="rounded p-1 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+                              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Task 2: Medium priority, Health */}
+                    <div className="overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                      <div className="flex">
+                        <div className="w-1 bg-orange-500" />
+                        <div className="flex flex-1 items-start justify-between p-3">
+                          <div className="flex-1">
+                            <p className="font-medium text-gray-900 dark:text-white">Morning yoga session</p>
+                            <div className="mt-1.5 flex items-center gap-2">
+                              <span className="rounded bg-orange-100 px-1.5 py-0.5 text-xs font-medium text-orange-700 dark:bg-orange-900/50 dark:text-orange-300">
+                                Medium
+                              </span>
+                            </div>
+                            <div className="mt-1.5 flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400">
+                              <svg className="h-3 w-3 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
+                              </svg>
+                              <span>Health</span>
+                            </div>
+                          </div>
+                          <div className="flex gap-1">
+                            <button className="rounded p-1 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+                              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                              </svg>
+                            </button>
+                            <button className="rounded p-1 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+                              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Task 3: Medium priority, Personal */}
+                    <div className="overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                      <div className="flex">
+                        <div className="w-1 bg-orange-500" />
+                        <div className="flex flex-1 items-start justify-between p-3">
+                          <div className="flex-1">
+                            <p className="font-medium text-gray-900 dark:text-white">Call mom</p>
+                            <div className="mt-1.5 flex items-center gap-2">
+                              <span className="rounded bg-orange-100 px-1.5 py-0.5 text-xs font-medium text-orange-700 dark:bg-orange-900/50 dark:text-orange-300">
+                                Medium
+                              </span>
+                            </div>
+                            <div className="mt-1.5 flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400">
+                              <svg className="h-3 w-3 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+                              </svg>
+                              <span>Personal</span>
+                            </div>
+                          </div>
+                          <div className="flex gap-1">
+                            <button className="rounded p-1 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+                              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                              </svg>
+                            </button>
+                            <button className="rounded p-1 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+                              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
+              {/* Floating badge: Tasks Set */}
               <div className="absolute top-0 right-0 -translate-y-2 translate-x-2 rounded-xl bg-white p-3 shadow-lg dark:bg-gray-800">
                 <div className="flex items-center gap-2 text-sm">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-100">
-                    <span className="font-bold text-green-600">3</span>
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/50">
+                    <span className="font-bold text-green-600 dark:text-green-400">3</span>
                   </div>
                   <span className="font-medium text-gray-700 dark:text-gray-300">Tasks Set</span>
                 </div>
               </div>
 
+              {/* Floating badge: Streak */}
               <div className="absolute bottom-0 left-0 -translate-x-2 translate-y-2 rounded-xl bg-white p-3 shadow-lg dark:bg-gray-800">
                 <div className="flex items-center gap-2 text-sm">
-                  <span className="text-2xl">🔥</span>
-                  <span className="font-medium text-gray-700 dark:text-gray-300">7 Day Streak</span>
+                  <span className="text-2xl">7</span>
+                  <span className="font-medium text-gray-700 dark:text-gray-300">Day Streak</span>
                 </div>
               </div>
             </div>
