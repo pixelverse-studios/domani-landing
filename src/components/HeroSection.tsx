@@ -1,5 +1,4 @@
 import dynamic from 'next/dynamic'
-import SocialProof from './SocialProof'
 import DownloadButtons from './DownloadButtons'
 import { SectionDivider } from '@/components/ui/SectionDivider'
 
@@ -82,10 +81,6 @@ export default function HeroSection({
                 </svg>
                 One-time purchase
               </span>
-            </div>
-
-            <div data-hero-motion className="mt-8">
-              <SocialProof />
             </div>
           </div>
 
