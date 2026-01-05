@@ -37,7 +37,7 @@ export default function AboutPage() {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-gradient-to-b from-purple-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 pt-24">
+      <main className="min-h-screen pt-24">
         <AboutContent values={values} />
         {/* <TestimonialsSection
           background="transparent"
