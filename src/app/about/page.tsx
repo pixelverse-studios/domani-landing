@@ -28,9 +28,9 @@ export default function AboutPage() {
     },
     {
       icon: 'wallet',
-      title: 'Flexible Pricing, Zero Pressure',
+      title: 'Simple, Fair Pricing',
       description:
-        "Free forever for core planning, Premium when you're ready for more, and a lifetime option so you never have to subscribe.",
+        '14-day free trial with full access, then one simple lifetime price. No subscriptions, no hidden fees—pay once, own it forever.',
     },
   ]
 
