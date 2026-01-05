@@ -184,7 +184,7 @@ export function AboutContent({ values }: AboutContentProps) {
       <motion.section initial="hidden" animate="visible" variants={fadeInUp} className="max-w-2xl mx-auto text-center">
         <h2 className="text-3xl font-bold mb-4">Be First on the Waitlist</h2>
         <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
-          We&apos;re polishing the Domani experience. Drop your email to get launch updates and early access perks.
+          Domani is now in public beta. Drop your email to get updates and be first to know about new features.
         </p>
         <div className="max-w-xl mx-auto">
           <WaitlistInline />
