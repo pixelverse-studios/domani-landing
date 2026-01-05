@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react'
 
 export default function SocialProof() {
   const [userCount, setUserCount] = useState<number | null>(null)
-  const [displayCount, setDisplayCount] = useState(0)
+  const [displayCount, setDisplayCount] = useState<number | null>(null)
   const hasRequested = useRef(false)
 
   // Fetch the actual user count from the API
@@ -38,12 +38,16 @@ export default function SocialProof() {
 
   // Animate the count when it changes
   useEffect(() => {
-    if (userCount === null || userCount === displayCount) return
+    if (userCount === null) return
+
+    // If displayCount is null (first load), start animation from 0
+    const startFrom = displayCount ?? 0
+    if (userCount === startFrom && displayCount !== null) return
 
     const duration = 1500 // Animation duration in ms
     const steps = 60
     const stepDuration = duration / steps
-    const increment = (userCount - displayCount) / steps
+    const increment = (userCount - startFrom) / steps
 
     let currentStep = 0
     const timer = setInterval(() => {
@@ -52,7 +56,7 @@ export default function SocialProof() {
         setDisplayCount(userCount)
         clearInterval(timer)
       } else {
-        setDisplayCount(prev => Math.floor(prev + increment))
+        setDisplayCount(Math.floor(startFrom + increment * currentStep))
       }
     }, stepDuration)
 
@@ -75,7 +79,7 @@ export default function SocialProof() {
           transition={{ duration: 0.3 }}
           className="text-2xl font-bold bg-gradient-to-r from-primary-600 to-evening-600 dark:from-primary-500 dark:to-evening-500 bg-clip-text text-transparent"
         >
-          {displayCount.toLocaleString()}
+          {(displayCount ?? 0).toLocaleString()}
         </motion.span>
         <span className="text-sm text-gray-600 dark:text-gray-400">people planning smarter</span>
       </div>
