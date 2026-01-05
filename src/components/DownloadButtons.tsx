@@ -46,6 +46,8 @@ export default function DownloadButtons({
         {/* App Store Button */}
         <motion.a
           href={appStoreUrl}
+          target="_blank"
+          rel="noopener noreferrer"
           onClick={() => handleClick('ios')}
           {...(!iosAvailable && { 'aria-disabled': true })}
           whileHover={{ scale: 1.02 }}
@@ -71,6 +73,8 @@ export default function DownloadButtons({
         {/* Play Store Button */}
         <motion.a
           href={playStoreUrl}
+          target="_blank"
+          rel="noopener noreferrer"
           onClick={() => handleClick('android')}
           {...(!androidAvailable && { 'aria-disabled': true })}
           whileHover={{ scale: 1.02 }}
