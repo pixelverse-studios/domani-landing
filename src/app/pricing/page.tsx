@@ -2,77 +2,66 @@ import { Metadata } from 'next'
 import { pricingMetadata } from '@/lib/seo/metadata'
 import Header from '@/components/Header'
 import { PricingContent } from '@/components/pricing/PricingContent'
-// import { TestimonialsSection } from '@/components/testimonials/TestimonialsSection'
+import {
+  PRICING_CONFIG,
+  getCurrentPriceDisplay,
+  getGeneralPriceDisplay,
+  getCurrentPricingLabel,
+  getDiscountPercentage,
+  hasActiveDiscount,
+  getTrialDurationDisplay,
+} from '@/lib/config/pricing'
 
 export const metadata: Metadata = pricingMetadata
 
 export default function PricingPage() {
-  const plans = [
-    {
-      name: 'Free',
-      price: '$0',
-      period: 'forever',
-      description: 'Perfect for getting started with evening planning',
-      features: [
-        '3 tasks per day',
-        'Evening planning mode',
-        'Morning execution view',
-        '7-day history',
-        '4 basic categories',
-        'Mobile app access',
-      ],
-      cta: 'Start Free',
-      popular: false,
-    },
-    {
-      name: 'Premium',
-      price: '$3.99',
-      period: '/month',
-      description: 'For serious productivity enthusiasts',
-      features: [
-        'Everything in Free',
-        'Unlimited tasks',
-        'Custom categories',
-        'Multi-device sync',
-        'Push notifications',
-        'Advanced analytics',
-        'Priority support',
-        'Early access to new features',
-      ],
-      cta: 'Start 7-Day Trial',
-      popular: true,
-    },
-    {
-      name: 'Lifetime',
-      price: '$99',
-      period: 'one-time',
-      description: 'Pay once, use forever',
-      features: [
-        'All Premium features',
-        'Lifetime access',
-        'All future updates included',
-        'Early access to beta features',
-        'Lifetime support',
-        'Support indie development',
-      ],
-      cta: 'Buy Once, Use Forever',
-      popular: false,
-    },
-  ]
+  const trialDuration = getTrialDurationDisplay()
+  const discountPercent = getDiscountPercentage()
+
+  const plan = {
+    name: 'Lifetime',
+    currentPrice: getCurrentPriceDisplay(),
+    originalPrice: hasActiveDiscount() ? getGeneralPriceDisplay() : undefined,
+    discountLabel: hasActiveDiscount() ? getCurrentPricingLabel() : undefined,
+    discountPercent: hasActiveDiscount() ? discountPercent : undefined,
+    period: 'one-time payment',
+    description: 'Pay once, own forever. All features included.',
+    trialMessage: `Start with a ${trialDuration} free trial`,
+    features: [
+      'Unlimited tasks per day',
+      'Custom categories',
+      'Unlimited task history',
+      'Advanced analytics',
+      'Evening planning mode',
+      'Morning execution view',
+      'Push notifications',
+      'Multi-device sync',
+      'All future updates',
+      'Priority support',
+    ],
+    cta: 'Start Free Trial',
+  }
 
   const faqs = [
     {
-      question: 'Can I switch plans later?',
-      answer:
-        "Yes! You can upgrade or downgrade at any time. Changes take effect at the start of your next billing cycle.",
+      question: 'How does the free trial work?',
+      answer: `You get ${PRICING_CONFIG.trial.durationDays} days of full Premium access completely free. No credit card required to start. After the trial, you can purchase lifetime access or continue with limited features.`,
+    },
+    {
+      question: "What happens after my trial ends?",
+      answer: "After your trial, you can unlock lifetime access with a one-time purchase. If you choose not to purchase, you'll still have access to basic features with a 3-task daily limit.",
+    },
+    {
+      question: 'Is this really a one-time payment?',
+      answer: 'Yes! Pay once and use Domani forever. No subscriptions, no recurring fees. You also get all future updates included.',
     },
     {
       question: 'What payment methods do you accept?',
-      answer: 'We accept all major credit cards, PayPal, and Apple Pay.',
+      answer: 'We accept all major credit cards through the App Store and Google Play.',
     },
     {
-      question: 'Is there a free trial for Premium?',
-      answer: 'Yes! Premium includes a 7-day free trial. No credit card required to start.',
+      question: 'Can I get a refund?',
+      answer: 'Refunds are handled through your app store (Apple App Store or Google Play) according to their refund policies.',
     },
   ]
 
@@ -80,12 +69,7 @@ export default function PricingPage() {
     <>
       <Header />
       <main className="min-h-screen bg-gradient-to-b from-purple-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 pt-24">
-        <PricingContent plans={plans} faqs={faqs} />
-        {/* <TestimonialsSection
-          background="transparent"
-          heading="Proof it’s worth the upgrade"
-          subtitle="Operators across product, revenue, and design teams rely on Domani’s evening planning ritual every night."
-        /> */}
+        <PricingContent plan={plan} faqs={faqs} />
       </main>
     </>
   )
