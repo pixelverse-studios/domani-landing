@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic'
-import WaitlistInline from './WaitlistInline'
 import SocialProof from './SocialProof'
+import DownloadButtons from './DownloadButtons'
 import { SectionDivider } from '@/components/ui/SectionDivider'
 
 const HeroMotionLayer = dynamic(() => import('./hero/HeroMotionLayer').then((mod) => mod.HeroMotionLayer), {
@@ -19,7 +19,7 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({
-  subheadline = "Transform your productivity with evening planning psychology. Add tomorrow's tasks when you're calm, execute when you're focused.",
+  subheadline = "Make better decisions when you're calm, not rushed. Execute with clarity.",
 }: HeroSectionProps) {
   return (
     <section
@@ -39,9 +39,9 @@ export default function HeroSection({
           <div className="text-center lg:text-left">
             <span
               data-hero-motion
-              className="inline-block rounded-full bg-primary-100 px-4 py-2 text-sm font-semibold text-primary-700 dark:bg-primary-900/50 dark:text-primary-300"
+              className="inline-block rounded-full bg-green-100 px-4 py-2 text-sm font-semibold text-green-700 dark:bg-green-900/50 dark:text-green-300"
             >
-              ✨ Early Access Available
+              🚀 Public Beta Now Live
             </span>
 
             <h1
@@ -49,7 +49,7 @@ export default function HeroSection({
               data-hero-copy="headline"
               className="mt-6 text-4xl font-bold leading-tight text-gray-900 dark:text-white sm:text-5xl md:text-6xl"
             >
-              Plan Tomorrow Tonight, Wake Up Ready
+              Plan Tomorrow, Tonight
             </h1>
 
             <p data-hero-motion className="mt-6 text-lg text-gray-600 dark:text-gray-300 sm:text-xl lg:max-w-2xl">
@@ -57,7 +57,7 @@ export default function HeroSection({
             </p>
 
             <div data-hero-motion className="mt-8">
-              <WaitlistInline />
+              <DownloadButtons size="large" />
             </div>
 
             <div
@@ -68,7 +68,7 @@ export default function HeroSection({
                 <svg className="h-5 w-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                3 tasks daily forever
+                14-day free trial
               </span>
               <span className="flex items-center gap-2">
                 <svg className="h-5 w-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -80,7 +80,7 @@ export default function HeroSection({
                 <svg className="h-5 w-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                Cancel anytime
+                One-time purchase
               </span>
             </div>
 
