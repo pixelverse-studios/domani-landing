@@ -66,8 +66,11 @@ export default function SocialProof() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center gap-3">
-        <div className="h-6 w-32 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-md"></div>
+      <div className="inline-flex items-center gap-3 opacity-0">
+        <div className="flex items-baseline gap-2">
+          <span className="text-2xl font-bold">0</span>
+          <span className="text-sm">people planning smarter</span>
+        </div>
       </div>
     )
   }
@@ -81,7 +84,6 @@ export default function SocialProof() {
     >
       {/* Main text with number */}
       <div className="flex items-baseline gap-2">
-        <span className="text-sm text-gray-600 dark:text-gray-400">Join</span>
         <motion.span
           key={displayCount}
           initial={{ opacity: 0, y: -10 }}
@@ -91,7 +93,7 @@ export default function SocialProof() {
         >
           {displayCount.toLocaleString()}
         </motion.span>
-        <span className="text-sm text-gray-600 dark:text-gray-400">early adopters</span>
+        <span className="text-sm text-gray-600 dark:text-gray-400">people planning smarter</span>
       </div>
 
       {/* Live indicator */}

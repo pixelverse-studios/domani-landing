@@ -1,5 +1,6 @@
 import dynamic from 'next/dynamic'
 import DownloadButtons from './DownloadButtons'
+import SocialProof from './SocialProof'
 import { SectionDivider } from '@/components/ui/SectionDivider'
 
 const HeroMotionLayer = dynamic(() => import('./hero/HeroMotionLayer').then((mod) => mod.HeroMotionLayer), {
@@ -81,6 +82,10 @@ export default function HeroSection({
                 </svg>
                 One-time purchase
               </span>
+            </div>
+
+            <div data-hero-motion className="mt-8 flex justify-center lg:justify-start">
+              <SocialProof />
             </div>
           </div>
 
