@@ -7,6 +7,7 @@ import { Calendar, BarChart3, Clock, Target, Brain, Sparkles, type LucideIcon } 
 import domaniApp from '@/media/Domani-app.png'
 import analyticsMockup from '@/media/Analytics.png'
 import { cn } from '@/lib/utils'
+import DownloadButtons from '@/components/DownloadButtons'
 
 interface ScreenFeature {
   icon: LucideIcon
@@ -140,15 +141,9 @@ export function AppShowcase() {
                 })}
               </div>
 
-              <a
-                href="#inline-email"
-                className="mt-8 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-primary-600 to-evening-600 px-8 py-4 font-semibold text-white shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl"
-              >
-                Download Now
-                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </a>
+              <div className="mt-8">
+                <DownloadButtons />
+              </div>
             </div>
           </motion.article>
         </AnimatePresence>
