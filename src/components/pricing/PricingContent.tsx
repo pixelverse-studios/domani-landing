@@ -1,16 +1,19 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Check } from 'lucide-react'
+import { Check, Sparkles } from 'lucide-react'
 
 interface PricingPlan {
   name: string
-  price: string
-  period?: string
+  currentPrice: string
+  originalPrice?: string
+  discountLabel?: string
+  discountPercent?: number
+  period: string
   description: string
+  trialMessage: string
   features: string[]
   cta: string
-  popular?: boolean
 }
 
 interface PricingFaq {
@@ -19,7 +22,7 @@ interface PricingFaq {
 }
 
 interface PricingContentProps {
-  plans: PricingPlan[]
+  plan: PricingPlan
   faqs: PricingFaq[]
 }
 
@@ -43,81 +46,116 @@ const staggerContainer = {
   },
 }
 
-export function PricingContent({ plans, faqs }: PricingContentProps) {
+export function PricingContent({ plan, faqs }: PricingContentProps) {
   return (
     <div className="container mx-auto px-4 pt-8 pb-16">
       {/* Header */}
-      <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="text-center mb-16">
+      <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="text-center mb-12">
         <motion.h1
           variants={fadeInUp}
           className="text-4xl md:text-5xl font-bold mb-4 leading-tight"
         >
           <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-            Start Free, Upgrade When Ready
+            Simple, Transparent Pricing
           </span>
         </motion.h1>
         <motion.p
           variants={fadeInUp}
           className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
         >
-          No credit card required. Cancel anytime. 80% cheaper than Sunsama.
+          Try free for 14 days. Then unlock lifetime access with a single payment.
         </motion.p>
       </motion.div>
 
-      {/* Pricing Cards */}
+      {/* Single Pricing Card */}
       <motion.div
         initial="hidden"
         animate="visible"
         variants={staggerContainer}
-        className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-16"
+        className="max-w-lg mx-auto mb-16"
       >
-        {plans.map((plan, index) => (
-          <motion.div
-            key={plan.name}
-            variants={fadeInUp}
-            transition={{ duration: 0.5, delay: index * 0.08 }}
-            className={`relative bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 ${
-              plan.popular ? 'ring-2 ring-purple-500 md:scale-105' : ''
-            }`}
-          >
-            {plan.popular && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4 }}
-                className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-1 rounded-full text-sm font-semibold shadow-lg"
-              >
-                Most Popular
-              </motion.div>
-            )}
-
-            <motion.div variants={fadeInUp} className="text-center mb-6">
-              <h2 className="text-2xl font-bold mb-2">{plan.name}</h2>
-              <div className="mb-2">
-                <span className="text-4xl font-bold">{plan.price}</span>
-                {plan.period && (
-                  <span className="text-gray-500 dark:text-gray-400"> {plan.period}</span>
-                )}
-              </div>
-              <p className="text-gray-600 dark:text-gray-300">{plan.description}</p>
+        <motion.div
+          variants={fadeInUp}
+          className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 ring-2 ring-purple-500"
+        >
+          {/* Discount Badge */}
+          {plan.discountPercent && plan.discountPercent > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-1 rounded-full text-sm font-semibold shadow-lg flex items-center gap-1.5"
+            >
+              <Sparkles className="w-4 h-4" />
+              {plan.discountPercent}% Off
             </motion.div>
+          )}
 
-            <motion.ul variants={staggerContainer} className="space-y-3 mb-4 md:mb-6">
-              {plan.features.map((feature) => (
-                <motion.li
-                  key={feature}
-                  variants={fadeInUp}
-                  className="flex items-start gap-3"
-                >
-                  <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-700 dark:text-gray-300">{feature}</span>
-                </motion.li>
-              ))}
-            </motion.ul>
+          <motion.div variants={fadeInUp} className="text-center mb-8">
+            <h2 className="text-2xl font-bold mb-4">{plan.name}</h2>
 
-            {/* CTA temporarily hidden */}
+            {/* Price Display */}
+            <div className="mb-3">
+              {plan.originalPrice && (
+                <span className="text-2xl text-gray-400 line-through mr-3">
+                  {plan.originalPrice}
+                </span>
+              )}
+              <span className="text-5xl font-bold text-gray-900 dark:text-white">
+                {plan.currentPrice}
+              </span>
+            </div>
+
+            {/* Period and Discount Label */}
+            <div className="space-y-1">
+              <p className="text-gray-500 dark:text-gray-400">{plan.period}</p>
+              {plan.discountLabel && (
+                <p className="text-purple-600 dark:text-purple-400 font-medium">
+                  {plan.discountLabel}
+                </p>
+              )}
+            </div>
+
+            <p className="text-gray-600 dark:text-gray-300 mt-4">{plan.description}</p>
           </motion.div>
-        ))}
+
+          {/* Trial Message */}
+          <motion.div
+            variants={fadeInUp}
+            className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4 mb-6 text-center"
+          >
+            <p className="text-green-700 dark:text-green-300 font-medium">
+              {plan.trialMessage}
+            </p>
+            <p className="text-green-600 dark:text-green-400 text-sm mt-1">
+              No credit card required
+            </p>
+          </motion.div>
+
+          {/* Features */}
+          <motion.ul variants={staggerContainer} className="space-y-3 mb-8">
+            {plan.features.map((feature) => (
+              <motion.li
+                key={feature}
+                variants={fadeInUp}
+                className="flex items-start gap-3"
+              >
+                <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                <span className="text-gray-700 dark:text-gray-300">{feature}</span>
+              </motion.li>
+            ))}
+          </motion.ul>
+
+          {/* CTA Button - Hidden for now since app isn't live */}
+          {/* <motion.button
+            variants={fadeInUp}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="w-full py-4 px-6 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-shadow"
+          >
+            {plan.cta}
+          </motion.button> */}
+        </motion.div>
       </motion.div>
 
       {/* FAQ Section */}
@@ -145,7 +183,7 @@ export function PricingContent({ plans, faqs }: PricingContentProps) {
         className="text-center mt-16 text-gray-500 dark:text-gray-400"
       >
         <p className="text-sm">
-          All plans include SSL encryption, GDPR compliance, and data export
+          Secure payments through App Store & Google Play. SSL encryption. GDPR compliant.
         </p>
       </motion.div>
     </div>
