@@ -36,32 +36,28 @@ export default function SocialProof() {
     }
   }, [])
 
-  // Animate the count when it changes
+  // Animate the count when userCount changes
   useEffect(() => {
     if (userCount === null) return
-
-    // If displayCount is null (first load), start animation from 0
-    const startFrom = displayCount ?? 0
-    if (userCount === startFrom && displayCount !== null) return
 
     const duration = 1500 // Animation duration in ms
     const steps = 60
     const stepDuration = duration / steps
-    const increment = (userCount - startFrom) / steps
+    const increment = userCount / steps
 
     let currentStep = 0
     const timer = setInterval(() => {
       currentStep++
-      if (currentStep === steps) {
+      if (currentStep >= steps) {
         setDisplayCount(userCount)
         clearInterval(timer)
       } else {
-        setDisplayCount(Math.floor(startFrom + increment * currentStep))
+        setDisplayCount(Math.floor(increment * currentStep))
       }
     }, stepDuration)
 
     return () => clearInterval(timer)
-  }, [userCount, displayCount])
+  }, [userCount])
 
   return (
     <motion.div
