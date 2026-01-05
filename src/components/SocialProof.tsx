@@ -1,19 +1,14 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function SocialProof() {
   const [userCount, setUserCount] = useState<number | null>(null)
   const [displayCount, setDisplayCount] = useState<number | null>(null)
-  const hasRequested = useRef(false)
 
   // Fetch the actual user count from the API
   useEffect(() => {
-    if (hasRequested.current) {
-      return
-    }
-    hasRequested.current = true
     let isActive = true
 
     const fetchUserCount = async () => {
