@@ -3,7 +3,7 @@
 import { type ReactNode } from 'react'
 import { motion } from 'framer-motion'
 import { Heart, Target, Wallet, Zap } from 'lucide-react'
-import WaitlistInline from '@/components/WaitlistInline'
+import DownloadButtons from '@/components/DownloadButtons'
 
 export type IconName = 'heart' | 'target' | 'zap' | 'wallet'
 
@@ -182,13 +182,11 @@ export function AboutContent({ values }: AboutContentProps) {
       </motion.section>
 
       <motion.section initial="hidden" animate="visible" variants={fadeInUp} className="max-w-2xl mx-auto text-center">
-        <h2 className="text-3xl font-bold mb-4">Be First on the Waitlist</h2>
+        <h2 className="text-3xl font-bold mb-4">Ready to Transform Your Mornings?</h2>
         <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
-          Domani is now in public beta. Drop your email to get updates and be first to know about new features.
+          Download Domani and start planning tonight. Your future self will thank you.
         </p>
-        <div className="max-w-xl mx-auto">
-          <WaitlistInline />
-        </div>
+        <DownloadButtons size="large" />
       </motion.section>
     </div>
   )
