@@ -45,11 +45,11 @@ export default function PricingPage() {
   const faqs = [
     {
       question: 'How does the free trial work?',
-      answer: `You get ${PRICING_CONFIG.trial.durationDays} days of full Premium access completely free. No credit card required to start. After the trial, you can purchase lifetime access or continue with limited features.`,
+      answer: `You get ${PRICING_CONFIG.trial.durationDays} days of full access completely free. No credit card required to start. Try every feature and see if Domani is right for you.`,
     },
     {
       question: "What happens after my trial ends?",
-      answer: "After your trial, you can unlock lifetime access with a one-time purchase. If you choose not to purchase, you'll still have access to basic features with a 3-task daily limit.",
+      answer: "After your trial, you can unlock lifetime access with a simple one-time purchase. No subscriptions, no recurring fees—just pay once and own Domani forever.",
     },
     {
       question: 'Is this really a one-time payment?',

@@ -96,7 +96,7 @@ export default function FAQPage() {
         },
         {
           question: `What happens after my ${trialDays}-day trial?`,
-          answer: `After your trial ends, you can purchase lifetime access to continue using all premium features. If you choose not to purchase, you'll still have access to basic features with a 3-task daily limit. No credit card is required to start your trial.`,
+          answer: `After your trial ends, you can purchase lifetime access to continue using Domani. It's a simple one-time payment with no subscriptions. No credit card is required to start your trial.`,
         },
         {
           question: 'Can I get a refund?',
