@@ -1,20 +1,14 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function SocialProof() {
   const [userCount, setUserCount] = useState<number | null>(null)
-  const [isLoading, setIsLoading] = useState(false)
-  const [displayCount, setDisplayCount] = useState(0)
-  const hasRequested = useRef(false)
+  const [displayCount, setDisplayCount] = useState<number | null>(null)
 
   // Fetch the actual user count from the API
   useEffect(() => {
-    if (hasRequested.current) {
-      return
-    }
-    hasRequested.current = true
     let isActive = true
 
     const fetchUserCount = async () => {
@@ -26,14 +20,10 @@ export default function SocialProof() {
       } catch (error) {
         if (!isActive) return
         console.error('Failed to fetch waitlist count', error)
-        setUserCount((prev) => prev ?? 1200)
-      } finally {
-        if (!isActive) return
-        setIsLoading(false)
+        setUserCount(1200)
       }
     }
 
-    setIsLoading(true)
     fetchUserCount()
 
     return () => {
@@ -41,36 +31,28 @@ export default function SocialProof() {
     }
   }, [])
 
-  // Animate the count when it changes
+  // Animate the count when userCount changes
   useEffect(() => {
-    if (userCount === null || userCount === displayCount) return
+    if (userCount === null) return
 
     const duration = 1500 // Animation duration in ms
     const steps = 60
     const stepDuration = duration / steps
-    const increment = (userCount - displayCount) / steps
+    const increment = userCount / steps
 
     let currentStep = 0
     const timer = setInterval(() => {
       currentStep++
-      if (currentStep === steps) {
+      if (currentStep >= steps) {
         setDisplayCount(userCount)
         clearInterval(timer)
       } else {
-        setDisplayCount(prev => Math.floor(prev + increment))
+        setDisplayCount(Math.floor(increment * currentStep))
       }
     }, stepDuration)
 
     return () => clearInterval(timer)
-  }, [userCount, displayCount])
-
-  if (isLoading) {
-    return (
-      <div className="flex items-center gap-3">
-        <div className="h-6 w-32 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-md"></div>
-      </div>
-    )
-  }
+  }, [userCount])
 
   return (
     <motion.div
@@ -81,7 +63,6 @@ export default function SocialProof() {
     >
       {/* Main text with number */}
       <div className="flex items-baseline gap-2">
-        <span className="text-sm text-gray-600 dark:text-gray-400">Join</span>
         <motion.span
           key={displayCount}
           initial={{ opacity: 0, y: -10 }}
@@ -89,9 +70,9 @@ export default function SocialProof() {
           transition={{ duration: 0.3 }}
           className="text-2xl font-bold bg-gradient-to-r from-primary-600 to-evening-600 dark:from-primary-500 dark:to-evening-500 bg-clip-text text-transparent"
         >
-          {displayCount.toLocaleString()}
+          {(displayCount ?? 0).toLocaleString()}
         </motion.span>
-        <span className="text-sm text-gray-600 dark:text-gray-400">early adopters</span>
+        <span className="text-sm text-gray-600 dark:text-gray-400">people planning smarter</span>
       </div>
 
       {/* Live indicator */}
