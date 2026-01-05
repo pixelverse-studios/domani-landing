@@ -324,7 +324,7 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
                   Joining...
                 </span>
               ) : (
-                'Get Early Access'
+                'Join Waitlist'
               )}
             </button>
 
