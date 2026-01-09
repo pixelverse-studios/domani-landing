@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
-import { Lock, Moon, Sun } from 'lucide-react'
+import { Target, Moon, Sun } from 'lucide-react'
 import { SectionDivider } from '@/components/ui/SectionDivider'
 
 export function PlanLockSpotlight() {
@@ -51,7 +51,7 @@ export function PlanLockSpotlight() {
 
               {/* Main icon container */}
               <div className="relative flex h-32 w-32 items-center justify-center rounded-3xl bg-gradient-to-br from-evening-500 to-primary-600 shadow-2xl shadow-evening-500/30 sm:h-40 sm:w-40">
-                <Lock className="h-16 w-16 text-white sm:h-20 sm:w-20" />
+                <Target className="h-16 w-16 text-white sm:h-20 sm:w-20" />
               </div>
 
               {/* Time indicators */}
@@ -87,7 +87,7 @@ export function PlanLockSpotlight() {
               transition={{ duration: 0.5 }}
               className="mb-3 text-sm font-semibold uppercase tracking-widest text-evening-600 dark:text-evening-400"
             >
-              Plan Locking
+              Evening Commitment
             </motion.p>
 
             <motion.h2
@@ -110,8 +110,10 @@ export function PlanLockSpotlight() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="mb-6 text-lg text-gray-600 dark:text-gray-300"
             >
-              Lock your plan before bed and eliminate the 3am second-guessing. When morning arrives,
-              there&apos;s nothing to debate — just execute what you already decided when you were calm and clear-headed.
+              Planning the night before helps you start the day with clarity instead of hesitation.
+              When morning arrives, there&apos;s no need to second-guess or debate — you already know
+              what you intended to do. Domani supports execution by helping you trust the decisions
+              you made while calm and clear-headed.
             </motion.p>
 
             <motion.div
