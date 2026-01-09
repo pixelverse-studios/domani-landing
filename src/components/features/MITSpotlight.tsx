@@ -17,6 +17,7 @@ export function MITSpotlight() {
 
   return (
     <section
+      id="features"
       ref={sectionRef}
       className="relative overflow-clip bg-gradient-to-b from-white via-primary-50/30 to-white px-4 py-24 dark:from-dark-gradient-from dark:via-dark-elevated dark:to-dark-gradient-from sm:px-6 lg:px-8"
     >

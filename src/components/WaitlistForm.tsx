@@ -202,6 +202,34 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
               )}
               . Unsubscribe anytime.
             </p>
+
+            {/* Secondary CTA - Learn More (inline variant only) */}
+            {variant === 'inline' && (
+              <div className="text-center pt-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    const element = document.getElementById('features')
+                    if (element) {
+                      const offset = 80
+                      const elementRect = element.getBoundingClientRect()
+                      const absoluteElementTop = elementRect.top + window.scrollY
+                      const targetScrollPosition = Math.max(0, absoluteElementTop - offset)
+                      window.scrollTo({
+                        top: targetScrollPosition,
+                        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+                      })
+                    }
+                  }}
+                  className="inline-flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                >
+                  Learn more
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+              </div>
+            )}
           </form>
         </>
       ) : (
