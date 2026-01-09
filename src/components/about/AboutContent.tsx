@@ -178,7 +178,7 @@ export function AboutContent({ values }: AboutContentProps) {
             </p>
           </div>
           <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed">
-            Our &ldquo;Plan Lock&rdquo; feature prevents you from changing your plan after you&apos;ve set it.
+            Domani helps you trust the decisions you made while calm and clear-headed.
             No morning overthinking. No second-guessing. Just wake up and execute.
           </p>
         </>
