@@ -100,7 +100,7 @@ export default function DownloadButtons({
 
       {showSubtext && (
         <p className="mt-3 text-xs text-gray-500 dark:text-gray-400">
-          14-day free trial. Full premium access.
+          Public beta. Limited access.
         </p>
       )}
     </div>
