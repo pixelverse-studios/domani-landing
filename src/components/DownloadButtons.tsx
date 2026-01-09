@@ -43,7 +43,7 @@ export default function DownloadButtons({
   return (
     <div className={`flex flex-col items-start ${className}`}>
       <div className="flex flex-col sm:flex-row gap-3">
-        {/* App Store Button */}
+        {/* App Store / TestFlight Button - Apple TestFlight Blue */}
         <motion.a
           href={appStoreUrl}
           target="_blank"
@@ -54,8 +54,8 @@ export default function DownloadButtons({
           whileTap={{ scale: 0.98 }}
           className={`
             ${buttonHeight} px-5 flex items-center gap-3
-            bg-black text-white rounded-xl
-            hover:bg-gray-800 transition-colors duration-200
+            bg-[#0D96F6] text-white rounded-xl
+            hover:bg-[#0A7DD4] transition-colors duration-200
             shadow-lg hover:shadow-xl
           `}
           aria-label="Join Beta on TestFlight"
@@ -66,11 +66,11 @@ export default function DownloadButtons({
           </svg>
           <div className="flex flex-col items-start">
             <span className={`${textSize} font-semibold leading-none`}>Join Beta</span>
-            <span className={`${subtextSize} opacity-80 leading-tight`}>on TestFlight</span>
+            <span className={`${subtextSize} opacity-90 leading-tight`}>on TestFlight</span>
           </div>
         </motion.a>
 
-        {/* Play Store Button */}
+        {/* Play Store Button - Google Play Green */}
         <motion.a
           href={playStoreUrl}
           target="_blank"
@@ -81,19 +81,19 @@ export default function DownloadButtons({
           whileTap={{ scale: 0.98 }}
           className={`
             ${buttonHeight} px-5 flex items-center gap-3
-            bg-black text-white rounded-xl
-            hover:bg-gray-800 transition-colors duration-200
+            bg-[#01875F] text-white rounded-xl
+            hover:bg-[#016F4E] transition-colors duration-200
             shadow-lg hover:shadow-xl
           `}
-          aria-label="Join Beta on Google Play"
+          aria-label="Early Access on Google Play"
         >
           {/* Google Play Logo */}
           <svg className={iconSize} viewBox="0 0 24 24" fill="currentColor">
             <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.198l2.807 1.626a1 1 0 0 1 0 1.73l-2.808 1.626L15.206 12l2.492-2.491zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/>
           </svg>
           <div className="flex flex-col items-start">
-            <span className={`${textSize} font-semibold leading-none`}>Join Beta</span>
-            <span className={`${subtextSize} opacity-80 leading-tight`}>on Google Play</span>
+            <span className={`${textSize} font-semibold leading-none`}>Early Access</span>
+            <span className={`${subtextSize} opacity-90 leading-tight`}>on Google Play</span>
           </div>
         </motion.a>
       </div>
