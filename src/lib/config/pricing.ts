@@ -43,8 +43,8 @@ export interface PricingConfig {
 export const PRICING_CONFIG: PricingConfig = {
   lifetime: {
     generalPrice: 34.99,
-    earlyAdopterPrice: 19.99,
-    friendsFamilyPrice: 9.99,
+    earlyAdopterPrice: 9.99,
+    friendsFamilyPrice: 4.99,
     activeTier: 'early_adopter',
     currency: 'USD',
   },

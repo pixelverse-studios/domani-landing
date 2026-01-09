@@ -3,6 +3,14 @@ import { pricingMetadata } from '@/lib/seo/metadata'
 import Header from '@/components/Header'
 import { PricingContent } from '@/components/pricing/PricingContent'
 import {
+  Moon,
+  Smartphone,
+  BarChart3,
+  Target,
+  Brain,
+  RefreshCw,
+} from 'lucide-react'
+import {
   PRICING_CONFIG,
   getCurrentPriceDisplay,
   getGeneralPriceDisplay,
@@ -28,18 +36,71 @@ export default function PricingPage() {
     description: 'Pay once, own forever. All features included.',
     trialMessage: `Start with a ${trialDuration} free trial`,
     features: [
-      'Unlimited tasks per day',
-      'Custom categories',
-      'Unlimited task history',
-      'Advanced analytics',
       'Evening planning mode',
       'Morning execution view',
-      'Push notifications',
+      'Unlimited tasks',
+      'Advanced analytics',
       'Multi-device sync',
       'All future updates',
-      'Priority support',
     ],
-    cta: 'Start 14-Day Free Trial',
+    highlightFeatures: [
+      {
+        icon: <Moon className="w-6 h-6" />,
+        title: 'Evening Planning',
+        description: 'Plan your tomorrow when you\'re calm and reflective, not rushed and stressed.',
+      },
+      {
+        icon: <Target className="w-6 h-6" />,
+        title: 'Priority Focus',
+        description: 'Mark your most important task and always know what to tackle first.',
+      },
+      {
+        icon: <Brain className="w-6 h-6" />,
+        title: 'The 3-6 Rule',
+        description: 'Science-backed task limits keep you focused and prevent overwhelm.',
+      },
+      {
+        icon: <BarChart3 className="w-6 h-6" />,
+        title: 'Analytics Dashboard',
+        description: 'Track completion rates, build streaks, and see your productivity patterns.',
+      },
+      {
+        icon: <Smartphone className="w-6 h-6" />,
+        title: 'Multi-Device Sync',
+        description: 'Plan on your iPad, execute on your iPhone. Everything stays in sync.',
+      },
+      {
+        icon: <RefreshCw className="w-6 h-6" />,
+        title: 'Lifetime Updates',
+        description: 'All future features and improvements included. No additional payments.',
+      },
+    ],
+  }
+
+  const testimonials = [
+    {
+      name: 'Sarah M.',
+      role: 'Product Manager',
+      quote: 'I used to wake up anxious about my day. Now I wake up with clarity and purpose. Domani changed my mornings completely.',
+      rating: 5,
+    },
+    {
+      name: 'James K.',
+      role: 'Startup Founder',
+      quote: 'The evening planning concept is genius. I\'m more productive before 10am than I used to be all day.',
+      rating: 5,
+    },
+    {
+      name: 'Emily R.',
+      role: 'Freelance Designer',
+      quote: 'Simple, focused, and actually works. I\'ve tried dozens of task apps - this one finally stuck.',
+      rating: 5,
+    },
+  ]
+
+  const comparison = {
+    monthlyPrice: 4.99,
+    monthsToPayoff: 10,
   }
 
   const faqs = [
@@ -68,8 +129,8 @@ export default function PricingPage() {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-gradient-to-b from-purple-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 pt-24">
-        <PricingContent plan={plan} faqs={faqs} />
+      <main className="min-h-screen pt-24">
+        <PricingContent plan={plan} faqs={faqs} testimonials={testimonials} comparison={comparison} />
       </main>
     </>
   )
