@@ -146,30 +146,56 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
               )}
             </AnimatePresence>
 
-            {/* Submit Button - disabled until valid email */}
-            <button
-              type="submit"
-              disabled={!isValidEmail || isSubmitting}
-              className={`
-                w-full py-3 px-6 rounded-lg font-semibold transition-all duration-200 transform
-                ${!isValidEmail || isSubmitting
-                  ? 'bg-gray-300 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed'
-                  : 'bg-gradient-to-r from-primary-600 to-evening-600 hover:from-primary-700 hover:to-evening-700 hover:-translate-y-0.5 hover:shadow-lg text-white'
-                }
-              `}
-            >
-              {isSubmitting ? (
-                <span className="flex items-center justify-center gap-2">
-                  <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                  </svg>
-                  Joining...
-                </span>
-              ) : (
-                'Join Waitlist'
+            {/* Buttons Row */}
+            <div className={`flex gap-3 ${variant === 'inline' ? 'flex-row' : 'flex-col'}`}>
+              {/* Submit Button - disabled until valid email */}
+              <button
+                type="submit"
+                disabled={!isValidEmail || isSubmitting}
+                className={`
+                  flex-1 py-3 px-6 rounded-lg font-semibold transition-all duration-200 transform
+                  ${!isValidEmail || isSubmitting
+                    ? 'bg-gray-300 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed'
+                    : 'bg-gradient-to-r from-primary-600 to-evening-600 hover:from-primary-700 hover:to-evening-700 hover:-translate-y-0.5 hover:shadow-lg text-white'
+                  }
+                `}
+              >
+                {isSubmitting ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                    </svg>
+                    Joining...
+                  </span>
+                ) : (
+                  'Join Waitlist'
+                )}
+              </button>
+
+              {/* Secondary CTA - Learn More (inline variant only) */}
+              {variant === 'inline' && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    const element = document.getElementById('features')
+                    if (element) {
+                      const offset = 80
+                      const elementRect = element.getBoundingClientRect()
+                      const absoluteElementTop = elementRect.top + window.scrollY
+                      const targetScrollPosition = Math.max(0, absoluteElementTop - offset)
+                      window.scrollTo({
+                        top: targetScrollPosition,
+                        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+                      })
+                    }
+                  }}
+                  className="py-3 px-6 rounded-lg font-semibold border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-200"
+                >
+                  Learn More
+                </button>
               )}
-            </button>
+            </div>
 
             <p className="text-center text-xs text-gray-500 dark:text-gray-400">
               By joining, you agree to our{' '}
@@ -202,34 +228,6 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
               )}
               . Unsubscribe anytime.
             </p>
-
-            {/* Secondary CTA - Learn More (inline variant only) */}
-            {variant === 'inline' && (
-              <div className="text-center pt-2">
-                <button
-                  type="button"
-                  onClick={() => {
-                    const element = document.getElementById('features')
-                    if (element) {
-                      const offset = 80
-                      const elementRect = element.getBoundingClientRect()
-                      const absoluteElementTop = elementRect.top + window.scrollY
-                      const targetScrollPosition = Math.max(0, absoluteElementTop - offset)
-                      window.scrollTo({
-                        top: targetScrollPosition,
-                        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
-                      })
-                    }
-                  }}
-                  className="inline-flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-                >
-                  Learn more
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-              </div>
-            )}
           </form>
         </>
       ) : (
