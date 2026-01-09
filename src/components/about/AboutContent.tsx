@@ -172,8 +172,8 @@ export function AboutContent({ values }: AboutContentProps) {
             Evening planning flips the script. At the end of your day, you&apos;re reflective, not
             reactive. You can see what worked, what didn&apos;t, and what truly matters for tomorrow.
           </p>
-          <div className="p-6 rounded-xl bg-gradient-to-r from-primary-50 to-evening-50 dark:from-primary-950/30 dark:to-evening-950/30 border border-primary-100 dark:border-primary-900/30 mb-6">
-            <p className="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white text-center">
+          <div className="p-6 rounded-xl bg-gradient-to-r from-primary-50 to-evening-50 dark:from-primary-900/60 dark:to-evening-900/60 border border-primary-100 dark:border-primary-600/40 mb-6">
+            <p className="text-xl md:text-2xl font-semibold text-gray-900 dark:text-gray-50 text-center">
               Plan when you&apos;re calm, execute when you&apos;re focused.
             </p>
           </div>
