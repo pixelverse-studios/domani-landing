@@ -32,6 +32,12 @@ export default function AboutPage() {
       description:
         '14-day free trial with full access, then one simple lifetime price. No subscriptions, no hidden fees—pay once, own it forever.',
     },
+    {
+      icon: 'shield',
+      title: 'Privacy First',
+      description:
+        'Your plans and tasks stay on your device. No data mining, no ads, no selling your information. Your productivity is yours alone.',
+    },
   ]
 
   return (

@@ -2,16 +2,17 @@
 
 import { type ReactNode, useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { Heart, Target, Wallet, Zap } from 'lucide-react'
+import { Heart, Target, Wallet, Zap, Shield } from 'lucide-react'
 import DynamicCTA from '@/components/DynamicCTA'
 
-export type IconName = 'heart' | 'target' | 'zap' | 'wallet'
+export type IconName = 'heart' | 'target' | 'zap' | 'wallet' | 'shield'
 
 const ICONS: Record<IconName, typeof Heart> = {
   heart: Heart,
   target: Target,
   zap: Zap,
   wallet: Wallet,
+  shield: Shield,
 }
 
 export interface AboutValue {
