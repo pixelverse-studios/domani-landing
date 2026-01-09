@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { validateEmail } from '@/utils/validation'
@@ -23,39 +23,19 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
   const [email, setEmail] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
-  const [errors, setErrors] = useState<{ email?: string; general?: string }>({})
-  const [touched, setTouched] = useState(false)
-  const [isValid, setIsValid] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const hasLegalLinks = Boolean(PRIVACY_URL || TERMS_URL)
 
-  const validateEmailField = useCallback((value: string) => {
-    if (!value) {
-      setErrors(prev => ({ ...prev, email: 'Email is required' }))
-      setIsValid(false)
-      return false
-    }
-    if (!validateEmail(value)) {
-      setErrors(prev => ({ ...prev, email: 'Please enter a valid email address' }))
-      setIsValid(false)
-      return false
-    }
-    setErrors(prev => ({ ...prev, email: undefined }))
-    setIsValid(true)
-    return true
-  }, [])
+  // Simple validation - just check if email is valid format
+  const isValidEmail = email.length > 0 && validateEmail(email)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    setErrors(prev => ({ ...prev, general: undefined }))
+    // Don't submit if email isn't valid
+    if (!isValidEmail) return
 
-    const isEmailValid = validateEmailField(email)
-
-    if (!isEmailValid) {
-      setTouched(true)
-      return
-    }
-
+    setError(null)
     setIsSubmitting(true)
 
     try {
@@ -97,24 +77,16 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
         }, 2500)
       }
     } catch (err) {
-      setErrors({
-        general: err instanceof Error ? err.message : 'Something went wrong. Please try again.'
-      })
+      setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
     } finally {
       setIsSubmitting(false)
     }
   }
 
-  const handleEmailBlur = () => {
-    setTouched(true)
-    validateEmailField(email)
-  }
-
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value)
-    if (touched) {
-      validateEmailField(e.target.value)
-    }
+    // Clear any server error when user starts typing again
+    if (error) setError(null)
   }
 
   const formContent = (
@@ -134,91 +106,54 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
 
           <form onSubmit={handleSubmit} className="space-y-4" noValidate>
             {/* Email Field */}
-            <div className="relative">
+            <div>
               <label
                 htmlFor="waitlist-email"
                 className="sr-only"
               >
                 Email Address
               </label>
-              <div className="relative">
-                <input
-                  type="email"
-                  id="waitlist-email"
-                  name="email"
-                  value={email}
-                  onChange={handleEmailChange}
-                  onBlur={handleEmailBlur}
-                  required
-                  autoComplete="email"
-                  aria-required="true"
-                  aria-invalid={touched && errors.email ? 'true' : 'false'}
-                  aria-describedby={
-                    touched && errors.email
-                      ? 'email-error'
-                      : 'email-description'
-                  }
-                  className={`
-                    w-full px-4 py-3 pr-10 border rounded-lg outline-none transition-all duration-200 bg-white dark:bg-dark-card text-gray-900 dark:text-white
-                    ${touched && errors.email
-                      ? 'border-red-500 focus:ring-2 focus:ring-red-500/20'
-                      : isValid
-                      ? 'border-green-500 focus:ring-2 focus:ring-green-500/20'
-                      : 'border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 dark:focus:border-primary-400'
-                    }
-                  `}
-                  placeholder="Enter your email"
-                />
-                {/* Success checkmark */}
-                {isValid && (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="absolute right-3 top-1/2 -translate-y-1/2"
-                  >
-                    <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </motion.div>
-                )}
-              </div>
-              {touched && errors.email ? (
-                <motion.p
-                  initial={{ opacity: 0, y: -5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  id="email-error"
-                  className="mt-1 text-sm text-red-600 dark:text-red-400"
-                  role="alert"
-                >
-                  {errors.email}
-                </motion.p>
-              ) : (
-                <p id="email-description" className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                  We&apos;ll never share your email or spam you.
-                </p>
-              )}
+              <input
+                type="email"
+                id="waitlist-email"
+                name="email"
+                value={email}
+                onChange={handleEmailChange}
+                required
+                autoComplete="email"
+                aria-required="true"
+                aria-describedby="email-description"
+                className="w-full px-4 py-3 border rounded-lg outline-none transition-all duration-200 bg-white dark:bg-dark-card text-gray-900 dark:text-white border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 dark:focus:border-primary-400"
+                placeholder="Enter your email"
+              />
+              <p id="email-description" className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                We&apos;ll never share your email or spam you.
+              </p>
             </div>
 
-            {/* General Error Message */}
-            {errors.general && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg"
-                role="alert"
-              >
-                <p className="text-sm text-red-600 dark:text-red-400">{errors.general}</p>
-              </motion.div>
-            )}
+            {/* Server Error Message (only shown for API errors) */}
+            <AnimatePresence>
+              {error && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg"
+                  role="alert"
+                >
+                  <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
-            {/* Submit Button */}
+            {/* Submit Button - disabled until valid email */}
             <button
               type="submit"
-              disabled={isSubmitting}
+              disabled={!isValidEmail || isSubmitting}
               className={`
                 w-full py-3 px-6 rounded-lg font-semibold transition-all duration-200 transform
-                ${isSubmitting
-                  ? 'bg-gray-400 dark:bg-gray-600 cursor-not-allowed'
+                ${!isValidEmail || isSubmitting
+                  ? 'bg-gray-300 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed'
                   : 'bg-gradient-to-r from-primary-600 to-evening-600 hover:from-primary-700 hover:to-evening-700 hover:-translate-y-0.5 hover:shadow-lg text-white'
                 }
               `}
