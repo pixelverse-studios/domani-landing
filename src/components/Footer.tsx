@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
-import DownloadButtons from './DownloadButtons'
+import DynamicCTA from './DynamicCTA'
 
 const footerLinks = [
   { label: 'Privacy Policy', href: '/privacy' },
@@ -30,7 +30,7 @@ export function Footer({ className }: FooterProps) {
               <p className="font-semibold text-gray-900 dark:text-white">Domani</p>
               <p className="text-xs text-gray-500 dark:text-gray-400">Plan tomorrow tonight, wake up ready.</p>
             </div>
-            <DownloadButtons showSubtext={false} size="default" />
+            <DynamicCTA showSubtext={false} size="default" analyticsLocation="footer" />
             <p className="text-xs">
               Need help? <a href="mailto:support@domani-app.com" className="underline hover:text-primary-600 dark:hover:text-primary-300">support@domani-app.com</a>
             </p>

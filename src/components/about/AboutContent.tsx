@@ -3,7 +3,7 @@
 import { type ReactNode, useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { Heart, Target, Wallet, Zap } from 'lucide-react'
-import DownloadButtons from '@/components/DownloadButtons'
+import DynamicCTA from '@/components/DynamicCTA'
 
 export type IconName = 'heart' | 'target' | 'zap' | 'wallet'
 
@@ -387,7 +387,7 @@ export function AboutContent({ values }: AboutContentProps) {
               <p className="text-xl text-gray-600 dark:text-gray-400 mb-10 max-w-xl mx-auto">
                 Download Domani and start planning tonight. Your future self will thank you.
               </p>
-              <DownloadButtons size="large" />
+              <DynamicCTA size="large" analyticsLocation="about" />
             </motion.div>
           </div>
         </AnimatedSection>
