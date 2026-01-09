@@ -36,7 +36,7 @@ export default function HeroSection({
 
       <div className="container mx-auto px-4 pb-16 pt-20 sm:px-6 md:pb-20 md:pt-24 lg:px-8">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
-          <div className="text-center lg:text-left">
+          <div className="text-left">
             <span
               data-hero-motion
               className="inline-block rounded-full bg-green-100 px-4 py-2 text-sm font-semibold text-green-700 dark:bg-green-900/50 dark:text-green-300"
@@ -62,7 +62,7 @@ export default function HeroSection({
 
             <div
               data-hero-motion
-              className="mt-8 flex flex-wrap justify-center gap-6 text-sm text-gray-600 dark:text-gray-400 lg:justify-start"
+              className="mt-8 flex flex-col items-start gap-3 text-sm text-gray-600 dark:text-gray-400"
             >
               <span className="flex items-center gap-2">
                 <svg className="h-5 w-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -84,7 +84,7 @@ export default function HeroSection({
               </span>
             </div>
 
-            <div data-hero-motion className="mt-8 flex justify-center lg:justify-start">
+            <div data-hero-motion className="mt-8 flex justify-start">
               <SocialProof />
             </div>
           </div>

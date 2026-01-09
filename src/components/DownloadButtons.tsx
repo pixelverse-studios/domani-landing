@@ -41,7 +41,7 @@ export default function DownloadButtons({
   const androidAvailable = isAndroidAvailable()
 
   return (
-    <div className={`flex flex-col items-center ${className}`}>
+    <div className={`flex flex-col items-start ${className}`}>
       <div className="flex flex-col sm:flex-row gap-3">
         {/* App Store Button */}
         <motion.a
