@@ -57,7 +57,7 @@ export default function HeroSection({
               <span data-hero-copy="subheadline">{subheadline}</span>
             </p>
 
-            <div data-hero-motion className="mt-8">
+            <div data-hero-motion className="mt-8" id="waitlist-form">
               <DynamicCTA size="large" analyticsLocation="hero" />
             </div>
 

@@ -142,7 +142,11 @@ export function AppShowcase() {
               </div>
 
               <div className="mt-8">
-                <DynamicCTA analyticsLocation="app-showcase" />
+                <DynamicCTA
+                  analyticsLocation="app-showcase"
+                  scrollToId="waitlist-form"
+                  scrollButtonText="Get Early Access"
+                />
               </div>
             </div>
           </motion.article>
