@@ -151,8 +151,8 @@ export function AboutContent({ values }: AboutContentProps) {
             By the time you&apos;ve made these decisions, you&apos;ve already burned through precious mental
             energy. The best hours of your day—gone, spent on planning instead of doing.
           </p>
-          <div className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-r from-red-50 to-orange-50 dark:from-red-950/30 dark:to-orange-950/30 border border-red-100 dark:border-red-900/30">
-            <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-red-500/25">
+          <div className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-r from-red-50 to-red-100 dark:from-red-950/30 dark:to-red-900/30 border border-red-100 dark:border-red-900/30">
+            <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-red-500/25">
               73%
             </div>
             <p className="text-gray-700 dark:text-gray-300 font-medium">
@@ -254,7 +254,7 @@ export function AboutContent({ values }: AboutContentProps) {
                   <div className={`
                     w-16 h-16 rounded-2xl flex items-center justify-center text-2xl font-bold
                     ${section.accent === 'problem'
-                      ? 'bg-gradient-to-br from-red-500 to-orange-500 text-white shadow-lg shadow-red-500/25'
+                      ? 'bg-gradient-to-br from-red-500 to-red-600 text-white shadow-lg shadow-red-500/25'
                       : 'bg-gradient-to-br from-primary-500 to-evening-500 text-white shadow-lg shadow-primary-500/25'
                     }
                   `}>
