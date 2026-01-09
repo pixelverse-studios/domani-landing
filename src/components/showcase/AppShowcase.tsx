@@ -3,7 +3,7 @@
 import Image, { StaticImageData } from 'next/image'
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Calendar, BarChart3, Clock, Target, Brain, Sparkles, type LucideIcon } from 'lucide-react'
+import { Calendar, BarChart3, Signal, Target, Brain, Sparkles, type LucideIcon } from 'lucide-react'
 import domaniApp from '@/media/Domani-app.png'
 import analyticsMockup from '@/media/Analytics.png'
 import { cn } from '@/lib/utils'
@@ -31,7 +31,7 @@ const screens: ScreenData[] = [
     image: domaniApp,
     features: [
       { icon: Target, title: 'Priority Focus', description: 'See your most important task front and center' },
-      { icon: Clock, title: 'Time Blocks', description: 'Tasks organized by optimal completion time' },
+      { icon: Signal, title: 'Priority Signals', description: 'Importance is obvious at a glance' },
       { icon: Sparkles, title: 'Morning Momentum', description: 'Start executing immediately, no decision fatigue' },
     ],
   },
