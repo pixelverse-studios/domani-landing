@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { Check, Sparkles } from 'lucide-react'
-import DownloadButtons from '@/components/DownloadButtons'
+import DynamicCTA from '@/components/DynamicCTA'
 
 interface PricingPlan {
   name: string
@@ -149,7 +149,7 @@ export function PricingContent({ plan, faqs }: PricingContentProps) {
 
           {/* Download CTAs */}
           <motion.div variants={fadeInUp}>
-            <DownloadButtons showSubtext={false} />
+            <DynamicCTA showSubtext={false} analyticsLocation="pricing" />
             <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-3">
               Download free, then unlock lifetime access
             </p>

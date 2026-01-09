@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase'
-import { validateEmail, validateName } from '@/utils/validation'
+import { validateEmail } from '@/utils/validation'
 import { sendWaitlistWelcomeEmail } from '@/lib/email/resend'
 
 // Simple in-memory rate limiting store
@@ -67,12 +67,12 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { email, name } = body
+    const { email } = body
 
     // Validate required fields
-    if (!email || !name) {
+    if (!email) {
       return NextResponse.json(
-        { error: 'Email and name are required' },
+        { error: 'Email is required' },
         { status: 400 }
       )
     }
@@ -85,17 +85,8 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Validate name format
-    if (!validateName(name)) {
-      return NextResponse.json(
-        { error: 'Name must be 2-100 characters and contain only letters, spaces, hyphens, and apostrophes' },
-        { status: 400 }
-      )
-    }
-
     // Normalize email to lowercase
     const normalizedEmail = email.toLowerCase().trim()
-    const normalizedName = name.trim()
 
     // Check if Supabase client is available
     if (!supabaseAdmin) {
@@ -133,7 +124,6 @@ export async function POST(request: NextRequest) {
       .from('waitlist')
       .insert({
         email: normalizedEmail,
-        name: normalizedName,
         referral_type: 'website',
         status: 'confirmed', // Set status to 'confirmed' by default
         confirmed: true, // Keep for backwards compatibility until column is removed
@@ -168,7 +158,6 @@ export async function POST(request: NextRequest) {
     // If email fails, we still return success since the primary action (DB insert) succeeded
     sendWaitlistWelcomeEmail({
       to: normalizedEmail,
-      name: normalizedName
     }).catch(error => {
       // Log email errors but don't fail the request
       console.error('Failed to send welcome email:', error)

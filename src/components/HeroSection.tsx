@@ -1,7 +1,8 @@
 import dynamic from 'next/dynamic'
-import DownloadButtons from './DownloadButtons'
+import DynamicCTA from './DynamicCTA'
 import SocialProof from './SocialProof'
 import { SectionDivider } from '@/components/ui/SectionDivider'
+import { getCurrentBadgeText } from '@/lib/config/cta'
 
 const HeroMotionLayer = dynamic(() => import('./hero/HeroMotionLayer').then((mod) => mod.HeroMotionLayer), {
   loading: () => null,
@@ -41,7 +42,7 @@ export default function HeroSection({
               data-hero-motion
               className="inline-block rounded-full bg-green-100 px-4 py-2 text-sm font-semibold text-green-700 dark:bg-green-900/50 dark:text-green-300"
             >
-              Public Beta Now Live
+              {getCurrentBadgeText()}
             </span>
 
             <h1
@@ -56,8 +57,8 @@ export default function HeroSection({
               <span data-hero-copy="subheadline">{subheadline}</span>
             </p>
 
-            <div data-hero-motion className="mt-8">
-              <DownloadButtons size="large" />
+            <div data-hero-motion className="mt-8" id="waitlist-form">
+              <DynamicCTA size="large" analyticsLocation="hero" />
             </div>
 
             <div

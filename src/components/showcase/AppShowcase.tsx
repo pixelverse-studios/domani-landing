@@ -7,7 +7,7 @@ import { Calendar, BarChart3, Clock, Target, Brain, Sparkles, type LucideIcon } 
 import domaniApp from '@/media/Domani-app.png'
 import analyticsMockup from '@/media/Analytics.png'
 import { cn } from '@/lib/utils'
-import DownloadButtons from '@/components/DownloadButtons'
+import DynamicCTA from '@/components/DynamicCTA'
 
 interface ScreenFeature {
   icon: LucideIcon
@@ -142,7 +142,11 @@ export function AppShowcase() {
               </div>
 
               <div className="mt-8">
-                <DownloadButtons />
+                <DynamicCTA
+                  analyticsLocation="app-showcase"
+                  scrollToId="waitlist-form"
+                  scrollButtonText="Get Early Access"
+                />
               </div>
             </div>
           </motion.article>
