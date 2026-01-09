@@ -21,12 +21,12 @@ export interface AppStoreConfig {
 
 export const APP_STORE_CONFIG: AppStoreConfig = {
   ios: {
-    url: 'https://apps.apple.com/app/domani-plan-tomorrow-tonight/id6740019498',
+    url: 'https://testflight.apple.com/join/1dgpHTK3',
     available: true,
     name: 'App Store',
   },
   android: {
-    url: 'https://play.google.com/store/apps/details?id=com.domani.app',
+    url: 'https://play.google.com/store/apps/details?id=com.baitedz.domaniapp',
     available: true,
     name: 'Google Play',
   },
