@@ -1,10 +1,10 @@
 interface WaitlistWelcomeEmailProps {
-  name: string
+  name?: string
   position?: number
 }
 
 export function WaitlistWelcomeEmail({ name }: WaitlistWelcomeEmailProps) {
-  const firstName = name.split(' ')[0]
+  const greeting = name ? name.split(' ')[0] : 'there'
 
   return `
 <!DOCTYPE html>
@@ -121,7 +121,7 @@ export function WaitlistWelcomeEmail({ name }: WaitlistWelcomeEmailProps) {
         </div>
 
         <div class="content">
-            <h2>Welcome to the future of evening planning, ${firstName}!</h2>
+            <h2>Welcome to the future of evening planning${greeting !== 'there' ? `, ${greeting}` : ''}!</h2>
 
             <p>
                 Thank you for joining the Domani waitlist! You're now part of an exclusive group
@@ -188,9 +188,9 @@ export function WaitlistWelcomeEmail({ name }: WaitlistWelcomeEmailProps) {
 }
 
 export function WaitlistWelcomeEmailText({ name }: WaitlistWelcomeEmailProps) {
-  const firstName = name.split(' ')[0]
+  const greeting = name ? name.split(' ')[0] : 'there'
 
-  return `Welcome to the future of evening planning, ${firstName}!
+  return `Welcome to the future of evening planning${greeting !== 'there' ? `, ${greeting}` : ''}!
 
 Thank you for joining the Domani waitlist! You're now part of an exclusive group of forward-thinking professionals who are ready to transform their productivity.
 

@@ -3,7 +3,7 @@
 import { useState, useCallback } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-import { validateEmail, validateName } from '@/utils/validation'
+import { validateEmail } from '@/utils/validation'
 
 const PRIVACY_URL = process.env.NEXT_PUBLIC_PRIVACY_URL ?? '/privacy'
 const TERMS_URL = process.env.NEXT_PUBLIC_TERMS_URL ?? '/terms'
@@ -21,60 +21,38 @@ interface WaitlistFormProps {
 
 export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: WaitlistFormProps) {
   const [email, setEmail] = useState('')
-  const [name, setName] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
-  const [errors, setErrors] = useState<{ email?: string; name?: string; general?: string }>({})
-  const [touched, setTouched] = useState<{ email?: boolean; name?: boolean }>({})
-  const [fieldStatus, setFieldStatus] = useState<{ email?: 'valid' | 'invalid'; name?: 'valid' | 'invalid' }>({})
+  const [errors, setErrors] = useState<{ email?: string; general?: string }>({})
+  const [touched, setTouched] = useState(false)
+  const [isValid, setIsValid] = useState(false)
   const hasLegalLinks = Boolean(PRIVACY_URL || TERMS_URL)
 
-  // Validate email on blur
   const validateEmailField = useCallback((value: string) => {
     if (!value) {
       setErrors(prev => ({ ...prev, email: 'Email is required' }))
-      setFieldStatus(prev => ({ ...prev, email: 'invalid' }))
+      setIsValid(false)
       return false
     }
     if (!validateEmail(value)) {
       setErrors(prev => ({ ...prev, email: 'Please enter a valid email address' }))
-      setFieldStatus(prev => ({ ...prev, email: 'invalid' }))
+      setIsValid(false)
       return false
     }
     setErrors(prev => ({ ...prev, email: undefined }))
-    setFieldStatus(prev => ({ ...prev, email: 'valid' }))
-    return true
-  }, [])
-
-  // Validate name on blur
-  const validateNameField = useCallback((value: string) => {
-    if (!value) {
-      setErrors(prev => ({ ...prev, name: 'Name is required' }))
-      setFieldStatus(prev => ({ ...prev, name: 'invalid' }))
-      return false
-    }
-    if (!validateName(value)) {
-      setErrors(prev => ({ ...prev, name: 'Please enter a valid name (letters only)' }))
-      setFieldStatus(prev => ({ ...prev, name: 'invalid' }))
-      return false
-    }
-    setErrors(prev => ({ ...prev, name: undefined }))
-    setFieldStatus(prev => ({ ...prev, name: 'valid' }))
+    setIsValid(true)
     return true
   }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
-    // Clear general errors
+
     setErrors(prev => ({ ...prev, general: undefined }))
-    
-    // Validate all fields
+
     const isEmailValid = validateEmailField(email)
-    const isNameValid = validateNameField(name)
-    
-    if (!isEmailValid || !isNameValid) {
-      setTouched({ email: true, name: true })
+
+    if (!isEmailValid) {
+      setTouched(true)
       return
     }
 
@@ -86,7 +64,7 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, name }),
+        body: JSON.stringify({ email }),
       })
 
       const data = await response.json()
@@ -99,15 +77,15 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
       }
 
       // Track conversion
-      if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('event', 'waitlist_signup', {
+      if (typeof window !== 'undefined' && (window as typeof window & { gtag?: (...args: unknown[]) => void }).gtag) {
+        (window as typeof window & { gtag: (...args: unknown[]) => void }).gtag('event', 'waitlist_signup', {
           event_category: 'engagement',
           event_label: variant === 'modal' ? 'modal_form' : 'inline_form',
         })
       }
 
       setIsSuccess(true)
-      
+
       if (onSuccess) {
         onSuccess()
       }
@@ -119,8 +97,8 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
         }, 2500)
       }
     } catch (err) {
-      setErrors({ 
-        general: err instanceof Error ? err.message : 'Something went wrong. Please try again.' 
+      setErrors({
+        general: err instanceof Error ? err.message : 'Something went wrong. Please try again.'
       })
     } finally {
       setIsSubmitting(false)
@@ -128,26 +106,14 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
   }
 
   const handleEmailBlur = () => {
-    setTouched(prev => ({ ...prev, email: true }))
+    setTouched(true)
     validateEmailField(email)
-  }
-
-  const handleNameBlur = () => {
-    setTouched(prev => ({ ...prev, name: true }))
-    validateNameField(name)
   }
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value)
-    if (touched.email) {
+    if (touched) {
       validateEmailField(e.target.value)
-    }
-  }
-
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value)
-    if (touched.name) {
-      validateNameField(e.target.value)
     }
   }
 
@@ -166,72 +132,14 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-5" noValidate>
-            {/* Name Field */}
-            <div className="relative">
-              <label 
-                htmlFor="waitlist-name" 
-                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-              >
-                Name <span className="text-red-500">*</span>
-              </label>
-              <div className="relative">
-                <input
-                  type="text"
-                  id="waitlist-name"
-                  name="name"
-                  value={name}
-                  onChange={handleNameChange}
-                  onBlur={handleNameBlur}
-                  required
-                  autoComplete="name"
-                  aria-required="true"
-                  aria-invalid={touched.name && errors.name ? 'true' : 'false'}
-                  aria-describedby={touched.name && errors.name ? 'name-error' : undefined}
-                  className={`
-                    w-full px-4 py-3 pr-10 border rounded-lg outline-none transition-all duration-200 bg-white dark:bg-dark-card text-gray-900 dark:text-white
-                    ${touched.name && errors.name 
-                      ? 'border-red-500 focus:ring-2 focus:ring-red-500/20' 
-                      : fieldStatus.name === 'valid'
-                      ? 'border-green-500 focus:ring-2 focus:ring-green-500/20'
-                      : 'border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 dark:focus:border-primary-400'
-                    }
-                  `}
-                  placeholder="John Doe"
-                />
-                {/* Success checkmark */}
-                {fieldStatus.name === 'valid' && (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="absolute right-3 top-1/2 -translate-y-1/2"
-                  >
-                    <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </motion.div>
-                )}
-              </div>
-              {touched.name && errors.name && (
-                <motion.p
-                  initial={{ opacity: 0, y: -5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  id="name-error"
-                  className="mt-1 text-sm text-red-600 dark:text-red-400"
-                  role="alert"
-                >
-                  {errors.name}
-                </motion.p>
-              )}
-            </div>
-
+          <form onSubmit={handleSubmit} className="space-y-4" noValidate>
             {/* Email Field */}
             <div className="relative">
-              <label 
-                htmlFor="waitlist-email" 
-                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+              <label
+                htmlFor="waitlist-email"
+                className="sr-only"
               >
-                Email Address <span className="text-red-500">*</span>
+                Email Address
               </label>
               <div className="relative">
                 <input
@@ -244,25 +152,25 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
                   required
                   autoComplete="email"
                   aria-required="true"
-                  aria-invalid={touched.email && errors.email ? 'true' : 'false'}
+                  aria-invalid={touched && errors.email ? 'true' : 'false'}
                   aria-describedby={
-                    touched.email && errors.email 
-                      ? 'email-error' 
+                    touched && errors.email
+                      ? 'email-error'
                       : 'email-description'
                   }
                   className={`
                     w-full px-4 py-3 pr-10 border rounded-lg outline-none transition-all duration-200 bg-white dark:bg-dark-card text-gray-900 dark:text-white
-                    ${touched.email && errors.email 
-                      ? 'border-red-500 focus:ring-2 focus:ring-red-500/20' 
-                      : fieldStatus.email === 'valid'
+                    ${touched && errors.email
+                      ? 'border-red-500 focus:ring-2 focus:ring-red-500/20'
+                      : isValid
                       ? 'border-green-500 focus:ring-2 focus:ring-green-500/20'
                       : 'border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 dark:focus:border-primary-400'
                     }
                   `}
-                  placeholder="john@example.com"
+                  placeholder="Enter your email"
                 />
                 {/* Success checkmark */}
-                {fieldStatus.email === 'valid' && (
+                {isValid && (
                   <motion.div
                     initial={{ opacity: 0, scale: 0 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -274,11 +182,7 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
                   </motion.div>
                 )}
               </div>
-              {!touched.email || !errors.email ? (
-                <p id="email-description" className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                  We&apos;ll never share your email or spam you.
-                </p>
-              ) : (
+              {touched && errors.email ? (
                 <motion.p
                   initial={{ opacity: 0, y: -5 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -288,6 +192,10 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
                 >
                   {errors.email}
                 </motion.p>
+              ) : (
+                <p id="email-description" className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                  We&apos;ll never share your email or spam you.
+                </p>
               )}
             </div>
 
@@ -309,8 +217,8 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
               disabled={isSubmitting}
               className={`
                 w-full py-3 px-6 rounded-lg font-semibold transition-all duration-200 transform
-                ${isSubmitting 
-                  ? 'bg-gray-400 dark:bg-gray-600 cursor-not-allowed' 
+                ${isSubmitting
+                  ? 'bg-gray-400 dark:bg-gray-600 cursor-not-allowed'
                   : 'bg-gradient-to-r from-primary-600 to-evening-600 hover:from-primary-700 hover:to-evening-700 hover:-translate-y-0.5 hover:shadow-lg text-white'
                 }
               `}
@@ -381,13 +289,13 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
             You&apos;re on the list!
           </h3>
           <p className="text-gray-600 dark:text-gray-300 mb-4">
-            Check your email for a confirmation message.
+            We&apos;ll let you know when Domani is ready.
           </p>
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300 rounded-full text-sm font-medium">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
-            Confirmation sent to {email}
+            {email}
           </div>
         </motion.div>
       )}
