@@ -152,7 +152,7 @@ export function AboutContent({ values }: AboutContentProps) {
             energy. The best hours of your day—gone, spent on planning instead of doing.
           </p>
           <div className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-r from-red-50 to-red-100 dark:from-red-950/30 dark:to-red-900/30 border border-red-100 dark:border-red-900/30">
-            <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-red-500/25">
+            <div className="flex-shrink-0 w-14 h-14 rounded-full bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center text-white font-bold text-base shadow-lg shadow-red-500/25">
               73%
             </div>
             <p className="text-gray-700 dark:text-gray-300 font-medium">
