@@ -2,90 +2,135 @@ import { Metadata } from 'next'
 import { pricingMetadata } from '@/lib/seo/metadata'
 import Header from '@/components/Header'
 import { PricingContent } from '@/components/pricing/PricingContent'
-// import { TestimonialsSection } from '@/components/testimonials/TestimonialsSection'
+import {
+  Moon,
+  Smartphone,
+  BarChart3,
+  Target,
+  Brain,
+  RefreshCw,
+} from 'lucide-react'
+import {
+  PRICING_CONFIG,
+  getCurrentPriceDisplay,
+  getGeneralPriceDisplay,
+  getCurrentPricingLabel,
+  getDiscountPercentage,
+  hasActiveDiscount,
+  getTrialDurationDisplay,
+} from '@/lib/config/pricing'
 
 export const metadata: Metadata = pricingMetadata
 
 export default function PricingPage() {
-  const plans = [
+  const trialDuration = getTrialDurationDisplay()
+  const discountPercent = getDiscountPercentage()
+
+  const plan = {
+    name: 'Lifetime',
+    currentPrice: getCurrentPriceDisplay(),
+    originalPrice: hasActiveDiscount() ? getGeneralPriceDisplay() : undefined,
+    discountLabel: hasActiveDiscount() ? getCurrentPricingLabel() : undefined,
+    discountPercent: hasActiveDiscount() ? discountPercent : undefined,
+    period: 'one-time payment',
+    description: 'Pay once, own forever. All features included.',
+    trialMessage: `Start with a ${trialDuration} free trial`,
+    features: [
+      'Evening planning mode',
+      'Morning execution view',
+      'Unlimited tasks',
+      'Advanced analytics',
+      'Multi-device sync',
+      'All future updates',
+    ],
+    highlightFeatures: [
+      {
+        icon: <Moon className="w-6 h-6" />,
+        title: 'Evening Planning',
+        description: 'Plan your tomorrow when you\'re calm and reflective, not rushed and stressed.',
+      },
+      {
+        icon: <Target className="w-6 h-6" />,
+        title: 'Priority Focus',
+        description: 'Mark your most important task and always know what to tackle first.',
+      },
+      {
+        icon: <Brain className="w-6 h-6" />,
+        title: 'The 3-6 Rule',
+        description: 'Science-backed task limits keep you focused and prevent overwhelm.',
+      },
+      {
+        icon: <BarChart3 className="w-6 h-6" />,
+        title: 'Analytics Dashboard',
+        description: 'Track completion rates, build streaks, and see your productivity patterns.',
+      },
+      {
+        icon: <Smartphone className="w-6 h-6" />,
+        title: 'Multi-Device Sync',
+        description: 'Plan on your iPad, execute on your iPhone. Everything stays in sync.',
+      },
+      {
+        icon: <RefreshCw className="w-6 h-6" />,
+        title: 'Lifetime Updates',
+        description: 'All future features and improvements included. No additional payments.',
+      },
+    ],
+  }
+
+  const testimonials = [
     {
-      name: 'Free',
-      price: '$0',
-      period: 'forever',
-      description: 'Perfect for getting started with evening planning',
-      features: [
-        '3 tasks per day',
-        'Evening planning mode',
-        'Morning execution view',
-        '7-day history',
-        '4 basic categories',
-        'Mobile app access',
-      ],
-      cta: 'Start Free',
-      popular: false,
+      name: 'Sarah M.',
+      role: 'Product Manager',
+      quote: 'I used to wake up anxious about my day. Now I wake up with clarity and purpose. Domani changed my mornings completely.',
+      rating: 5,
     },
     {
-      name: 'Premium',
-      price: '$3.99',
-      period: '/month',
-      description: 'For serious productivity enthusiasts',
-      features: [
-        'Everything in Free',
-        'Unlimited tasks',
-        'Custom categories',
-        'Multi-device sync',
-        'Push notifications',
-        'Advanced analytics',
-        'Priority support',
-        'Early access to new features',
-      ],
-      cta: 'Start 7-Day Trial',
-      popular: true,
+      name: 'James K.',
+      role: 'Startup Founder',
+      quote: 'The evening planning concept is genius. I\'m more productive before 10am than I used to be all day.',
+      rating: 5,
     },
     {
-      name: 'Lifetime',
-      price: '$99',
-      period: 'one-time',
-      description: 'Pay once, use forever',
-      features: [
-        'All Premium features',
-        'Lifetime access',
-        'All future updates included',
-        'Early access to beta features',
-        'Lifetime support',
-        'Support indie development',
-      ],
-      cta: 'Buy Once, Use Forever',
-      popular: false,
+      name: 'Emily R.',
+      role: 'Freelance Designer',
+      quote: 'Simple, focused, and actually works. I\'ve tried dozens of task apps - this one finally stuck.',
+      rating: 5,
     },
   ]
 
+  const comparison = {
+    monthlyPrice: 4.99,
+    monthsToPayoff: 10,
+  }
+
   const faqs = [
     {
-      question: 'Can I switch plans later?',
-      answer:
-        "Yes! You can upgrade or downgrade at any time. Changes take effect at the start of your next billing cycle.",
+      question: 'How does the free trial work?',
+      answer: `You get ${PRICING_CONFIG.trial.durationDays} days of full access completely free. No credit card required to start. Try every feature and see if Domani is right for you.`,
+    },
+    {
+      question: "What happens after my trial ends?",
+      answer: "After your trial, you can unlock lifetime access with a simple one-time purchase. No subscriptions, no recurring fees—just pay once and own Domani forever.",
+    },
+    {
+      question: 'Is this really a one-time payment?',
+      answer: 'Yes! Pay once and use Domani forever. No subscriptions, no recurring fees. You also get all future updates included.',
     },
     {
       question: 'What payment methods do you accept?',
-      answer: 'We accept all major credit cards, PayPal, and Apple Pay.',
+      answer: 'We accept all major credit cards through the App Store and Google Play.',
     },
     {
-      question: 'Is there a free trial for Premium?',
-      answer: 'Yes! Premium includes a 7-day free trial. No credit card required to start.',
+      question: 'Can I get a refund?',
+      answer: 'Refunds are handled through your app store (Apple App Store or Google Play) according to their refund policies.',
     },
   ]
 
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-gradient-to-b from-purple-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 pt-24">
-        <PricingContent plans={plans} faqs={faqs} />
-        {/* <TestimonialsSection
-          background="transparent"
-          heading="Proof it’s worth the upgrade"
-          subtitle="Operators across product, revenue, and design teams rely on Domani’s evening planning ritual every night."
-        /> */}
+      <main className="min-h-screen pt-24">
+        <PricingContent plan={plan} faqs={faqs} testimonials={testimonials} comparison={comparison} />
       </main>
     </>
   )

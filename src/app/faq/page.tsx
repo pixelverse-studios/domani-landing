@@ -3,10 +3,21 @@ import { faqMetadata } from '@/lib/seo/metadata'
 import { StructuredData } from '@/components/seo/StructuredData'
 import Header from '@/components/Header'
 import { FAQContent } from '@/components/faq/FAQContent'
+import {
+  PRICING_CONFIG,
+  getCurrentPriceDisplay,
+  getGeneralPriceDisplay,
+  hasActiveDiscount,
+} from '@/lib/config/pricing'
 
 export const metadata: Metadata = faqMetadata
 
 export default function FAQPage() {
+  const trialDays = PRICING_CONFIG.trial.durationDays
+  const currentPrice = getCurrentPriceDisplay()
+  const fullPrice = getGeneralPriceDisplay()
+  const showDiscount = hasActiveDiscount()
+
   const faqs = [
     {
       category: 'Getting Started',
@@ -23,8 +34,7 @@ export default function FAQPage() {
         },
         {
           question: 'Do I need to pay to use Domani?',
-          answer:
-            'No! Domani has a generous free tier that includes evening planning mode, morning execution view, and up to 3 tasks per day. You can upgrade to Premium ($3.99/month) or Lifetime ($99 one-time) for unlimited tasks, custom categories, and advanced features.',
+          answer: `You can try Domani completely free for ${trialDays} days with full access to all features. After your trial, you can unlock lifetime access with a one-time payment of ${showDiscount ? `${currentPrice} (normally ${fullPrice})` : currentPrice}. No subscriptions, no recurring fees.`,
         },
       ],
     },
@@ -77,19 +87,21 @@ export default function FAQPage() {
       category: 'Pricing & Billing',
       questions: [
         {
+          question: 'How much does Domani cost?',
+          answer: `Domani offers a ${trialDays}-day free trial with full access to all features. After that, you can unlock lifetime access for ${showDiscount ? `${currentPrice} (normally ${fullPrice})` : currentPrice}. This is a one-time payment—no subscriptions, no recurring fees, and all future updates are included.`,
+        },
+        {
           question: 'How is Domani cheaper than Sunsama?',
-          answer:
-            'Sunsama costs $20/month. Domani Premium is $3.99/month—that\'s 80% cheaper. We keep costs low by focusing on one thing (evening planning) instead of trying to be an all-in-one tool. Our Lifetime plan ($99) means you\'ll never pay a subscription again.',
+          answer: `Sunsama costs $20/month ($240/year). Domani is a one-time payment of ${showDiscount ? `${currentPrice} (normally ${fullPrice})` : currentPrice}—you'll save money in the first year alone and never pay again. We keep costs low by focusing on one thing (evening planning) instead of trying to be an all-in-one tool.`,
         },
         {
-          question: 'Can I cancel anytime?',
-          answer:
-            'Yes! You can cancel your Premium subscription at any time. You\'ll keep access until the end of your billing period, then automatically revert to the Free plan. No penalties, no questions asked.',
+          question: `What happens after my ${trialDays}-day trial?`,
+          answer: `After your trial ends, you can purchase lifetime access to continue using Domani. It's a simple one-time payment with no subscriptions. No credit card is required to start your trial.`,
         },
         {
-          question: 'Is there a student discount?',
+          question: 'Can I get a refund?',
           answer:
-            'We don\'t currently offer student discounts, but our Free tier is generous enough for most students. If you need more than 3 tasks per day, Premium at $3.99/month is already very affordable.',
+            'Refunds are handled through the App Store (Apple) or Google Play according to their refund policies. Since we offer a generous free trial, we encourage you to fully evaluate Domani before purchasing.',
         },
       ],
     },

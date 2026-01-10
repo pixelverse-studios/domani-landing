@@ -28,16 +28,22 @@ export default function AboutPage() {
     },
     {
       icon: 'wallet',
-      title: 'Flexible Pricing, Zero Pressure',
+      title: 'Simple, Fair Pricing',
       description:
-        "Free forever for core planning, Premium when you're ready for more, and a lifetime option so you never have to subscribe.",
+        '14-day free trial with full access, then one simple lifetime price. No subscriptions, no hidden fees—pay once, own it forever.',
+    },
+    {
+      icon: 'shield',
+      title: 'Privacy First',
+      description:
+        'Your plans and tasks stay on your device. No data mining, no ads, no selling your information. Your productivity is yours alone.',
     },
   ]
 
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-gradient-to-b from-purple-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 pt-24">
+      <main className="min-h-screen pt-24">
         <AboutContent values={values} />
         {/* <TestimonialsSection
           background="transparent"

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { supabase, supabaseAdmin } from '@/lib/supabase'
+import { createClient } from '@supabase/supabase-js'
 
 interface CountResponse {
   count: number
@@ -7,19 +7,16 @@ interface CountResponse {
   error?: boolean
 }
 
-// Removed edge runtime to allow access to server-side environment variables
-// export const runtime = 'edge'
 export const revalidate = 60 // Cache for 1 minute
 
 export async function GET() {
   try {
-    // Use supabaseAdmin for counting to bypass RLS policies
-    // This is safe as we're only returning a count, not exposing user data
-    const clientToUse = supabaseAdmin || supabase
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+    const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 
     // If Supabase is not configured, return a mock count
-    if (!clientToUse) {
-      console.log('No Supabase client available, returning mock')
+    if (!supabaseUrl || !supabaseServiceKey) {
+      console.log('Supabase not configured, returning mock count')
       return NextResponse.json<CountResponse>(
         { count: 1247, mock: true },
         {
@@ -31,8 +28,11 @@ export async function GET() {
       )
     }
 
-    // Fetch the count from the waitlist table using admin client
-    const { count, error } = await clientToUse
+    // Create admin client at request time to bypass RLS
+    const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey)
+
+    // Fetch the count from the waitlist table
+    const { count, error } = await supabaseAdmin
       .from('waitlist')
       .select('*', { count: 'exact', head: true })
 

@@ -13,7 +13,7 @@ const EMAIL_CONFIG = {
 
 export interface SendWaitlistWelcomeEmailParams {
   to: string
-  name: string
+  name?: string
   position?: number
 }
 

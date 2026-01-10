@@ -84,7 +84,7 @@ export default async function DashboardPage() {
               </div>
             </div>
             <div className="space-y-2">
-              <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">8:00 PM</p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">9:00 PM</p>
               <p className="text-sm text-gray-600 dark:text-gray-400">
                 Evening planning mode
               </p>

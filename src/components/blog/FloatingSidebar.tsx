@@ -65,7 +65,7 @@ export function FloatingSidebar({ relatedPosts }: FloatingSidebarProps) {
         <div className="rounded-2xl bg-gradient-to-r from-primary-600 to-evening-600 p-5 text-white shadow-lg">
           <p className="text-sm font-semibold uppercase tracking-[0.3em]">Ready to plan tonight?</p>
           <p className="mt-3 text-lg font-semibold">Join the Domani waitlist</p>
-          <p className="mt-1 text-sm text-white/80">Get early access to the evening planning app that inspired this article.</p>
+          <p className="mt-1 text-sm text-white/80">Try the evening planning app that inspired this article. Now in public beta.</p>
           <Link
             href="/#inline-email"
             className="mt-4 inline-flex items-center justify-center rounded-xl bg-white/10 px-5 py-2 text-sm font-semibold text-white transition hover:bg-white/20"

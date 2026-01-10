@@ -3,10 +3,11 @@
 import Image, { StaticImageData } from 'next/image'
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Calendar, BarChart3, Clock, Target, Brain, Sparkles, type LucideIcon } from 'lucide-react'
+import { Calendar, BarChart3, Signal, Target, Brain, Sparkles, type LucideIcon } from 'lucide-react'
 import domaniApp from '@/media/Domani-app.png'
 import analyticsMockup from '@/media/Analytics.png'
 import { cn } from '@/lib/utils'
+import DynamicCTA from '@/components/DynamicCTA'
 
 interface ScreenFeature {
   icon: LucideIcon
@@ -30,7 +31,7 @@ const screens: ScreenData[] = [
     image: domaniApp,
     features: [
       { icon: Target, title: 'Priority Focus', description: 'See your most important task front and center' },
-      { icon: Clock, title: 'Time Blocks', description: 'Tasks organized by optimal completion time' },
+      { icon: Signal, title: 'Priority Signals', description: 'Importance is obvious at a glance' },
       { icon: Sparkles, title: 'Morning Momentum', description: 'Start executing immediately, no decision fatigue' },
     ],
   },
@@ -140,15 +141,13 @@ export function AppShowcase() {
                 })}
               </div>
 
-              <a
-                href="#inline-email"
-                className="mt-8 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-primary-600 to-evening-600 px-8 py-4 font-semibold text-white shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl"
-              >
-                Get Early Access
-                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </a>
+              <div className="mt-8">
+                <DynamicCTA
+                  analyticsLocation="app-showcase"
+                  scrollToId="waitlist-form"
+                  scrollButtonText="Get Early Access"
+                />
+              </div>
             </div>
           </motion.article>
         </AnimatePresence>
