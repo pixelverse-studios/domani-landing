@@ -6,10 +6,7 @@ import {
   Check,
   Sparkles,
   Shield,
-  Moon,
-  Smartphone,
   RefreshCw,
-  BarChart3,
   Zap,
   Star,
   ChevronDown,
@@ -17,6 +14,7 @@ import {
   Quote,
 } from 'lucide-react'
 import DynamicCTA from '@/components/DynamicCTA'
+import SocialProof from '@/components/SocialProof'
 
 // =============================================================================
 // Types
@@ -291,17 +289,8 @@ export function PricingContent({ plan, faqs, testimonials, comparison }: Pricing
               </div>
 
               {/* Social Proof */}
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 text-sm text-gray-500 dark:text-gray-400">
-                <div className="flex items-center gap-2">
-                  <div className="flex">
-                    {[1, 2, 3, 4, 5].map((i) => (
-                      <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                    ))}
-                  </div>
-                  <span>4.9 rating</span>
-                </div>
-                <span className="text-gray-300 dark:text-gray-600">•</span>
-                <span>10,000+ users</span>
+              <div className="flex justify-center lg:justify-start">
+                <SocialProof />
               </div>
             </motion.div>
 
