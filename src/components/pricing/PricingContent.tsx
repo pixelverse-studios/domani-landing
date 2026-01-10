@@ -243,132 +243,132 @@ export function PricingContent({ plan, faqs, testimonials, comparison }: Pricing
         <div className="absolute bottom-[20%] left-[20%] w-[350px] h-[350px] rounded-full bg-gradient-to-br from-blue-300/20 to-transparent blur-[90px] dark:from-blue-600/10 animate-blob animation-delay-4000" />
       </div>
 
-      <div className="container mx-auto px-4 pt-8 pb-24">
-        {/* Hero Section */}
+      <div className="container mx-auto px-4 pt-4 pb-24">
+        {/* Hero Section - Side by Side Layout */}
         <motion.div
           ref={heroRef}
           initial="hidden"
           animate={heroInView ? 'visible' : 'hidden'}
           variants={staggerContainer}
-          className="max-w-4xl mx-auto text-center mb-16"
+          className="max-w-6xl mx-auto mb-20"
         >
-          <motion.div variants={fadeInUp} className="mb-6">
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-100/80 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-sm font-medium backdrop-blur-sm border border-primary-200/50 dark:border-primary-800/50">
-              <Sparkles className="w-4 h-4" />
-              {plan.discountLabel || 'Lifetime Access'}
-            </span>
-          </motion.div>
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            {/* Left Side - Value Proposition */}
+            <motion.div variants={fadeInUp} className="text-center lg:text-left">
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-100/80 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-sm font-medium backdrop-blur-sm border border-primary-200/50 dark:border-primary-800/50 mb-6">
+                <Sparkles className="w-4 h-4" />
+                {plan.discountLabel || 'Lifetime Access'}
+              </span>
 
-          <motion.h1
-            variants={fadeInUp}
-            className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight"
-          >
-            <span className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 dark:from-white dark:via-gray-100 dark:to-white bg-clip-text text-transparent">
-              Own Your Mornings,
-            </span>
-            <br />
-            <span className="bg-gradient-to-r from-primary-600 via-evening-500 to-primary-600 bg-clip-text text-transparent">
-              Forever
-            </span>
-          </motion.h1>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                <span className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 dark:from-white dark:via-gray-100 dark:to-white bg-clip-text text-transparent">
+                  Own Your Mornings,
+                </span>
+                <br />
+                <span className="bg-gradient-to-r from-primary-600 via-evening-500 to-primary-600 bg-clip-text text-transparent">
+                  Forever
+                </span>
+              </h1>
 
-          <motion.p
-            variants={fadeInUp}
-            className="text-xl text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto"
-          >
-            One payment. Lifetime access. No subscriptions, no recurring fees.
-          </motion.p>
+              <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-400 mb-8 max-w-lg mx-auto lg:mx-0">
+                One payment. Lifetime access. No subscriptions, no recurring fees.
+              </p>
 
-          {/* Social Proof Bar */}
-          <motion.div
-            variants={fadeInUp}
-            className="flex flex-wrap items-center justify-center gap-6 text-sm text-gray-500 dark:text-gray-400"
-          >
-            <div className="flex items-center gap-2">
-              <div className="flex">
-                {[1, 2, 3, 4, 5].map((i) => (
-                  <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+              {/* Quick Benefits */}
+              <div className="space-y-3 mb-8">
+                {[
+                  'Plan tomorrow tonight, wake up ready',
+                  'Focus on 3-6 tasks that truly matter',
+                  'Track progress with beautiful analytics',
+                ].map((benefit) => (
+                  <div key={benefit} className="flex items-center gap-3 justify-center lg:justify-start">
+                    <div className="w-5 h-5 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center flex-shrink-0">
+                      <Check className="w-3 h-3 text-green-600 dark:text-green-400" />
+                    </div>
+                    <span className="text-gray-700 dark:text-gray-300">{benefit}</span>
+                  </div>
                 ))}
               </div>
-              <span>4.9 rating</span>
-            </div>
-            <span className="hidden sm:inline text-gray-300 dark:text-gray-600">•</span>
-            <span>10,000+ users trust Domani</span>
-            <span className="hidden sm:inline text-gray-300 dark:text-gray-600">•</span>
-            <span>Public Beta</span>
-          </motion.div>
-        </motion.div>
 
-        {/* Main Pricing Card */}
-        <AnimatedSection className="max-w-xl mx-auto mb-24">
-          <GlassCard hover={false} highlight className="p-8 md:p-10">
-            {/* Discount Badge */}
-            {plan.discountPercent && plan.discountPercent > 0 && (
-              <div className="flex justify-center mb-6">
-                <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-gradient-to-r from-primary-500 to-evening-500 text-white text-sm font-semibold shadow-lg shadow-primary-500/25">
-                  <Sparkles className="w-4 h-4" />
-                  {plan.discountPercent}% Off — Early Adopter Price
-                </span>
-              </div>
-            )}
-
-            {/* Price Display */}
-            <div className="text-center mb-8">
-              <div className="flex items-center justify-center gap-3 mb-2">
-                {plan.originalPrice && (
-                  <span className="text-2xl text-gray-400 line-through">{plan.originalPrice}</span>
-                )}
-                <span className="text-6xl md:text-7xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-200 bg-clip-text text-transparent">
-                  {plan.currentPrice}
-                </span>
-              </div>
-              <p className="text-gray-500 dark:text-gray-400 text-lg">{plan.period}</p>
-            </div>
-
-            {/* Value Statement */}
-            <div className="text-center mb-8">
-              <p className="text-lg text-gray-700 dark:text-gray-300">{plan.description}</p>
-            </div>
-
-            {/* Quick Features */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
-              {plan.features.slice(0, 6).map((feature) => (
-                <div key={feature} className="flex items-center gap-2">
-                  <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
-                  <span className="text-gray-700 dark:text-gray-300 text-sm">{feature}</span>
+              {/* Social Proof */}
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 text-sm text-gray-500 dark:text-gray-400">
+                <div className="flex items-center gap-2">
+                  <div className="flex">
+                    {[1, 2, 3, 4, 5].map((i) => (
+                      <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                    ))}
+                  </div>
+                  <span>4.9 rating</span>
                 </div>
-              ))}
-            </div>
-
-            {/* Trial Banner */}
-            <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border border-green-200 dark:border-green-800/50 rounded-xl p-4 mb-6">
-              <div className="flex items-center justify-center gap-2 text-green-700 dark:text-green-300">
-                <Shield className="w-5 h-5" />
-                <span className="font-semibold">{plan.trialMessage}</span>
+                <span className="text-gray-300 dark:text-gray-600">•</span>
+                <span>10,000+ users</span>
               </div>
-              <p className="text-center text-green-600 dark:text-green-400 text-sm mt-1">
-                No credit card required to start
-              </p>
-            </div>
+            </motion.div>
 
-            {/* CTA */}
-            <div className="mb-6">
-              <DynamicCTA showSubtext={false} analyticsLocation="pricing-card" size="large" />
-            </div>
+            {/* Right Side - Compact Pricing Card */}
+            <motion.div variants={scaleIn}>
+              <GlassCard hover={false} highlight className="p-6 sm:p-8">
+                {/* Discount Badge */}
+                {plan.discountPercent && plan.discountPercent > 0 && (
+                  <div className="flex justify-center mb-4">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-primary-500 to-evening-500 text-white text-sm font-semibold shadow-lg shadow-primary-500/25">
+                      <Sparkles className="w-3.5 h-3.5" />
+                      {plan.discountPercent}% Off
+                    </span>
+                  </div>
+                )}
 
-            {/* Trust Signals */}
-            <div className="flex items-center justify-center gap-4 text-xs text-gray-500 dark:text-gray-400">
-              <div className="flex items-center gap-1">
-                <Lock className="w-3.5 h-3.5" />
-                <span>Secure</span>
-              </div>
-              <span>•</span>
-              <span>Refunds via App Store</span>
-              <span>•</span>
-              <span>GDPR Compliant</span>
-            </div>
-          </GlassCard>
-        </AnimatedSection>
+                {/* Price Display */}
+                <div className="text-center mb-4">
+                  <div className="flex items-center justify-center gap-2 mb-1">
+                    {plan.originalPrice && (
+                      <span className="text-xl text-gray-400 line-through">{plan.originalPrice}</span>
+                    )}
+                    <span className="text-5xl sm:text-6xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-200 bg-clip-text text-transparent">
+                      {plan.currentPrice}
+                    </span>
+                  </div>
+                  <p className="text-gray-500 dark:text-gray-400">{plan.period}</p>
+                </div>
+
+                {/* Features Grid */}
+                <div className="grid grid-cols-2 gap-2 mb-4">
+                  {plan.features.slice(0, 6).map((feature) => (
+                    <div key={feature} className="flex items-center gap-1.5">
+                      <Check className="w-4 h-4 text-green-500 flex-shrink-0" />
+                      <span className="text-gray-700 dark:text-gray-300 text-sm">{feature}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Trial Banner */}
+                <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border border-green-200 dark:border-green-800/50 rounded-lg p-3 mb-4">
+                  <div className="flex items-center justify-center gap-2 text-green-700 dark:text-green-300">
+                    <Shield className="w-4 h-4" />
+                    <span className="font-semibold text-sm">{plan.trialMessage}</span>
+                  </div>
+                </div>
+
+                {/* CTA */}
+                <div className="mb-4">
+                  <DynamicCTA showSubtext={false} analyticsLocation="pricing-card" size="large" />
+                </div>
+
+                {/* Trust Signals */}
+                <div className="flex items-center justify-center gap-3 text-xs text-gray-500 dark:text-gray-400">
+                  <div className="flex items-center gap-1">
+                    <Lock className="w-3 h-3" />
+                    <span>Secure</span>
+                  </div>
+                  <span>•</span>
+                  <span>App Store Refunds</span>
+                  <span>•</span>
+                  <span>GDPR</span>
+                </div>
+              </GlassCard>
+            </motion.div>
+          </div>
+        </motion.div>
 
         {/* Subscription Comparison */}
         <AnimatedSection className="max-w-3xl mx-auto mb-24">
