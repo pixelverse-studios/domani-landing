@@ -390,9 +390,14 @@ export function PricingContent({ plan, faqs, testimonials, comparison }: Pricing
                 <p className="text-sm font-medium text-primary-600 dark:text-primary-400 mb-2">
                   Lifetime Deal
                 </p>
-                <p className="text-3xl font-bold text-primary-700 dark:text-primary-300 mb-1">
-                  {plan.currentPrice}
-                </p>
+                <div className="flex items-center justify-center gap-2 mb-1">
+                  {plan.originalPrice && (
+                    <span className="text-xl text-gray-400 line-through">{plan.originalPrice}</span>
+                  )}
+                  <span className="text-3xl font-bold text-primary-700 dark:text-primary-300">
+                    {plan.currentPrice}
+                  </span>
+                </div>
                 <p className="text-primary-600 dark:text-primary-400">one-time, forever</p>
               </div>
             </div>
