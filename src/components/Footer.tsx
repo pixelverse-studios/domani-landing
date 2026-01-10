@@ -1,13 +1,42 @@
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
-import DynamicCTA from './DynamicCTA'
 
-const footerLinks = [
-  { label: 'Privacy Policy', href: '/privacy' },
-  { label: 'Terms of Service', href: '/terms' },
-  { label: 'Security', href: '/security' },
-  { label: 'Delete Account', href: '/delete-account' },
-  { label: 'Blog', href: '/blog' },
+interface FooterLink {
+  label: string
+  href: string
+  external?: boolean
+}
+
+interface FooterSection {
+  title: string
+  links: FooterLink[]
+}
+
+const footerSections: FooterSection[] = [
+  {
+    title: 'Product',
+    links: [
+      { label: 'Features', href: '/#features' },
+      { label: 'Pricing', href: '/pricing' },
+      { label: 'About', href: '/about' },
+    ],
+  },
+  {
+    title: 'Resources',
+    links: [
+      { label: 'Blog', href: '/blog' },
+      { label: 'FAQ', href: '/faq' },
+    ],
+  },
+  {
+    title: 'Legal',
+    links: [
+      { label: 'Privacy Policy', href: '/privacy' },
+      { label: 'Terms of Service', href: '/terms' },
+      { label: 'Security', href: '/security' },
+      { label: 'Delete Account', href: '/delete-account' },
+    ],
+  },
 ]
 
 interface FooterProps {
@@ -15,41 +44,72 @@ interface FooterProps {
 }
 
 export function Footer({ className }: FooterProps) {
+  const currentYear = new Date().getFullYear()
+
   return (
     <footer
       className={cn(
-        'border-t border-gray-100 bg-white/80 py-10 text-sm text-gray-600 backdrop-blur dark:border-white/10 dark:bg-dark-surface/80 dark:text-gray-400',
+        'border-t border-gray-100 bg-white/80 py-12 backdrop-blur dark:border-white/10 dark:bg-dark-surface/80',
         className
       )}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
-          {/* Brand and Download */}
-          <div className="flex flex-col gap-4">
-            <div>
-              <p className="font-semibold text-gray-900 dark:text-white">Domani</p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">Plan tomorrow tonight, wake up ready.</p>
-            </div>
-            <DynamicCTA showSubtext={false} size="default" analyticsLocation="footer" />
-            <p className="text-xs">
-              Need help? <a href="mailto:support@domani-app.com" className="underline hover:text-primary-600 dark:hover:text-primary-300">support@domani-app.com</a>
+        {/* Main Footer Grid */}
+        <div className="grid grid-cols-2 gap-8 md:grid-cols-4 lg:gap-12">
+          {/* Brand Column */}
+          <div className="col-span-2 md:col-span-1">
+            <Link href="/" className="inline-block">
+              <span className="text-xl font-bold text-gray-900 dark:text-white">
+                Domani
+              </span>
+            </Link>
+            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+              Plan tomorrow tonight,
+              <br />
+              wake up ready.
             </p>
           </div>
 
-          {/* Links */}
-          <nav className="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm lg:justify-end">
-            {footerLinks.map((link) => (
-              <Link key={link.href} href={link.href} className="hover:text-primary-600 dark:hover:text-primary-300">
-                {link.label}
-              </Link>
-            ))}
-          </nav>
+          {/* Link Columns */}
+          {footerSections.map((section) => (
+            <div key={section.title}>
+              <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
+                {section.title}
+              </h3>
+              <ul className="mt-3 space-y-2">
+                {section.links.map((link) => (
+                  <li key={link.href}>
+                    {link.external ? (
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-sm text-gray-500 transition-colors hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-300"
+                      >
+                        {link.label}
+                      </a>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        className="text-sm text-gray-500 transition-colors hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-300"
+                      >
+                        {link.label}
+                      </Link>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
-        {/* Copyright */}
-        <div className="mt-8 border-t border-gray-100 pt-6 dark:border-white/10">
+        {/* Bottom Bar */}
+        <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-gray-100 pt-6 dark:border-white/10 sm:flex-row">
           <p className="text-xs text-gray-500 dark:text-gray-500">
-            &copy; {new Date().getFullYear()} Domani Labs. All rights reserved. Powered by{' '}
+            &copy; {currentYear} Domani Labs. All rights reserved.
+            <span className="hidden sm:inline"> · </span>
+            <br className="sm:hidden" />
+            Powered by{' '}
             <a
               href="https://www.pixelversestudios.io"
               target="_blank"
@@ -58,8 +118,13 @@ export function Footer({ className }: FooterProps) {
             >
               PixelVerse Studios
             </a>
-            .
           </p>
+          <a
+            href="mailto:support@domani-app.com"
+            className="text-xs text-gray-500 transition-colors hover:text-primary-600 dark:text-gray-500 dark:hover:text-primary-300"
+          >
+            support@domani-app.com
+          </a>
         </div>
       </div>
     </footer>
