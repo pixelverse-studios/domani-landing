@@ -299,5 +299,5 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
     )
   }
 
-  return <div className="w-full max-w-md">{formContent}</div>
+  return <div className="w-full max-w-md mx-auto">{formContent}</div>
 }
