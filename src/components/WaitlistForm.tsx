@@ -197,7 +197,7 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
               )}
             </div>
 
-            <p className="text-center text-xs text-gray-500 dark:text-gray-400">
+            <p className="text-xs text-gray-500 dark:text-gray-400">
               By joining, you agree to our{' '}
               {hasLegalLinks ? (
                 <>
@@ -299,5 +299,5 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
     )
   }
 
-  return <div className="w-full max-w-md mx-auto">{formContent}</div>
+  return <div className="w-full max-w-md">{formContent}</div>
 }
