@@ -92,7 +92,7 @@ export default function WaitlistInline() {
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="max-w-md mx-auto"
+        className="max-w-md"
       >
         <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl p-4 flex items-center gap-3">
           <div className="flex-shrink-0">
@@ -111,7 +111,7 @@ export default function WaitlistInline() {
 
   return (
     <>
-      <div className="max-w-md mx-auto">
+      <div className="max-w-md">
         <form onSubmit={handleQuickSubmit} className="relative">
           <div className="flex flex-col sm:flex-row gap-3">
             <div className="flex-1">
@@ -188,7 +188,7 @@ export default function WaitlistInline() {
         </form>
 
         {/* Privacy Note */}
-        <p className="mt-8 flex flex-wrap items-center justify-center gap-x-1 gap-y-1 text-center text-xs text-gray-500 dark:text-gray-400">
+        <p className="mt-8 flex flex-wrap items-center gap-x-1 gap-y-1 text-xs text-gray-500 dark:text-gray-400">
           <span>No spam, ever. Unsubscribe anytime.</span>
           {hasLegalLinks ? (
             <span>
