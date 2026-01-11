@@ -1062,3 +1062,48 @@ describe('Waitlist Flow', () => {
 - "Test, iterate, improve"
 - "Document with audit trails"
 - "All docs in /docs directory"
+
+## CRITICAL: Deployment Summary Updates
+
+**IMMEDIATELY after completing ANY work, APPEND to `docs/deployment_summary.md` BEFORE doing anything else.**
+
+### Accumulation Workflow:
+- **ADD** new bullet points below existing ones (don't replace previous entries)
+- The summary accumulates across multiple PRs until `main` is pushed
+- After pushing to `main`: hook sends accumulated summary via email, then file auto-resets
+
+### Required Sections:
+
+1. **Latest deploy summary** - Client-facing changes (plain language)
+   - Focus on WHAT changed, not HOW
+   - Each bullet = one clear sentence
+
+2. **Notes for internal team** - Technical details (NOT sent in client email)
+   - Ticket IDs, file changes, environment notes
+
+3. **Changed URLs** - Full URLs affected (used for SEO re-indexing)
+   - Use bullet points: `- https://www.domani-app.com/page`
+   - No extra text after URLs
+
+### Example:
+```markdown
+## Latest deploy summary
+- Added dark mode toggle to settings page
+- Fixed contact form validation on mobile
+- Updated homepage hero messaging
+
+## Notes for internal team
+- TICKET-123, TICKET-124 completed
+- Files: components/settings.tsx, components/contact-form.tsx
+
+## Changed URLs
+- https://www.domani-app.com/
+- https://www.domani-app.com/settings
+- https://www.domani-app.com/contact
+```
+
+### How It Works:
+1. **Work on feature branch** - Make changes, update `deployment_summary.md`
+2. **Push feature branch** - Hook skips (not main), summary stays populated
+3. **Merge PR to main** - Summary still accumulates
+4. **Push main to remote** - Hook fires, sends email, resets file
