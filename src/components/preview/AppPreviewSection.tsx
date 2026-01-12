@@ -102,7 +102,7 @@ export function AppPreviewSection({ className }: { className?: string }) {
           </div>
           <div className="flex gap-2">
             <div className="bg-white/30 rounded-full px-3 py-1">
-              <span className="text-white text-xs font-medium">3 tasks</span>
+              <span className="text-white text-xs font-medium">Plan ready</span>
             </div>
             <div className="bg-white/30 rounded-full px-3 py-1">
               <span className="text-white text-xs font-medium">2h estimated</span>

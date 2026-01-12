@@ -18,7 +18,7 @@ export default function AboutPage() {
       icon: 'target',
       title: 'Focus on What Matters',
       description:
-        "The 3-6 task rule isn't arbitrary—it's based on cognitive science about sustainable productivity.",
+        "We proactively nudge you to plan each evening, building a sustainable habit instead of leaving it all up to you.",
     },
     {
       icon: 'zap',

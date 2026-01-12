@@ -30,7 +30,7 @@ export default function FAQPage() {
         {
           question: 'How is Domani different from other task apps?',
           answer:
-            'Domani is specifically built around evening planning psychology. Unlike general task managers, we enforce the 3-6 task rule, provide a Plan Lock feature to prevent morning overthinking, and separate planning mode (evening) from execution mode (morning). We\'re opinionated about what works.',
+            'Domani is built around evening planning psychology, not just task management. We proactively nudge you to plan the night before with smart reminders, helping you build a sustainable habit. Unlike cluttered task managers with overwhelming features, we keep things intentionally minimal—Plan Lock prevents morning overthinking, and our clean design means zero anxiety from feature overload. Plan when calm, execute with clarity.',
         },
         {
           question: 'Do I need to pay to use Domani?',
@@ -42,9 +42,9 @@ export default function FAQPage() {
       category: 'Features & Functionality',
       questions: [
         {
-          question: 'What is the 3-6 task rule?',
+          question: 'How does Domani help me build a planning habit?',
           answer:
-            'The 3-6 rule limits your daily tasks to a maximum of 6, with 3 being ideal. This is based on cognitive science research showing that humans can only effectively focus on 3-5 meaningful tasks per day. More than that leads to overwhelm and incomplete work.',
+            'Domani proactively reminds you to plan each evening with smart, customizable notifications. Instead of leaving habit formation entirely up to you, we gently nudge you at the right time. Combined with our streak tracking and the satisfaction of waking up with a clear plan, most users find the evening planning habit sticks within the first week.',
         },
         {
           question: 'What is Plan Lock?',

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Terms of Service | Domani',
-  description: 'Review the rules for using Domani’s evening planning platform, subscriptions, and content.',
+  description: 'Review the rules for using Domani's evening planning platform, purchases, and content.',
 }
 
 const sections = [
@@ -22,14 +22,14 @@ const sections = [
       "Use Domani to plan your work and personal tasks. Don't reverse engineer, resell access, upload malware, or use the service for unlawful activity. We reserve the right to suspend accounts that violate these rules.",
   },
   {
-    title: '4. Free & Premium tiers',
+    title: '4. Trial & lifetime access',
     body:
-      'The free tier allows up to 3 tasks per day with basic features. Premium unlocks unlimited tasks, additional categories, and advanced features. Upgrade to Premium or Lifetime through the Apple App Store or Google Play Store. Subscription management and billing are handled entirely through your app store account.',
+      'Domani offers a 14-day free trial with full access to all features. After the trial, you can purchase lifetime access through the Apple App Store or Google Play Store. This is a one-time payment with no recurring fees—you own Domani forever, including all future updates.',
   },
   {
-    title: '5. Subscriptions & billing',
+    title: '5. Purchases & billing',
     body:
-      "Premium subscriptions are billed through the Apple App Store or Google Play Store, not directly by PixelVerse Studios. Free trials convert automatically unless cancelled before the trial ends via your app store settings. Lifetime purchases are non-refundable except where required by law or your app store's refund policy. For billing issues, please contact Apple or Google support.",
+      "Lifetime purchases are processed through the Apple App Store or Google Play Store, not directly by PixelVerse Studios. Your 14-day trial does not require payment information upfront. Lifetime purchases are non-refundable except where required by law or your app store's refund policy. For billing issues, please contact Apple or Google support.",
   },
   {
     title: '6. Plan locking',
@@ -42,9 +42,9 @@ const sections = [
       'We collect: account information (email, name) from your OAuth provider; task data (titles, descriptions, categories, completion status); device metadata when you submit feedback; and notification preferences. See our Privacy Policy for full details on data handling.',
   },
   {
-    title: '8. Cancellation & deletion',
+    title: '8. Account deletion',
     body:
-      'You can cancel subscriptions through the Apple App Store or Google Play Store at any time; access continues through the end of the paid period. Delete your account in app settings to remove stored data. Task history is retained for 30 days after deletion to allow recovery, then permanently removed.',
+      'Lifetime access does not expire and requires no cancellation. Delete your account in app settings to remove stored data. Task history is retained for 30 days after deletion to allow recovery, then permanently removed.',
   },
   {
     title: '9. Intellectual property',

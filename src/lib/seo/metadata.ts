@@ -93,7 +93,7 @@ export const pricingMetadata: Metadata = {
     locale: 'en_US',
     url: `${SITE_URL}/pricing`,
     siteName: SITE_NAME,
-    title: 'Pricing - Start Free | Domani',
+    title: 'Pricing - Lifetime Access | Domani',
     description: META_TEMPLATES.pricing,
     images: [
       {
@@ -108,7 +108,7 @@ export const pricingMetadata: Metadata = {
     card: 'summary_large_image',
     site: TWITTER_HANDLE,
     creator: TWITTER_HANDLE,
-    title: 'Pricing - Start Free | Domani',
+    title: 'Pricing - Lifetime Access | Domani',
     description: META_TEMPLATES.pricing,
     images: [`${SITE_URL}/og-pricing.png`],
   },

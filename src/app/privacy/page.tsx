@@ -12,7 +12,7 @@ const sections = [
     items: [
       'Account basics: name, email, and authentication details so we can create and secure your workspace.',
       'Product analytics: button clicks, feature usage, and device information to improve the experience.',
-      'Payment info: processed securely by Stripe when you upgrade to Premium or Lifetime plans.',
+      'Payment info: processed securely through the App Store or Google Play when you purchase lifetime access.',
       'Support context: messages sent to support@domani-app.com or in-app chat so we can resolve issues.',
     ],
   },

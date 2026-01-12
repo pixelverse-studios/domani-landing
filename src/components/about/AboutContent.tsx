@@ -361,7 +361,7 @@ export function AboutContent({ values }: AboutContentProps) {
               </p>
               <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed">
                 Every feature in Domani exists because we needed it ourselves. The evening planning
-                mode? We use it every night. The 3-6 task limit? Based on years of trial and error.
+                mode? We use it every night. The smart reminders? They helped us finally build the habit.
               </p>
               <p className="text-xl md:text-2xl font-semibold bg-gradient-to-r from-primary-600 to-evening-600 dark:from-primary-400 dark:to-evening-400 bg-clip-text text-transparent">
                 This isn&apos;t just an app. It&apos;s how we run our lives.

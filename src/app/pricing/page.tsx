@@ -56,8 +56,8 @@ export default function PricingPage() {
       },
       {
         icon: <Brain className="w-6 h-6" />,
-        title: 'The 3-6 Rule',
-        description: 'Science-backed task limits keep you focused and prevent overwhelm.',
+        title: 'Smart Reminders',
+        description: 'Proactive nudges help you build the evening planning habit effortlessly.',
       },
       {
         icon: <BarChart3 className="w-6 h-6" />,

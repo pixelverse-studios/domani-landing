@@ -276,7 +276,7 @@ export function PricingContent({ plan, faqs, testimonials, comparison }: Pricing
               <div className="space-y-3 mb-8">
                 {[
                   'Plan tomorrow tonight, wake up ready',
-                  'Focus on 3-6 tasks that truly matter',
+                  'Smart reminders build lasting habits',
                   'Track progress with beautiful analytics',
                 ].map((benefit) => (
                   <div key={benefit} className="flex items-center gap-3 justify-center lg:justify-start">
