@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Terms of Service | Domani',
-  description: 'Review the rules for using Domani's evening planning platform, purchases, and content.',
+  description: "Review the rules for using Domani's evening planning platform, purchases, and content.",
 }
 
 const sections = [
