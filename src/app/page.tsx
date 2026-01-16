@@ -1,11 +1,12 @@
-import { Suspense } from 'react'
-import HeroSection from '@/components/HeroSection'
-import { MITSpotlight } from '@/components/features/MITSpotlight'
-import { PlanLockSpotlight } from '@/components/features/PlanLockSpotlight'
-import { BenefitsSection } from '@/components/benefits/BenefitsSection'
-import { AppShowcase } from '@/components/showcase/AppShowcase'
-import { HomePageClient } from '@/components/home/HomePageClient'
-import Analytics from '@/components/Analytics'
+import { Suspense } from 'react';
+import HeroSection from '@/components/HeroSection';
+import { MITSpotlight } from '@/components/features/MITSpotlight';
+import { PlanLockSpotlight } from '@/components/features/PlanLockSpotlight';
+import { SmartRolloverSpotlight } from '@/components/features/SmartRolloverSpotlight';
+import { BenefitsSection } from '@/components/benefits/BenefitsSection';
+import { AppShowcase } from '@/components/showcase/AppShowcase';
+import { HomePageClient } from '@/components/home/HomePageClient';
+import Analytics from '@/components/Analytics';
 
 function LandingFallback() {
   return (
@@ -16,13 +17,14 @@ function LandingFallback() {
           <HeroSection />
           <MITSpotlight />
           <PlanLockSpotlight />
+          <SmartRolloverSpotlight />
           <BenefitsSection />
           <AppShowcase />
           {/* Testimonials temporarily disabled until real quotes are ready */}
         </div>
       </main>
     </>
-  )
+  );
 }
 
 export default function HomePage() {
@@ -32,10 +34,11 @@ export default function HomePage() {
         <HeroSection />
         <MITSpotlight />
         <PlanLockSpotlight />
+        <SmartRolloverSpotlight />
         <BenefitsSection />
         <AppShowcase />
         {/* Testimonials temporarily disabled until real quotes are ready */}
       </HomePageClient>
     </Suspense>
-  )
+  );
 }
