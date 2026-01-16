@@ -31,15 +31,13 @@ export async function GET() {
     // Create admin client at request time to bypass RLS
     const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey)
 
-    // Fetch the count from the waitlist table
-    const { count, error } = await supabaseAdmin
+    // Fetch emails from waitlist
+    const { data: waitlistData, error: waitlistError } = await supabaseAdmin
       .from('waitlist')
-      .select('*', { count: 'exact', head: true })
+      .select('email')
 
-
-    if (error) {
-      console.error('Error fetching user count:', error)
-      // Return a fallback count if there's an error
+    if (waitlistError) {
+      console.error('Error fetching waitlist:', waitlistError)
       return NextResponse.json<CountResponse>(
         { count: 1000, error: true },
         {
@@ -51,8 +49,32 @@ export async function GET() {
       )
     }
 
+    // Fetch emails from profiles (active users)
+    const { data: profilesData, error: profilesError } = await supabaseAdmin
+      .from('profiles')
+      .select('email')
+
+    if (profilesError) {
+      console.error('Error fetching profiles:', profilesError)
+      // Fall back to just waitlist count if profiles fails
+      return NextResponse.json<CountResponse>(
+        { count: waitlistData?.length || 0 },
+        {
+          status: 200,
+          headers: {
+            'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120'
+          }
+        }
+      )
+    }
+
+    // Combine and deduplicate by email
+    const allEmails = new Set<string>()
+    waitlistData?.forEach((row) => row.email && allEmails.add(row.email.toLowerCase()))
+    profilesData?.forEach((row) => row.email && allEmails.add(row.email.toLowerCase()))
+
     return NextResponse.json<CountResponse>(
-      { count: count || 0 },
+      { count: allEmails.size },
       {
         status: 200,
         headers: {
