@@ -54,15 +54,21 @@ export function SmartRolloverSpotlight() {
                 <IterationCcw className="h-16 w-16 text-white sm:h-20 sm:w-20" />
               </div>
 
-              {/* Coming Soon badge */}
+              {/* Coming Soon badge with pulse */}
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.3, duration: 0.4 }}
-                className="absolute -bottom-3 -right-3 rounded-full bg-white px-3 py-1.5 text-sm font-semibold text-amber-600 shadow-lg dark:bg-dark-card dark:text-amber-400"
+                className="absolute -bottom-3 -right-3"
               >
-                Coming Soon
+                <motion.div
+                  animate={{ scale: [1, 1.05, 1] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                  className="rounded-full bg-white px-3 py-1.5 text-sm font-semibold text-amber-600 shadow-lg dark:bg-dark-card dark:text-amber-400"
+                >
+                  Coming Soon
+                </motion.div>
               </motion.div>
             </div>
           </motion.div>
@@ -76,6 +82,10 @@ export function SmartRolloverSpotlight() {
               transition={{ duration: 0.5 }}
               className="mb-3 text-sm font-semibold uppercase tracking-widest text-amber-600 dark:text-amber-400"
             >
+              <span className="rounded-full bg-amber-100 px-2 py-0.5 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300">
+                Coming Soon
+              </span>
+              <span className="mx-2">•</span>
               Smart Task Rollover
             </motion.p>
 
