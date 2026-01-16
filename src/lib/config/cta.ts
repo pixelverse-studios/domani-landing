@@ -57,7 +57,7 @@ export interface CTAConfig {
 
 export const CTA_CONFIG: CTAConfig = {
   betaDates: {
-    startDate: '2026-01-20', // Public beta launch date
+    startDate: '2026-01-16', // Public beta launch date
     endDate: '2026-03-01', // Beta end date
   },
 
