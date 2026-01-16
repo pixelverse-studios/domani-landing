@@ -11,8 +11,7 @@
 ## Notes for internal team
 - DOM-252 completed
 - New component: src/components/features/SmartRolloverSpotlight.tsx
-- Updated: src/app/page.tsx to include new spotlight section
-- Amber/orange color scheme to differentiate from existing red (MIT) and purple (PlanLock) spotlights
+- Amber/orange color scheme to differentiate from existing spotlights
 
 ## Changed URLs
 - https://www.domani-app.com/
