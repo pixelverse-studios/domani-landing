@@ -19,6 +19,15 @@ const nextConfig = {
   // Skip redirects for API routes
   skipTrailingSlashRedirect: true,
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'mdx'],
+  async rewrites() {
+    const backendUrl = process.env.PVS_API_URL || 'http://localhost:5001'
+    return [
+      {
+        source: '/api/domani/:path*',
+        destination: `${backendUrl}/api/domani/:path*`,
+      },
+    ]
+  },
 }
 
 module.exports = withMDX(nextConfig)
