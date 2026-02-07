@@ -208,7 +208,7 @@ export const tailwindColors = {
   'text-muted': themeColors.text.muted,
   'border-primary': themeColors.border.primary,
   'border-secondary': themeColors.border.secondary,
-};
+} as const;
 
 /**
  * Converts a hex color code to HSL format for CSS variables
@@ -290,7 +290,7 @@ export const cssVariables = {
   '--color-priority-high': hexToHSL(themeColors.priority.high),
   '--color-priority-medium': hexToHSL(themeColors.priority.medium),
   '--color-priority-low': hexToHSL(themeColors.priority.low),
-};
+} as const;
 
 /**
  * Default export for convenience
