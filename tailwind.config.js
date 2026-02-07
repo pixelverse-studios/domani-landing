@@ -1,4 +1,7 @@
 /** @type {import('tailwindcss').Config} */
+// Import theme colors from centralized theme system
+const { tailwindColors } = require('./apps/landing/src/lib/theme/colors');
+
 const config = {
   darkMode: 'class',
   content: [
@@ -12,30 +15,53 @@ const config = {
         border: 'hsl(var(--border))',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
-        // Dark mode specific colors for better gradients
+        // Dark mode specific colors with sage green undertones
         dark: {
-          surface: '#0F0F11', // Slightly blue-tinted black
-          elevated: '#1A1A1F', // Elevated surfaces
-          card: '#242429', // Card backgrounds
+          surface: '#1A1F1D', // Dark sage-tinted surface
+          elevated: '#242929', // Elevated surfaces with subtle green
+          card: '#2D3331', // Card backgrounds
           gradient: {
-            from: '#0A0A0F', // Deep dark with blue undertone
-            via: '#151521', // Mid-tone with purple hint
-            to: '#0F0F14', // Slightly lighter with blue tint
+            from: '#141816', // Deep dark with sage undertone
+            via: '#1E2421', // Mid-tone with green hint
+            to: '#1A1F1D', // Slightly lighter with sage tint
           }
         },
+        // Sage green primary palette (full 50-900 scale)
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
-          50: '#eef2ff',
-          100: '#e0e7ff',
-          200: '#c7d2fe',
-          300: '#a5b4fc',
-          400: '#818cf8',
-          500: '#6366f1',
-          600: '#4f46e5',
-          700: '#4338ca',
-          800: '#3730a3',
-          900: '#312e81',
+          50: '#F4F7F5',
+          100: '#E8EDE9',
+          200: '#D1DBD4',
+          300: '#A3BFB0', // light
+          400: '#7D9B8A',
+          500: '#7D9B8A', // DEFAULT
+          600: '#6A8577',
+          700: '#5A7765', // dark
+          800: '#4A5F53',
+          900: '#3D4A44',
+        },
+        // Alias for semantic clarity
+        sage: {
+          DEFAULT: '#7D9B8A',
+          light: '#A3BFB0',
+          dark: '#5A7765',
+          50: '#F4F7F5',
+          100: '#E8EDE9',
+          200: '#D1DBD4',
+          300: '#A3BFB0',
+          400: '#7D9B8A',
+          500: '#7D9B8A',
+          600: '#6A8577',
+          700: '#5A7765',
+          800: '#4A5F53',
+          900: '#3D4A44',
+        },
+        // Priority colors for task management
+        priority: {
+          high: '#D77A61',    // Coral/Terracotta
+          medium: '#E8B86D',  // Golden Amber
+          low: '#8B9DAF',     // Blue-Gray
         },
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
@@ -48,18 +74,6 @@ const config = {
         muted: {
           DEFAULT: 'hsl(var(--muted))',
           foreground: 'hsl(var(--muted-foreground))',
-        },
-        evening: {
-          50: '#faf5ff',
-          100: '#f3e8ff',
-          200: '#e9d5ff',
-          300: '#d8b4fe',
-          400: '#c084fc',
-          500: '#a855f7',
-          600: '#9333ea',
-          700: '#7e22ce',
-          800: '#6b21a8',
-          900: '#581c87',
         },
       },
       borderColor: {
