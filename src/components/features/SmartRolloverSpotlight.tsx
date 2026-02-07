@@ -18,17 +18,17 @@ export function SmartRolloverSpotlight() {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-clip bg-gradient-to-b from-white via-amber-50/30 to-white px-4 py-24 dark:from-dark-gradient-from dark:via-dark-elevated dark:to-dark-gradient-from sm:px-6 lg:px-8"
+      className="relative overflow-clip bg-gradient-to-b from-white via-primary-50/30 to-white px-4 py-24 dark:from-dark-gradient-from dark:via-dark-elevated dark:to-dark-gradient-from sm:px-6 lg:px-8"
     >
       {/* Background decoration */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <motion.div
           style={{ y: translateY }}
-          className="absolute -right-20 top-1/4 h-72 w-72 rounded-full bg-gradient-to-br from-amber-200 to-orange-200 opacity-20 blur-3xl dark:from-amber-500/20 dark:to-orange-500/20"
+          className="absolute -right-20 top-1/4 h-72 w-72 rounded-full bg-gradient-to-br from-primary-200 to-primary-300 opacity-20 blur-3xl dark:from-primary-500/20 dark:to-primary-600/20"
         />
         <motion.div
           style={{ y: translateY }}
-          className="absolute -left-20 bottom-1/4 h-72 w-72 rounded-full bg-gradient-to-br from-yellow-200 to-amber-200 opacity-20 blur-3xl dark:from-yellow-500/20 dark:to-amber-500/20"
+          className="absolute -left-20 bottom-1/4 h-72 w-72 rounded-full bg-gradient-to-br from-primary-200 to-primary-300 opacity-20 blur-3xl dark:from-primary-500/20 dark:to-primary-600/20"
         />
       </div>
 
@@ -47,10 +47,10 @@ export function SmartRolloverSpotlight() {
           >
             <div className="relative">
               {/* Glow effect */}
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-amber-400 to-orange-500 opacity-20 blur-2xl" />
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary-400 to-primary-600 opacity-20 blur-2xl" />
 
               {/* Main icon container */}
-              <div className="relative flex h-32 w-32 items-center justify-center rounded-3xl bg-gradient-to-br from-amber-500 to-orange-500 shadow-2xl shadow-amber-500/30 sm:h-40 sm:w-40">
+              <div className="relative flex h-32 w-32 items-center justify-center rounded-3xl bg-gradient-to-br from-primary-500 to-primary-700 shadow-2xl shadow-primary-500/30 sm:h-40 sm:w-40">
                 <IterationCcw className="h-16 w-16 text-white sm:h-20 sm:w-20" />
               </div>
 
@@ -65,7 +65,7 @@ export function SmartRolloverSpotlight() {
                 <motion.div
                   animate={{ scale: [1, 1.05, 1] }}
                   transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                  className="rounded-full bg-white px-3 py-1.5 text-sm font-semibold text-amber-600 shadow-lg dark:bg-dark-card dark:text-amber-400"
+                  className="rounded-full bg-white px-3 py-1.5 text-sm font-semibold text-primary-600 shadow-lg dark:bg-dark-card dark:text-primary-400"
                 >
                   Coming Soon
                 </motion.div>
@@ -80,9 +80,9 @@ export function SmartRolloverSpotlight() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-100px' }}
               transition={{ duration: 0.5 }}
-              className="mb-3 text-sm font-semibold uppercase tracking-widest text-amber-600 dark:text-amber-400"
+              className="mb-3 text-sm font-semibold uppercase tracking-widest text-primary-600 dark:text-primary-400"
             >
-              <span className="rounded-full bg-amber-100 px-2 py-0.5 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300">
+              <span className="rounded-full bg-primary-100 px-2 py-0.5 text-primary-700 dark:bg-primary-900/30 dark:text-primary-300">
                 Coming Soon
               </span>
               <span className="mx-2">•</span>
@@ -97,7 +97,7 @@ export function SmartRolloverSpotlight() {
               className="mb-4 text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl lg:text-5xl"
             >
               Yesterday&apos;s Unfinished Business,{' '}
-              <span className="bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-primary-500 to-primary-700 bg-clip-text text-transparent">
                 Today&apos;s Conscious Choice.
               </span>
             </motion.h2>
