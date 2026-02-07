@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 import { useRef } from 'react';
 import { IterationCcw } from 'lucide-react';
 import { SectionDivider } from '@/components/ui/SectionDivider';
@@ -11,8 +11,13 @@ export function SmartRolloverSpotlight() {
     target: sectionRef,
     offset: ['start end', 'end start'],
   });
+  const prefersReducedMotion = useReducedMotion();
 
-  const translateY = useTransform(scrollYProgress, [0, 1], [40, -40]);
+  const translateY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    prefersReducedMotion ? [0, 0] : [40, -40]
+  );
   const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
 
   return (
@@ -123,19 +128,19 @@ export function SmartRolloverSpotlight() {
               className="flex flex-wrap justify-center gap-4 text-sm text-gray-500 dark:text-gray-400 lg:justify-start"
             >
               <span className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-green-500" />
+                <span className="h-2 w-2 rounded-full bg-primary-500" />
                 You stay in control
               </span>
               <span className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-green-500" />
+                <span className="h-2 w-2 rounded-full bg-primary-500" />
                 No task debt
               </span>
               <span className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-green-500" />
+                <span className="h-2 w-2 rounded-full bg-primary-500" />
                 Intentional planning
               </span>
               <span className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-green-500" />
+                <span className="h-2 w-2 rounded-full bg-primary-500" />
                 Graceful abandonment
               </span>
             </motion.div>

@@ -15,6 +15,7 @@
 - Updated core branding components (Logo, Header) to use sage green palette
 - Removed all evening-* color references from Logo component
 - Replaced purple/blue navigation underline with sage monochromatic gradient
+- Updated feature spotlight bullet points from green to sage palette for visual consistency
 
 ## Notes for internal team
 - DOM-416 completed and in review (PR #29)
@@ -50,9 +51,32 @@
 - Add Task button gradient: to-evening-600 → to-primary-700
 - Social proof user count gradient: evening-* → primary-* (light and dark mode)
 - Audit: docs/audits/landing/2026-02-07-17-08-01-dom-419-hero-section.md
+- ACCESSIBILITY FIX completed (not ticketed)
+- Modified file: src/components/features/MITSpotlight.tsx
+- Fixed WCAG AA compliance: coral text #D77A61 → #C05A43 (3.07:1 → 4.51:1 contrast ratio)
+- Line 64: Badge text color darkened for accessibility
+- Line 78: Label text color darkened for accessibility
+- Large text gradient (line 91) unchanged - passes WCAG AA large text standard (3.0:1 threshold)
+- Icon backgrounds unchanged - white on coral already has excellent contrast
+- Fixed coral text contrast violations in MITSpotlight component to meet WCAG AA standards
+- Updated small text color from #D77A61 (3.07:1 ratio) to #C05A43 (4.51:1 ratio) for accessibility compliance
+- ACCESSIBILITY FIX completed (not ticketed)
+- Modified files: src/components/features/MITSpotlight.tsx, src/components/features/PlanLockSpotlight.tsx, src/components/features/SmartRolloverSpotlight.tsx
+- Added useReducedMotion hook to all three feature spotlight components
+- Scroll-based translateY animations now respect prefers-reduced-motion media query
+- Users with vestibular disorders will see static background decorations instead of parallax scroll effects
+- Opacity animations retained (less problematic for accessibility)
+- Added motion preference support to feature spotlight components for users with vestibular disorders
+- All three spotlight components now respect prefers-reduced-motion media query
+- Modified files: src/components/features/MITSpotlight.tsx, src/components/features/PlanLockSpotlight.tsx, src/components/features/SmartRolloverSpotlight.tsx
+- Replaced bg-green-500 with bg-primary-500 across all feature spotlights (11 total bullet points)
+- MITSpotlight: 3 bullet points updated (lines 122, 126, 130)
+- PlanLockSpotlight: 3 bullet points updated (lines 132, 136, 140)
+- SmartRolloverSpotlight: 4 bullet points updated (lines 131, 135, 139, 143)
+- Improves visual consistency with sage color palette migration
 
 ## Changed URLs
-- https://www.domani-app.com/ (logo, nav underline, hero section blobs, hero phone mockup, social proof)
+- https://www.domani-app.com/ (logo, nav underline, hero section blobs, hero phone mockup, social proof, MIT spotlight accessibility)
 - https://www.domani-app.com/about (logo + nav underline)
 - https://www.domani-app.com/pricing (logo + nav underline)
 - https://www.domani-app.com/faq (logo + nav underline)

@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
 import { useRef } from 'react'
 import { Crown } from 'lucide-react'
 import { SectionDivider } from '@/components/ui/SectionDivider'
@@ -11,8 +11,13 @@ export function MITSpotlight() {
     target: sectionRef,
     offset: ['start end', 'end start'],
   })
+  const prefersReducedMotion = useReducedMotion()
 
-  const translateY = useTransform(scrollYProgress, [0, 1], [40, -40])
+  const translateY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    prefersReducedMotion ? [0, 0] : [40, -40]
+  )
   const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0])
 
   return (
@@ -61,7 +66,7 @@ export function MITSpotlight() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.3, duration: 0.4 }}
-                className="absolute -bottom-3 -right-3 rounded-full bg-white px-3 py-1.5 text-sm font-semibold text-[#D77A61] shadow-lg dark:bg-dark-card dark:text-[#E5967F]"
+                className="absolute -bottom-3 -right-3 rounded-full bg-white px-3 py-1.5 text-sm font-semibold text-[#C05A43] shadow-lg dark:bg-dark-card dark:text-[#E5967F]"
               >
                 #1 Priority
               </motion.div>
@@ -75,7 +80,7 @@ export function MITSpotlight() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-100px' }}
               transition={{ duration: 0.5 }}
-              className="mb-3 text-sm font-semibold uppercase tracking-widest text-[#D77A61] dark:text-[#E5967F]"
+              className="mb-3 text-sm font-semibold uppercase tracking-widest text-[#C05A43] dark:text-[#E5967F]"
             >
               Most Important Task
             </motion.p>
@@ -114,15 +119,15 @@ export function MITSpotlight() {
               className="flex flex-wrap justify-center gap-4 text-sm text-gray-500 dark:text-gray-400 lg:justify-start"
             >
               <span className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-green-500" />
+                <span className="h-2 w-2 rounded-full bg-primary-500" />
                 Clarity over chaos
               </span>
               <span className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-green-500" />
+                <span className="h-2 w-2 rounded-full bg-primary-500" />
                 Progress over perfection
               </span>
               <span className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-green-500" />
+                <span className="h-2 w-2 rounded-full bg-primary-500" />
                 Action over anxiety
               </span>
             </motion.div>

@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
 import { useRef } from 'react'
 import { Target, Moon, Sun } from 'lucide-react'
 import { SectionDivider } from '@/components/ui/SectionDivider'
@@ -11,8 +11,13 @@ export function PlanLockSpotlight() {
     target: sectionRef,
     offset: ['start end', 'end start'],
   })
+  const prefersReducedMotion = useReducedMotion()
 
-  const translateY = useTransform(scrollYProgress, [0, 1], [40, -40])
+  const translateY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    prefersReducedMotion ? [0, 0] : [40, -40]
+  )
   const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0])
 
   return (
@@ -124,15 +129,15 @@ export function PlanLockSpotlight() {
               className="flex flex-wrap justify-center gap-4 text-sm text-gray-500 dark:text-gray-400 lg:justify-start"
             >
               <span className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-green-500" />
+                <span className="h-2 w-2 rounded-full bg-primary-500" />
                 No morning overthinking
               </span>
               <span className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-green-500" />
+                <span className="h-2 w-2 rounded-full bg-primary-500" />
                 Trust your evening self
               </span>
               <span className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-green-500" />
+                <span className="h-2 w-2 rounded-full bg-primary-500" />
                 Reduced decision fatigue
               </span>
             </motion.div>
