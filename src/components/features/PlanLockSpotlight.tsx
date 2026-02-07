@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
 import { useRef } from 'react'
 import { Target, Moon, Sun } from 'lucide-react'
 import { SectionDivider } from '@/components/ui/SectionDivider'
@@ -11,24 +11,29 @@ export function PlanLockSpotlight() {
     target: sectionRef,
     offset: ['start end', 'end start'],
   })
+  const prefersReducedMotion = useReducedMotion()
 
-  const translateY = useTransform(scrollYProgress, [0, 1], [40, -40])
+  const translateY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    prefersReducedMotion ? [0, 0] : [40, -40]
+  )
   const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0])
 
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-clip bg-gradient-to-b from-white via-evening-50/30 to-white px-4 py-24 dark:from-dark-gradient-from dark:via-dark-elevated dark:to-dark-gradient-from sm:px-6 lg:px-8"
+      className="relative overflow-clip bg-gradient-to-b from-white via-primary-50/30 to-white px-4 py-24 dark:from-dark-gradient-from dark:via-dark-elevated dark:to-dark-gradient-from sm:px-6 lg:px-8"
     >
       {/* Background decoration */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <motion.div
           style={{ y: translateY }}
-          className="absolute -left-20 top-1/4 h-72 w-72 rounded-full bg-gradient-to-br from-evening-200 to-primary-200 opacity-20 blur-3xl dark:from-evening-500/20 dark:to-primary-500/20"
+          className="absolute -left-20 top-1/4 h-72 w-72 rounded-full bg-gradient-to-br from-primary-200 to-primary-300 opacity-20 blur-3xl dark:from-primary-500/20 dark:to-primary-600/20"
         />
         <motion.div
           style={{ y: translateY }}
-          className="absolute -right-20 bottom-1/4 h-72 w-72 rounded-full bg-gradient-to-br from-blue-200 to-evening-200 opacity-20 blur-3xl dark:from-blue-500/20 dark:to-evening-500/20"
+          className="absolute -right-20 bottom-1/4 h-72 w-72 rounded-full bg-gradient-to-br from-primary-200 to-primary-300 opacity-20 blur-3xl dark:from-primary-500/20 dark:to-primary-600/20"
         />
       </div>
 
@@ -47,10 +52,10 @@ export function PlanLockSpotlight() {
           >
             <div className="relative">
               {/* Glow effect */}
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-evening-500 to-primary-600 opacity-20 blur-2xl" />
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary-500 to-primary-700 opacity-20 blur-2xl" />
 
               {/* Main icon container */}
-              <div className="relative flex h-32 w-32 items-center justify-center rounded-3xl bg-gradient-to-br from-evening-500 to-primary-600 shadow-2xl shadow-evening-500/30 sm:h-40 sm:w-40">
+              <div className="relative flex h-32 w-32 items-center justify-center rounded-3xl bg-gradient-to-br from-primary-500 to-primary-700 shadow-2xl shadow-primary-500/30 sm:h-40 sm:w-40">
                 <Target className="h-16 w-16 text-white sm:h-20 sm:w-20" />
               </div>
 
@@ -60,7 +65,7 @@ export function PlanLockSpotlight() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.3, duration: 0.4 }}
-                className="absolute -left-4 top-2 flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-sm font-medium text-evening-600 shadow-lg dark:bg-dark-card dark:text-evening-400"
+                className="absolute -left-4 top-2 flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-sm font-medium text-primary-600 shadow-lg dark:bg-dark-card dark:text-primary-400"
               >
                 <Moon className="h-4 w-4" />
                 Plan
@@ -85,7 +90,7 @@ export function PlanLockSpotlight() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-100px' }}
               transition={{ duration: 0.5 }}
-              className="mb-3 text-sm font-semibold uppercase tracking-widest text-evening-600 dark:text-evening-400"
+              className="mb-3 text-sm font-semibold uppercase tracking-widest text-primary-600 dark:text-primary-400"
             >
               Evening Commitment
             </motion.p>
@@ -98,7 +103,7 @@ export function PlanLockSpotlight() {
               className="mb-4 text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl lg:text-5xl"
             >
               Decide Tonight.{' '}
-              <span className="bg-gradient-to-r from-evening-500 to-primary-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-primary-500 to-primary-700 bg-clip-text text-transparent">
                 Commit. Execute.
               </span>
             </motion.h2>
@@ -124,15 +129,15 @@ export function PlanLockSpotlight() {
               className="flex flex-wrap justify-center gap-4 text-sm text-gray-500 dark:text-gray-400 lg:justify-start"
             >
               <span className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-green-500" />
+                <span className="h-2 w-2 rounded-full bg-primary-500" />
                 No morning overthinking
               </span>
               <span className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-green-500" />
+                <span className="h-2 w-2 rounded-full bg-primary-500" />
                 Trust your evening self
               </span>
               <span className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-green-500" />
+                <span className="h-2 w-2 rounded-full bg-primary-500" />
                 Reduced decision fatigue
               </span>
             </motion.div>

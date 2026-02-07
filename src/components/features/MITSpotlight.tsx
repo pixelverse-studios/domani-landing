@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
 import { useRef } from 'react'
 import { Crown } from 'lucide-react'
 import { SectionDivider } from '@/components/ui/SectionDivider'
@@ -11,8 +11,13 @@ export function MITSpotlight() {
     target: sectionRef,
     offset: ['start end', 'end start'],
   })
+  const prefersReducedMotion = useReducedMotion()
 
-  const translateY = useTransform(scrollYProgress, [0, 1], [40, -40])
+  const translateY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    prefersReducedMotion ? [0, 0] : [40, -40]
+  )
   const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0])
 
   return (
@@ -25,11 +30,11 @@ export function MITSpotlight() {
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <motion.div
           style={{ y: translateY }}
-          className="absolute -right-20 top-1/4 h-72 w-72 rounded-full bg-gradient-to-br from-red-200 to-red-300 opacity-20 blur-3xl dark:from-red-500/20 dark:to-red-600/20"
+          className="absolute -right-20 top-1/4 h-72 w-72 rounded-full bg-gradient-to-br from-[#F4C7BE] to-[#EFBDB3] opacity-20 blur-3xl dark:from-[#D77A61]/20 dark:to-[#C76B56]/20"
         />
         <motion.div
           style={{ y: translateY }}
-          className="absolute -left-20 bottom-1/4 h-72 w-72 rounded-full bg-gradient-to-br from-primary-200 to-evening-200 opacity-20 blur-3xl dark:from-primary-500/20 dark:to-evening-500/20"
+          className="absolute -left-20 bottom-1/4 h-72 w-72 rounded-full bg-gradient-to-br from-primary-200 to-primary-300 opacity-20 blur-3xl dark:from-primary-500/20 dark:to-primary-600/20"
         />
       </div>
 
@@ -48,10 +53,10 @@ export function MITSpotlight() {
           >
             <div className="relative">
               {/* Glow effect */}
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-red-400 to-red-500 opacity-20 blur-2xl" />
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[#E5967F] to-[#D77A61] opacity-20 blur-2xl" />
 
               {/* Main icon container */}
-              <div className="relative flex h-32 w-32 items-center justify-center rounded-3xl bg-gradient-to-br from-red-500 to-red-600 shadow-2xl shadow-red-500/30 sm:h-40 sm:w-40">
+              <div className="relative flex h-32 w-32 items-center justify-center rounded-3xl bg-gradient-to-br from-[#D77A61] to-[#C76B56] shadow-2xl shadow-[#D77A61]/30 sm:h-40 sm:w-40">
                 <Crown className="h-16 w-16 text-white sm:h-20 sm:w-20" />
               </div>
 
@@ -61,7 +66,7 @@ export function MITSpotlight() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.3, duration: 0.4 }}
-                className="absolute -bottom-3 -right-3 rounded-full bg-white px-3 py-1.5 text-sm font-semibold text-red-600 shadow-lg dark:bg-dark-card dark:text-red-400"
+                className="absolute -bottom-3 -right-3 rounded-full bg-white px-3 py-1.5 text-sm font-semibold text-[#C05A43] shadow-lg dark:bg-dark-card dark:text-[#E5967F]"
               >
                 #1 Priority
               </motion.div>
@@ -75,7 +80,7 @@ export function MITSpotlight() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-100px' }}
               transition={{ duration: 0.5 }}
-              className="mb-3 text-sm font-semibold uppercase tracking-widest text-red-600 dark:text-red-400"
+              className="mb-3 text-sm font-semibold uppercase tracking-widest text-[#C05A43] dark:text-[#E5967F]"
             >
               Most Important Task
             </motion.p>
@@ -88,7 +93,7 @@ export function MITSpotlight() {
               className="mb-4 text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl lg:text-5xl"
             >
               One Task. Total Focus.{' '}
-              <span className="bg-gradient-to-r from-red-500 to-red-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#D77A61] to-[#C76B56] bg-clip-text text-transparent">
                 Maximum Impact.
               </span>
             </motion.h2>
@@ -114,15 +119,15 @@ export function MITSpotlight() {
               className="flex flex-wrap justify-center gap-4 text-sm text-gray-500 dark:text-gray-400 lg:justify-start"
             >
               <span className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-green-500" />
+                <span className="h-2 w-2 rounded-full bg-primary-500" />
                 Clarity over chaos
               </span>
               <span className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-green-500" />
+                <span className="h-2 w-2 rounded-full bg-primary-500" />
                 Progress over perfection
               </span>
               <span className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-green-500" />
+                <span className="h-2 w-2 rounded-full bg-primary-500" />
                 Action over anxiety
               </span>
             </motion.div>
