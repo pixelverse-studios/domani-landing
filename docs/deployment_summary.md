@@ -3,11 +3,15 @@
 <!-- This file is automatically sent via email on successful deployment, then reset for the next cycle -->
 
 ## Latest deploy summary
-- Fixed waitlist unsubscribe 404 error by adding API proxy to backend server
+- Created centralized theme system foundation for sage green color palette migration
+- Added color tokens file with complete sage palette (primary, backgrounds, text, priority, borders)
 
 ## Notes for internal team
-- Added rewrite rule in next.config.js to proxy /api/domani/* requests to backend
-- Development uses localhost:5001, production uses PVS_API_URL env variable
+- DOM-416 completed and in review (PR #29)
+- New file: apps/landing/src/lib/theme/colors.ts
+- Exports: themeColors, tailwindColors, cssVariables, hexToHSL utility
+- Zero TypeScript errors, build passes
+- Foundation for all other color migration tickets (DOM-417 through DOM-427)
 
 ## Changed URLs
-- https://www.domani-app.com/waitlist/unsubscribe
+- (No user-facing changes yet - infrastructure only)
