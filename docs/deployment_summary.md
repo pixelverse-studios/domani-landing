@@ -43,9 +43,16 @@
 - Header nav underline: from-purple-500 via-purple-400 to-blue-500 → from-primary-600 via-primary-500 to-primary-700
 - Footer and Button components verified already compliant (use CSS variables)
 - Audit: docs/audits/landing/2026-02-07-16-54-32-dom-418-core-branding.md
+- DOM-419 completed and in review (PR pending)
+- Modified files: src/components/HeroSection.tsx, src/components/SocialProof.tsx
+- Hero section blob animations: evening-* → primary-* (4 blob color updates)
+- Hero image glow gradient: to-evening-500 → to-primary-700
+- Add Task button gradient: to-evening-600 → to-primary-700
+- Social proof user count gradient: evening-* → primary-* (light and dark mode)
+- Audit: docs/audits/landing/2026-02-07-17-08-01-dom-419-hero-section.md
 
 ## Changed URLs
-- https://www.domani-app.com/ (logo visible in header)
+- https://www.domani-app.com/ (logo, nav underline, hero section blobs, hero phone mockup, social proof)
 - https://www.domani-app.com/about (logo + nav underline)
 - https://www.domani-app.com/pricing (logo + nav underline)
 - https://www.domani-app.com/faq (logo + nav underline)

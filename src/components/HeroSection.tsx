@@ -28,10 +28,10 @@ export default function HeroSection({
       aria-label="Hero section"
     >
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-0 left-0 h-72 w-72 rounded-full bg-evening-300 opacity-20 blur-xl mix-blend-multiply dark:bg-evening-600/20 dark:mix-blend-color-dodge dark:opacity-30" />
+        <div className="absolute top-0 left-0 h-72 w-72 rounded-full bg-primary-300 opacity-20 blur-xl mix-blend-multiply dark:bg-primary-600/20 dark:mix-blend-color-dodge dark:opacity-30" />
         <div className="absolute top-0 right-0 h-72 w-72 rounded-full bg-primary-300 opacity-20 blur-xl mix-blend-multiply dark:bg-primary-600/20 dark:mix-blend-color-dodge dark:opacity-30" />
         <div className="absolute -bottom-32 left-20 h-96 w-96 rounded-full bg-primary-200 opacity-15 blur-2xl mix-blend-multiply dark:bg-primary-500/20 dark:mix-blend-color-dodge dark:opacity-20" />
-        <div className="absolute -bottom-48 right-32 h-80 w-80 rounded-full bg-evening-200 opacity-10 blur-2xl mix-blend-multiply dark:bg-evening-500/15 dark:mix-blend-color-dodge dark:opacity-15" />
+        <div className="absolute -bottom-48 right-32 h-80 w-80 rounded-full bg-primary-200 opacity-10 blur-2xl mix-blend-multiply dark:bg-primary-500/15 dark:mix-blend-color-dodge dark:opacity-15" />
         <HeroMotionLayer />
       </div>
 
@@ -92,7 +92,7 @@ export default function HeroSection({
 
           <div data-hero-motion className="relative lg:pl-8">
             <div className="relative mx-auto max-w-md lg:max-w-none">
-              <div className="absolute inset-0 rotate-6 scale-105 rounded-3xl bg-gradient-to-r from-primary-500 to-evening-500 opacity-10 blur-xl" />
+              <div className="absolute inset-0 rotate-6 scale-105 rounded-3xl bg-gradient-to-r from-primary-500 to-primary-700 opacity-10 blur-xl" />
 
               <div className="relative overflow-hidden rounded-3xl bg-white shadow-[0_4px_8px_rgba(0,0,0,0.12),0_8px_24px_rgba(0,0,0,0.08),0_16px_48px_rgba(0,0,0,0.04)] transition-shadow duration-300 hover:shadow-[0_8px_16px_rgba(0,0,0,0.15),0_16px_32px_rgba(0,0,0,0.1),0_24px_56px_rgba(0,0,0,0.05)] dark:bg-gray-900 dark:shadow-[0_4px_8px_rgba(0,0,0,0.3),0_8px_24px_rgba(0,0,0,0.25),0_16px_48px_rgba(0,0,0,0.15)] dark:hover:shadow-[0_8px_16px_rgba(0,0,0,0.35),0_16px_32px_rgba(0,0,0,0.3),0_24px_56px_rgba(0,0,0,0.2)]">
                 {/* Phone status bar */}
@@ -162,7 +162,7 @@ export default function HeroSection({
                   </div>
 
                   {/* Add New Task button */}
-                  <button className="mb-4 w-full rounded-xl bg-gradient-to-r from-primary-600 to-evening-600 py-3 font-semibold text-white shadow-lg">
+                  <button className="mb-4 w-full rounded-xl bg-gradient-to-r from-primary-600 to-primary-700 py-3 font-semibold text-white shadow-lg">
                     + Add New Task
                   </button>
 
