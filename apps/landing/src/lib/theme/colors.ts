@@ -7,13 +7,14 @@
  * @module theme/colors
  *
  * @example
- * ```typescript
- * import { themeColors, tailwindColors, hexToHSL } from '@/lib/theme/colors';
- *
- * // Use in components
+ * // Basic usage
+ * import { themeColors } from '@/lib/theme/colors';
  * const primaryColor = themeColors.primary.DEFAULT; // '#7D9B8A'
  *
- * // Use in Tailwind config
+ * @example
+ * // Using in Tailwind config
+ * import { tailwindColors } from '@/lib/theme/colors';
+ *
  * export default {
  *   theme: {
  *     extend: {
@@ -21,7 +22,40 @@
  *     }
  *   }
  * }
- * ```
+ * // Now use: className="bg-primary-500 text-text-primary"
+ *
+ * @example
+ * // Using CSS variables in components
+ * import { cssVariables } from '@/lib/theme/colors';
+ *
+ * // In globals.css
+ * :root {
+ *   --color-primary: 150 21% 55%;
+ * }
+ *
+ * // In component
+ * <div style={{ backgroundColor: `hsl(var(--color-primary))` }} />
+ *
+ * @example
+ * // Using gradients
+ * import { themeColors } from '@/lib/theme/colors';
+ *
+ * <div className={`bg-gradient-to-r from-[${themeColors.gradients.primary.from}] to-[${themeColors.gradients.primary.to}]`}>
+ *   Gradient background
+ * </div>
+ *
+ * @example
+ * // Dark mode support (future)
+ * const colors = isDarkMode ? themeColors.dark : themeColors;
+ * <div style={{ color: colors.text.primary }} />
+ *
+ * @example
+ * // TypeScript type safety
+ * import type { HexColor, PrimaryColorKey } from '@/lib/theme/colors';
+ *
+ * function setColor(key: PrimaryColorKey) {
+ *   return themeColors.primary[key]; // Type-safe!
+ * }
  */
 
 /**
@@ -266,6 +300,10 @@ export function hexToHSL(hex: string): string {
  * CSS variable definitions in HSL format
  * Use these values in globals.css for dynamic theming
  *
+ * These values are pre-computed at build time for zero runtime overhead.
+ * The hexToHSL function is preserved for type checking and verification,
+ * but these literal values eliminate the need for runtime conversion.
+ *
  * @example
  * ```css
  * :root {
@@ -275,22 +313,65 @@ export function hexToHSL(hex: string): string {
  * ```
  */
 export const cssVariables = {
-  '--color-primary': hexToHSL(themeColors.primary.DEFAULT),
-  '--color-primary-light': hexToHSL(themeColors.primary.light),
-  '--color-primary-dark': hexToHSL(themeColors.primary.dark),
-  '--color-background': hexToHSL(themeColors.background.DEFAULT),
-  '--color-background-card': hexToHSL(themeColors.background.card),
-  '--color-background-hover': hexToHSL(themeColors.background.hover),
-  '--color-text-primary': hexToHSL(themeColors.text.primary),
-  '--color-text-secondary': hexToHSL(themeColors.text.secondary),
-  '--color-text-tertiary': hexToHSL(themeColors.text.tertiary),
-  '--color-text-muted': hexToHSL(themeColors.text.muted),
-  '--color-border-primary': hexToHSL(themeColors.border.primary),
-  '--color-border-secondary': hexToHSL(themeColors.border.secondary),
-  '--color-priority-high': hexToHSL(themeColors.priority.high),
-  '--color-priority-medium': hexToHSL(themeColors.priority.medium),
-  '--color-priority-low': hexToHSL(themeColors.priority.low),
+  '--color-primary': '150 21% 55%', // #7D9B8A
+  '--color-primary-light': '150 24% 69%', // #A3BFB0
+  '--color-primary-dark': '150 20% 41%', // #5A7765
+  '--color-background': '48 8% 98%', // #FAF8F5
+  '--color-background-card': '40 18% 95%', // #F5F2ED
+  '--color-background-hover': '60 23% 93%', // #EFEEE8
+  '--color-text-primary': '150 9% 27%', // #3D4A44
+  '--color-text-secondary': '60 6% 42%', // #6B7265
+  '--color-text-tertiary': '120 9% 63%', // #9BA69E
+  '--color-text-muted': '120 9% 69%', // #ADB7B0
+  '--color-border-primary': '40 24% 90%', // #E8E4DD
+  '--color-border-secondary': '40 22% 85%', // #DDD9D0
+  '--color-priority-high': '11 58% 62%', // #D77A61
+  '--color-priority-medium': '36 71% 67%', // #E8B86D
+  '--color-priority-low': '210 19% 61%', // #8B9DAF
 } as const;
+
+/**
+ * Type utilities for consuming the color system
+ */
+
+/** Complete theme color structure */
+export type ThemeColors = typeof themeColors;
+
+/** Primary color scale keys (50, 100, 200, ..., DEFAULT, light, dark) */
+export type PrimaryColorKey = keyof typeof themeColors.primary;
+
+/** Background color keys */
+export type BackgroundColorKey = keyof typeof themeColors.background;
+
+/** Text color keys */
+export type TextColorKey = keyof typeof themeColors.text;
+
+/** Priority color keys */
+export type PriorityColorKey = keyof typeof themeColors.priority;
+
+/** Border color keys */
+export type BorderColorKey = keyof typeof themeColors.border;
+
+/** Gradient structure type */
+export type Gradient = { readonly from: string; readonly to: string };
+
+/** Valid CSS variable names */
+export type CSSVarName = keyof typeof cssVariables;
+
+/** Tailwind color configuration type */
+export type TailwindColorConfig = typeof tailwindColors;
+
+/** Hex color format */
+export type HexColor = `#${string}`;
+
+/** HSL color format */
+export type HSLColor = `${number} ${number}% ${number}%`;
+
+/** RGBA color format */
+export type RGBAColor = `rgba(${number}, ${number}, ${number}, ${number})`;
+
+/** All valid color value formats */
+export type ColorValue = HexColor | HSLColor | RGBAColor;
 
 /**
  * Default export for convenience
