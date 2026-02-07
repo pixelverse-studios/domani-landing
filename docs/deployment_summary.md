@@ -12,6 +12,9 @@
 - Added priority colors for task management (coral, amber, blue-gray)
 - Updated dark mode to use sage-tinted surfaces
 - Fixed HSL conversion errors in globals.css to match exact hex colors from color system
+- Updated core branding components (Logo, Header) to use sage green palette
+- Removed all evening-* color references from Logo component
+- Replaced purple/blue navigation underline with sage monochromatic gradient
 
 ## Notes for internal team
 - DOM-416 completed and in review (PR #29)
@@ -34,6 +37,16 @@
 - HSL conversion fix: Corrected all CSS custom properties in src/styles/globals.css to match exact hex values from colors.ts
 - Light mode updates: background (36 33% 97%), foreground (152 10% 26%), primary (146 13% 55%), accent (148 18% 69%), muted (136 6% 63%), border (38 19% 89%)
 - Dark mode updates: background (150 10% 11%), foreground (120 20% 95%), primary (148 18% 69%), secondary (136 6% 63%), accent (146 13% 55%), muted (152 10% 26%), border (152 10% 26%)
+- DOM-418 completed and in review (PR pending)
+- Modified files: src/components/Logo.tsx, src/components/Header.tsx
+- Logo gradient: from-primary-600 to-evening-600 → from-primary-600 to-primary-700 (8 color class replacements)
+- Header nav underline: from-purple-500 via-purple-400 to-blue-500 → from-primary-600 via-primary-500 to-primary-700
+- Footer and Button components verified already compliant (use CSS variables)
+- Audit: docs/audits/landing/2026-02-07-16-54-32-dom-418-core-branding.md
 
 ## Changed URLs
-- (No user-facing changes yet - infrastructure only)
+- https://www.domani-app.com/ (logo visible in header)
+- https://www.domani-app.com/about (logo + nav underline)
+- https://www.domani-app.com/pricing (logo + nav underline)
+- https://www.domani-app.com/faq (logo + nav underline)
+- https://www.domani-app.com/blog (logo + nav underline)
