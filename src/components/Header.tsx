@@ -37,7 +37,7 @@ function NavLink({ href, label, className, disableUnderline = false, onClick }: 
       className={cn(
         'relative text-sm font-medium transition-colors duration-200 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white',
         !disableUnderline &&
-          'after:absolute after:-bottom-2 after:left-1/2 after:h-0.5 after:w-8 after:-translate-x-1/2 after:rounded-full after:bg-gradient-to-r after:from-purple-500 after:via-purple-400 after:to-blue-500 after:opacity-0 after:transition-all after:duration-200 hover:after:opacity-100 hover:after:scale-100 after:scale-0',
+          'after:absolute after:-bottom-2 after:left-1/2 after:h-0.5 after:w-8 after:-translate-x-1/2 after:rounded-full after:bg-gradient-to-r after:from-primary-600 after:via-primary-500 after:to-primary-700 after:opacity-0 after:transition-all after:duration-200 hover:after:opacity-100 hover:after:scale-100 after:scale-0',
         !disableUnderline && isActive && 'text-gray-900 dark:text-white after:opacity-100 after:scale-100',
         disableUnderline && isActive && 'text-gray-900 dark:text-white',
         className
