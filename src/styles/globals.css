@@ -6,33 +6,33 @@
 @layer base {
   :root {
     /* Sage green palette - light mode */
-    --background: 48 8% 98%;        /* #FAF8F5 - warm off-white */
-    --foreground: 150 9% 27%;       /* #3D4A44 - dark sage text */
-    --primary: 150 21% 55%;         /* #7D9B8A - sage green */
-    --primary-foreground: 150 9% 27%; /* #3D4A44 */
+    --background: 36 33% 97%;       /* #FAF8F5 - warm off-white */
+    --foreground: 152 10% 26%;      /* #3D4A44 - dark sage text */
+    --primary: 146 13% 55%;         /* #7D9B8A - sage green */
+    --primary-foreground: 152 10% 26%; /* #3D4A44 */
     --secondary: 60 6% 42%;         /* #6B7265 - secondary text */
-    --secondary-foreground: 48 8% 98%;
-    --accent: 150 24% 69%;          /* #A3BFB0 - light sage accent */
-    --accent-foreground: 150 9% 27%;
-    --muted: 120 9% 63%;            /* #9BA69E - muted text */
+    --secondary-foreground: 36 33% 97%;
+    --accent: 148 18% 69%;          /* #A3BFB0 - light sage accent */
+    --accent-foreground: 152 10% 26%;
+    --muted: 136 6% 63%;            /* #9BA69E - muted text */
     --muted-foreground: 120 9% 69%; /* #ADB7B0 */
-    --border: 40 24% 90%;           /* #E8E4DD - warm border */
+    --border: 38 19% 89%;           /* #E8E4DD - warm border */
     --radius: 0.5rem;
   }
 
   .dark {
     /* Sage green palette - dark mode */
-    --background: 150 9% 10%;       /* Dark sage-tinted background */
-    --foreground: 150 10% 95%;      /* Light sage-tinted text */
-    --primary: 150 24% 69%;         /* #A3BFB0 - lighter sage for dark mode */
-    --primary-foreground: 150 9% 10%;
-    --secondary: 120 9% 63%;        /* Muted sage */
-    --secondary-foreground: 150 10% 95%;
-    --accent: 150 21% 55%;          /* Standard sage accent */
-    --accent-foreground: 150 10% 95%;
-    --muted: 120 6% 40%;            /* Darker muted */
-    --muted-foreground: 150 10% 95%;
-    --border: 150 8% 25%;           /* Dark sage border */
+    --background: 150 10% 11%;      /* #1A1F1D - dark sage-tinted background */
+    --foreground: 120 20% 95%;      /* #F4F7F5 - light sage-tinted text */
+    --primary: 148 18% 69%;         /* #A3BFB0 - lighter sage for dark mode */
+    --primary-foreground: 150 10% 11%;
+    --secondary: 136 6% 63%;        /* #9BA69E - muted sage */
+    --secondary-foreground: 120 20% 95%;
+    --accent: 146 13% 55%;          /* #7D9B8A - standard sage accent */
+    --accent-foreground: 120 20% 95%;
+    --muted: 152 10% 26%;           /* #3D4A44 - darker muted */
+    --muted-foreground: 120 20% 95%;
+    --border: 152 10% 26%;          /* #3D4A44 - dark sage border */
   }
 }
 
