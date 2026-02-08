@@ -22,6 +22,7 @@
 - Updated FAQ page header and contact button to use sage green gradients instead of purple/blue
 - Fixed malformed focus ring class and updated all purple colors to sage palette in FAQ accordion component
 - Fixed download button alignment to center instead of left-aligned
+- Fixed background rendering issues on About page by correcting malformed Tailwind classes and removing noisy texture overlay
 
 ## Notes for internal team
 - DOM-434 completed - 32 evening-* color references replaced across 10 files (PR #35)
@@ -144,6 +145,14 @@
 - Modified file: src/components/DownloadButtons.tsx
 - Line 44: Changed items-start to items-center in outer container div
 - Ensures download buttons are centered horizontally to match centered layout used in pricing page footer section
+- AboutContent background fix (not ticketed)
+- Modified file: src/components/about/AboutContent.tsx
+- Line 114: Fixed malformed class bg-white/70[0.04] → bg-white/70
+- Line 125: Fixed malformed class to-transparent[0.02] → to-transparent
+- Line 194: Fixed malformed class to-primary-100/50[#0A0A0F][#0F0F18][#0A0A0F] → to-primary-100/50
+- Lines 201-202: Removed noise texture overlay div (was causing busy/noisy background)
+- Line 397: Fixed malformed class from-white[#0A0A0F] → from-white
+- Result: Clean sage green gradient background with floating orbs, no texture noise
 
 ## Changed URLs
 - https://www.domani-app.com/

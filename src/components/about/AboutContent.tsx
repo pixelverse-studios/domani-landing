@@ -111,7 +111,7 @@ function GlassCard({
       transition={{ type: 'spring', stiffness: 400, damping: 25 }}
       className={`
         relative overflow-hidden rounded-2xl
-        bg-white/70[0.04]
+        bg-white/70
         backdrop-blur-xl
         border border-white/50
         shadow-[0_8px_32px_rgba(0,0,0,0.08)]
@@ -122,7 +122,7 @@ function GlassCard({
       `}
     >
       {/* Subtle gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-transparent[0.02] pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none" />
       <div className="relative">{children}</div>
     </motion.div>
   )
@@ -191,15 +191,12 @@ export function AboutContent({ values }: AboutContentProps) {
       {/* Mesh gradient background */}
       <div className="fixed inset-0 -z-10">
         {/* Base gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-primary-50/80 via-white to-primary-100/50[#0A0A0F][#0F0F18][#0A0A0F]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-primary-50/80 via-white to-primary-100/50" />
 
         {/* Floating gradient orbs */}
         <div className="absolute top-[10%] left-[15%] w-[500px] h-[500px] rounded-full bg-gradient-to-br from-primary-300/30 to-transparent blur-[100px] animate-blob" />
         <div className="absolute top-[40%] right-[10%] w-[400px] h-[400px] rounded-full bg-gradient-to-br from-primary-300/25 to-transparent blur-[80px] animate-blob animation-delay-2000" />
         <div className="absolute bottom-[20%] left-[20%] w-[350px] h-[350px] rounded-full bg-gradient-to-br from-primary-300/20 to-transparent blur-[90px] animate-blob animation-delay-4000" />
-
-        {/* Subtle noise texture overlay */}
-        <div className="absolute inset-0 opacity-[0.015][0.03]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\'/%3E%3C/svg%3E")' }} />
       </div>
 
       <div className="container mx-auto px-4 pt-8 pb-24">
@@ -318,7 +315,7 @@ export function AboutContent({ values }: AboutContentProps) {
                       <div className={`
                         flex-shrink-0 rounded-2xl flex items-center justify-center
                         bg-gradient-to-br from-primary-100 to-primary-200
-                       
+
                         ${isFeature ? 'w-20 h-20' : 'w-14 h-14'}
                       `}>
                         <Icon className={`${isFeature ? 'w-10 h-10' : 'w-7 h-7'} text-primary-600`} />
@@ -394,7 +391,7 @@ export function AboutContent({ values }: AboutContentProps) {
       </div>
 
       {/* Bottom gradient fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white[#0A0A0F] to-transparent pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent pointer-events-none" />
 
       {/* CSS for gradient animation */}
       <style jsx global>{`
