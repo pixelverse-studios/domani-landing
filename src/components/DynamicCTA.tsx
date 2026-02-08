@@ -134,7 +134,7 @@ export default function DynamicCTA({
           {buttonText}
         </motion.button>
         {showSubtext && (
-          <p className="mt-3 text-sm text-gray-500 dark:text-gray-400">
+          <p className="mt-3 text-sm text-gray-500">
             {getCurrentSubtext()}
           </p>
         )}

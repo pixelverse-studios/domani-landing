@@ -83,7 +83,7 @@ function AdminLoginForm() {
   // Show loading state while checking auth
   if (isCheckingAuth) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-white to-purple-50 dark:from-gray-950 dark:via-gray-900 dark:to-purple-950/20">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-white to-purple-50">
         <Loader2 className="w-8 h-8 animate-spin text-primary-600" />
       </div>
     )
@@ -95,7 +95,7 @@ function AdminLoginForm() {
   }
 
   return (
-    <div className="min-h-screen flex bg-gradient-to-br from-gray-50 via-white to-purple-50 dark:from-gray-950 dark:via-gray-900 dark:to-purple-950/20">
+    <div className="min-h-screen flex bg-gradient-to-br from-gray-50 via-white to-purple-50">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
@@ -108,7 +108,7 @@ function AdminLoginForm() {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="absolute -top-24 -left-24 w-96 h-96 bg-purple-200 dark:bg-purple-900/20 rounded-full blur-3xl opacity-20"
+          className="absolute -top-24 -left-24 w-96 h-96 bg-purple-200 rounded-full blur-3xl opacity-20"
         />
         <motion.div
           animate={{
@@ -120,7 +120,7 @@ function AdminLoginForm() {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="absolute -bottom-24 -right-24 w-96 h-96 bg-blue-200 dark:bg-blue-900/20 rounded-full blur-3xl opacity-20"
+          className="absolute -bottom-24 -right-24 w-96 h-96 bg-blue-200 rounded-full blur-3xl opacity-20"
         />
       </div>
 
@@ -141,7 +141,7 @@ function AdminLoginForm() {
           >
             <Link
               href="/"
-              className="inline-flex items-center text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+              className="inline-flex items-center text-gray-600 hover:text-gray-900 transition-colors"
             >
               <ChevronLeft className="w-4 h-4 mr-1" />
               Back to Domani
@@ -153,7 +153,7 @@ function AdminLoginForm() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2 }}
-            className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl rounded-2xl shadow-2xl dark:shadow-purple-900/10 p-10 border border-gray-100 dark:border-gray-800"
+            className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-2xl p-10 border border-gray-100"
           >
             {/* Logo and Title */}
             <div className="text-center mb-10">
@@ -170,7 +170,7 @@ function AdminLoginForm() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4 }}
-                className="text-3xl font-bold text-gray-900 dark:text-white mb-3"
+                className="text-3xl font-bold text-gray-900 mb-3"
               >
                 Admin Portal
               </motion.h1>
@@ -179,7 +179,7 @@ function AdminLoginForm() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5 }}
-                className="text-gray-600 dark:text-gray-400"
+                className="text-gray-600"
               >
                 Sign in with your Google account to continue
               </motion.p>
@@ -190,11 +190,11 @@ function AdminLoginForm() {
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="mb-6 p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl"
+                className="mb-6 p-4 bg-amber-50 border border-amber-200 rounded-xl"
               >
                 <div className="flex items-start">
-                  <AlertCircle className="w-5 h-5 text-amber-600 dark:text-amber-400 mr-2 mt-0.5 flex-shrink-0" />
-                  <p className="text-sm text-amber-800 dark:text-amber-200">
+                  <AlertCircle className="w-5 h-5 text-amber-600 mr-2 mt-0.5 flex-shrink-0" />
+                  <p className="text-sm text-amber-800">
                     Your session has expired. Please sign in again.
                   </p>
                 </div>
@@ -206,11 +206,11 @@ function AdminLoginForm() {
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl"
+                className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl"
               >
                 <div className="flex items-start">
-                  <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 mr-2 mt-0.5 flex-shrink-0" />
-                  <p className="text-sm text-red-800 dark:text-red-200">
+                  <AlertCircle className="w-5 h-5 text-red-600 mr-2 mt-0.5 flex-shrink-0" />
+                  <p className="text-sm text-red-800">
                     Your account doesn&apos;t have admin privileges. Please contact support if you believe this is an error.
                   </p>
                 </div>
@@ -250,18 +250,18 @@ function AdminLoginForm() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.7 }}
-              className="mt-10 pt-8 border-t border-gray-200 dark:border-gray-700"
+              className="mt-10 pt-8 border-t border-gray-200"
             >
               <div className="space-y-3">
-                <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                <div className="flex items-center text-sm text-gray-600">
                   <CheckCircle className="w-4 h-4 text-green-500 mr-3 flex-shrink-0" />
                   <span>Secure authentication with Google OAuth 2.0</span>
                 </div>
-                <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                <div className="flex items-center text-sm text-gray-600">
                   <CheckCircle className="w-4 h-4 text-green-500 mr-3 flex-shrink-0" />
                   <span>Admin access restricted to authorized accounts</span>
                 </div>
-                <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                <div className="flex items-center text-sm text-gray-600">
                   <CheckCircle className="w-4 h-4 text-green-500 mr-3 flex-shrink-0" />
                   <span>All actions logged for security audit</span>
                 </div>
@@ -275,11 +275,11 @@ function AdminLoginForm() {
               transition={{ delay: 0.8 }}
               className="mt-8 text-center"
             >
-              <p className="text-sm text-gray-600 dark:text-gray-400">
+              <p className="text-sm text-gray-600">
                 Having trouble signing in?{' '}
                 <a
                   href="mailto:support@domani-app.com"
-                  className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium"
+                  className="text-primary-600 hover:text-primary-700 font-medium"
                 >
                   Contact support
                 </a>
@@ -294,7 +294,7 @@ function AdminLoginForm() {
             transition={{ delay: 0.9 }}
             className="mt-8 text-center"
           >
-            <p className="text-xs text-gray-500 dark:text-gray-500">
+            <p className="text-xs text-gray-500">
               © {new Date().getFullYear()} Domani. All rights reserved.
             </p>
           </motion.div>
@@ -326,7 +326,7 @@ export default function AdminLoginPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-white to-purple-50 dark:from-gray-950 dark:via-gray-900 dark:to-purple-950/20">
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-white to-purple-50">
           <Loader2 className="w-8 h-8 animate-spin text-primary-600" />
         </div>
       }

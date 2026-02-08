@@ -46,18 +46,18 @@ export function FloatingSidebar({ relatedPosts }: FloatingSidebarProps) {
       )}
       style={{ left: offsetLeft }}
     >
-      <div className="pointer-events-auto space-y-8 rounded-3xl border border-white/40 bg-white/90 p-6 shadow-2xl dark:border-white/10 dark:bg-dark-card/80">
+      <div className="pointer-events-auto space-y-8 rounded-3xl border border-white/40 bg-white/90 p-6 shadow-2xl">
         <div>
-          <h2 className="text-base font-semibold text-gray-900 dark:text-white">Related reading</h2>
+          <h2 className="text-base font-semibold text-gray-900">Related reading</h2>
           <div className="mt-4 space-y-4">
             {relatedPosts.map((related) => (
               <Link
                 key={related.slug}
                 href={`/blog/${related.slug}`}
-                className="block rounded-2xl border border-gray-100 px-4 py-3 text-sm text-gray-700 transition hover:border-primary-200 hover:text-primary-600 dark:border-white/10 dark:text-gray-300 dark:hover:border-primary-500/40"
+                className="block rounded-2xl border border-gray-100 px-4 py-3 text-sm text-gray-700 transition hover:border-primary-200 hover:text-primary-600"
               >
                 <p className="font-semibold">{related.title}</p>
-                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">{related.description}</p>
+                <p className="mt-1 text-xs text-gray-500">{related.description}</p>
               </Link>
             ))}
           </div>

@@ -3,6 +3,7 @@
 <!-- This file is automatically sent via email on successful deployment, then reset for the next cycle -->
 
 ## Latest deploy summary
+- Simplified site design to use light mode only with sage green color palette for consistent visual experience across all devices
 - Created centralized theme system foundation for sage green color palette migration
 - Added color tokens file with complete sage palette (primary, backgrounds, text, priority, borders)
 - Enhanced theme color documentation with comprehensive usage examples
@@ -89,8 +90,33 @@
 - CSS bundle reduction: ~2-3KB from evening-* palette removal
 - Identified 5 gradient patterns for future optimization (~1.5-2KB additional savings potential)
 - Full audit: docs/audits/landing/2026-02-07-pr35-performance-analysis.md
+- Removed deprecated ThemeToggle component from Header and AdminSidebar components
+- Removed all dark mode Tailwind classes from the entire codebase for DOM-437
 
 ## Notes for internal team
+- DOM-437 completed - ThemeToggle component removed from 2 files (Header.tsx, AdminSidebar.tsx)
+- Header: Removed import and JSX usage (lines 10, 74)
+- AdminSidebar: Removed import, restructured bottom controls section to show Sign out button only
+- No visual functionality lost - theme toggle was non-functional placeholder
+- DOM-437 (dark mode removal) completed - All dark: Tailwind classes removed from codebase
+- Total files processed: 136 source files across src/components (52), src/app (58), and src/lib (26)
+- Removed all dark: prefixed Tailwind classes (dark:bg-*, dark:text-*, dark:border-*, dark:hover:*, dark:from-*, dark:to-*, etc.)
+- Note: 'dark' still appears in GoogleSignInButton.tsx as a variant prop name, not a Tailwind class
+- Verification: 0 files contain dark: classes in className attributes
+- Light mode design is now the only supported mode across the entire landing page
+- DOM-437: Added code comment above variants object in GoogleSignInButton.tsx (lines 27-28)
+- Comment clarifies "dark" is a button style variant, not a Tailwind dark mode class
+- Prevents future developers from mistakenly removing the "dark" variant prop
+- File: src/components/auth/GoogleSignInButton.tsx
+- DOM-437: Updated mobile browser themeColor from old indigo (#6366f1) to sage green (#7D9B8A)
+- SECURITY AUDIT completed for PR #36 (dark mode removal)
+- Audit location: docs/audits/landing/2026-02-08-security-audit-pr36-dark-mode-removal.md
+- Verdict: APPROVED - No security vulnerabilities introduced
+- Findings: 0 critical, 0 high, 1 medium (CSS syntax error - UX bug), 1 low (informational)
+- Verified: Auth flows unchanged, input validation intact, no XSS vectors, admin security maintained
+- Security improvement: Removed dangerouslySetInnerHTML from ThemeScript component
+- Action required: Fix CSS hover state syntax errors in 3 files before merge (non-security UX bug)
+- DOM-437: Added clarifying comment to GoogleSignInButton.tsx to prevent future confusion about "dark" variant
 - https://www.domani-app.com/ (logo, nav underline, hero section blobs, hero phone mockup, social proof, MIT spotlight accessibility)
 - https://www.domani-app.com/about (logo + nav underline)
 - https://www.domani-app.com/pricing (logo + nav underline)
@@ -99,3 +125,23 @@
 - https://www.domani-app.com/about (about page content)
 - https://www.domani-app.com/pricing (pricing page content)
 - https://www.domani-app.com/unsubscribe (unsubscribe forms)
+
+## Changed URLs
+- https://www.domani-app.com/
+- https://www.domani-app.com/about
+- https://www.domani-app.com/pricing
+- https://www.domani-app.com/faq
+- https://www.domani-app.com/blog
+- https://www.domani-app.com/terms
+- https://www.domani-app.com/privacy
+- https://www.domani-app.com/security
+- https://www.domani-app.com/delete-account
+- https://www.domani-app.com/welcome
+- https://www.domani-app.com/dashboard
+- https://www.domani-app.com/waitlist/unsubscribe
+- https://www.domani-app.com/account/unsubscribe
+- https://www.domani-app.com/admin
+- https://www.domani-app.com/admin/login
+- https://www.domani-app.com/admin/waitlist
+- https://www.domani-app.com/admin/templates
+- https://www.domani-app.com/admin/campaigns

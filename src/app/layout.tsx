@@ -1,7 +1,5 @@
 import type { Metadata } from 'next'
 import '@/styles/globals.css'
-import { ThemeProvider } from '@/components/ThemeProvider'
-import { ThemeScript } from '@/components/ThemeScript'
 import QueryProvider from '@/providers/QueryProvider'
 import { Toaster } from 'sonner'
 import { AuthHandler } from '@/components/auth/AuthHandler'
@@ -54,7 +52,7 @@ export const metadata: Metadata = mergeMetadata({
 export const viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#6366f1',
+  themeColor: '#7D9B8A',
 }
 
 export default function RootLayout({
@@ -63,33 +61,30 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="font-sans" suppressHydrationWarning>
+    <html lang="en" className="font-sans">
       <head>
-        <ThemeScript />
         <StructuredData type="organization" />
         <StructuredData type="website" />
         <StructuredData type="software" />
       </head>
-      <body className="font-sans antialiased bg-white dark:bg-dark-gradient-from text-foreground transition-colors overflow-x-hidden">
-        <ThemeProvider>
-          <QueryProvider>
-            <AuthHandler />
-            <Header />
-            <div className="min-h-screen overflow-x-clip">{children}</div>
-            <Footer />
-            <Toaster
-              richColors
-              position="top-right"
-              toastOptions={{
-                className: 'font-sans',
-                style: {
-                  fontSize: '14px',
-                },
-              }}
-            />
-          </QueryProvider>
-          <SiteBehaviourConsentGate />
-        </ThemeProvider>
+      <body className="font-sans antialiased bg-white text-foreground transition-colors overflow-x-hidden">
+        <QueryProvider>
+          <AuthHandler />
+          <Header />
+          <div className="min-h-screen overflow-x-clip">{children}</div>
+          <Footer />
+          <Toaster
+            richColors
+            position="top-right"
+            toastOptions={{
+              className: 'font-sans',
+              style: {
+                fontSize: '14px',
+              },
+            }}
+          />
+        </QueryProvider>
+        <SiteBehaviourConsentGate />
       </body>
     </html>
   )

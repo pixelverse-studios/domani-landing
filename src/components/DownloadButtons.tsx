@@ -99,7 +99,7 @@ export default function DownloadButtons({
       </div>
 
       {showSubtext && (
-        <p className="mt-3 text-xs text-gray-500 dark:text-gray-400">
+        <p className="mt-3 text-xs text-gray-500">
           Public beta. Limited access.
         </p>
       )}

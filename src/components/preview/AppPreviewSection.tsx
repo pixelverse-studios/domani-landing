@@ -114,27 +114,27 @@ export function AppPreviewSection({ className }: { className?: string }) {
   )
 
   const TraditionalTodoScreen = () => (
-    <div className="bg-gray-100 dark:bg-dark-elevated h-full rounded-xl p-6">
+    <div className="bg-gray-100 h-full rounded-xl p-6">
       <div className="space-y-3">
-        <div className="bg-white dark:bg-dark-card rounded-lg p-3 border border-gray-200 dark:border-gray-600">
+        <div className="bg-white rounded-lg p-3 border border-gray-200">
           <input type="checkbox" className="mr-2" />
-          <span className="text-gray-600 dark:text-gray-300">Buy groceries</span>
+          <span className="text-gray-600">Buy groceries</span>
         </div>
-        <div className="bg-white dark:bg-dark-card rounded-lg p-3 border border-gray-200 dark:border-gray-600">
+        <div className="bg-white rounded-lg p-3 border border-gray-200">
           <input type="checkbox" className="mr-2" />
-          <span className="text-gray-600 dark:text-gray-300">Email client</span>
+          <span className="text-gray-600">Email client</span>
         </div>
-        <div className="bg-white dark:bg-dark-card rounded-lg p-3 border border-gray-200 dark:border-gray-600">
+        <div className="bg-white rounded-lg p-3 border border-gray-200">
           <input type="checkbox" className="mr-2" />
-          <span className="text-gray-600 dark:text-gray-300">Team meeting</span>
+          <span className="text-gray-600">Team meeting</span>
         </div>
-        <div className="bg-white dark:bg-dark-card rounded-lg p-3 border border-gray-200 dark:border-gray-600">
+        <div className="bg-white rounded-lg p-3 border border-gray-200">
           <input type="checkbox" className="mr-2" />
-          <span className="text-gray-600 dark:text-gray-300">Review documents</span>
+          <span className="text-gray-600">Review documents</span>
         </div>
-        <div className="bg-white dark:bg-dark-card rounded-lg p-3 border border-gray-200 dark:border-gray-600">
+        <div className="bg-white rounded-lg p-3 border border-gray-200">
           <input type="checkbox" className="mr-2" />
-          <span className="text-gray-600 dark:text-gray-300">Call dentist</span>
+          <span className="text-gray-600">Call dentist</span>
         </div>
       </div>
     </div>
@@ -156,23 +156,23 @@ export function AppPreviewSection({ className }: { className?: string }) {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
             Experience the Difference
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8">
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
             See how Domani transforms chaotic to-do lists into strategic daily plans 
             that actually get done.
           </p>
 
           {/* View Toggle */}
-          <div className="inline-flex bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
+          <div className="inline-flex bg-gray-100 rounded-lg p-1">
             <button
               onClick={() => setViewMode('features')}
               className={cn(
                 'px-6 py-2 rounded-md text-sm font-medium transition-all',
                 viewMode === 'features'
-                  ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow'
-                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                  ? 'bg-white text-gray-900 shadow'
+                  : 'text-gray-600 hover:text-gray-900'
               )}
             >
               Interactive Demo
@@ -182,8 +182,8 @@ export function AppPreviewSection({ className }: { className?: string }) {
               className={cn(
                 'px-6 py-2 rounded-md text-sm font-medium transition-all',
                 viewMode === 'comparison'
-                  ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow'
-                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                  ? 'bg-white text-gray-900 shadow'
+                  : 'text-gray-600 hover:text-gray-900'
               )}
             >
               Before & After
@@ -199,7 +199,7 @@ export function AppPreviewSection({ className }: { className?: string }) {
                   'p-2 rounded-lg transition-all',
                   deviceType === 'mobile'
                     ? 'bg-primary-600 text-white'
-                    : 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
+                    : 'bg-gray-200 text-gray-600'
                 )}
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -212,7 +212,7 @@ export function AppPreviewSection({ className }: { className?: string }) {
                   'p-2 rounded-lg transition-all',
                   deviceType === 'desktop'
                     ? 'bg-primary-600 text-white'
-                    : 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
+                    : 'bg-gray-200 text-gray-600'
                 )}
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -269,14 +269,14 @@ export function AppPreviewSection({ className }: { className?: string }) {
                     </div>
 
                     {/* Icon Button */}
-                    <div className="relative w-12 h-12 bg-white dark:bg-gray-800 rounded-full shadow-lg flex items-center justify-center border-2 border-primary-600 group-hover:scale-110 transition-transform">
+                    <div className="relative w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center border-2 border-primary-600 group-hover:scale-110 transition-transform">
                       {feature.icon}
                     </div>
 
                     {/* Tooltip */}
                     <div
                       className={cn(
-                        'absolute z-20 w-64 p-4 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 transition-all duration-200',
+                        'absolute z-20 w-64 p-4 bg-white rounded-lg shadow-xl border border-gray-200 transition-all duration-200',
                         activeFeature === feature.id
                           ? 'opacity-100 visible translate-y-0'
                           : 'opacity-0 invisible translate-y-2',
@@ -286,10 +286,10 @@ export function AppPreviewSection({ className }: { className?: string }) {
                         'top-14'
                       )}
                     >
-                      <h4 className="font-semibold text-gray-900 dark:text-white mb-1">
+                      <h4 className="font-semibold text-gray-900 mb-1">
                         {feature.title}
                       </h4>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
+                      <p className="text-sm text-gray-600">
                         {feature.description}
                       </p>
                     </div>
@@ -323,7 +323,7 @@ export function AppPreviewSection({ className }: { className?: string }) {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="text-center mt-16"
         >
-          <p className="text-lg text-gray-600 dark:text-gray-400 mb-6">
+          <p className="text-lg text-gray-600 mb-6">
             Ready to transform your productivity?
           </p>
           <button className="btn-primary">
@@ -334,7 +334,7 @@ export function AppPreviewSection({ className }: { className?: string }) {
 
       {/* Background Effects */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-white dark:from-dark-gradient-from dark:via-dark-gradient-via/50 dark:to-dark-surface" />
+        <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-white" />
         <motion.div
           className="absolute top-1/4 -left-64 w-96 h-96 bg-primary-500/10 rounded-full blur-3xl"
           animate={{

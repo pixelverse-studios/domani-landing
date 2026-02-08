@@ -50,32 +50,32 @@ const retainedData = [
 
 export default function DeleteAccountPage() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-white via-primary-50/20 to-primary-50/5 py-24 dark:from-dark-gradient-from dark:via-dark-gradient-via/40 dark:to-dark-gradient-to">
+    <main className="min-h-screen bg-gradient-to-b from-white via-primary-50/20 to-primary-50/5 py-24">
       <div className="container mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-primary-500">Account Management</p>
-          <h1 className="mt-4 text-4xl font-bold text-gray-900 dark:text-white">Delete Your Domani Account</h1>
-          <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">
+          <h1 className="mt-4 text-4xl font-bold text-gray-900">Delete Your Domani Account</h1>
+          <p className="mt-4 text-lg text-gray-600">
             We&apos;re sorry to see you go. Follow the steps below to delete your account and all associated data.
           </p>
         </div>
 
         {/* How to Delete Section */}
-        <section className="mt-12 rounded-3xl border border-white/60 bg-white/90 p-8 shadow-lg dark:border-white/10 dark:bg-dark-card/80">
-          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">How to delete your account</h2>
-          <p className="mt-2 text-gray-600 dark:text-gray-400">
+        <section className="mt-12 rounded-3xl border border-white/60 bg-white/90 p-8 shadow-lg">
+          <h2 className="text-2xl font-semibold text-gray-900">How to delete your account</h2>
+          <p className="mt-2 text-gray-600">
             Account deletion is handled directly within the Domani app for your security.
           </p>
           <div className="mt-6 space-y-6">
             {steps.map((step) => (
               <div key={step.number} className="flex gap-4">
-                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary-100 text-sm font-semibold text-primary-700 dark:bg-primary-900/30 dark:text-primary-300">
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary-100 text-sm font-semibold text-primary-700">
                   {step.number}
                 </div>
                 <div>
-                  <h3 className="font-medium text-gray-900 dark:text-white">{step.title}</h3>
-                  <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">{step.description}</p>
+                  <h3 className="font-medium text-gray-900">{step.title}</h3>
+                  <p className="mt-1 text-sm text-gray-600">{step.description}</p>
                 </div>
               </div>
             ))}
@@ -83,19 +83,19 @@ export default function DeleteAccountPage() {
         </section>
 
         {/* 30-Day Grace Period */}
-        <section className="mt-8 rounded-3xl border border-amber-200 bg-amber-50/80 p-8 shadow-lg dark:border-amber-900/50 dark:bg-amber-950/30">
+        <section className="mt-8 rounded-3xl border border-amber-200 bg-amber-50/80 p-8 shadow-lg">
           <div className="flex items-start gap-4">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-amber-100 dark:bg-amber-900/50">
-              <svg className="h-5 w-5 text-amber-600 dark:text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-amber-100">
+              <svg className="h-5 w-5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
             <div>
-              <h2 className="text-xl font-semibold text-amber-900 dark:text-amber-100">30-Day Grace Period</h2>
-              <p className="mt-2 text-amber-800 dark:text-amber-200">
+              <h2 className="text-xl font-semibold text-amber-900">30-Day Grace Period</h2>
+              <p className="mt-2 text-amber-800">
                 After you request deletion, your account enters a 30-day grace period. During this time:
               </p>
-              <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-amber-800 dark:text-amber-200">
+              <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-amber-800">
                 <li>Your account is immediately deactivated and you&apos;ll be signed out</li>
                 <li>You won&apos;t be able to log in or access your data</li>
                 <li>If you change your mind, contact us within 30 days to restore your account</li>
@@ -106,12 +106,12 @@ export default function DeleteAccountPage() {
         </section>
 
         {/* What Gets Deleted */}
-        <section className="mt-8 rounded-3xl border border-white/60 bg-white/90 p-8 shadow-lg dark:border-white/10 dark:bg-dark-card/80">
-          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">What gets deleted</h2>
-          <p className="mt-2 text-gray-600 dark:text-gray-400">
+        <section className="mt-8 rounded-3xl border border-white/60 bg-white/90 p-8 shadow-lg">
+          <h2 className="text-2xl font-semibold text-gray-900">What gets deleted</h2>
+          <p className="mt-2 text-gray-600">
             The following data will be permanently removed from our systems:
           </p>
-          <ul className="mt-4 list-disc space-y-2 pl-5 text-gray-700 dark:text-gray-300">
+          <ul className="mt-4 list-disc space-y-2 pl-5 text-gray-700">
             {deletedData.map((item) => (
               <li key={item}>{item}</li>
             ))}
@@ -119,17 +119,17 @@ export default function DeleteAccountPage() {
         </section>
 
         {/* What We Retain */}
-        <section className="mt-8 rounded-3xl border border-white/60 bg-white/90 p-8 shadow-lg dark:border-white/10 dark:bg-dark-card/80">
-          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">What we retain</h2>
-          <p className="mt-2 text-gray-600 dark:text-gray-400">
+        <section className="mt-8 rounded-3xl border border-white/60 bg-white/90 p-8 shadow-lg">
+          <h2 className="text-2xl font-semibold text-gray-900">What we retain</h2>
+          <p className="mt-2 text-gray-600">
             For legal and operational reasons, we may retain:
           </p>
-          <ul className="mt-4 list-disc space-y-2 pl-5 text-gray-700 dark:text-gray-300">
+          <ul className="mt-4 list-disc space-y-2 pl-5 text-gray-700">
             {retainedData.map((item) => (
               <li key={item}>{item}</li>
             ))}
           </ul>
-          <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">
+          <p className="mt-4 text-sm text-gray-500">
             None of this retained data can be used to identify you or your account.
           </p>
         </section>
@@ -151,21 +151,21 @@ export default function DeleteAccountPage() {
         </section>
 
         {/* Footer Links */}
-        <div className="mt-12 flex flex-wrap justify-center gap-6 text-sm text-gray-500 dark:text-gray-400">
-          <Link href="/privacy" className="hover:text-primary-600 dark:hover:text-primary-300">
+        <div className="mt-12 flex flex-wrap justify-center gap-6 text-sm text-gray-500">
+          <Link href="/privacy" className="hover:text-primary-600">
             Privacy Policy
           </Link>
-          <Link href="/terms" className="hover:text-primary-600 dark:hover:text-primary-300">
+          <Link href="/terms" className="hover:text-primary-600">
             Terms of Service
           </Link>
-          <Link href="/security" className="hover:text-primary-600 dark:hover:text-primary-300">
+          <Link href="/security" className="hover:text-primary-600">
             Security Practices
           </Link>
         </div>
 
-        <p className="mt-8 text-center text-xs text-gray-500 dark:text-gray-500">
+        <p className="mt-8 text-center text-xs text-gray-500">
           Last updated: December 2025 · Questions?{' '}
-          <a href="mailto:support@domani-app.com" className="underline hover:text-primary-600 dark:hover:text-primary-300">
+          <a href="mailto:support@domani-app.com" className="underline hover:text-primary-600">
             support@domani-app.com
           </a>
         </p>

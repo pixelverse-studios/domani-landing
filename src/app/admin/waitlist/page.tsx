@@ -29,10 +29,10 @@ import { cn } from '@/lib/utils'
 // Status badge component
 function StatusBadge({ status }: { status: string }) {
   const config = {
-    pending: { icon: Clock, label: 'Pending', className: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400' },
-    invited: { icon: Mail, label: 'Invited', className: 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400' },
-    confirmed: { icon: CheckCircle, label: 'Confirmed', className: 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400' },
-    registered: { icon: UserCheck, label: 'Registered', className: 'bg-purple-100 text-purple-800 dark:bg-purple-900/20 dark:text-purple-400' },
+    pending: { icon: Clock, label: 'Pending', className: 'bg-yellow-100 text-yellow-800' },
+    invited: { icon: Mail, label: 'Invited', className: 'bg-blue-100 text-blue-800' },
+    confirmed: { icon: CheckCircle, label: 'Confirmed', className: 'bg-green-100 text-green-800' },
+    registered: { icon: UserCheck, label: 'Registered', className: 'bg-purple-100 text-purple-800' },
   }
 
   const { icon: Icon, label, className } = config[status as keyof typeof config] || config.pending
@@ -61,7 +61,7 @@ function ActionMenu({
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+        className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
       >
         <MoreHorizontal className="h-4 w-4" />
       </button>
@@ -72,7 +72,7 @@ function ActionMenu({
             className="fixed inset-0 z-10"
             onClick={() => setIsOpen(false)}
           />
-          <div className="absolute right-0 mt-2 w-48 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-lg z-20">
+          <div className="absolute right-0 mt-2 w-48 rounded-lg border border-gray-200 bg-white shadow-lg z-20">
             <div className="p-1">
               {entry.status !== 'invited' && (
                 <button
@@ -80,7 +80,7 @@ function ActionMenu({
                     onStatusChange('invited')
                     setIsOpen(false)
                   }}
-                  className="flex items-center gap-2 w-full px-3 py-2 text-left text-sm rounded hover:bg-gray-100 dark:hover:bg-gray-700"
+                  className="flex items-center gap-2 w-full px-3 py-2 text-left text-sm rounded hover:bg-gray-100"
                 >
                   <Mail className="h-4 w-4" />
                   Mark as Invited
@@ -92,7 +92,7 @@ function ActionMenu({
                     onStatusChange('registered')
                     setIsOpen(false)
                   }}
-                  className="flex items-center gap-2 w-full px-3 py-2 text-left text-sm rounded hover:bg-gray-100 dark:hover:bg-gray-700"
+                  className="flex items-center gap-2 w-full px-3 py-2 text-left text-sm rounded hover:bg-gray-100"
                 >
                   <UserCheck className="h-4 w-4" />
                   Mark as Registered
@@ -104,19 +104,19 @@ function ActionMenu({
                     onStatusChange('pending')
                     setIsOpen(false)
                   }}
-                  className="flex items-center gap-2 w-full px-3 py-2 text-left text-sm rounded hover:bg-gray-100 dark:hover:bg-gray-700"
+                  className="flex items-center gap-2 w-full px-3 py-2 text-left text-sm rounded hover:bg-gray-100"
                 >
                   <Clock className="h-4 w-4" />
                   Mark as Pending
                 </button>
               )}
-              <div className="h-px bg-gray-200 dark:bg-gray-700 my-1" />
+              <div className="h-px bg-gray-200 my-1" />
               <button
                 onClick={() => {
                   onDelete()
                   setIsOpen(false)
                 }}
-                className="flex items-center gap-2 w-full px-3 py-2 text-left text-sm rounded hover:bg-red-50 dark:hover:bg-red-900/20 text-red-600 dark:text-red-400"
+                className="flex items-center gap-2 w-full px-3 py-2 text-left text-sm rounded hover:bg-red-50 text-red-600"
               >
                 <Trash2 className="h-4 w-4" />
                 Delete
@@ -243,7 +243,7 @@ export default function WaitlistPage() {
       accessorKey: 'createdAt',
       header: 'Joined',
       cell: ({ row }) => (
-        <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400">
+        <div className="flex items-center gap-2 text-gray-500">
           <Calendar className="h-4 w-4" />
           <span className="text-sm">
             {format(new Date(row.original.createdAt), 'MMM d, yyyy')}
@@ -267,27 +267,27 @@ export default function WaitlistPage() {
     <div className="flex flex-col h-full p-8 overflow-hidden">
       {/* Page Header */}
       <div className="mb-8 flex-shrink-0">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">
           Waitlist Management
         </h1>
-        <p className="text-gray-500 dark:text-gray-400">
+        <p className="text-gray-500">
           Manage your waitlist subscribers and track signups
         </p>
       </div>
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8 flex-shrink-0">
-        <div className="p-6 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+        <div className="p-6 bg-white rounded-lg border border-gray-200">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-sm text-gray-500 dark:text-gray-400">Total Signups</span>
+            <span className="text-sm text-gray-500">Total Signups</span>
             <Users className="h-4 w-4 text-gray-400" />
           </div>
           <p className="text-2xl font-bold">{data?.total || 0}</p>
         </div>
 
-        <div className="p-6 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+        <div className="p-6 bg-white rounded-lg border border-gray-200">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-sm text-gray-500 dark:text-gray-400">Pending</span>
+            <span className="text-sm text-gray-500">Pending</span>
             <Clock className="h-4 w-4 text-yellow-500" />
           </div>
           <p className="text-2xl font-bold">
@@ -295,9 +295,9 @@ export default function WaitlistPage() {
           </p>
         </div>
 
-        <div className="p-6 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+        <div className="p-6 bg-white rounded-lg border border-gray-200">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-sm text-gray-500 dark:text-gray-400">Invited</span>
+            <span className="text-sm text-gray-500">Invited</span>
             <Mail className="h-4 w-4 text-blue-500" />
           </div>
           <p className="text-2xl font-bold">
@@ -305,9 +305,9 @@ export default function WaitlistPage() {
           </p>
         </div>
 
-        <div className="p-6 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+        <div className="p-6 bg-white rounded-lg border border-gray-200">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-sm text-gray-500 dark:text-gray-400">Registered</span>
+            <span className="text-sm text-gray-500">Registered</span>
             <CheckCircle className="h-4 w-4 text-green-500" />
           </div>
           <p className="text-2xl font-bold">
@@ -317,7 +317,7 @@ export default function WaitlistPage() {
       </div>
 
       {/* Filter Tabs */}
-      <div className="flex gap-1 mb-6 p-1 bg-gray-100 dark:bg-gray-800 rounded-lg w-fit flex-shrink-0">
+      <div className="flex gap-1 mb-6 p-1 bg-gray-100 rounded-lg w-fit flex-shrink-0">
         {['all', 'pending', 'invited', 'registered'].map((status) => (
           <button
             key={status}
@@ -329,8 +329,8 @@ export default function WaitlistPage() {
             className={cn(
               'px-4 py-2 text-sm font-medium rounded-md transition-colors capitalize',
               statusFilter === status
-                ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm'
-                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                ? 'bg-white text-gray-900 shadow-sm'
+                : 'text-gray-600 hover:text-gray-900'
             )}
           >
             {status}
@@ -340,28 +340,28 @@ export default function WaitlistPage() {
 
       {/* Bulk Actions */}
       {selectedRows.length > 0 && (
-        <div className="mb-4 p-4 bg-primary-50 dark:bg-primary-900/20 rounded-lg flex items-center justify-between flex-shrink-0">
-          <span className="text-sm text-primary-600 dark:text-primary-400">
+        <div className="mb-4 p-4 bg-primary-50 rounded-lg flex items-center justify-between flex-shrink-0">
+          <span className="text-sm text-primary-600">
             {selectedRows.length} item(s) selected
           </span>
           <div className="flex gap-2">
             <button
               onClick={() => setIsReferralSheetOpen(true)}
-              className="flex items-center gap-2 px-3 py-1.5 text-sm bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"
+              className="flex items-center gap-2 px-3 py-1.5 text-sm bg-white rounded border border-gray-200 hover:bg-gray-50"
             >
               <Tag className="h-4 w-4" />
               Update Referral Type
             </button>
             <button
               onClick={() => handleBulkStatusChange('invited')}
-              className="flex items-center gap-2 px-3 py-1.5 text-sm bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"
+              className="flex items-center gap-2 px-3 py-1.5 text-sm bg-white rounded border border-gray-200 hover:bg-gray-50"
             >
               <Mail className="h-4 w-4" />
               Mark as Invited
             </button>
             <button
               onClick={handleBulkDelete}
-              className="flex items-center gap-2 px-3 py-1.5 text-sm bg-white dark:bg-gray-800 rounded border border-red-200 dark:border-red-700 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20"
+              className="flex items-center gap-2 px-3 py-1.5 text-sm bg-white rounded border border-red-200 text-red-600 hover:bg-red-50"
             >
               <Trash2 className="h-4 w-4" />
               Delete

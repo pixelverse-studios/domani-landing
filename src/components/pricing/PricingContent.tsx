@@ -153,20 +153,19 @@ function GlassCard({
       transition={{ type: 'spring', stiffness: 400, damping: 25 }}
       className={`
         relative overflow-hidden rounded-2xl
-        bg-white/70 dark:bg-white/[0.04]
+        bg-white/70
         backdrop-blur-xl
-        border ${highlight ? 'border-primary-300 dark:border-primary-500/30' : 'border-white/50 dark:border-white/[0.08]'}
+        border ${highlight ? 'border-primary-300' : 'border-white/50'}
         shadow-[0_8px_32px_rgba(0,0,0,0.08)]
-        dark:shadow-[0_8px_32px_rgba(0,0,0,0.3)]
-        ${hover ? 'hover:shadow-[0_20px_48px_rgba(99,102,241,0.12)] dark:hover:shadow-[0_20px_48px_rgba(99,102,241,0.15)]' : ''}
-        ${hover ? 'hover:border-primary-200/50 dark:hover:border-primary-500/20' : ''}
+        ${hover ? 'hover:shadow-[0_20px_48px_rgba(99,102,241,0.12)]' : ''}
+        ${hover ? 'hover:border-primary-200/50' : ''}
         transition-shadow duration-300
         ${className}
       `}
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-transparent dark:from-white/[0.02] pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none" />
       {highlight && (
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-500/5 via-transparent to-primary-600/5 dark:from-primary-500/10 dark:to-primary-600/10 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary-500/5 via-transparent to-primary-600/5 pointer-events-none" />
       )}
       <div className="relative">{children}</div>
     </motion.div>
@@ -182,13 +181,13 @@ function FAQItem({ question, answer }: PricingFaq) {
         onClick={() => setIsOpen(!isOpen)}
         className="w-full px-6 py-5 flex items-center justify-between text-left"
       >
-        <span className="font-semibold text-gray-900 dark:text-white pr-4">{question}</span>
+        <span className="font-semibold text-gray-900 pr-4">{question}</span>
         <motion.div
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.2 }}
           className="flex-shrink-0"
         >
-          <ChevronDown className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+          <ChevronDown className="w-5 h-5 text-gray-500" />
         </motion.div>
       </button>
       <AnimatePresence>
@@ -199,7 +198,7 @@ function FAQItem({ question, answer }: PricingFaq) {
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: smoothEase }}
           >
-            <div className="px-6 pb-5 text-gray-600 dark:text-gray-300">{answer}</div>
+            <div className="px-6 pb-5 text-gray-600">{answer}</div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -213,7 +212,7 @@ function StarRating({ rating }: { rating: number }) {
       {[1, 2, 3, 4, 5].map((star) => (
         <Star
           key={star}
-          className={`w-4 h-4 ${star <= rating ? 'fill-yellow-400 text-yellow-400' : 'fill-gray-200 text-gray-200 dark:fill-gray-700 dark:text-gray-700'}`}
+          className={`w-4 h-4 ${star <= rating ? 'fill-yellow-400 text-yellow-400' : 'fill-gray-200 text-gray-200'}`}
         />
       ))}
     </div>
@@ -235,10 +234,10 @@ export function PricingContent({ plan, faqs, testimonials, comparison }: Pricing
     <div className="relative overflow-hidden">
       {/* Mesh gradient background */}
       <div className="fixed inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-b from-primary-50/80 via-white to-primary-100/50 dark:from-[#0A0A0F] dark:via-[#0F0F18] dark:to-[#0A0A0F]" />
-        <div className="absolute top-[10%] left-[15%] w-[500px] h-[500px] rounded-full bg-gradient-to-br from-primary-300/30 to-transparent blur-[100px] dark:from-primary-600/20 animate-blob" />
-        <div className="absolute top-[40%] right-[10%] w-[400px] h-[400px] rounded-full bg-gradient-to-br from-primary-300/25 to-transparent blur-[80px] dark:from-primary-700/15 animate-blob animation-delay-2000" />
-        <div className="absolute bottom-[20%] left-[20%] w-[350px] h-[350px] rounded-full bg-gradient-to-br from-primary-300/20 to-transparent blur-[90px] dark:from-primary-600/10 animate-blob animation-delay-4000" />
+        <div className="absolute inset-0 bg-gradient-to-b from-primary-50/80 via-white to-primary-100/50" />
+        <div className="absolute top-[10%] left-[15%] w-[500px] h-[500px] rounded-full bg-gradient-to-br from-primary-300/30 to-transparent blur-[100px] animate-blob" />
+        <div className="absolute top-[40%] right-[10%] w-[400px] h-[400px] rounded-full bg-gradient-to-br from-primary-300/25 to-transparent blur-[80px] animate-blob animation-delay-2000" />
+        <div className="absolute bottom-[20%] left-[20%] w-[350px] h-[350px] rounded-full bg-gradient-to-br from-primary-300/20 to-transparent blur-[90px] animate-blob animation-delay-4000" />
       </div>
 
       <div className="container mx-auto px-4 pt-4 pb-24">
@@ -253,13 +252,13 @@ export function PricingContent({ plan, faqs, testimonials, comparison }: Pricing
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Left Side - Value Proposition */}
             <motion.div variants={fadeInUp} className="text-center lg:text-left">
-              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-100/80 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-sm font-medium backdrop-blur-sm border border-primary-200/50 dark:border-primary-800/50 mb-6">
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-100/80 text-primary-700 text-sm font-medium backdrop-blur-sm border border-primary-200/50 mb-6">
                 <Sparkles className="w-4 h-4" />
                 {plan.discountLabel || 'Lifetime Access'}
               </span>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-                <span className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 dark:from-white dark:via-gray-100 dark:to-white bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent">
                   Own Your Mornings,
                 </span>
                 <br />
@@ -268,7 +267,7 @@ export function PricingContent({ plan, faqs, testimonials, comparison }: Pricing
                 </span>
               </h1>
 
-              <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-400 mb-8 max-w-lg mx-auto lg:mx-0">
+              <p className="text-lg sm:text-xl text-gray-600 mb-8 max-w-lg mx-auto lg:mx-0">
                 One payment. Lifetime access. No subscriptions, no recurring fees.
               </p>
 
@@ -280,10 +279,10 @@ export function PricingContent({ plan, faqs, testimonials, comparison }: Pricing
                   'Track progress with beautiful analytics',
                 ].map((benefit) => (
                   <div key={benefit} className="flex items-center gap-3 justify-center lg:justify-start">
-                    <div className="w-5 h-5 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center flex-shrink-0">
-                      <Check className="w-3 h-3 text-green-600 dark:text-green-400" />
+                    <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
+                      <Check className="w-3 h-3 text-green-600" />
                     </div>
-                    <span className="text-gray-700 dark:text-gray-300">{benefit}</span>
+                    <span className="text-gray-700">{benefit}</span>
                   </div>
                 ))}
               </div>
@@ -313,11 +312,11 @@ export function PricingContent({ plan, faqs, testimonials, comparison }: Pricing
                     {plan.originalPrice && (
                       <span className="text-xl text-gray-400 line-through">{plan.originalPrice}</span>
                     )}
-                    <span className="text-5xl sm:text-6xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-200 bg-clip-text text-transparent">
+                    <span className="text-5xl sm:text-6xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
                       {plan.currentPrice}
                     </span>
                   </div>
-                  <p className="text-gray-500 dark:text-gray-400">{plan.period}</p>
+                  <p className="text-gray-500">{plan.period}</p>
                 </div>
 
                 {/* Features Grid */}
@@ -325,14 +324,14 @@ export function PricingContent({ plan, faqs, testimonials, comparison }: Pricing
                   {plan.features.slice(0, 6).map((feature) => (
                     <div key={feature} className="flex items-center gap-1.5">
                       <Check className="w-4 h-4 text-green-500 flex-shrink-0" />
-                      <span className="text-gray-700 dark:text-gray-300 text-sm">{feature}</span>
+                      <span className="text-gray-700 text-sm">{feature}</span>
                     </div>
                   ))}
                 </div>
 
                 {/* Trial Banner */}
-                <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border border-green-200 dark:border-green-800/50 rounded-lg p-3 mb-4">
-                  <div className="flex items-center justify-center gap-2 text-green-700 dark:text-green-300">
+                <div className="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-lg p-3 mb-4">
+                  <div className="flex items-center justify-center gap-2 text-green-700">
                     <Shield className="w-4 h-4" />
                     <span className="font-semibold text-sm">{plan.trialMessage}</span>
                   </div>
@@ -344,7 +343,7 @@ export function PricingContent({ plan, faqs, testimonials, comparison }: Pricing
                 </div>
 
                 {/* Trust Signals */}
-                <div className="flex items-center justify-center gap-3 text-xs text-gray-500 dark:text-gray-400">
+                <div className="flex items-center justify-center gap-3 text-xs text-gray-500">
                   <div className="flex items-center gap-1">
                     <Lock className="w-3 h-3" />
                     <span>Secure</span>
@@ -362,10 +361,10 @@ export function PricingContent({ plan, faqs, testimonials, comparison }: Pricing
         {/* Subscription Comparison */}
         <AnimatedSection className="max-w-3xl mx-auto mb-24">
           <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
               Why Lifetime Makes Sense
             </h2>
-            <p className="text-gray-600 dark:text-gray-400 text-lg">
+            <p className="text-gray-600 text-lg">
               See how quickly the lifetime deal pays for itself
             </p>
           </div>
@@ -373,43 +372,43 @@ export function PricingContent({ plan, faqs, testimonials, comparison }: Pricing
           <GlassCard hover={false} className="p-8">
             <div className="grid md:grid-cols-2 gap-8">
               {/* If Subscription */}
-              <div className="text-center p-6 rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
-                <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">
+              <div className="text-center p-6 rounded-xl bg-gray-50 border border-gray-200">
+                <p className="text-sm font-medium text-gray-500 mb-2">
                   If we offered monthly
                 </p>
-                <p className="text-3xl font-bold text-gray-400 dark:text-gray-500 mb-1">
+                <p className="text-3xl font-bold text-gray-400 mb-1">
                   ${comparison.monthlyPrice.toFixed(2)}/mo
                 </p>
-                <p className="text-gray-500 dark:text-gray-400">
+                <p className="text-gray-500">
                   = ${yearlySubscriptionCost.toFixed(2)}/year
                 </p>
               </div>
 
               {/* Lifetime */}
-              <div className="text-center p-6 rounded-xl bg-gradient-to-br from-primary-50 to-primary-100 dark:from-primary-900/30 dark:to-primary-900/30 border border-primary-200 dark:border-primary-700/50">
-                <p className="text-sm font-medium text-primary-600 dark:text-primary-400 mb-2">
+              <div className="text-center p-6 rounded-xl bg-gradient-to-br from-primary-50 to-primary-100 border border-primary-200">
+                <p className="text-sm font-medium text-primary-600 mb-2">
                   Lifetime Deal
                 </p>
                 <div className="flex items-center justify-center gap-2 mb-1">
                   {plan.originalPrice && (
                     <span className="text-xl text-gray-400 line-through">{plan.originalPrice}</span>
                   )}
-                  <span className="text-3xl font-bold text-primary-700 dark:text-primary-300">
+                  <span className="text-3xl font-bold text-primary-700">
                     {plan.currentPrice}
                   </span>
                 </div>
-                <p className="text-primary-600 dark:text-primary-400">one-time, forever</p>
+                <p className="text-primary-600">one-time, forever</p>
               </div>
             </div>
 
             <div className="mt-8 text-center">
-              <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800/50">
-                <Zap className="w-5 h-5 text-green-600 dark:text-green-400" />
-                <span className="font-semibold text-green-700 dark:text-green-300">
+              <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-green-50 border border-green-200">
+                <Zap className="w-5 h-5 text-green-600" />
+                <span className="font-semibold text-green-700">
                   Pays for itself in just {comparison.monthsToPayoff} months!
                 </span>
               </div>
-              <p className="mt-3 text-gray-500 dark:text-gray-400">
+              <p className="mt-3 text-gray-500">
                 After that, it&apos;s free forever. Save ${savingsAfterYear.toFixed(2)}+ in the first year alone.
               </p>
             </div>
@@ -419,10 +418,10 @@ export function PricingContent({ plan, faqs, testimonials, comparison }: Pricing
         {/* Features Grid */}
         <AnimatedSection className="max-w-5xl mx-auto mb-24">
           <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
               Everything You Need
             </h2>
-            <p className="text-gray-600 dark:text-gray-400 text-lg">
+            <p className="text-gray-600 text-lg">
               All features included, no upsells, no premium tiers
             </p>
           </div>
@@ -438,13 +437,13 @@ export function PricingContent({ plan, faqs, testimonials, comparison }: Pricing
               <motion.div key={feature.title} variants={scaleIn}>
                 <GlassCard className="p-6 h-full">
                   <div className="flex flex-col h-full">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-100 to-primary-200 dark:from-primary-900/50 dark:to-primary-900/50 flex items-center justify-center mb-4">
-                      <div className="text-primary-600 dark:text-primary-400">{feature.icon}</div>
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-100 to-primary-200 flex items-center justify-center mb-4">
+                      <div className="text-primary-600">{feature.icon}</div>
                     </div>
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
                       {feature.title}
                     </h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm">{feature.description}</p>
+                    <p className="text-gray-600 text-sm">{feature.description}</p>
                   </div>
                 </GlassCard>
               </motion.div>
@@ -456,10 +455,10 @@ export function PricingContent({ plan, faqs, testimonials, comparison }: Pricing
         {testimonials.length > 0 && (
           <AnimatedSection className="max-w-5xl mx-auto mb-24">
             <div className="text-center mb-10">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
                 Loved by Planners
               </h2>
-              <p className="text-gray-600 dark:text-gray-400 text-lg">
+              <p className="text-gray-600 text-lg">
                 Join thousands who&apos;ve transformed their mornings
               </p>
             </div>
@@ -475,16 +474,16 @@ export function PricingContent({ plan, faqs, testimonials, comparison }: Pricing
                 >
                   <GlassCard className="p-6 h-full">
                     <div className="flex flex-col h-full">
-                      <Quote className="w-8 h-8 text-primary-300 dark:text-primary-700 mb-4" />
-                      <p className="text-gray-700 dark:text-gray-300 mb-4 flex-grow italic">
+                      <Quote className="w-8 h-8 text-primary-300 mb-4" />
+                      <p className="text-gray-700 mb-4 flex-grow italic">
                         &ldquo;{testimonial.quote}&rdquo;
                       </p>
                       <div className="mt-auto">
                         <StarRating rating={testimonial.rating} />
-                        <p className="font-semibold text-gray-900 dark:text-white mt-2">
+                        <p className="font-semibold text-gray-900 mt-2">
                           {testimonial.name}
                         </p>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">{testimonial.role}</p>
+                        <p className="text-sm text-gray-500">{testimonial.role}</p>
                       </div>
                     </div>
                   </GlassCard>
@@ -497,7 +496,7 @@ export function PricingContent({ plan, faqs, testimonials, comparison }: Pricing
         {/* FAQ Section */}
         <AnimatedSection className="max-w-3xl mx-auto mb-24">
           <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
               Frequently Asked Questions
             </h2>
           </div>
@@ -520,16 +519,16 @@ export function PricingContent({ plan, faqs, testimonials, comparison }: Pricing
               viewport={{ once: true }}
               transition={{ duration: 0.6, ease: smoothEase }}
             >
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-gray-900 via-primary-800 to-gray-900 dark:from-white dark:via-primary-200 dark:to-white bg-clip-text text-transparent">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-gray-900 via-primary-800 to-gray-900 bg-clip-text text-transparent">
                 Ready to Own Your Mornings?
               </h2>
-              <p className="text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-xl mx-auto">
+              <p className="text-lg text-gray-600 mb-8 max-w-xl mx-auto">
                 Start your free trial today. No credit card required.
               </p>
               <DynamicCTA size="large" analyticsLocation="pricing-footer" />
 
               {/* Trust Badges */}
-              <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm text-gray-500 dark:text-gray-400">
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm text-gray-500">
                 <div className="flex items-center gap-2">
                   <Shield className="w-4 h-4" />
                   <span>14-Day Free Trial</span>
@@ -549,7 +548,7 @@ export function PricingContent({ plan, faqs, testimonials, comparison }: Pricing
       </div>
 
       {/* Bottom gradient fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white dark:from-[#0A0A0F] to-transparent pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent pointer-events-none" />
     </div>
   )
 }

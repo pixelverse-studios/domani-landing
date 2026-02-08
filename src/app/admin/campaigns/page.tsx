@@ -26,12 +26,12 @@ import { CampaignStatus, formatCampaignType } from '@/types/email'
 // Status badge component
 function StatusBadge({ status }: { status: CampaignStatus }) {
   const statusConfig = {
-    [CampaignStatus.Draft]: { icon: Edit, label: 'Draft', className: 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300' },
-    [CampaignStatus.Scheduled]: { icon: Clock, label: 'Scheduled', className: 'bg-blue-100 text-blue-700 dark:bg-blue-900/20 dark:text-blue-400' },
-    [CampaignStatus.Sending]: { icon: Send, label: 'Sending', className: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/20 dark:text-yellow-400' },
-    [CampaignStatus.Sent]: { icon: CheckCircle, label: 'Sent', className: 'bg-green-100 text-green-700 dark:bg-green-900/20 dark:text-green-400' },
-    [CampaignStatus.Cancelled]: { icon: XCircle, label: 'Cancelled', className: 'bg-red-100 text-red-700 dark:bg-red-900/20 dark:text-red-400' },
-    [CampaignStatus.Failed]: { icon: XCircle, label: 'Failed', className: 'bg-red-100 text-red-700 dark:bg-red-900/20 dark:text-red-400' },
+    [CampaignStatus.Draft]: { icon: Edit, label: 'Draft', className: 'bg-gray-100 text-gray-700' },
+    [CampaignStatus.Scheduled]: { icon: Clock, label: 'Scheduled', className: 'bg-blue-100 text-blue-700' },
+    [CampaignStatus.Sending]: { icon: Send, label: 'Sending', className: 'bg-yellow-100 text-yellow-700' },
+    [CampaignStatus.Sent]: { icon: CheckCircle, label: 'Sent', className: 'bg-green-100 text-green-700' },
+    [CampaignStatus.Cancelled]: { icon: XCircle, label: 'Cancelled', className: 'bg-red-100 text-red-700' },
+    [CampaignStatus.Failed]: { icon: XCircle, label: 'Failed', className: 'bg-red-100 text-red-700' },
   }
 
   const config = statusConfig[status]
@@ -54,14 +54,14 @@ function MetricCard({ icon: Icon, label, value, change }: {
 }) {
   return (
     <div className="flex items-center gap-3">
-      <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg">
-        <Icon className="h-4 w-4 text-gray-600 dark:text-gray-400" />
+      <div className="p-2 bg-gray-100 rounded-lg">
+        <Icon className="h-4 w-4 text-gray-600" />
       </div>
       <div>
-        <p className="text-xs text-gray-500 dark:text-gray-400">{label}</p>
+        <p className="text-xs text-gray-500">{label}</p>
         <p className="text-lg font-semibold">{value}</p>
         {change && (
-          <p className="text-xs text-green-600 dark:text-green-400">{change}</p>
+          <p className="text-xs text-green-600">{change}</p>
         )}
       </div>
     </div>
@@ -97,10 +97,10 @@ export default function CampaignsPage() {
       {/* Page Header */}
       <div className="mb-8 flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+          <h1 className="text-3xl font-bold text-gray-900">
             Email Campaigns
           </h1>
-          <p className="text-gray-500 dark:text-gray-400 mt-1">
+          <p className="text-gray-500 mt-1">
             Create and manage your email marketing campaigns
           </p>
         </div>
@@ -117,7 +117,7 @@ export default function CampaignsPage() {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
+            <CardTitle className="text-sm font-medium text-gray-600">
               Total Campaigns
             </CardTitle>
           </CardHeader>
@@ -128,7 +128,7 @@ export default function CampaignsPage() {
 
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
+            <CardTitle className="text-sm font-medium text-gray-600">
               Sent
             </CardTitle>
           </CardHeader>
@@ -139,7 +139,7 @@ export default function CampaignsPage() {
 
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
+            <CardTitle className="text-sm font-medium text-gray-600">
               Scheduled
             </CardTitle>
           </CardHeader>
@@ -150,7 +150,7 @@ export default function CampaignsPage() {
 
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
+            <CardTitle className="text-sm font-medium text-gray-600">
               Drafts
             </CardTitle>
           </CardHeader>
@@ -170,12 +170,12 @@ export default function CampaignsPage() {
             placeholder="Search campaigns..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="h-10 w-full rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 pl-10 pr-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+            className="h-10 w-full rounded-lg border border-gray-200 bg-white pl-10 pr-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
           />
         </div>
 
         {/* Status Filter */}
-        <div className="flex gap-1 p-1 bg-gray-100 dark:bg-gray-800 rounded-lg">
+        <div className="flex gap-1 p-1 bg-gray-100 rounded-lg">
           {['all', 'draft', 'scheduled', 'sent'].map((status) => (
             <button
               key={status}
@@ -183,8 +183,8 @@ export default function CampaignsPage() {
               className={cn(
                 'px-4 py-2 text-sm font-medium rounded-md transition-colors capitalize',
                 statusFilter === status
-                  ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm'
-                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                  ? 'bg-white text-gray-900 shadow-sm'
+                  : 'text-gray-600 hover:text-gray-900'
               )}
             >
               {status}
@@ -199,14 +199,14 @@ export default function CampaignsPage() {
           {Array.from({ length: 6 }).map((_, i) => (
             <Card key={i} className="animate-pulse">
               <CardHeader className="space-y-2">
-                <div className="h-4 w-3/4 bg-gray-200 dark:bg-gray-700 rounded" />
-                <div className="h-3 w-1/2 bg-gray-200 dark:bg-gray-700 rounded" />
+                <div className="h-4 w-3/4 bg-gray-200 rounded" />
+                <div className="h-3 w-1/2 bg-gray-200 rounded" />
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="h-20 bg-gray-200 dark:bg-gray-700 rounded" />
+                <div className="h-20 bg-gray-200 rounded" />
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="h-12 bg-gray-200 dark:bg-gray-700 rounded" />
-                  <div className="h-12 bg-gray-200 dark:bg-gray-700 rounded" />
+                  <div className="h-12 bg-gray-200 rounded" />
+                  <div className="h-12 bg-gray-200 rounded" />
                 </div>
               </CardContent>
             </Card>
@@ -216,7 +216,7 @@ export default function CampaignsPage() {
         <Card className="col-span-full">
           <CardContent className="flex flex-col items-center justify-center py-12">
             <Mail className="h-12 w-12 text-gray-400 mb-4" />
-            <p className="text-gray-500 dark:text-gray-400 mb-4">No campaigns found</p>
+            <p className="text-gray-500 mb-4">No campaigns found</p>
             <Link
               href="/admin/campaigns/new"
               className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
@@ -240,7 +240,7 @@ export default function CampaignsPage() {
                     <CardTitle className="text-lg line-clamp-1">
                       {campaign.name}
                     </CardTitle>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-1">
+                    <p className="text-sm text-gray-500 line-clamp-1">
                       {campaign.subject}
                     </p>
                   </div>
@@ -250,7 +250,7 @@ export default function CampaignsPage() {
               <CardContent className="space-y-4">
                 {/* Metrics */}
                 {campaign.status === CampaignStatus.Sent && campaign.metrics && (
-                  <div className="grid grid-cols-2 gap-4 pb-4 border-b border-gray-200 dark:border-gray-700">
+                  <div className="grid grid-cols-2 gap-4 pb-4 border-b border-gray-200">
                     <MetricCard
                       icon={Users}
                       label="Sent"
@@ -277,15 +277,15 @@ export default function CampaignsPage() {
                 {/* Info */}
                 <div className="space-y-2 text-sm">
                   <div className="flex items-center justify-between">
-                    <span className="text-gray-500 dark:text-gray-400">Type</span>
+                    <span className="text-gray-500">Type</span>
                     <span className="font-medium">{formatCampaignType(campaign.type)}</span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-gray-500 dark:text-gray-400">Recipients</span>
+                    <span className="text-gray-500">Recipients</span>
                     <span className="font-medium">{campaign.recipientCount.toLocaleString()}</span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-gray-500 dark:text-gray-400">
+                    <span className="text-gray-500">
                       {campaign.status === CampaignStatus.Sent ? 'Sent' : 'Created'}
                     </span>
                     <span className="font-medium">
@@ -295,13 +295,13 @@ export default function CampaignsPage() {
                 </div>
 
                 {/* Actions */}
-                <div className="flex gap-2 pt-4 border-t border-gray-200 dark:border-gray-700 opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="flex gap-2 pt-4 border-t border-gray-200 opacity-0 group-hover:opacity-100 transition-opacity">
                   <button
                     onClick={(e) => {
                       e.stopPropagation()
                       router.push(`/admin/campaigns/${campaign.id}`)
                     }}
-                    className="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-sm bg-gray-100 dark:bg-gray-700 rounded hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                    className="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-sm bg-gray-100 rounded hover:bg-gray-200 transition-colors"
                   >
                     <Eye className="h-4 w-4" />
                     View
@@ -331,7 +331,7 @@ export default function CampaignsPage() {
           <button
             onClick={() => setPage(p => Math.max(1, p - 1))}
             disabled={page === 1}
-            className="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="p-2 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Previous
           </button>
@@ -341,7 +341,7 @@ export default function CampaignsPage() {
           <button
             onClick={() => setPage(p => p + 1)}
             disabled={page >= Math.ceil(total / 9)}
-            className="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="p-2 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Next
           </button>

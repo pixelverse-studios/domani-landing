@@ -38,7 +38,7 @@ export function HomePageClient({ children }: HomePageClientProps) {
   return (
     <>
       <Analytics />
-      <main className="min-h-screen overflow-x-clip bg-white pt-16 dark:bg-dark-gradient-from">
+      <main className="min-h-screen overflow-x-clip bg-white pt-16">
         <div className="overflow-x-clip">
           <Suspense fallback={null}>{children}</Suspense>
         </div>

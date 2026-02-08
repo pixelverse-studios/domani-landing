@@ -51,8 +51,8 @@ export function UpdateReferralTypeSheet({
     >
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Info Section */}
-        <div className="rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 p-4">
-          <p className="text-sm text-blue-800 dark:text-blue-200">
+        <div className="rounded-lg bg-blue-50 border border-blue-200 p-4">
+          <p className="text-sm text-blue-800">
             You are about to update the referral type for{' '}
             <span className="font-semibold">{selectedEntries.length}</span>{' '}
             selected {selectedEntries.length === 1 ? 'entry' : 'entries'}.
@@ -62,14 +62,14 @@ export function UpdateReferralTypeSheet({
         {/* Selected Emails Preview */}
         {selectedEntries.length <= 5 && (
           <div className="space-y-2">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            <label className="block text-sm font-medium text-gray-700">
               Selected Entries:
             </label>
             <div className="space-y-1">
               {selectedEntries.map((entry) => (
                 <div
                   key={entry.id}
-                  className="text-sm text-gray-600 dark:text-gray-400 truncate"
+                  className="text-sm text-gray-600 truncate"
                 >
                   {entry.email}
                 </div>
@@ -82,7 +82,7 @@ export function UpdateReferralTypeSheet({
         <div className="space-y-2">
           <label
             htmlFor="referral-type"
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+            className="block text-sm font-medium text-gray-700"
           >
             New Referral Type
           </label>
@@ -91,7 +91,7 @@ export function UpdateReferralTypeSheet({
             value={selectedType}
             onChange={(e) => setSelectedType(e.target.value)}
             disabled={isLoading}
-            className="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-2.5 text-gray-900 dark:text-white focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-gray-900 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             {REFERRAL_TYPE_OPTIONS.map((option) => (
               <option key={option.value} value={option.value}>
@@ -103,8 +103,8 @@ export function UpdateReferralTypeSheet({
 
         {/* Warning for Large Updates */}
         {selectedEntries.length > 10 && (
-          <div className="rounded-lg bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 p-4">
-            <p className="text-sm text-yellow-800 dark:text-yellow-200">
+          <div className="rounded-lg bg-yellow-50 border border-yellow-200 p-4">
+            <p className="text-sm text-yellow-800">
               <strong>Note:</strong> You are updating a large number of entries.
               This action cannot be undone.
             </p>
@@ -112,12 +112,12 @@ export function UpdateReferralTypeSheet({
         )}
 
         {/* Action Buttons */}
-        <div className="flex gap-3 pt-4 border-t border-gray-200 dark:border-gray-700">
+        <div className="flex gap-3 pt-4 border-t border-gray-200">
           <button
             type="button"
             onClick={handleClose}
             disabled={isLoading}
-            className="flex-1 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-2.5 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             Cancel
           </button>

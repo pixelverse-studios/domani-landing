@@ -17,17 +17,17 @@ export function BenefitsMotionLayer() {
   return (
     <div ref={ref} className="absolute inset-0 overflow-hidden">
       <motion.div
-        className="absolute -top-32 left-40 h-96 w-96 rounded-full bg-primary-200/50 blur-3xl mix-blend-multiply dark:bg-primary-600/10"
+        className="absolute -top-32 left-40 h-96 w-96 rounded-full bg-primary-200/50 blur-3xl mix-blend-multiply"
         style={{ y: translatePrimary }}
         transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
       />
       <motion.div
-        className="absolute top-20 right-0 h-80 w-80 rounded-full bg-primary-300 blur-2xl mix-blend-multiply dark:bg-primary-600/15"
+        className="absolute top-20 right-0 h-80 w-80 rounded-full bg-primary-300 blur-2xl mix-blend-multiply"
         style={{ y: translateSecondary, scale: scalePulse }}
         transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 0.4 }}
       />
       <motion.div
-        className="absolute inset-0 mx-auto my-auto h-[600px] w-[600px] rounded-full bg-gradient-radial from-primary-100/20 to-transparent opacity-50 dark:from-primary-500/10"
+        className="absolute inset-0 mx-auto my-auto h-[600px] w-[600px] rounded-full bg-gradient-radial from-primary-100/20 to-transparent opacity-50"
         style={{ scale: scalePulse }}
       />
     </div>

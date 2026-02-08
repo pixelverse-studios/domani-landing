@@ -111,19 +111,18 @@ function GlassCard({
       transition={{ type: 'spring', stiffness: 400, damping: 25 }}
       className={`
         relative overflow-hidden rounded-2xl
-        bg-white/70 dark:bg-white/[0.04]
+        bg-white/70[0.04]
         backdrop-blur-xl
-        border border-white/50 dark:border-white/[0.08]
+        border border-white/50
         shadow-[0_8px_32px_rgba(0,0,0,0.08)]
-        dark:shadow-[0_8px_32px_rgba(0,0,0,0.3)]
-        ${hover ? 'hover:shadow-[0_20px_48px_rgba(99,102,241,0.12)] dark:hover:shadow-[0_20px_48px_rgba(99,102,241,0.15)]' : ''}
-        ${hover ? 'hover:border-primary-200/50 dark:hover:border-primary-500/20' : ''}
+        ${hover ? 'hover:shadow-[0_20px_48px_rgba(99,102,241,0.12)]' : ''}
+        ${hover ? 'hover:border-primary-200/50' : ''}
         transition-shadow duration-300
         ${className}
       `}
     >
       {/* Subtle gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-transparent dark:from-white/[0.02] pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-transparent[0.02] pointer-events-none" />
       <div className="relative">{children}</div>
     </motion.div>
   )
@@ -143,20 +142,20 @@ export function AboutContent({ values }: AboutContentProps) {
       accent: 'problem',
       content: (
         <>
-          <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
+          <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
             Research shows that decision fatigue peaks in the morning. Your brain is bombarded with
             choices: What should I work on first? What&apos;s actually important? Should I respond to
             this email or start that project?
           </p>
-          <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
+          <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
             By the time you&apos;ve made these decisions, you&apos;ve already burned through precious mental
             energy. The best hours of your day—gone, spent on planning instead of doing.
           </p>
-          <div className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-r from-red-50 to-red-100 dark:from-red-950/30 dark:to-red-900/30 border border-red-100 dark:border-red-900/30">
+          <div className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-r from-red-50 to-red-100 border border-red-100">
             <div className="flex-shrink-0 w-14 h-14 rounded-full bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center text-white font-bold text-base shadow-lg shadow-red-500/25">
               73%
             </div>
-            <p className="text-gray-700 dark:text-gray-300 font-medium">
+            <p className="text-gray-700 font-medium">
               Studies show planning the night before reduces morning decision fatigue by 73% and
               increases task completion rates by 42%.
             </p>
@@ -169,16 +168,16 @@ export function AboutContent({ values }: AboutContentProps) {
       accent: 'solution',
       content: (
         <>
-          <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
+          <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
             Evening planning flips the script. At the end of your day, you&apos;re reflective, not
             reactive. You can see what worked, what didn&apos;t, and what truly matters for tomorrow.
           </p>
-          <div className="p-6 rounded-xl bg-gradient-to-r from-primary-50 to-primary-100 dark:from-primary-900/60 dark:to-primary-900/60 border border-primary-100 dark:border-primary-600/40 mb-6">
-            <p className="text-xl md:text-2xl font-semibold text-gray-900 dark:text-gray-50 text-center">
+          <div className="p-6 rounded-xl bg-gradient-to-r from-primary-50 to-primary-100 border border-primary-100 mb-6">
+            <p className="text-xl md:text-2xl font-semibold text-gray-900 text-center">
               Plan when you&apos;re calm, execute when you&apos;re focused.
             </p>
           </div>
-          <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed">
+          <p className="text-lg md:text-xl text-gray-700 leading-relaxed">
             Domani helps you trust the decisions you made while calm and clear-headed.
             No morning overthinking. No second-guessing. Just wake up and execute.
           </p>
@@ -192,15 +191,15 @@ export function AboutContent({ values }: AboutContentProps) {
       {/* Mesh gradient background */}
       <div className="fixed inset-0 -z-10">
         {/* Base gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-primary-50/80 via-white to-primary-100/50 dark:from-[#0A0A0F] dark:via-[#0F0F18] dark:to-[#0A0A0F]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-primary-50/80 via-white to-primary-100/50[#0A0A0F][#0F0F18][#0A0A0F]" />
 
         {/* Floating gradient orbs */}
-        <div className="absolute top-[10%] left-[15%] w-[500px] h-[500px] rounded-full bg-gradient-to-br from-primary-300/30 to-transparent blur-[100px] dark:from-primary-600/20 animate-blob" />
-        <div className="absolute top-[40%] right-[10%] w-[400px] h-[400px] rounded-full bg-gradient-to-br from-primary-300/25 to-transparent blur-[80px] dark:from-primary-700/15 animate-blob animation-delay-2000" />
-        <div className="absolute bottom-[20%] left-[20%] w-[350px] h-[350px] rounded-full bg-gradient-to-br from-primary-300/20 to-transparent blur-[90px] dark:from-primary-600/10 animate-blob animation-delay-4000" />
+        <div className="absolute top-[10%] left-[15%] w-[500px] h-[500px] rounded-full bg-gradient-to-br from-primary-300/30 to-transparent blur-[100px] animate-blob" />
+        <div className="absolute top-[40%] right-[10%] w-[400px] h-[400px] rounded-full bg-gradient-to-br from-primary-300/25 to-transparent blur-[80px] animate-blob animation-delay-2000" />
+        <div className="absolute bottom-[20%] left-[20%] w-[350px] h-[350px] rounded-full bg-gradient-to-br from-primary-300/20 to-transparent blur-[90px] animate-blob animation-delay-4000" />
 
         {/* Subtle noise texture overlay */}
-        <div className="absolute inset-0 opacity-[0.015] dark:opacity-[0.03]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\'/%3E%3C/svg%3E")' }} />
+        <div className="absolute inset-0 opacity-[0.015][0.03]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\'/%3E%3C/svg%3E")' }} />
       </div>
 
       <div className="container mx-auto px-4 pt-8 pb-24">
@@ -213,7 +212,7 @@ export function AboutContent({ values }: AboutContentProps) {
           className="max-w-5xl mx-auto text-center mb-32"
         >
           <motion.div variants={fadeInUp} className="mb-6">
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-100/80 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-sm font-medium backdrop-blur-sm border border-primary-200/50 dark:border-primary-800/50">
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-100/80 text-primary-700 text-sm font-medium backdrop-blur-sm border border-primary-200/50">
               <span className="w-2 h-2 rounded-full bg-primary-500 animate-pulse" />
               Our Philosophy
             </span>
@@ -223,7 +222,7 @@ export function AboutContent({ values }: AboutContentProps) {
             variants={fadeInUp}
             className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 leading-[0.95] tracking-tight"
           >
-            <span className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 dark:from-white dark:via-gray-100 dark:to-white bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent">
               The Science of
             </span>
             <br />
@@ -234,7 +233,7 @@ export function AboutContent({ values }: AboutContentProps) {
 
           <motion.p
             variants={fadeInUp}
-            className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-3xl mx-auto"
+            className="text-xl md:text-2xl text-gray-600 leading-relaxed max-w-3xl mx-auto"
           >
             We built Domani because we were tired of waking up stressed, scrambling to figure out what
             mattered. There had to be a better way.
@@ -267,8 +266,8 @@ export function AboutContent({ values }: AboutContentProps) {
                   <h2 className={`
                     text-3xl md:text-4xl font-bold mb-8
                     ${section.accent === 'problem'
-                      ? 'text-gray-900 dark:text-white'
-                      : 'bg-gradient-to-r from-primary-600 to-primary-700 dark:from-primary-400 dark:to-primary-400 bg-clip-text text-transparent'
+                      ? 'text-gray-900'
+                      : 'bg-gradient-to-r from-primary-600 to-primary-700 bg-clip-text text-transparent'
                     }
                   `}>
                     {section.heading}
@@ -288,11 +287,11 @@ export function AboutContent({ values }: AboutContentProps) {
           <div className="text-center mb-16">
             <motion.span
               variants={fadeInUp}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-200/80 dark:bg-primary-900/30 text-primary-800 dark:text-primary-400 text-sm font-medium backdrop-blur-sm border border-primary-300/50 dark:border-primary-800/50 mb-6"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-200/80 text-primary-800 text-sm font-medium backdrop-blur-sm border border-primary-300/50 mb-6"
             >
               Our Core Values
             </motion.span>
-            <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
+            <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
               What We Believe
             </h2>
           </div>
@@ -319,17 +318,17 @@ export function AboutContent({ values }: AboutContentProps) {
                       <div className={`
                         flex-shrink-0 rounded-2xl flex items-center justify-center
                         bg-gradient-to-br from-primary-100 to-primary-200
-                        dark:from-primary-900/50 dark:to-primary-900/50
+                       
                         ${isFeature ? 'w-20 h-20' : 'w-14 h-14'}
                       `}>
-                        <Icon className={`${isFeature ? 'w-10 h-10' : 'w-7 h-7'} text-primary-600 dark:text-primary-400`} />
+                        <Icon className={`${isFeature ? 'w-10 h-10' : 'w-7 h-7'} text-primary-600`} />
                       </div>
 
                       <div className="flex-1">
-                        <h3 className={`font-bold text-gray-900 dark:text-white mb-3 ${isFeature ? 'text-2xl md:text-3xl' : 'text-xl'}`}>
+                        <h3 className={`font-bold text-gray-900 mb-3 ${isFeature ? 'text-2xl md:text-3xl' : 'text-xl'}`}>
                           {value.title}
                         </h3>
-                        <p className={`text-gray-600 dark:text-gray-400 leading-relaxed ${isFeature ? 'text-lg' : ''}`}>
+                        <p className={`text-gray-600 leading-relaxed ${isFeature ? 'text-lg' : ''}`}>
                           {value.description}
                         </p>
                       </div>
@@ -350,20 +349,20 @@ export function AboutContent({ values }: AboutContentProps) {
               </span>
             </div>
 
-            <h2 className="text-3xl md:text-4xl font-bold mb-8 bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
+            <h2 className="text-3xl md:text-4xl font-bold mb-8 bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
               Built by People Who Get It
             </h2>
 
             <div className="space-y-6 max-w-2xl mx-auto">
-              <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed">
+              <p className="text-lg md:text-xl text-gray-700 leading-relaxed">
                 We&apos;re not a massive productivity company trying to do everything. We&apos;re a small team
                 obsessed with solving one problem extremely well: chaotic mornings.
               </p>
-              <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed">
+              <p className="text-lg md:text-xl text-gray-700 leading-relaxed">
                 Every feature in Domani exists because we needed it ourselves. The evening planning
                 mode? We use it every night. The smart reminders? They helped us finally build the habit.
               </p>
-              <p className="text-xl md:text-2xl font-semibold bg-gradient-to-r from-primary-600 to-primary-700 dark:from-primary-400 dark:to-primary-400 bg-clip-text text-transparent">
+              <p className="text-xl md:text-2xl font-semibold bg-gradient-to-r from-primary-600 to-primary-700 bg-clip-text text-transparent">
                 This isn&apos;t just an app. It&apos;s how we run our lives.
               </p>
             </div>
@@ -382,10 +381,10 @@ export function AboutContent({ values }: AboutContentProps) {
               viewport={{ once: true }}
               transition={{ duration: 0.6, ease: smoothEase }}
             >
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-gray-900 via-primary-800 to-gray-900 dark:from-white dark:via-primary-200 dark:to-white bg-clip-text text-transparent">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-gray-900 via-primary-800 to-gray-900 bg-clip-text text-transparent">
                 Ready to Transform Your Mornings?
               </h2>
-              <p className="text-xl text-gray-600 dark:text-gray-400 mb-10 max-w-xl mx-auto">
+              <p className="text-xl text-gray-600 mb-10 max-w-xl mx-auto">
                 Download Domani and start planning tonight. Your future self will thank you.
               </p>
               <DynamicCTA size="large" analyticsLocation="about" />
@@ -395,7 +394,7 @@ export function AboutContent({ values }: AboutContentProps) {
       </div>
 
       {/* Bottom gradient fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white dark:from-[#0A0A0F] to-transparent pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white[#0A0A0F] to-transparent pointer-events-none" />
 
       {/* CSS for gradient animation */}
       <style jsx global>{`

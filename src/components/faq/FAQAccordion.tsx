@@ -32,11 +32,11 @@ function FAQItem({ question, answer }: FAQEntry) {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <div className="group bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-all duration-300 ease-in-out">
+    <div className="group bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 ease-in-out">
       <button
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
-        className="flex w-full items-center justify-between p-6 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 dark:focus-visible:ring-purple-500"
+        className="flex w-full items-center justify-between p-6 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400:ring-purple-500"
         aria-expanded={isOpen}
       >
         <span className="text-lg font-semibold pr-8">{question}</span>
@@ -49,7 +49,7 @@ function FAQItem({ question, answer }: FAQEntry) {
       </button>
       <div
         className={cn(
-          'px-6 overflow-hidden transition-all duration-300 ease-in-out text-gray-600 dark:text-gray-300',
+          'px-6 overflow-hidden transition-all duration-300 ease-in-out text-gray-600',
           isOpen ? 'max-h-[480px] opacity-100 pb-6' : 'max-h-0 opacity-0 pb-0'
         )}
       >
@@ -72,7 +72,7 @@ export function FAQAccordion({ faqs }: FAQAccordionProps) {
         >
           <motion.h2
             variants={categoryVariants}
-            className="text-2xl font-bold mb-6 text-purple-600 dark:text-purple-400"
+            className="text-2xl font-bold mb-6 text-purple-600"
           >
             {category.category}
           </motion.h2>

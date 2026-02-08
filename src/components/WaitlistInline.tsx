@@ -94,15 +94,15 @@ export default function WaitlistInline() {
         animate={{ opacity: 1, scale: 1 }}
         className="max-w-md"
       >
-        <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl p-4 flex items-center gap-3">
+        <div className="bg-green-50 border border-green-200 rounded-xl p-4 flex items-center gap-3">
           <div className="flex-shrink-0">
             <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
           </div>
           <div className="flex-1">
-            <p className="text-green-800 dark:text-green-300 font-medium">You&apos;re on the list!</p>
-            <p className="text-green-700 dark:text-green-400 text-sm">Check your email for confirmation.</p>
+            <p className="text-green-800 font-medium">You&apos;re on the list!</p>
+            <p className="text-green-700 text-sm">Check your email for confirmation.</p>
           </div>
         </div>
       </motion.div>
@@ -130,12 +130,12 @@ export default function WaitlistInline() {
                 placeholder="Enter your email"
                 className={`
                   w-full px-5 py-3.5 text-base border rounded-xl
-                  bg-white dark:bg-dark-card text-gray-900 dark:text-white
+                  bg-white text-gray-900
                   ${error
                     ? 'border-red-500 focus:ring-2 focus:ring-red-500/20'
-                    : 'border-gray-300 dark:border-gray-600 focus:ring-4 focus:ring-primary-500/30 focus:border-primary-500 dark:focus:border-primary-400'
+                    : 'border-gray-300 focus:ring-4 focus:ring-primary-500/30 focus:border-primary-500'
                   }
-                  placeholder:text-gray-400 dark:placeholder:text-gray-500 outline-none transition-all duration-200
+                  placeholder:text-gray-400 outline-none transition-all duration-200
                   focus:scale-[1.02] focus:shadow-lg
                 `}
                 disabled={isSubmitting}
@@ -151,7 +151,7 @@ export default function WaitlistInline() {
                 px-8 py-3.5 rounded-xl font-semibold transition-all duration-200 transform
                 whitespace-nowrap min-w-[140px]
                 ${isSubmitting 
-                  ? 'bg-gray-400 dark:bg-gray-600 cursor-not-allowed' 
+                  ? 'bg-gray-400 cursor-not-allowed' 
                   : 'bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 hover:-translate-y-0.5 hover:shadow-lg text-white'
                 }
               `}
@@ -178,7 +178,7 @@ export default function WaitlistInline() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -5 }}
                 id="inline-error"
-                className="absolute -bottom-6 left-0 text-sm text-red-600 dark:text-red-400"
+                className="absolute -bottom-6 left-0 text-sm text-red-600"
                 role="alert"
               >
                 {error}
@@ -188,7 +188,7 @@ export default function WaitlistInline() {
         </form>
 
         {/* Privacy Note */}
-        <p className="mt-8 flex flex-wrap items-center gap-x-1 gap-y-1 text-xs text-gray-500 dark:text-gray-400">
+        <p className="mt-8 flex flex-wrap items-center gap-x-1 gap-y-1 text-xs text-gray-500">
           <span>No spam, ever. Unsubscribe anytime.</span>
           {hasLegalLinks ? (
             <span>
@@ -196,7 +196,7 @@ export default function WaitlistInline() {
               {PRIVACY_URL && (
                 <Link
                   href={PRIVACY_URL}
-                  className="underline hover:text-gray-700 dark:hover:text-gray-300"
+                  className="underline hover:text-gray-700"
                   {...legalLinkProps(PRIVACY_URL)}
                 >
                   Privacy Policy
@@ -206,7 +206,7 @@ export default function WaitlistInline() {
               {TERMS_URL && (
                 <Link
                   href={TERMS_URL}
-                  className="underline hover:text-gray-700 dark:hover:text-gray-300"
+                  className="underline hover:text-gray-700"
                   {...legalLinkProps(TERMS_URL)}
                 >
                   Terms of Service
@@ -220,7 +220,7 @@ export default function WaitlistInline() {
           <button
             type="button"
             onClick={() => setShowModal(true)}
-            className="underline hover:text-gray-700 dark:hover:text-gray-300"
+            className="underline hover:text-gray-700"
           >
             Want to tell us more?
           </button>

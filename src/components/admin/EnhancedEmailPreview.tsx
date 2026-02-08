@@ -132,11 +132,11 @@ export function EnhancedEmailPreview({
   }
   
   return (
-    <div className={cn('bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700', className)}>
+    <div className={cn('bg-white rounded-lg border border-gray-200', className)}>
       {/* Header */}
-      <div className="border-b border-gray-200 dark:border-gray-700 p-4">
+      <div className="border-b border-gray-200 p-4">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="font-medium text-gray-900 dark:text-white">
+          <h3 className="font-medium text-gray-900">
             Email Preview
           </h3>
           <div className="flex items-center gap-2">
@@ -144,7 +144,7 @@ export function EnhancedEmailPreview({
               <button
                 onClick={fetchPreview}
                 disabled={isLoading}
-                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors"
+                className="p-2 hover:bg-gray-100 rounded transition-colors"
                 title="Refresh preview"
               >
                 <RefreshCw className={cn('h-4 w-4', isLoading && 'animate-spin')} />
@@ -152,7 +152,7 @@ export function EnhancedEmailPreview({
             )}
             <button
               onClick={openInNewTab}
-              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors"
+              className="p-2 hover:bg-gray-100 rounded transition-colors"
               title="Open in new tab"
             >
               <ExternalLink className="h-4 w-4" />
@@ -163,14 +163,14 @@ export function EnhancedEmailPreview({
         {/* Controls */}
         <div className="flex items-center justify-between">
           {/* View Mode */}
-          <div className="flex gap-1 p-1 bg-gray-100 dark:bg-gray-800 rounded">
+          <div className="flex gap-1 p-1 bg-gray-100 rounded">
             <button
               onClick={() => setViewMode('desktop')}
               className={cn(
                 'flex items-center gap-2 px-3 py-1.5 rounded text-sm font-medium transition-colors',
                 viewMode === 'desktop'
-                  ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm'
-                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                  ? 'bg-white text-gray-900 shadow-sm'
+                  : 'text-gray-600 hover:text-gray-900'
               )}
             >
               <Monitor className="h-4 w-4" />
@@ -181,8 +181,8 @@ export function EnhancedEmailPreview({
               className={cn(
                 'flex items-center gap-2 px-3 py-1.5 rounded text-sm font-medium transition-colors',
                 viewMode === 'mobile'
-                  ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm'
-                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                  ? 'bg-white text-gray-900 shadow-sm'
+                  : 'text-gray-600 hover:text-gray-900'
               )}
             >
               <Smartphone className="h-4 w-4" />
@@ -191,14 +191,14 @@ export function EnhancedEmailPreview({
           </div>
           
           {/* Content Mode */}
-          <div className="flex gap-1 p-1 bg-gray-100 dark:bg-gray-800 rounded">
+          <div className="flex gap-1 p-1 bg-gray-100 rounded">
             <button
               onClick={() => setContentMode('html')}
               className={cn(
                 'flex items-center gap-2 px-3 py-1.5 rounded text-sm font-medium transition-colors',
                 contentMode === 'html'
-                  ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm'
-                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                  ? 'bg-white text-gray-900 shadow-sm'
+                  : 'text-gray-600 hover:text-gray-900'
               )}
             >
               <Eye className="h-4 w-4" />
@@ -209,8 +209,8 @@ export function EnhancedEmailPreview({
               className={cn(
                 'flex items-center gap-2 px-3 py-1.5 rounded text-sm font-medium transition-colors',
                 contentMode === 'text'
-                  ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm'
-                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                  ? 'bg-white text-gray-900 shadow-sm'
+                  : 'text-gray-600 hover:text-gray-900'
               )}
             >
               <EyeOff className="h-4 w-4" />
@@ -220,15 +220,15 @@ export function EnhancedEmailPreview({
         </div>
         
         {/* Subject Line */}
-        <div className="mt-4 p-3 bg-gray-50 dark:bg-gray-700/50 rounded">
-          <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Subject:</div>
-          <div className="font-medium text-gray-900 dark:text-white">
+        <div className="mt-4 p-3 bg-gray-50 rounded">
+          <div className="text-xs text-gray-500 mb-1">Subject:</div>
+          <div className="font-medium text-gray-900">
             {displayContent.subject}
           </div>
         </div>
         
         {/* Recipient Info */}
-        <div className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+        <div className="mt-2 text-xs text-gray-500">
           Preview for: {displayContent.recipient.email}
           {(displayContent.recipient.firstName || displayContent.recipient.lastName) && (
             <span>
@@ -242,8 +242,8 @@ export function EnhancedEmailPreview({
       <div className="p-4">
         {error ? (
           <div className="text-center py-8">
-            <div className="text-red-500 dark:text-red-400 mb-2">Preview Error</div>
-            <div className="text-sm text-gray-500 dark:text-gray-400">{error}</div>
+            <div className="text-red-500 mb-2">Preview Error</div>
+            <div className="text-sm text-gray-500">{error}</div>
             <button
               onClick={fetchPreview}
               className="mt-2 px-3 py-1.5 text-sm bg-primary text-white rounded hover:bg-primary-600"
@@ -254,26 +254,26 @@ export function EnhancedEmailPreview({
         ) : isLoading ? (
           <div className="text-center py-8">
             <RefreshCw className="h-8 w-8 animate-spin mx-auto mb-2 text-gray-400" />
-            <div className="text-sm text-gray-500 dark:text-gray-400">Loading preview...</div>
+            <div className="text-sm text-gray-500">Loading preview...</div>
           </div>
         ) : (
-          <div className="bg-gray-50 dark:bg-gray-900 rounded p-4">
+          <div className="bg-gray-50 rounded p-4">
             <div
               className={cn(
-                'bg-white dark:bg-gray-800 rounded shadow-sm mx-auto transition-all duration-200',
+                'bg-white rounded shadow-sm mx-auto transition-all duration-200',
                 viewMode === 'mobile' ? 'max-w-sm' : 'max-w-4xl'
               )}
             >
               <div className="p-6">
                 {contentMode === 'html' ? (
                   <div
-                    className="prose prose-sm dark:prose-invert max-w-none"
+                    className="prose prose-sm max-w-none"
                     dangerouslySetInnerHTML={{
                       __html: displayContent.html
                     }}
                   />
                 ) : (
-                  <pre className="whitespace-pre-wrap text-sm text-gray-700 dark:text-gray-300 font-sans">
+                  <pre className="whitespace-pre-wrap text-sm text-gray-700 font-sans">
                     {displayContent.text}
                   </pre>
                 )}
@@ -285,15 +285,15 @@ export function EnhancedEmailPreview({
       
       {/* Variables Help */}
       {Object.keys(variables).length > 0 && (
-        <div className="border-t border-gray-200 dark:border-gray-700 p-4">
-          <div className="text-xs text-gray-500 dark:text-gray-400 mb-2">
+        <div className="border-t border-gray-200 p-4">
+          <div className="text-xs text-gray-500 mb-2">
             Variables used in preview:
           </div>
           <div className="flex flex-wrap gap-2">
             {Object.entries(variables).map(([key, value]) => (
               <span
                 key={key}
-                className="inline-flex items-center px-2 py-1 bg-blue-100 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 rounded text-xs font-mono"
+                className="inline-flex items-center px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs font-mono"
               >
                 {`{{${key}}}`} → {value}
               </span>

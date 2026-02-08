@@ -23,11 +23,9 @@ export function Logo({ className, href = '/' }: LogoProps) {
         className={cn(
           'hidden md:inline-block font-abril text-3xl lg:text-4xl font-bold',
           'bg-gradient-to-r from-primary-600 to-primary-700',
-          'dark:from-primary-500 dark:to-primary-600',
           'bg-clip-text text-transparent',
           'transition-all duration-300',
           'group-hover:from-primary-500 group-hover:to-primary-600',
-          'dark:group-hover:from-primary-400 dark:group-hover:to-primary-500',
           'select-none'
         )}
       >
@@ -39,11 +37,9 @@ export function Logo({ className, href = '/' }: LogoProps) {
         className={cn(
           'inline-block md:hidden font-abril text-4xl font-bold',
           'bg-gradient-to-r from-primary-600 to-primary-700',
-          'dark:from-primary-500 dark:to-primary-600',
           'bg-clip-text text-transparent',
           'transition-all duration-300',
           'group-hover:from-primary-500 group-hover:to-primary-600',
-          'dark:group-hover:from-primary-400 dark:group-hover:to-primary-500',
           'select-none'
         )}
       >

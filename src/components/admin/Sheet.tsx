@@ -62,7 +62,7 @@ export function Sheet({ isOpen, onClose, title, children, width = 'md' }: SheetP
       <div
         ref={sheetRef}
         className={cn(
-          'fixed right-0 top-0 bottom-0 z-50 bg-white dark:bg-gray-900',
+          'fixed right-0 top-0 bottom-0 z-50 bg-white',
           'shadow-xl transition-transform duration-300 ease-out',
           'flex flex-col',
           widthClasses[width],
@@ -74,16 +74,16 @@ export function Sheet({ isOpen, onClose, title, children, width = 'md' }: SheetP
         aria-labelledby="sheet-title"
       >
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-gray-200 dark:border-gray-700 px-6 py-4">
+        <div className="flex items-center justify-between border-b border-gray-200 px-6 py-4">
           <h2
             id="sheet-title"
-            className="text-lg font-semibold text-gray-900 dark:text-white"
+            className="text-lg font-semibold text-gray-900"
           >
             {title}
           </h2>
           <button
             onClick={onClose}
-            className="rounded-lg p-2 text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors"
+            className="rounded-lg p-2 text-gray-500 hover:bg-gray-100 transition-colors"
             aria-label="Close"
           >
             <X className="h-5 w-5" />
