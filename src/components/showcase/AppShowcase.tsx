@@ -146,6 +146,7 @@ export function AppShowcase() {
                   analyticsLocation="app-showcase"
                   scrollToId="waitlist-form"
                   scrollButtonText="Get Early Access"
+                  align="start"
                 />
               </div>
             </div>
