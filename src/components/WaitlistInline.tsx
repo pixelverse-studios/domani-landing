@@ -152,7 +152,7 @@ export default function WaitlistInline() {
                 whitespace-nowrap min-w-[140px]
                 ${isSubmitting 
                   ? 'bg-gray-400 dark:bg-gray-600 cursor-not-allowed' 
-                  : 'bg-gradient-to-r from-primary-600 to-evening-600 hover:from-primary-700 hover:to-evening-700 hover:-translate-y-0.5 hover:shadow-lg text-white'
+                  : 'bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 hover:-translate-y-0.5 hover:shadow-lg text-white'
                 }
               `}
             >

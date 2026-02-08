@@ -77,7 +77,7 @@ export function AppPreviewSection({ className }: { className?: string }) {
 
   // Create sample app screens
   const DomaniScreen = () => (
-    <div className="bg-gradient-to-br from-primary-600 to-evening-600 h-full rounded-xl p-6">
+    <div className="bg-gradient-to-br from-primary-600 to-primary-700 h-full rounded-xl p-6">
       <div className="space-y-4">
         <div className="bg-white/20 backdrop-blur rounded-lg p-4">
           <div className="flex items-center justify-between mb-2">
@@ -348,7 +348,7 @@ export function AppPreviewSection({ className }: { className?: string }) {
           }}
         />
         <motion.div
-          className="absolute bottom-1/4 -right-64 w-96 h-96 bg-evening-500/10 rounded-full blur-3xl"
+          className="absolute bottom-1/4 -right-64 w-96 h-96 bg-primary-600/10 rounded-full blur-3xl"
           animate={{
             x: [0, -50, 0],
             y: [0, 30, 0],

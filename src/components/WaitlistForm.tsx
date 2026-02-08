@@ -156,7 +156,7 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
                   flex-1 py-3 px-6 rounded-lg font-semibold transition-all duration-200 transform
                   ${!isValidEmail || isSubmitting
                     ? 'bg-gray-300 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed'
-                    : 'bg-gradient-to-r from-primary-600 to-evening-600 hover:from-primary-700 hover:to-evening-700 hover:-translate-y-0.5 hover:shadow-lg text-white'
+                    : 'bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 hover:-translate-y-0.5 hover:shadow-lg text-white'
                   }
                 `}
               >
