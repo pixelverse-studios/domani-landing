@@ -173,7 +173,7 @@ export function AboutContent({ values }: AboutContentProps) {
             Evening planning flips the script. At the end of your day, you&apos;re reflective, not
             reactive. You can see what worked, what didn&apos;t, and what truly matters for tomorrow.
           </p>
-          <div className="p-6 rounded-xl bg-gradient-to-r from-primary-50 to-evening-50 dark:from-primary-900/60 dark:to-evening-900/60 border border-primary-100 dark:border-primary-600/40 mb-6">
+          <div className="p-6 rounded-xl bg-gradient-to-r from-primary-50 to-primary-100 dark:from-primary-900/60 dark:to-primary-900/60 border border-primary-100 dark:border-primary-600/40 mb-6">
             <p className="text-xl md:text-2xl font-semibold text-gray-900 dark:text-gray-50 text-center">
               Plan when you&apos;re calm, execute when you&apos;re focused.
             </p>
@@ -196,7 +196,7 @@ export function AboutContent({ values }: AboutContentProps) {
 
         {/* Floating gradient orbs */}
         <div className="absolute top-[10%] left-[15%] w-[500px] h-[500px] rounded-full bg-gradient-to-br from-primary-300/30 to-transparent blur-[100px] dark:from-primary-600/20 animate-blob" />
-        <div className="absolute top-[40%] right-[10%] w-[400px] h-[400px] rounded-full bg-gradient-to-br from-evening-300/25 to-transparent blur-[80px] dark:from-evening-600/15 animate-blob animation-delay-2000" />
+        <div className="absolute top-[40%] right-[10%] w-[400px] h-[400px] rounded-full bg-gradient-to-br from-primary-300/25 to-transparent blur-[80px] dark:from-primary-700/15 animate-blob animation-delay-2000" />
         <div className="absolute bottom-[20%] left-[20%] w-[350px] h-[350px] rounded-full bg-gradient-to-br from-blue-300/20 to-transparent blur-[90px] dark:from-blue-600/10 animate-blob animation-delay-4000" />
 
         {/* Subtle noise texture overlay */}
@@ -227,7 +227,7 @@ export function AboutContent({ values }: AboutContentProps) {
               The Science of
             </span>
             <br />
-            <span className="bg-gradient-to-r from-primary-600 via-evening-500 to-primary-600 bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradient-shift_8s_ease-in-out_infinite]">
+            <span className="bg-gradient-to-r from-primary-600 via-primary-600 to-primary-600 bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradient-shift_8s_ease-in-out_infinite]">
               Evening Planning
             </span>
           </motion.h1>
@@ -256,7 +256,7 @@ export function AboutContent({ values }: AboutContentProps) {
                     w-16 h-16 rounded-2xl flex items-center justify-center text-2xl font-bold
                     ${section.accent === 'problem'
                       ? 'bg-gradient-to-br from-red-500 to-red-600 text-white shadow-lg shadow-red-500/25'
-                      : 'bg-gradient-to-br from-primary-500 to-evening-500 text-white shadow-lg shadow-primary-500/25'
+                      : 'bg-gradient-to-br from-primary-500 to-primary-600 text-white shadow-lg shadow-primary-500/25'
                     }
                   `}>
                     {index + 1}
@@ -268,7 +268,7 @@ export function AboutContent({ values }: AboutContentProps) {
                     text-3xl md:text-4xl font-bold mb-8
                     ${section.accent === 'problem'
                       ? 'text-gray-900 dark:text-white'
-                      : 'bg-gradient-to-r from-primary-600 to-evening-600 dark:from-primary-400 dark:to-evening-400 bg-clip-text text-transparent'
+                      : 'bg-gradient-to-r from-primary-600 to-primary-700 dark:from-primary-400 dark:to-primary-400 bg-clip-text text-transparent'
                     }
                   `}>
                     {section.heading}
@@ -288,7 +288,7 @@ export function AboutContent({ values }: AboutContentProps) {
           <div className="text-center mb-16">
             <motion.span
               variants={fadeInUp}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-evening-100/80 dark:bg-evening-900/30 text-evening-700 dark:text-evening-300 text-sm font-medium backdrop-blur-sm border border-evening-200/50 dark:border-evening-800/50 mb-6"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-200/80 dark:bg-primary-900/30 text-primary-800 dark:text-primary-400 text-sm font-medium backdrop-blur-sm border border-primary-300/50 dark:border-primary-800/50 mb-6"
             >
               Our Core Values
             </motion.span>
@@ -318,8 +318,8 @@ export function AboutContent({ values }: AboutContentProps) {
                     <div className={`flex ${isFeature ? 'flex-col md:flex-row md:items-center' : 'flex-col'} gap-6`}>
                       <div className={`
                         flex-shrink-0 rounded-2xl flex items-center justify-center
-                        bg-gradient-to-br from-primary-100 to-evening-100
-                        dark:from-primary-900/50 dark:to-evening-900/50
+                        bg-gradient-to-br from-primary-100 to-primary-200
+                        dark:from-primary-900/50 dark:to-primary-900/50
                         ${isFeature ? 'w-20 h-20' : 'w-14 h-14'}
                       `}>
                         <Icon className={`${isFeature ? 'w-10 h-10' : 'w-7 h-7'} text-primary-600 dark:text-primary-400`} />
@@ -345,7 +345,7 @@ export function AboutContent({ values }: AboutContentProps) {
         <AnimatedSection className="max-w-4xl mx-auto mb-32">
           <GlassCard className="p-10 md:p-14 text-center" hover={false}>
             <div className="mb-8">
-              <span className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-primary-500 to-evening-500 text-white text-2xl shadow-lg shadow-primary-500/25">
+              <span className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-primary-500 to-primary-600 text-white text-2xl shadow-lg shadow-primary-500/25">
                 <Heart className="w-8 h-8" />
               </span>
             </div>
@@ -363,7 +363,7 @@ export function AboutContent({ values }: AboutContentProps) {
                 Every feature in Domani exists because we needed it ourselves. The evening planning
                 mode? We use it every night. The smart reminders? They helped us finally build the habit.
               </p>
-              <p className="text-xl md:text-2xl font-semibold bg-gradient-to-r from-primary-600 to-evening-600 dark:from-primary-400 dark:to-evening-400 bg-clip-text text-transparent">
+              <p className="text-xl md:text-2xl font-semibold bg-gradient-to-r from-primary-600 to-primary-700 dark:from-primary-400 dark:to-primary-400 bg-clip-text text-transparent">
                 This isn&apos;t just an app. It&apos;s how we run our lives.
               </p>
             </div>
@@ -374,7 +374,7 @@ export function AboutContent({ values }: AboutContentProps) {
         <AnimatedSection className="max-w-3xl mx-auto text-center">
           <div className="relative">
             {/* Glow effect behind CTA */}
-            <div className="absolute inset-0 bg-gradient-to-r from-primary-500/20 via-evening-500/20 to-primary-500/20 blur-3xl rounded-full scale-150 -z-10" />
+            <div className="absolute inset-0 bg-gradient-to-r from-primary-500/20 via-primary-600/20 to-primary-500/20 blur-3xl rounded-full scale-150 -z-10" />
 
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}

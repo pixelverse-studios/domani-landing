@@ -129,7 +129,7 @@ export default function AccountUnsubscribeForm({ initialEmail = '' }: AccountUns
                   w-full py-3 px-6 rounded-lg font-semibold transition-all duration-200
                   ${!isValidEmail
                     ? 'bg-gray-300 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed'
-                    : 'bg-gradient-to-r from-primary-600 to-evening-600 hover:from-primary-700 hover:to-evening-700 text-white'
+                    : 'bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white'
                   }
                 `}
               >
@@ -231,7 +231,7 @@ export default function AccountUnsubscribeForm({ initialEmail = '' }: AccountUns
             </p>
             <Link
               href="/"
-              className="inline-flex items-center justify-center gap-2 py-3 px-6 rounded-lg font-semibold bg-gradient-to-r from-primary-600 to-evening-600 hover:from-primary-700 hover:to-evening-700 text-white transition-all duration-200"
+              className="inline-flex items-center justify-center gap-2 py-3 px-6 rounded-lg font-semibold bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white transition-all duration-200"
             >
               <ArrowLeft className="w-4 h-4" />
               Back to Homepage
@@ -278,7 +278,7 @@ export default function AccountUnsubscribeForm({ initialEmail = '' }: AccountUns
               </button>
               <Link
                 href="/"
-                className="py-3 px-6 rounded-lg font-semibold bg-gradient-to-r from-primary-600 to-evening-600 hover:from-primary-700 hover:to-evening-700 text-white transition-all duration-200"
+                className="py-3 px-6 rounded-lg font-semibold bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white transition-all duration-200"
               >
                 Back to Homepage
               </Link>

@@ -125,8 +125,8 @@ export default function DynamicCTA({
           whileTap={{ scale: 0.98 }}
           className={`
             ${buttonPadding} rounded-xl font-semibold
-            bg-gradient-to-r from-primary-600 to-evening-600
-            hover:from-primary-700 hover:to-evening-700
+            bg-gradient-to-r from-primary-600 to-primary-700
+            hover:from-primary-700 hover:to-primary-800
             text-white shadow-lg hover:shadow-xl
             transition-all duration-200 transform hover:-translate-y-0.5
           `}

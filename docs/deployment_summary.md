@@ -20,6 +20,11 @@
 - Updated App Showcase section with sage green accent colors across tabs, badges, and image effects
 
 ## Notes for internal team
+- DOM-434 completed - 33 evening-* color references replaced across 10 files
+- Files modified: AboutContent, AccountUnsubscribeForm, FloatingSidebar, DynamicCTA, AppPreviewSection, PricingContent, TestimonialsSection, UnsubscribeForm, WaitlistForm, WaitlistInline
+- All gradients migrated: evening-600 → primary-700, evening-700 → primary-800, evening-500 → primary-600, evening-300 → primary-300/400, evening-200 → primary-300
+- Dark mode variants updated: evening-600/15 → primary-700/15, evening-900/30 → primary-900/30, evening-500/30 → primary-600/30
+- Zero evening-* color classes remain (verified via grep)
 - DOM-416 completed and in review (PR #29)
 - New file: apps/landing/src/lib/theme/colors.ts
 - Exports: themeColors, tailwindColors, cssVariables, hexToHSL utility
@@ -77,6 +82,7 @@
 - SmartRolloverSpotlight: 4 bullet points updated (lines 131, 135, 139, 143)
 - Improves visual consistency with sage color palette migration
 - DOM-421: Benefits & Showcase sections migrated to sage palette (BenefitCard, BenefitsMotionLayer, AppShowcase)
+- DOM-434: Replaced all evening-* color references across 10 component files with sage palette
 
 ## Changed URLs
 - https://www.domani-app.com/ (logo, nav underline, hero section blobs, hero phone mockup, social proof, MIT spotlight accessibility)
@@ -84,3 +90,6 @@
 - https://www.domani-app.com/pricing (logo + nav underline)
 - https://www.domani-app.com/faq (logo + nav underline)
 - https://www.domani-app.com/blog (logo + nav underline)
+- https://www.domani-app.com/about (about page content)
+- https://www.domani-app.com/pricing (pricing page content)
+- https://www.domani-app.com/unsubscribe (unsubscribe forms)

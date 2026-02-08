@@ -30,7 +30,7 @@ export function TestimonialsSection({
       {background === 'gradient' && (
         <div className="absolute inset-0 -z-10 opacity-40 blur-3xl">
           <div className="absolute left-20 top-10 h-56 w-56 rounded-full bg-primary-200 dark:bg-primary-500/30" />
-          <div className="absolute right-16 bottom-0 h-64 w-64 rounded-full bg-evening-200 dark:bg-evening-500/30" />
+          <div className="absolute right-16 bottom-0 h-64 w-64 rounded-full bg-primary-300 dark:bg-primary-600/30" />
         </div>
       )}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">

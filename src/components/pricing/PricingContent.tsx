@@ -166,7 +166,7 @@ function GlassCard({
     >
       <div className="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-transparent dark:from-white/[0.02] pointer-events-none" />
       {highlight && (
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-500/5 via-transparent to-evening-500/5 dark:from-primary-500/10 dark:to-evening-500/10 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary-500/5 via-transparent to-primary-600/5 dark:from-primary-500/10 dark:to-primary-600/10 pointer-events-none" />
       )}
       <div className="relative">{children}</div>
     </motion.div>
@@ -237,7 +237,7 @@ export function PricingContent({ plan, faqs, testimonials, comparison }: Pricing
       <div className="fixed inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-to-b from-purple-50/80 via-white to-blue-50/50 dark:from-[#0A0A0F] dark:via-[#0F0F18] dark:to-[#0A0A0F]" />
         <div className="absolute top-[10%] left-[15%] w-[500px] h-[500px] rounded-full bg-gradient-to-br from-primary-300/30 to-transparent blur-[100px] dark:from-primary-600/20 animate-blob" />
-        <div className="absolute top-[40%] right-[10%] w-[400px] h-[400px] rounded-full bg-gradient-to-br from-evening-300/25 to-transparent blur-[80px] dark:from-evening-600/15 animate-blob animation-delay-2000" />
+        <div className="absolute top-[40%] right-[10%] w-[400px] h-[400px] rounded-full bg-gradient-to-br from-primary-300/25 to-transparent blur-[80px] dark:from-primary-700/15 animate-blob animation-delay-2000" />
         <div className="absolute bottom-[20%] left-[20%] w-[350px] h-[350px] rounded-full bg-gradient-to-br from-blue-300/20 to-transparent blur-[90px] dark:from-blue-600/10 animate-blob animation-delay-4000" />
       </div>
 
@@ -263,7 +263,7 @@ export function PricingContent({ plan, faqs, testimonials, comparison }: Pricing
                   Own Your Mornings,
                 </span>
                 <br />
-                <span className="bg-gradient-to-r from-primary-600 via-evening-500 to-primary-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-primary-600 via-primary-600 to-primary-600 bg-clip-text text-transparent">
                   Forever
                 </span>
               </h1>
@@ -300,7 +300,7 @@ export function PricingContent({ plan, faqs, testimonials, comparison }: Pricing
                 {/* Discount Badge */}
                 {plan.discountPercent && plan.discountPercent > 0 && (
                   <div className="flex justify-center mb-4">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-primary-500 to-evening-500 text-white text-sm font-semibold shadow-lg shadow-primary-500/25">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-primary-500 to-primary-600 text-white text-sm font-semibold shadow-lg shadow-primary-500/25">
                       <Sparkles className="w-3.5 h-3.5" />
                       {plan.discountPercent}% Off
                     </span>
@@ -386,7 +386,7 @@ export function PricingContent({ plan, faqs, testimonials, comparison }: Pricing
               </div>
 
               {/* Lifetime */}
-              <div className="text-center p-6 rounded-xl bg-gradient-to-br from-primary-50 to-evening-50 dark:from-primary-900/30 dark:to-evening-900/30 border border-primary-200 dark:border-primary-700/50">
+              <div className="text-center p-6 rounded-xl bg-gradient-to-br from-primary-50 to-primary-100 dark:from-primary-900/30 dark:to-primary-900/30 border border-primary-200 dark:border-primary-700/50">
                 <p className="text-sm font-medium text-primary-600 dark:text-primary-400 mb-2">
                   Lifetime Deal
                 </p>
@@ -438,7 +438,7 @@ export function PricingContent({ plan, faqs, testimonials, comparison }: Pricing
               <motion.div key={feature.title} variants={scaleIn}>
                 <GlassCard className="p-6 h-full">
                   <div className="flex flex-col h-full">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-100 to-evening-100 dark:from-primary-900/50 dark:to-evening-900/50 flex items-center justify-center mb-4">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-100 to-primary-200 dark:from-primary-900/50 dark:to-primary-900/50 flex items-center justify-center mb-4">
                       <div className="text-primary-600 dark:text-primary-400">{feature.icon}</div>
                     </div>
                     <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
@@ -512,7 +512,7 @@ export function PricingContent({ plan, faqs, testimonials, comparison }: Pricing
         {/* Final CTA */}
         <AnimatedSection className="max-w-3xl mx-auto text-center">
           <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-primary-500/20 via-evening-500/20 to-primary-500/20 blur-3xl rounded-full scale-150 -z-10" />
+            <div className="absolute inset-0 bg-gradient-to-r from-primary-500/20 via-primary-600/20 to-primary-500/20 blur-3xl rounded-full scale-150 -z-10" />
 
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
