@@ -20,22 +20,22 @@ export default async function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white dark:bg-gray-800 shadow-sm">
+      <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+            <h1 className="text-2xl font-bold text-gray-900">
               Domani Dashboard
             </h1>
             <div className="flex items-center space-x-4">
-              <span className="text-sm text-gray-600 dark:text-gray-400">
+              <span className="text-sm text-gray-600">
                 {user.email}
               </span>
               <form action="/api/admin/auth/logout" method="POST">
                 <button
                   type="submit"
-                  className="inline-flex items-center px-3 py-1.5 border border-gray-300 dark:border-gray-600 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors"
+                  className="inline-flex items-center px-3 py-1.5 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors"
                 >
                   <LogOut className="w-4 h-4 mr-1.5" />
                   Logout
@@ -50,63 +50,63 @@ export default async function DashboardPage() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Today's Tasks Card */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+          <div className="bg-white rounded-lg shadow-sm p-6">
             <div className="flex items-center mb-4">
-              <Calendar className="w-8 h-8 text-purple-600 dark:text-purple-400 mr-3" />
+              <Calendar className="w-8 h-8 text-purple-600 mr-3" />
               <div>
-                <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                <h2 className="text-lg font-semibold text-gray-900">
                   Today&apos;s Tasks
                 </h2>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-sm text-gray-500">
                   Plan for tomorrow
                 </p>
               </div>
             </div>
             <div className="space-y-2">
-              <p className="text-3xl font-bold text-gray-900 dark:text-gray-100">0</p>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
+              <p className="text-3xl font-bold text-gray-900">0</p>
+              <p className="text-sm text-gray-600">
                 No tasks scheduled yet
               </p>
             </div>
           </div>
 
           {/* Planning Time Card */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+          <div className="bg-white rounded-lg shadow-sm p-6">
             <div className="flex items-center mb-4">
-              <Clock className="w-8 h-8 text-blue-600 dark:text-blue-400 mr-3" />
+              <Clock className="w-8 h-8 text-blue-600 mr-3" />
               <div>
-                <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                <h2 className="text-lg font-semibold text-gray-900">
                   Planning Time
                 </h2>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-sm text-gray-500">
                   Best time to plan
                 </p>
               </div>
             </div>
             <div className="space-y-2">
-              <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">9:00 PM</p>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
+              <p className="text-2xl font-bold text-gray-900">9:00 PM</p>
+              <p className="text-sm text-gray-600">
                 Evening planning mode
               </p>
             </div>
           </div>
 
           {/* Completion Rate Card */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+          <div className="bg-white rounded-lg shadow-sm p-6">
             <div className="flex items-center mb-4">
-              <CheckSquare className="w-8 h-8 text-green-600 dark:text-green-400 mr-3" />
+              <CheckSquare className="w-8 h-8 text-green-600 mr-3" />
               <div>
-                <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                <h2 className="text-lg font-semibold text-gray-900">
                   Completion Rate
                 </h2>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-sm text-gray-500">
                   This week
                 </p>
               </div>
             </div>
             <div className="space-y-2">
-              <p className="text-3xl font-bold text-gray-900 dark:text-gray-100">--</p>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
+              <p className="text-3xl font-bold text-gray-900">--</p>
+              <p className="text-sm text-gray-600">
                 Start planning to track
               </p>
             </div>
@@ -114,11 +114,11 @@ export default async function DashboardPage() {
         </div>
 
         {/* Coming Soon Notice */}
-        <div className="mt-8 bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 rounded-lg p-8 text-center">
-          <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+        <div className="mt-8 bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg p-8 text-center">
+          <h3 className="text-2xl font-bold text-gray-900 mb-4">
             Full Dashboard Coming Soon!
           </h3>
-          <p className="text-gray-600 dark:text-gray-400 mb-6 max-w-2xl mx-auto">
+          <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
             We&apos;re building an amazing productivity dashboard for you.
             In the meantime, check out our vision for the future of evening planning.
           </p>
@@ -131,7 +131,7 @@ export default async function DashboardPage() {
             </Link>
             <Link
               href="/pricing"
-              className="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors"
+              className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors"
             >
               View Pricing
             </Link>

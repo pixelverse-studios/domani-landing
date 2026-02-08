@@ -46,21 +46,21 @@ const practices = [
 
 export default function SecurityPage() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-white via-primary-50/20 to-primary-50/5 py-24 dark:from-dark-gradient-from dark:via-dark-gradient-via/40 dark:to-dark-gradient-to">
+    <main className="min-h-screen bg-gradient-to-b from-white via-primary-50/20 to-primary-50/5 py-24">
       <div className="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-primary-500">Security</p>
-          <h1 className="mt-4 text-4xl font-bold text-gray-900 dark:text-white">How we protect your data</h1>
-          <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">
+          <h1 className="mt-4 text-4xl font-bold text-gray-900">How we protect your data</h1>
+          <p className="mt-4 text-lg text-gray-600">
             Planning tomorrow requires trust. Here’s how we keep your tasks, habits, and notes safe.
           </p>
         </div>
 
         <div className="mt-12 grid gap-6 md:grid-cols-2">
           {practices.map((item) => (
-            <article key={item.title} className="rounded-3xl border border-white/60 bg-white/90 p-6 shadow-md dark:border-white/10 dark:bg-dark-card/70">
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-white">{item.title}</h2>
-              <p className="mt-3 text-gray-700 dark:text-gray-300">{item.description}</p>
+            <article key={item.title} className="rounded-3xl border border-white/60 bg-white/90 p-6 shadow-md">
+              <h2 className="text-xl font-semibold text-gray-900">{item.title}</h2>
+              <p className="mt-3 text-gray-700">{item.description}</p>
             </article>
           ))}
         </div>

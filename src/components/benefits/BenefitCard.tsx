@@ -18,9 +18,9 @@ export function BenefitCard({ benefit, className }: BenefitCardProps) {
   return (
     <motion.div
       className={cn(
-        'relative h-full bg-white dark:bg-dark-card rounded-2xl shadow-lg transition-all duration-300',
+        'relative h-full bg-white rounded-2xl shadow-lg transition-all duration-300',
         'hover:shadow-xl hover:-translate-y-1',
-        'border border-gray-200 dark:border-gray-700',
+        'border border-gray-200',
         className
       )}
       onMouseEnter={() => setIsHovered(true)}
@@ -30,14 +30,14 @@ export function BenefitCard({ benefit, className }: BenefitCardProps) {
     >
       <div className="p-6 h-full flex flex-col">
         <div className="mb-4">
-          <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary-600 to-primary-700 dark:from-primary-500 dark:to-primary-600 p-0.5">
-            <div className="w-full h-full rounded-xl bg-white dark:bg-dark-card flex items-center justify-center">
+          <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary-600 to-primary-700 p-0.5">
+            <div className="w-full h-full rounded-xl bg-white flex items-center justify-center">
               {benefit.icon}
             </div>
           </div>
         </div>
 
-        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+        <h3 className="text-xl font-bold text-gray-900 mb-2">
           {benefit.title}
         </h3>
 
@@ -46,20 +46,20 @@ export function BenefitCard({ benefit, className }: BenefitCardProps) {
             value={benefit.statistic.value}
             suffix={benefit.statistic.suffix}
             className="text-3xl font-bold"
-            colorClassName="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-primary-700 dark:from-primary-500 dark:to-primary-600"
+            colorClassName="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-primary-700"
           />
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+          <p className="text-sm text-gray-500 mt-1">
             {benefit.statistic.label}
           </p>
         </div>
 
-        <p className="text-gray-600 dark:text-gray-300 flex-grow mb-4">
+        <p className="text-gray-600 flex-grow mb-4">
           {benefit.description}
         </p>
 
         <div className="mt-auto">
           <PortalTooltip citation={benefit.citation}>
-            <button className="inline-flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 cursor-pointer transition-all duration-200 group">
+            <button className="inline-flex items-center gap-1.5 text-xs text-gray-500 hover:text-primary-600:text-primary-400 cursor-pointer transition-all duration-200 group">
               <svg 
                 className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" 
                 fill="none" 
@@ -79,7 +79,7 @@ export function BenefitCard({ benefit, className }: BenefitCardProps) {
         </div>
 
         <motion.div
-          className="absolute inset-0 bg-gradient-to-br from-primary-600/5 to-primary-700/5 dark:from-primary-500/10 dark:to-primary-600/10 pointer-events-none rounded-2xl"
+          className="absolute inset-0 bg-gradient-to-br from-primary-600/5 to-primary-700/5 pointer-events-none rounded-2xl"
           initial={{ opacity: 0 }}
           animate={{ opacity: isHovered ? 1 : 0 }}
           transition={{ duration: 0.3 }}

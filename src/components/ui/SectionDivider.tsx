@@ -49,9 +49,9 @@ export function SectionDivider({
       >
         <defs>
           <linearGradient id="divider-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" className="text-primary-50/30 dark:text-primary-900/20" stopColor="currentColor" />
-            <stop offset="50%" className="text-primary-100/50 dark:text-primary-800/30" stopColor="currentColor" />
-            <stop offset="100%" className="text-primary-50/30 dark:text-primary-900/20" stopColor="currentColor" />
+            <stop offset="0%" className="text-primary-50/30" stopColor="currentColor" />
+            <stop offset="50%" className="text-primary-100/50" stopColor="currentColor" />
+            <stop offset="100%" className="text-primary-50/30" stopColor="currentColor" />
           </linearGradient>
         </defs>
         <path
@@ -63,7 +63,7 @@ export function SectionDivider({
         <path
           d={getPath()}
           fill="currentColor"
-          className="text-white/50 dark:text-dark-gradient-from/50 opacity-60"
+          className="text-white/50 opacity-60"
           transform="translate(0, 5)"
         />
       </svg>

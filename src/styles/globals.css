@@ -19,21 +19,6 @@
     --border: 38 19% 89%;           /* #E8E4DD - warm border */
     --radius: 0.5rem;
   }
-
-  .dark {
-    /* Sage green palette - dark mode */
-    --background: 150 10% 11%;      /* #1A1F1D - dark sage-tinted background */
-    --foreground: 120 20% 95%;      /* #F4F7F5 - light sage-tinted text */
-    --primary: 148 18% 69%;         /* #A3BFB0 - lighter sage for dark mode */
-    --primary-foreground: 150 10% 11%;
-    --secondary: 136 6% 63%;        /* #9BA69E - muted sage */
-    --secondary-foreground: 120 20% 95%;
-    --accent: 146 13% 55%;          /* #7D9B8A - standard sage accent */
-    --accent-foreground: 120 20% 95%;
-    --muted: 152 10% 26%;           /* #3D4A44 - darker muted */
-    --muted-foreground: 120 20% 95%;
-    --border: 152 10% 26%;          /* #3D4A44 - dark sage border */
-  }
 }
 
 @layer base {
@@ -95,7 +80,7 @@
   }
 
   .gradient-text {
-    @apply bg-gradient-to-r from-primary-600 to-primary-800 bg-clip-text text-transparent dark:from-primary-400 dark:to-primary-600;
+    @apply bg-gradient-to-r from-primary-600 to-primary-800 bg-clip-text text-transparent;
   }
 
   .gradient-bg {

@@ -95,10 +95,10 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
         <>
           {variant === 'modal' && (
             <div className="text-center mb-6">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">
                 Join the Waitlist
               </h2>
-              <p className="text-gray-600 dark:text-gray-300">
+              <p className="text-gray-600">
                 Be among the first to experience evening planning that works.
               </p>
             </div>
@@ -123,10 +123,10 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
                 autoComplete="email"
                 aria-required="true"
                 aria-describedby="email-description"
-                className="w-full px-4 py-3 border rounded-lg outline-none transition-all duration-200 bg-white dark:bg-dark-card text-gray-900 dark:text-white border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 dark:focus:border-primary-400"
+                className="w-full px-4 py-3 border rounded-lg outline-none transition-all duration-200 bg-white text-gray-900 border-gray-300 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500:border-primary-400"
                 placeholder="Enter your email"
               />
-              <p id="email-description" className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+              <p id="email-description" className="mt-1 text-xs text-gray-500">
                 We&apos;ll never share your email or spam you.
               </p>
             </div>
@@ -138,10 +138,10 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg"
+                  className="p-3 bg-red-50 border border-red-200 rounded-lg"
                   role="alert"
                 >
-                  <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
+                  <p className="text-sm text-red-600">{error}</p>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -155,7 +155,7 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
                 className={`
                   flex-1 py-3 px-6 rounded-lg font-semibold transition-all duration-200 transform
                   ${!isValidEmail || isSubmitting
-                    ? 'bg-gray-300 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed'
+                    ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                     : 'bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 hover:-translate-y-0.5 hover:shadow-lg text-white'
                   }
                 `}
@@ -190,21 +190,21 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
                       })
                     }
                   }}
-                  className="py-3 px-6 rounded-lg font-semibold border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-200"
+                  className="py-3 px-6 rounded-lg font-semibold border border-gray-300 text-gray-700 hover:bg-gray-50:bg-gray-800 transition-all duration-200"
                 >
                   Learn More
                 </button>
               )}
             </div>
 
-            <p className="text-xs text-gray-500 dark:text-gray-400">
+            <p className="text-xs text-gray-500">
               By joining, you agree to our{' '}
               {hasLegalLinks ? (
                 <>
                   {PRIVACY_URL && (
                     <Link
                       href={PRIVACY_URL}
-                      className="underline hover:text-gray-700 dark:hover:text-gray-200"
+                      className="underline hover:text-gray-700:text-gray-200"
                       {...legalLinkProps(PRIVACY_URL)}
                     >
                       Privacy Policy
@@ -214,7 +214,7 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
                   {TERMS_URL && (
                     <Link
                       href={TERMS_URL}
-                      className="underline hover:text-gray-700 dark:hover:text-gray-200"
+                      className="underline hover:text-gray-700:text-gray-200"
                       {...legalLinkProps(TERMS_URL)}
                     >
                       Terms of Service
@@ -222,7 +222,7 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
                   )}
                 </>
               ) : (
-                <span className="font-medium text-gray-600 dark:text-gray-300">
+                <span className="font-medium text-gray-600">
                   privacy commitments (publishing soon)
                 </span>
               )}
@@ -246,13 +246,13 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
             </svg>
           </motion.div>
-          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+          <h3 className="text-2xl font-bold text-gray-900 mb-2">
             You&apos;re on the list!
           </h3>
-          <p className="text-gray-600 dark:text-gray-300 mb-4">
+          <p className="text-gray-600 mb-4">
             We&apos;ll let you know when Domani is ready.
           </p>
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300 rounded-full text-sm font-medium">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-50 text-primary-700 rounded-full text-sm font-medium">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
@@ -278,13 +278,13 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
             transition={{ type: 'spring', damping: 20 }}
-            className="bg-white dark:bg-dark-elevated rounded-2xl p-8 max-w-md w-full shadow-2xl relative"
+            className="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl relative"
             onClick={(e) => e.stopPropagation()}
           >
             {!isSuccess && (
               <button
                 onClick={onClose}
-                className="absolute top-4 right-4 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                className="absolute top-4 right-4 text-gray-400 hover:text-gray-600:text-gray-300 transition-colors"
                 aria-label="Close modal"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

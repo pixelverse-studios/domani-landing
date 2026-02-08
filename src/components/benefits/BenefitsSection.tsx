@@ -17,16 +17,16 @@ export function BenefitsSection({ className }: BenefitsSectionProps) {
   return (
     <section
       className={cn(
-        'relative overflow-clip bg-gradient-to-b from-primary-50/10 via-white to-white px-4 pt-16 pb-24 dark:from-dark-gradient-to/95 dark:via-dark-gradient-via dark:to-dark-gradient-from sm:px-6 lg:px-8',
+        'relative overflow-clip bg-gradient-to-b from-primary-50/10 via-white to-white px-4 pt-16 pb-24 sm:px-6 lg:px-8',
         className
       )}
     >
       <div className="relative z-10 mx-auto max-w-7xl text-center">
         <p className="mb-4 font-medium uppercase tracking-[0.3em] text-primary-500">Why evening planning works</p>
-        <h2 className="text-4xl font-bold text-gray-900 dark:text-white sm:text-5xl">
+        <h2 className="text-4xl font-bold text-gray-900 sm:text-5xl">
           Science-Backed Benefits
         </h2>
-        <p className="mx-auto mt-6 max-w-3xl text-lg text-gray-600 dark:text-gray-300">
+        <p className="mx-auto mt-6 max-w-3xl text-lg text-gray-600">
           Domani leverages cognitive psychology research to transform how your brain processes tasks, reducing mental fatigue while
           amplifying your natural productivity rhythms.
         </p>
@@ -43,7 +43,7 @@ export function BenefitsSection({ className }: BenefitsSectionProps) {
       </div>
 
       <div className="absolute bottom-0 left-0 right-0 translate-y-px">
-        <SectionDivider variant="curve" className="text-white dark:text-dark-gradient-from" />
+        <SectionDivider variant="curve" className="text-white" />
       </div>
     </section>
   )

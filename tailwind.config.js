@@ -3,7 +3,7 @@
 const { tailwindColors } = require('./apps/landing/src/lib/theme/colors');
 
 const config = {
-  darkMode: 'class',
+  darkMode: false,
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -15,17 +15,6 @@ const config = {
         border: 'hsl(var(--border))',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
-        // Dark mode specific colors with sage green undertones
-        dark: {
-          surface: '#1A1F1D', // Dark sage-tinted surface
-          elevated: '#242929', // Elevated surfaces with subtle green
-          card: '#2D3331', // Card backgrounds
-          gradient: {
-            from: '#141816', // Deep dark with sage undertone
-            via: '#1E2421', // Mid-tone with green hint
-            to: '#1A1F1D', // Slightly lighter with sage tint
-          }
-        },
         // Sage green primary palette (full 50-900 scale)
         primary: {
           DEFAULT: 'hsl(var(--primary))',

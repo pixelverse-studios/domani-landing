@@ -73,10 +73,10 @@ export default function AdminDashboard() {
     <div className="p-8">
       {/* Page Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+        <h1 className="text-3xl font-bold text-gray-900">
           Dashboard
         </h1>
-        <p className="text-gray-500 dark:text-gray-400 mt-1">
+        <p className="text-gray-500 mt-1">
           Welcome back, {user?.user?.email || 'Admin'}
         </p>
       </div>
@@ -87,12 +87,12 @@ export default function AdminDashboard() {
             Array.from({ length: 4 }).map((_, index) => (
               <Card key={index}>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <div className="h-4 w-24 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
-                  <div className="h-4 w-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
+                  <div className="h-4 w-24 bg-gray-200 rounded animate-pulse" />
+                  <div className="h-4 w-4 bg-gray-200 rounded animate-pulse" />
                 </CardHeader>
                 <CardContent>
-                  <div className="h-8 w-20 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-2" />
-                  <div className="h-3 w-32 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
+                  <div className="h-8 w-20 bg-gray-200 rounded animate-pulse mb-2" />
+                  <div className="h-3 w-32 bg-gray-200 rounded animate-pulse" />
                 </CardContent>
               </Card>
             ))
@@ -100,7 +100,7 @@ export default function AdminDashboard() {
             statsData.map((stat, index) => (
               <Card key={index}>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                  <CardTitle className="text-sm font-medium text-gray-600">
                     {stat.title}
                   </CardTitle>
                   <stat.icon className="h-4 w-4 text-gray-400" />
@@ -127,7 +127,7 @@ export default function AdminDashboard() {
 
         {/* Quick Actions */}
         <div className="mb-8">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+          <h2 className="text-lg font-semibold text-gray-900 mb-4">
             Quick Actions
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -144,7 +144,7 @@ export default function AdminDashboard() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-gray-600">
                     {action.description}
                   </p>
                 </CardContent>
@@ -169,10 +169,10 @@ export default function AdminDashboard() {
                   Array.from({ length: 4 }).map((_, index) => (
                     <div key={index} className="flex justify-between items-start pb-3 border-b">
                       <div>
-                        <div className="h-4 w-32 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-1" />
-                        <div className="h-3 w-24 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
+                        <div className="h-4 w-32 bg-gray-200 rounded animate-pulse mb-1" />
+                        <div className="h-3 w-24 bg-gray-200 rounded animate-pulse" />
                       </div>
-                      <div className="h-3 w-16 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
+                      <div className="h-3 w-16 bg-gray-200 rounded animate-pulse" />
                     </div>
                   ))
                 ) : activity.data && activity.data.length > 0 ? (
@@ -180,15 +180,15 @@ export default function AdminDashboard() {
                     <div key={index} className="flex justify-between items-start pb-3 border-b last:border-0">
                       <div>
                         <p className="text-sm font-medium">{item.action}</p>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">{item.user}</p>
+                        <p className="text-xs text-gray-500">{item.user}</p>
                       </div>
-                      <span className="text-xs text-gray-500 dark:text-gray-400">
+                      <span className="text-xs text-gray-500">
                         {item.time}
                       </span>
                     </div>
                   ))
                 ) : (
-                  <p className="text-sm text-gray-500 dark:text-gray-400 text-center py-4">
+                  <p className="text-sm text-gray-500 text-center py-4">
                     No recent activity
                   </p>
                 )}
@@ -209,10 +209,10 @@ export default function AdminDashboard() {
                   // Loading skeleton
                   Array.from({ length: 4 }).map((_, index) => (
                     <div key={index} className="flex items-start gap-3 pb-3 border-b">
-                      <div className="mt-1 h-2 w-2 rounded-full bg-gray-200 dark:bg-gray-700 animate-pulse" />
+                      <div className="mt-1 h-2 w-2 rounded-full bg-gray-200 animate-pulse" />
                       <div className="flex-1">
-                        <div className="h-4 w-40 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-1" />
-                        <div className="h-3 w-20 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
+                        <div className="h-4 w-40 bg-gray-200 rounded animate-pulse mb-1" />
+                        <div className="h-3 w-20 bg-gray-200 rounded animate-pulse" />
                       </div>
                     </div>
                   ))
@@ -227,12 +227,12 @@ export default function AdminDashboard() {
                       }`} />
                       <div className="flex-1">
                         <p className="text-sm font-medium">{alert.message}</p>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">{alert.time}</p>
+                        <p className="text-xs text-gray-500">{alert.time}</p>
                       </div>
                     </div>
                   ))
                 ) : (
-                  <p className="text-sm text-gray-500 dark:text-gray-400 text-center py-4">
+                  <p className="text-sm text-gray-500 text-center py-4">
                     No active alerts
                   </p>
                 )}

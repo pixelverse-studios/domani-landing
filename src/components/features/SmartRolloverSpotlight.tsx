@@ -23,17 +23,17 @@ export function SmartRolloverSpotlight() {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-clip bg-gradient-to-b from-white via-primary-50/30 to-white px-4 py-24 dark:from-dark-gradient-from dark:via-dark-elevated dark:to-dark-gradient-from sm:px-6 lg:px-8"
+      className="relative overflow-clip bg-gradient-to-b from-white via-primary-50/30 to-white px-4 py-24  sm:px-6 lg:px-8"
     >
       {/* Background decoration */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <motion.div
           style={{ y: translateY }}
-          className="absolute -right-20 top-1/4 h-72 w-72 rounded-full bg-gradient-to-br from-primary-200 to-primary-300 opacity-20 blur-3xl dark:from-primary-500/20 dark:to-primary-600/20"
+          className="absolute -right-20 top-1/4 h-72 w-72 rounded-full bg-gradient-to-br from-primary-200 to-primary-300 opacity-20 blur-3xl "
         />
         <motion.div
           style={{ y: translateY }}
-          className="absolute -left-20 bottom-1/4 h-72 w-72 rounded-full bg-gradient-to-br from-primary-200 to-primary-300 opacity-20 blur-3xl dark:from-primary-500/20 dark:to-primary-600/20"
+          className="absolute -left-20 bottom-1/4 h-72 w-72 rounded-full bg-gradient-to-br from-primary-200 to-primary-300 opacity-20 blur-3xl "
         />
       </div>
 
@@ -70,7 +70,7 @@ export function SmartRolloverSpotlight() {
                 <motion.div
                   animate={{ scale: [1, 1.05, 1] }}
                   transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                  className="rounded-full bg-white px-3 py-1.5 text-sm font-semibold text-primary-600 shadow-lg dark:bg-dark-card dark:text-primary-400"
+                  className="rounded-full bg-white px-3 py-1.5 text-sm font-semibold text-primary-600 shadow-lg "
                 >
                   Coming Soon
                 </motion.div>
@@ -85,9 +85,9 @@ export function SmartRolloverSpotlight() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-100px' }}
               transition={{ duration: 0.5 }}
-              className="mb-3 text-sm font-semibold uppercase tracking-widest text-primary-600 dark:text-primary-400"
+              className="mb-3 text-sm font-semibold uppercase tracking-widest text-primary-600 "
             >
-              <span className="rounded-full bg-primary-100 px-2 py-0.5 text-primary-700 dark:bg-primary-900/30 dark:text-primary-300">
+              <span className="rounded-full bg-primary-100 px-2 py-0.5 text-primary-700 ">
                 Coming Soon
               </span>
               <span className="mx-2">•</span>
@@ -99,7 +99,7 @@ export function SmartRolloverSpotlight() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-100px' }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="mb-4 text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl lg:text-5xl"
+              className="mb-4 text-3xl font-bold text-gray-900  sm:text-4xl lg:text-5xl"
             >
               Yesterday&apos;s Unfinished Business,{' '}
               <span className="bg-gradient-to-r from-primary-500 to-primary-700 bg-clip-text text-transparent">
@@ -112,7 +112,7 @@ export function SmartRolloverSpotlight() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-100px' }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="mb-6 text-lg text-gray-600 dark:text-gray-300"
+              className="mb-6 text-lg text-gray-600 "
             >
               Didn&apos;t finish everything yesterday? No problem. When you open Domani the next
               morning, you&apos;ll see your incomplete tasks and choose which ones to carry forward.
@@ -125,7 +125,7 @@ export function SmartRolloverSpotlight() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-100px' }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="flex flex-wrap justify-center gap-4 text-sm text-gray-500 dark:text-gray-400 lg:justify-start"
+              className="flex flex-wrap justify-center gap-4 text-sm text-gray-500  lg:justify-start"
             >
               <span className="flex items-center gap-2">
                 <span className="h-2 w-2 rounded-full bg-primary-500" />
@@ -150,7 +150,7 @@ export function SmartRolloverSpotlight() {
 
       {/* Section divider */}
       <div className="absolute bottom-0 left-0 right-0 translate-y-px">
-        <SectionDivider variant="tilt" className="text-white dark:text-dark-gradient-from" />
+        <SectionDivider variant="tilt" className="text-white " />
       </div>
     </section>
   );

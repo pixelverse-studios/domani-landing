@@ -53,20 +53,20 @@ export function AppShowcase() {
   const activeScreenData = screens.find((screen) => screen.id === activeScreen) ?? screens[0]
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-primary-50/5 via-white to-white px-4 pb-24 pt-16 dark:from-dark-gradient-to/95 dark:via-dark-gradient-via dark:to-dark-gradient-from sm:px-6 lg:px-8">
+    <section className="relative overflow-hidden bg-gradient-to-b from-primary-50/5 via-white to-white px-4 pb-24 pt-16 sm:px-6 lg:px-8">
       <div className="absolute inset-0 -z-10">
-        <div className="absolute left-1/2 top-1/2 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-radial from-primary-100/30 to-transparent blur-3xl dark:from-primary-500/10" />
+        <div className="absolute left-1/2 top-1/2 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-radial from-primary-100/30 to-transparent blur-3xl" />
       </div>
 
       <div className="mx-auto max-w-7xl text-center">
-        <h2 className="text-4xl font-bold text-gray-900 dark:text-white md:text-5xl">See Domani in Action</h2>
-        <p className="mx-auto mt-6 max-w-3xl text-xl text-gray-600 dark:text-gray-300">
+        <h2 className="text-4xl font-bold text-gray-900 md:text-5xl">See Domani in Action</h2>
+        <p className="mx-auto mt-6 max-w-3xl text-xl text-gray-600">
           Experience the interface everyone is using to transform their chaotic mornings into productive powerhouses.
         </p>
       </div>
       <div className="mx-auto mt-12 max-w-4xl">
         <div
-          className="inline-flex w-full justify-center rounded-xl bg-white p-1 shadow-lg dark:bg-dark-elevated"
+          className="inline-flex w-full justify-center rounded-xl bg-white p-1 shadow-lg"
           role="tablist"
           aria-label="App showcase panels"
         >
@@ -83,7 +83,7 @@ export function AppShowcase() {
                 'flex-1 rounded-lg px-4 py-3 text-sm font-medium transition-all duration-200',
                 isActive
                   ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-white shadow-md'
-                  : 'text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white'
+                  : 'text-gray-600 hover:text-gray-900:text-white'
               )}
             >
               {screen.title}
@@ -121,20 +121,20 @@ export function AppShowcase() {
             </div>
 
             <div className="text-left">
-              <h3 className="text-3xl font-bold text-gray-900 dark:text-white">{activeScreenData.title}</h3>
-              <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">{activeScreenData.subtitle}</p>
+              <h3 className="text-3xl font-bold text-gray-900">{activeScreenData.title}</h3>
+              <p className="mt-4 text-lg text-gray-600">{activeScreenData.subtitle}</p>
 
               <div className="mt-8 space-y-6">
                 {activeScreenData.features.map((feature) => {
                   const Icon = feature.icon
                   return (
                     <div key={feature.title} className="flex gap-4">
-                      <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-primary-100 text-primary-600 dark:bg-primary-900/50 dark:text-primary-400">
+                      <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-primary-100 text-primary-600">
                         <Icon className="h-5 w-5" />
                       </div>
                       <div>
-                        <h4 className="text-lg font-semibold text-gray-900 dark:text-white">{feature.title}</h4>
-                        <p className="text-gray-600 dark:text-gray-400">{feature.description}</p>
+                        <h4 className="text-lg font-semibold text-gray-900">{feature.title}</h4>
+                        <p className="text-gray-600">{feature.description}</p>
                       </div>
                     </div>
                   )

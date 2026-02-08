@@ -49,7 +49,7 @@ export function FAQContent({ faqs }: FAQContentProps) {
         </motion.h1>
         <motion.p
           variants={fadeInUp}
-          className="text-xl text-gray-600 dark:text-gray-300"
+          className="text-xl text-gray-600"
         >
           Everything you need to know about evening planning and Domani
         </motion.p>
@@ -62,9 +62,9 @@ export function FAQContent({ faqs }: FAQContentProps) {
 
       {/* CTA */}
       <motion.div initial="hidden" animate="visible" variants={fadeInUp} className="max-w-2xl mx-auto text-center mt-20">
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
+        <div className="bg-white rounded-2xl shadow-xl p-8">
           <h2 className="text-2xl font-bold mb-4">Still have questions?</h2>
-          <p className="text-gray-600 dark:text-gray-300 mb-6">
+          <p className="text-gray-600 mb-6">
             Can&apos;t find the answer you&apos;re looking for? Reach out to our support team.
           </p>
           <motion.a

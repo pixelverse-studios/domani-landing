@@ -49,7 +49,7 @@ export function Footer({ className }: FooterProps) {
   return (
     <footer
       className={cn(
-        'border-t border-gray-100 bg-white/80 py-12 backdrop-blur dark:border-white/10 dark:bg-dark-surface/80',
+        'border-t border-gray-100 bg-white/80 py-12 backdrop-blur',
         className
       )}
     >
@@ -59,11 +59,11 @@ export function Footer({ className }: FooterProps) {
           {/* Brand Column */}
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="inline-block">
-              <span className="text-xl font-bold text-gray-900 dark:text-white">
+              <span className="text-xl font-bold text-gray-900 ">
                 Domani
               </span>
             </Link>
-            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+            <p className="mt-2 text-sm text-gray-500 ">
               Plan tomorrow tonight,
               <br />
               wake up ready.
@@ -73,7 +73,7 @@ export function Footer({ className }: FooterProps) {
           {/* Link Columns */}
           {footerSections.map((section) => (
             <div key={section.title}>
-              <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
+              <h3 className="text-sm font-semibold text-gray-900 ">
                 {section.title}
               </h3>
               <ul className="mt-3 space-y-2">
@@ -84,14 +84,14 @@ export function Footer({ className }: FooterProps) {
                         href={link.href}
                         target="_blank"
                         rel="noreferrer"
-                        className="text-sm text-gray-500 transition-colors hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-300"
+                        className="text-sm text-gray-500 transition-colors hover:text-primary-600  "
                       >
                         {link.label}
                       </a>
                     ) : (
                       <Link
                         href={link.href}
-                        className="text-sm text-gray-500 transition-colors hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-300"
+                        className="text-sm text-gray-500 transition-colors hover:text-primary-600  "
                       >
                         {link.label}
                       </Link>
@@ -104,8 +104,8 @@ export function Footer({ className }: FooterProps) {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-gray-100 pt-6 dark:border-white/10 sm:flex-row">
-          <p className="text-xs text-gray-500 dark:text-gray-500">
+        <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-gray-100 pt-6  sm:flex-row">
+          <p className="text-xs text-gray-500 ">
             &copy; {currentYear} Domani Labs. All rights reserved.
             <span className="hidden sm:inline"> · </span>
             <br className="sm:hidden" />
@@ -114,14 +114,14 @@ export function Footer({ className }: FooterProps) {
               href="https://www.pixelversestudios.io"
               target="_blank"
               rel="noreferrer"
-              className="underline hover:text-primary-600 dark:hover:text-primary-300"
+              className="underline hover:text-primary-600 "
             >
               PixelVerse Studios
             </a>
           </p>
           <a
             href="mailto:support@domani-app.com"
-            className="text-xs text-gray-500 transition-colors hover:text-primary-600 dark:text-gray-500 dark:hover:text-primary-300"
+            className="text-xs text-gray-500 transition-colors hover:text-primary-600  "
           >
             support@domani-app.com
           </a>

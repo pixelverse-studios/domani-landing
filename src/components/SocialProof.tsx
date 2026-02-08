@@ -68,11 +68,11 @@ export default function SocialProof() {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
-          className="text-2xl font-bold bg-gradient-to-r from-primary-600 to-primary-700 dark:from-primary-500 dark:to-primary-600 bg-clip-text text-transparent"
+          className="text-2xl font-bold bg-gradient-to-r from-primary-600 to-primary-700 bg-clip-text text-transparent"
         >
           {(displayCount ?? 0).toLocaleString()}
         </motion.span>
-        <span className="text-sm text-gray-600 dark:text-gray-400">people planning smarter</span>
+        <span className="text-sm text-gray-600">people planning smarter</span>
       </div>
 
     </motion.div>
