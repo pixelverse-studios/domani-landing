@@ -21,6 +21,7 @@
 - Updated App Showcase section with sage green accent colors across tabs, badges, and image effects
 - Updated FAQ page header and contact button to use sage green gradients instead of purple/blue
 - Fixed malformed focus ring class and updated all purple colors to sage palette in FAQ accordion component
+- Fixed download button alignment to center instead of left-aligned
 
 ## Notes for internal team
 - DOM-434 completed - 32 evening-* color references replaced across 10 files (PR #35)
@@ -139,6 +140,10 @@
 - https://www.domani-app.com/about (about page content)
 - https://www.domani-app.com/pricing (pricing page content)
 - https://www.domani-app.com/unsubscribe (unsubscribe forms)
+- DownloadButtons alignment fix (not ticketed)
+- Modified file: src/components/DownloadButtons.tsx
+- Line 44: Changed items-start to items-center in outer container div
+- Ensures download buttons are centered horizontally to match centered layout used in pricing page footer section
 
 ## Changed URLs
 - https://www.domani-app.com/
