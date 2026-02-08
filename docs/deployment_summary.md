@@ -191,3 +191,17 @@
 - Modified file: src/app/faq/page.tsx
 - Background gradient: from-purple-50 via-white to-blue-50 → from-primary-50/80 via-white to-primary-100/50 (line 138)
 - Matches sage color palette pattern used in AboutContent.tsx and other migrated pages
+- AppShowcase button alignment fix (not ticketed): Added align="start" to left-align buttons with content
+- Modified file: src/components/showcase/AppShowcase.tsx
+- Line 149: Added align="start" prop to DynamicCTA component
+- Result: Download buttons in "See Domani in Action" section now left-aligned to match content layout
+- AppShowcase shadow removal (not ticketed): Removed box-shadow from image container
+- Modified file: src/components/showcase/AppShowcase.tsx
+- Line 109: Removed shadow-xl class from image wrapper div
+- Result: Today View and Analytics Dashboard screenshots display cleanly without border-like shadow effect
+- Favicon and app icon update to sage green branding (not ticketed)
+- Modified files: src/app/icon.png, src/app/apple-icon.png
+- Replaced old icons with new sage green AppIcon-sage.png (105KB)
+- Updated both favicon (icon.png) and Apple touch icon (apple-icon.png) for consistent branding
+- Result: Browser tabs and mobile home screens now display sage green app icon
+
