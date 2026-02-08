@@ -82,7 +82,7 @@ export function AppShowcase() {
               className={cn(
                 'flex-1 rounded-lg px-4 py-3 text-sm font-medium transition-all duration-200',
                 isActive
-                  ? 'bg-gradient-to-r from-primary-500 to-evening-500 text-white shadow-md'
+                  ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-white shadow-md'
                   : 'text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white'
               )}
             >
@@ -105,7 +105,7 @@ export function AppShowcase() {
             className="grid items-center gap-12 lg:grid-cols-2"
           >
             <div className="relative">
-              <div className="absolute inset-0 rotate-6 scale-105 rounded-3xl bg-gradient-to-r from-primary-500 to-evening-500 opacity-10 blur-xl" />
+              <div className="absolute inset-0 rotate-6 scale-105 rounded-3xl bg-gradient-to-r from-primary-500 to-primary-600 opacity-10 blur-xl" />
               <div className="relative mx-auto max-w-[320px] rounded-3xl p-4 shadow-xl">
                 <Image
                   src={activeScreenData.image}
@@ -114,7 +114,7 @@ export function AppShowcase() {
                   sizes="(min-width: 1024px) 320px, 260px"
                   priority={activeScreenData.id === screens[0].id}
                 />
-                <div className="pointer-events-none absolute -right-4 -top-4 rounded-full bg-gradient-to-r from-primary-500 to-evening-500 px-4 py-2 text-sm font-semibold text-white shadow-lg">
+                <div className="pointer-events-none absolute -right-4 -top-4 rounded-full bg-gradient-to-r from-primary-500 to-primary-600 px-4 py-2 text-sm font-semibold text-white shadow-lg">
                   Live Preview
                 </div>
               </div>
