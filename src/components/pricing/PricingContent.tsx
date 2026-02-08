@@ -235,10 +235,10 @@ export function PricingContent({ plan, faqs, testimonials, comparison }: Pricing
     <div className="relative overflow-hidden">
       {/* Mesh gradient background */}
       <div className="fixed inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-b from-purple-50/80 via-white to-blue-50/50 dark:from-[#0A0A0F] dark:via-[#0F0F18] dark:to-[#0A0A0F]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-primary-50/80 via-white to-primary-100/50 dark:from-[#0A0A0F] dark:via-[#0F0F18] dark:to-[#0A0A0F]" />
         <div className="absolute top-[10%] left-[15%] w-[500px] h-[500px] rounded-full bg-gradient-to-br from-primary-300/30 to-transparent blur-[100px] dark:from-primary-600/20 animate-blob" />
         <div className="absolute top-[40%] right-[10%] w-[400px] h-[400px] rounded-full bg-gradient-to-br from-primary-300/25 to-transparent blur-[80px] dark:from-primary-700/15 animate-blob animation-delay-2000" />
-        <div className="absolute bottom-[20%] left-[20%] w-[350px] h-[350px] rounded-full bg-gradient-to-br from-blue-300/20 to-transparent blur-[90px] dark:from-blue-600/10 animate-blob animation-delay-4000" />
+        <div className="absolute bottom-[20%] left-[20%] w-[350px] h-[350px] rounded-full bg-gradient-to-br from-primary-300/20 to-transparent blur-[90px] dark:from-primary-600/10 animate-blob animation-delay-4000" />
       </div>
 
       <div className="container mx-auto px-4 pt-4 pb-24">

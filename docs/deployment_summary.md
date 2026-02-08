@@ -20,11 +20,13 @@
 - Updated App Showcase section with sage green accent colors across tabs, badges, and image effects
 
 ## Notes for internal team
-- DOM-434 completed - 33 evening-* color references replaced across 10 files
+- DOM-434 completed - 32 evening-* color references replaced across 10 files (PR #35)
 - Files modified: AboutContent, AccountUnsubscribeForm, FloatingSidebar, DynamicCTA, AppPreviewSection, PricingContent, TestimonialsSection, UnsubscribeForm, WaitlistForm, WaitlistInline
 - All gradients migrated: evening-600 → primary-700, evening-700 → primary-800, evening-500 → primary-600, evening-300 → primary-300/400, evening-200 → primary-300
 - Dark mode variants updated: evening-600/15 → primary-700/15, evening-900/30 → primary-900/30, evening-500/30 → primary-600/30
 - Zero evening-* color classes remain (verified via grep)
+- Performance verdict: APPROVED - neutral to positive impact, ~2-3KB CSS reduction
+- Optimization opportunities identified: Primary button gradient extraction (6 files), GlowEffect component (2 files), BackgroundBlobs component (2 files), solid gradient simplification (2 instances), badge gradient standardization (2 files)
 - DOM-416 completed and in review (PR #29)
 - New file: apps/landing/src/lib/theme/colors.ts
 - Exports: themeColors, tailwindColors, cssVariables, hexToHSL utility
@@ -83,8 +85,12 @@
 - Improves visual consistency with sage color palette migration
 - DOM-421: Benefits & Showcase sections migrated to sage palette (BenefitCard, BenefitsMotionLayer, AppShowcase)
 - DOM-434: Replaced all evening-* color references across 10 component files with sage palette
+- Performance review completed for PR #35 (DOM-434) - APPROVED
+- CSS bundle reduction: ~2-3KB from evening-* palette removal
+- Identified 5 gradient patterns for future optimization (~1.5-2KB additional savings potential)
+- Full audit: docs/audits/landing/2026-02-07-pr35-performance-analysis.md
 
-## Changed URLs
+## Notes for internal team
 - https://www.domani-app.com/ (logo, nav underline, hero section blobs, hero phone mockup, social proof, MIT spotlight accessibility)
 - https://www.domani-app.com/about (logo + nav underline)
 - https://www.domani-app.com/pricing (logo + nav underline)

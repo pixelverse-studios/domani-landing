@@ -192,12 +192,12 @@ export function AboutContent({ values }: AboutContentProps) {
       {/* Mesh gradient background */}
       <div className="fixed inset-0 -z-10">
         {/* Base gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-purple-50/80 via-white to-blue-50/50 dark:from-[#0A0A0F] dark:via-[#0F0F18] dark:to-[#0A0A0F]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-primary-50/80 via-white to-primary-100/50 dark:from-[#0A0A0F] dark:via-[#0F0F18] dark:to-[#0A0A0F]" />
 
         {/* Floating gradient orbs */}
         <div className="absolute top-[10%] left-[15%] w-[500px] h-[500px] rounded-full bg-gradient-to-br from-primary-300/30 to-transparent blur-[100px] dark:from-primary-600/20 animate-blob" />
         <div className="absolute top-[40%] right-[10%] w-[400px] h-[400px] rounded-full bg-gradient-to-br from-primary-300/25 to-transparent blur-[80px] dark:from-primary-700/15 animate-blob animation-delay-2000" />
-        <div className="absolute bottom-[20%] left-[20%] w-[350px] h-[350px] rounded-full bg-gradient-to-br from-blue-300/20 to-transparent blur-[90px] dark:from-blue-600/10 animate-blob animation-delay-4000" />
+        <div className="absolute bottom-[20%] left-[20%] w-[350px] h-[350px] rounded-full bg-gradient-to-br from-primary-300/20 to-transparent blur-[90px] dark:from-primary-600/10 animate-blob animation-delay-4000" />
 
         {/* Subtle noise texture overlay */}
         <div className="absolute inset-0 opacity-[0.015] dark:opacity-[0.03]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\'/%3E%3C/svg%3E")' }} />
