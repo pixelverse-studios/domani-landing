@@ -19,6 +19,8 @@ interface DynamicCTAProps {
   size?: 'default' | 'large'
   /** Whether to show subtext below the CTA */
   showSubtext?: boolean
+  /** Alignment for download buttons */
+  align?: 'start' | 'center'
   /** Variant for waitlist form (only applies in pre-beta phase) */
   waitlistVariant?: 'modal' | 'inline'
   /** Callback when waitlist modal is closed */
@@ -51,6 +53,7 @@ export default function DynamicCTA({
   className = '',
   size = 'default',
   showSubtext = true,
+  align,
   waitlistVariant = 'inline',
   onWaitlistClose,
   onWaitlistSuccess,
@@ -162,6 +165,7 @@ export default function DynamicCTA({
       className={className}
       size={size}
       showSubtext={showSubtext}
+      align={align}
     />
   )
 }

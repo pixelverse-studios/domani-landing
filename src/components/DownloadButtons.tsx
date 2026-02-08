@@ -13,12 +13,14 @@ interface DownloadButtonsProps {
   className?: string
   showSubtext?: boolean
   size?: 'default' | 'large'
+  align?: 'start' | 'center'
 }
 
 export default function DownloadButtons({
   className = '',
   showSubtext = true,
-  size = 'default'
+  size = 'default',
+  align = 'center'
 }: DownloadButtonsProps) {
   const buttonHeight = size === 'large' ? 'h-14' : 'h-12'
   const iconSize = size === 'large' ? 'w-8 h-8' : 'w-7 h-7'
@@ -41,7 +43,7 @@ export default function DownloadButtons({
   const androidAvailable = isAndroidAvailable()
 
   return (
-    <div className={`flex flex-col items-center ${className}`}>
+    <div className={`flex flex-col ${align === 'center' ? 'items-center' : 'items-start'} ${className}`}>
       <div className="flex flex-col sm:flex-row gap-3">
         {/* App Store / TestFlight Button - Apple TestFlight Blue */}
         <motion.a

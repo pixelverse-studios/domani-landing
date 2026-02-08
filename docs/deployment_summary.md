@@ -23,6 +23,8 @@
 - Fixed malformed focus ring class and updated all purple colors to sage palette in FAQ accordion component
 - Fixed download button alignment to center instead of left-aligned
 - Fixed background rendering issues on About page by correcting malformed Tailwind classes and removing noisy texture overlay
+- Added align prop to DownloadButtons component allowing flexible left or center alignment for different page layouts
+- Updated hero section download buttons to align left for improved visual hierarchy and flow with surrounding content
 
 ## Notes for internal team
 - DOM-434 completed - 32 evening-* color references replaced across 10 files (PR #35)
@@ -153,6 +155,18 @@
 - Lines 201-202: Removed noise texture overlay div (was causing busy/noisy background)
 - Line 397: Fixed malformed class from-white[#0A0A0F] → from-white
 - Result: Clean sage green gradient background with floating orbs, no texture noise
+- DownloadButtons component enhancement (not ticketed)
+- Modified file: src/components/DownloadButtons.tsx
+- Added align prop: 'start' | 'center' with default 'center' (lines 16, 23)
+- Line 46: Conditional alignment class based on align prop
+- Enables flexible button positioning for different page layouts (hero left-aligned, pricing/footer centered)
+- Usage: <DownloadButtons align="start" /> for left-aligned, <DownloadButtons /> for centered (default)
+- DynamicCTA align prop passthrough (not ticketed)
+- Modified files: src/components/DynamicCTA.tsx, src/components/HeroSection.tsx
+- DynamicCTA: Added align prop to interface (line 23) and component parameters (line 56)
+- DynamicCTA: Passes align prop to DownloadButtons component (line 168)
+- HeroSection: Updated DynamicCTA usage to include align="start" (line 61)
+- Result: Hero section download buttons now left-aligned, other pages remain centered by default
 
 ## Changed URLs
 - https://www.domani-app.com/

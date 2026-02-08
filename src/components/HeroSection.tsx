@@ -58,7 +58,7 @@ export default function HeroSection({
             </p>
 
             <div data-hero-motion className="mt-8" id="waitlist-form">
-              <DynamicCTA size="large" analyticsLocation="hero" />
+              <DynamicCTA size="large" analyticsLocation="hero" align="start" />
             </div>
 
             <div
