@@ -46,7 +46,7 @@ export function BenefitCard({ benefit, className }: BenefitCardProps) {
             value={benefit.statistic.value}
             suffix={benefit.statistic.suffix}
             className="text-3xl font-bold"
-            colorClassName="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-primary-700 dark:from-primary-400 dark:to-primary-600"
+            colorClassName="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-primary-700 dark:from-primary-500 dark:to-primary-600"
           />
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
             {benefit.statistic.label}

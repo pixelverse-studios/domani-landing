@@ -16,6 +16,8 @@
 - Removed all evening-* color references from Logo component
 - Replaced purple/blue navigation underline with sage monochromatic gradient
 - Updated feature spotlight bullet points from green to sage palette for visual consistency
+- Updated Benefits section with refined sage green gradients for better visual cohesion
+- Updated App Showcase section with sage green accent colors across tabs, badges, and image effects
 
 ## Notes for internal team
 - DOM-416 completed and in review (PR #29)
@@ -74,6 +76,7 @@
 - PlanLockSpotlight: 3 bullet points updated (lines 132, 136, 140)
 - SmartRolloverSpotlight: 4 bullet points updated (lines 131, 135, 139, 143)
 - Improves visual consistency with sage color palette migration
+- DOM-421: Benefits & Showcase sections migrated to sage palette (BenefitCard, BenefitsMotionLayer, AppShowcase)
 
 ## Changed URLs
 - https://www.domani-app.com/ (logo, nav underline, hero section blobs, hero phone mockup, social proof, MIT spotlight accessibility)
