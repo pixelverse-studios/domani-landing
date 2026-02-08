@@ -22,7 +22,7 @@ export function BenefitsMotionLayer() {
         transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
       />
       <motion.div
-        className="absolute top-20 right-0 h-80 w-80 rounded-full bg-evening-200 blur-2xl mix-blend-multiply dark:bg-evening-600/15"
+        className="absolute top-20 right-0 h-80 w-80 rounded-full bg-primary-300 blur-2xl mix-blend-multiply dark:bg-primary-600/15"
         style={{ y: translateSecondary, scale: scalePulse }}
         transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 0.4 }}
       />

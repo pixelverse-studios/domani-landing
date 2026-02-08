@@ -30,7 +30,7 @@ export function BenefitCard({ benefit, className }: BenefitCardProps) {
     >
       <div className="p-6 h-full flex flex-col">
         <div className="mb-4">
-          <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary-600 to-evening-600 dark:from-primary-500 dark:to-primary-500 p-0.5">
+          <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary-600 to-primary-700 dark:from-primary-500 dark:to-primary-600 p-0.5">
             <div className="w-full h-full rounded-xl bg-white dark:bg-dark-card flex items-center justify-center">
               {benefit.icon}
             </div>
@@ -46,7 +46,7 @@ export function BenefitCard({ benefit, className }: BenefitCardProps) {
             value={benefit.statistic.value}
             suffix={benefit.statistic.suffix}
             className="text-3xl font-bold"
-            colorClassName="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-evening-600 dark:from-primary-400 dark:to-primary-400"
+            colorClassName="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-primary-700 dark:from-primary-400 dark:to-primary-600"
           />
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
             {benefit.statistic.label}
@@ -79,7 +79,7 @@ export function BenefitCard({ benefit, className }: BenefitCardProps) {
         </div>
 
         <motion.div
-          className="absolute inset-0 bg-gradient-to-br from-primary-600/5 to-evening-600/5 dark:from-primary-500/10 dark:to-primary-500/10 pointer-events-none rounded-2xl"
+          className="absolute inset-0 bg-gradient-to-br from-primary-600/5 to-primary-700/5 dark:from-primary-500/10 dark:to-primary-600/10 pointer-events-none rounded-2xl"
           initial={{ opacity: 0 }}
           animate={{ opacity: isHovered ? 1 : 0 }}
           transition={{ duration: 0.3 }}
