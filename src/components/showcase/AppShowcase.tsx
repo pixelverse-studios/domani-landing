@@ -106,7 +106,7 @@ export function AppShowcase() {
           >
             <div className="relative">
               <div className="absolute inset-0 rotate-6 scale-105 rounded-3xl bg-gradient-to-r from-primary-500 to-primary-600 opacity-10 blur-xl" />
-              <div className="relative mx-auto max-w-[320px] rounded-3xl p-4 shadow-xl">
+              <div className="relative mx-auto max-w-[320px] rounded-3xl p-4">
                 <Image
                   src={activeScreenData.image}
                   alt={`${activeScreenData.title} Screenshot`}
