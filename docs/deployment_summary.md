@@ -19,6 +19,8 @@
 - Updated feature spotlight bullet points from green to sage palette for visual consistency
 - Updated Benefits section with refined sage green gradients for better visual cohesion
 - Updated App Showcase section with sage green accent colors across tabs, badges, and image effects
+- Updated FAQ page header and contact button to use sage green gradients instead of purple/blue
+- Fixed malformed focus ring class and updated all purple colors to sage palette in FAQ accordion component
 
 ## Notes for internal team
 - DOM-434 completed - 32 evening-* color references replaced across 10 files (PR #35)
@@ -117,6 +119,18 @@
 - Security improvement: Removed dangerouslySetInnerHTML from ThemeScript component
 - Action required: Fix CSS hover state syntax errors in 3 files before merge (non-security UX bug)
 - DOM-437: Added clarifying comment to GoogleSignInButton.tsx to prevent future confusion about "dark" variant
+- FAQ page color update (not ticketed): Replaced purple/blue gradients with sage palette
+- Modified file: src/components/faq/FAQContent.tsx
+- Header gradient: from-purple-600 to-blue-600 → from-primary-600 to-primary-700 (line 46)
+- CTA button gradient: from-purple-600 to-blue-600 → from-primary-600 to-primary-700 (line 74)
+- Hover shadow: rgba(99,102,241,0.6) → rgba(125,155,138,0.6) (line 72)
+- Completes sage palette migration for FAQ page
+- FAQ Accordion color migration (not ticketed): Fixed malformed focus ring and updated purple to sage
+- Modified file: src/components/faq/FAQAccordion.tsx
+- Line 39: Fixed focus-visible:ring-purple-400:ring-purple-500 → focus-visible:ring-primary-400 (malformed syntax corrected)
+- Line 46: Changed text-purple-500 → text-primary-600 (chevron open state)
+- Line 75: Changed text-purple-600 → text-primary-600 (category heading)
+- Completes sage palette migration for FAQ accordion component
 - https://www.domani-app.com/ (logo, nav underline, hero section blobs, hero phone mockup, social proof, MIT spotlight accessibility)
 - https://www.domani-app.com/about (logo + nav underline)
 - https://www.domani-app.com/pricing (logo + nav underline)
@@ -145,3 +159,7 @@
 - https://www.domani-app.com/admin/waitlist
 - https://www.domani-app.com/admin/templates
 - https://www.domani-app.com/admin/campaigns
+- FAQ page background gradient update (not ticketed): Changed main background gradient to sage palette
+- Modified file: src/app/faq/page.tsx
+- Background gradient: from-purple-50 via-white to-blue-50 → from-primary-50/80 via-white to-primary-100/50 (line 138)
+- Matches sage color palette pattern used in AboutContent.tsx and other migrated pages

@@ -135,7 +135,7 @@ export default function FAQPage() {
       <StructuredData type="faq" faqs={allQuestions} />
       <Header />
 
-      <main className="min-h-screen bg-gradient-to-b from-purple-50 via-white to-blue-50 pt-24">
+      <main className="min-h-screen bg-gradient-to-b from-primary-50/80 via-white to-primary-100/50 pt-24">
         <FAQContent faqs={faqs} />
       </main>
     </>

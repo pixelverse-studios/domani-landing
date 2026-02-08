@@ -36,14 +36,14 @@ function FAQItem({ question, answer }: FAQEntry) {
       <button
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
-        className="flex w-full items-center justify-between p-6 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400:ring-purple-500"
+        className="flex w-full items-center justify-between p-6 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-400"
         aria-expanded={isOpen}
       >
         <span className="text-lg font-semibold pr-8">{question}</span>
         <ChevronDown
           className={cn(
             'w-5 h-5 text-gray-400 transition-transform duration-300 ease-in-out flex-shrink-0',
-            isOpen && 'rotate-180 text-purple-500'
+            isOpen && 'rotate-180 text-primary-600'
           )}
         />
       </button>
@@ -72,7 +72,7 @@ export function FAQAccordion({ faqs }: FAQAccordionProps) {
         >
           <motion.h2
             variants={categoryVariants}
-            className="text-2xl font-bold mb-6 text-purple-600"
+            className="text-2xl font-bold mb-6 text-primary-600"
           >
             {category.category}
           </motion.h2>

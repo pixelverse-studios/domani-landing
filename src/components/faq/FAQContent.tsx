@@ -43,7 +43,7 @@ export function FAQContent({ faqs }: FAQContentProps) {
       {/* Header */}
       <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="max-w-3xl mx-auto text-center mb-16">
         <motion.h1 variants={fadeInUp} className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
-          <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-primary-600 to-primary-700 bg-clip-text text-transparent">
             Frequently Asked Questions
           </span>
         </motion.h1>
@@ -69,9 +69,9 @@ export function FAQContent({ faqs }: FAQContentProps) {
           </p>
           <motion.a
             href="mailto:support@domani-app.com"
-            whileHover={{ scale: 1.03, boxShadow: '0 20px 45px -20px rgba(99,102,241,0.6)' }}
+            whileHover={{ scale: 1.03, boxShadow: '0 20px 45px -20px rgba(125,155,138,0.6)' }}
             whileTap={{ scale: 0.97 }}
-            className="inline-flex items-center justify-center bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition-shadow"
+            className="inline-flex items-center justify-center bg-gradient-to-r from-primary-600 to-primary-700 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition-shadow"
           >
             Contact Support
           </motion.a>
