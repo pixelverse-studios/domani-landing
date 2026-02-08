@@ -83,7 +83,7 @@ export function AppShowcase() {
                 'flex-1 rounded-lg px-4 py-3 text-sm font-medium transition-all duration-200',
                 isActive
                   ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-white shadow-md'
-                  : 'text-gray-600 hover:text-gray-900:text-white'
+                  : 'text-gray-600 hover:text-gray-900'
               )}
             >
               {screen.title}

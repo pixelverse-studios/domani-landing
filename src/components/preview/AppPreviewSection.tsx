@@ -172,7 +172,7 @@ export function AppPreviewSection({ className }: { className?: string }) {
                 'px-6 py-2 rounded-md text-sm font-medium transition-all',
                 viewMode === 'features'
                   ? 'bg-white text-gray-900 shadow'
-                  : 'text-gray-600 hover:text-gray-900:text-white'
+                  : 'text-gray-600 hover:text-gray-900'
               )}
             >
               Interactive Demo
@@ -183,7 +183,7 @@ export function AppPreviewSection({ className }: { className?: string }) {
                 'px-6 py-2 rounded-md text-sm font-medium transition-all',
                 viewMode === 'comparison'
                   ? 'bg-white text-gray-900 shadow'
-                  : 'text-gray-600 hover:text-gray-900:text-white'
+                  : 'text-gray-600 hover:text-gray-900'
               )}
             >
               Before & After

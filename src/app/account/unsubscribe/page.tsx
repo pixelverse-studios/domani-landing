@@ -67,7 +67,7 @@ export default async function AccountUnsubscribePage({ searchParams }: PageProps
               <span className="text-amber-500 mt-1">-</span>
               <span>
                 <strong>Delete your account?</strong>{' '}
-                <Link href="/delete-account" className="underline hover:text-amber-600:text-amber-300">
+                <Link href="/delete-account" className="underline hover:text-amber-600">
                   Request account deletion
                 </Link>
               </span>
@@ -76,7 +76,7 @@ export default async function AccountUnsubscribePage({ searchParams }: PageProps
               <span className="text-amber-500 mt-1">-</span>
               <span>
                 <strong>Waitlist subscriber?</strong>{' '}
-                <Link href="/waitlist/unsubscribe" className="underline hover:text-amber-600:text-amber-300">
+                <Link href="/waitlist/unsubscribe" className="underline hover:text-amber-600">
                   Unsubscribe from waitlist
                 </Link>
               </span>
@@ -86,20 +86,20 @@ export default async function AccountUnsubscribePage({ searchParams }: PageProps
 
         {/* Footer Links */}
         <div className="mt-12 flex flex-wrap justify-center gap-6 text-sm text-gray-500">
-          <Link href="/" className="hover:text-primary-600:text-primary-300">
+          <Link href="/" className="hover:text-primary-600">
             Homepage
           </Link>
-          <Link href="/privacy" className="hover:text-primary-600:text-primary-300">
+          <Link href="/privacy" className="hover:text-primary-600">
             Privacy Policy
           </Link>
-          <Link href="/terms" className="hover:text-primary-600:text-primary-300">
+          <Link href="/terms" className="hover:text-primary-600">
             Terms of Service
           </Link>
         </div>
 
         <p className="mt-8 text-center text-xs text-gray-500">
           Questions?{' '}
-          <a href="mailto:support@domani-app.com" className="underline hover:text-primary-600:text-primary-300">
+          <a href="mailto:support@domani-app.com" className="underline hover:text-primary-600">
             support@domani-app.com
           </a>
         </p>

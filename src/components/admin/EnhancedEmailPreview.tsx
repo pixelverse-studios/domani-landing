@@ -144,7 +144,7 @@ export function EnhancedEmailPreview({
               <button
                 onClick={fetchPreview}
                 disabled={isLoading}
-                className="p-2 hover:bg-gray-100:bg-gray-700 rounded transition-colors"
+                className="p-2 hover:bg-gray-100 rounded transition-colors"
                 title="Refresh preview"
               >
                 <RefreshCw className={cn('h-4 w-4', isLoading && 'animate-spin')} />
@@ -152,7 +152,7 @@ export function EnhancedEmailPreview({
             )}
             <button
               onClick={openInNewTab}
-              className="p-2 hover:bg-gray-100:bg-gray-700 rounded transition-colors"
+              className="p-2 hover:bg-gray-100 rounded transition-colors"
               title="Open in new tab"
             >
               <ExternalLink className="h-4 w-4" />
@@ -170,7 +170,7 @@ export function EnhancedEmailPreview({
                 'flex items-center gap-2 px-3 py-1.5 rounded text-sm font-medium transition-colors',
                 viewMode === 'desktop'
                   ? 'bg-white text-gray-900 shadow-sm'
-                  : 'text-gray-600 hover:text-gray-900:text-white'
+                  : 'text-gray-600 hover:text-gray-900'
               )}
             >
               <Monitor className="h-4 w-4" />
@@ -182,7 +182,7 @@ export function EnhancedEmailPreview({
                 'flex items-center gap-2 px-3 py-1.5 rounded text-sm font-medium transition-colors',
                 viewMode === 'mobile'
                   ? 'bg-white text-gray-900 shadow-sm'
-                  : 'text-gray-600 hover:text-gray-900:text-white'
+                  : 'text-gray-600 hover:text-gray-900'
               )}
             >
               <Smartphone className="h-4 w-4" />
@@ -198,7 +198,7 @@ export function EnhancedEmailPreview({
                 'flex items-center gap-2 px-3 py-1.5 rounded text-sm font-medium transition-colors',
                 contentMode === 'html'
                   ? 'bg-white text-gray-900 shadow-sm'
-                  : 'text-gray-600 hover:text-gray-900:text-white'
+                  : 'text-gray-600 hover:text-gray-900'
               )}
             >
               <Eye className="h-4 w-4" />
@@ -210,7 +210,7 @@ export function EnhancedEmailPreview({
                 'flex items-center gap-2 px-3 py-1.5 rounded text-sm font-medium transition-colors',
                 contentMode === 'text'
                   ? 'bg-white text-gray-900 shadow-sm'
-                  : 'text-gray-600 hover:text-gray-900:text-white'
+                  : 'text-gray-600 hover:text-gray-900'
               )}
             >
               <EyeOff className="h-4 w-4" />

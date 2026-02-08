@@ -50,7 +50,7 @@ function TemplateCard({ template }: { template: EmailTemplate }) {
           <div className="relative">
             <button
               onClick={() => setShowActions(!showActions)}
-              className="p-1 hover:bg-gray-100:bg-gray-700 rounded opacity-0 group-hover:opacity-100 transition-opacity"
+              className="p-1 hover:bg-gray-100 rounded opacity-0 group-hover:opacity-100 transition-opacity"
             >
               <MoreHorizontal className="h-4 w-4" />
             </button>
@@ -59,21 +59,21 @@ function TemplateCard({ template }: { template: EmailTemplate }) {
               <div className="absolute right-0 top-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-10 min-w-[140px]">
                 <button
                   onClick={() => router.push(`/admin/templates/${template.id}`)}
-                  className="flex items-center gap-2 w-full px-3 py-2 text-sm hover:bg-gray-100:bg-gray-700 text-left"
+                  className="flex items-center gap-2 w-full px-3 py-2 text-sm hover:bg-gray-100 text-left"
                 >
                   <Eye className="h-4 w-4" />
                   View
                 </button>
                 <button
                   onClick={() => router.push(`/admin/templates/${template.id}/edit`)}
-                  className="flex items-center gap-2 w-full px-3 py-2 text-sm hover:bg-gray-100:bg-gray-700 text-left"
+                  className="flex items-center gap-2 w-full px-3 py-2 text-sm hover:bg-gray-100 text-left"
                 >
                   <Edit className="h-4 w-4" />
                   Edit
                 </button>
                 <button
                   onClick={handleDuplicate}
-                  className="flex items-center gap-2 w-full px-3 py-2 text-sm hover:bg-gray-100:bg-gray-700 text-left"
+                  className="flex items-center gap-2 w-full px-3 py-2 text-sm hover:bg-gray-100 text-left"
                 >
                   <Copy className="h-4 w-4" />
                   Duplicate
@@ -81,7 +81,7 @@ function TemplateCard({ template }: { template: EmailTemplate }) {
                 <hr className="my-1 border-gray-200" />
                 <button
                   onClick={handleDelete}
-                  className="flex items-center gap-2 w-full px-3 py-2 text-sm hover:bg-red-50:bg-red-900/20 text-red-600 text-left"
+                  className="flex items-center gap-2 w-full px-3 py-2 text-sm hover:bg-red-50 text-red-600 text-left"
                 >
                   <Trash2 className="h-4 w-4" />
                   Delete
@@ -138,7 +138,7 @@ function TemplateCard({ template }: { template: EmailTemplate }) {
           </button>
           <button
             onClick={() => router.push(`/admin/templates/${template.id}`)}
-            className="flex items-center justify-center gap-2 px-3 py-2 text-sm bg-gray-100 rounded hover:bg-gray-200:bg-gray-600 transition-colors"
+            className="flex items-center justify-center gap-2 px-3 py-2 text-sm bg-gray-100 rounded hover:bg-gray-200 transition-colors"
           >
             <Eye className="h-4 w-4" />
           </button>
@@ -266,7 +266,7 @@ export default function TemplatesPage() {
                 'px-4 py-2 text-sm font-medium rounded-md transition-colors capitalize',
                 categoryFilter === category
                   ? 'bg-white text-gray-900 shadow-sm'
-                  : 'text-gray-600 hover:text-gray-900:text-white'
+                  : 'text-gray-600 hover:text-gray-900'
               )}
             >
               {category}
@@ -331,7 +331,7 @@ export default function TemplatesPage() {
           <button
             onClick={() => setPage(p => Math.max(1, p - 1))}
             disabled={page === 1}
-            className="p-2 rounded hover:bg-gray-100:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="p-2 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Previous
           </button>
@@ -341,7 +341,7 @@ export default function TemplatesPage() {
           <button
             onClick={() => setPage(p => p + 1)}
             disabled={page >= Math.ceil(total / 12)}
-            className="p-2 rounded hover:bg-gray-100:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="p-2 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Next
           </button>

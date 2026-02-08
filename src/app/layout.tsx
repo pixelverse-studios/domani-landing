@@ -52,7 +52,7 @@ export const metadata: Metadata = mergeMetadata({
 export const viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#6366f1',
+  themeColor: '#7D9B8A',
 }
 
 export default function RootLayout({

@@ -61,7 +61,7 @@ function ActionMenu({
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="p-2 rounded-lg hover:bg-gray-100:bg-gray-700 transition-colors"
+        className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
       >
         <MoreHorizontal className="h-4 w-4" />
       </button>
@@ -80,7 +80,7 @@ function ActionMenu({
                     onStatusChange('invited')
                     setIsOpen(false)
                   }}
-                  className="flex items-center gap-2 w-full px-3 py-2 text-left text-sm rounded hover:bg-gray-100:bg-gray-700"
+                  className="flex items-center gap-2 w-full px-3 py-2 text-left text-sm rounded hover:bg-gray-100"
                 >
                   <Mail className="h-4 w-4" />
                   Mark as Invited
@@ -92,7 +92,7 @@ function ActionMenu({
                     onStatusChange('registered')
                     setIsOpen(false)
                   }}
-                  className="flex items-center gap-2 w-full px-3 py-2 text-left text-sm rounded hover:bg-gray-100:bg-gray-700"
+                  className="flex items-center gap-2 w-full px-3 py-2 text-left text-sm rounded hover:bg-gray-100"
                 >
                   <UserCheck className="h-4 w-4" />
                   Mark as Registered
@@ -104,7 +104,7 @@ function ActionMenu({
                     onStatusChange('pending')
                     setIsOpen(false)
                   }}
-                  className="flex items-center gap-2 w-full px-3 py-2 text-left text-sm rounded hover:bg-gray-100:bg-gray-700"
+                  className="flex items-center gap-2 w-full px-3 py-2 text-left text-sm rounded hover:bg-gray-100"
                 >
                   <Clock className="h-4 w-4" />
                   Mark as Pending
@@ -116,7 +116,7 @@ function ActionMenu({
                   onDelete()
                   setIsOpen(false)
                 }}
-                className="flex items-center gap-2 w-full px-3 py-2 text-left text-sm rounded hover:bg-red-50:bg-red-900/20 text-red-600"
+                className="flex items-center gap-2 w-full px-3 py-2 text-left text-sm rounded hover:bg-red-50 text-red-600"
               >
                 <Trash2 className="h-4 w-4" />
                 Delete
@@ -330,7 +330,7 @@ export default function WaitlistPage() {
               'px-4 py-2 text-sm font-medium rounded-md transition-colors capitalize',
               statusFilter === status
                 ? 'bg-white text-gray-900 shadow-sm'
-                : 'text-gray-600 hover:text-gray-900:text-white'
+                : 'text-gray-600 hover:text-gray-900'
             )}
           >
             {status}
@@ -347,21 +347,21 @@ export default function WaitlistPage() {
           <div className="flex gap-2">
             <button
               onClick={() => setIsReferralSheetOpen(true)}
-              className="flex items-center gap-2 px-3 py-1.5 text-sm bg-white rounded border border-gray-200 hover:bg-gray-50:bg-gray-700"
+              className="flex items-center gap-2 px-3 py-1.5 text-sm bg-white rounded border border-gray-200 hover:bg-gray-50"
             >
               <Tag className="h-4 w-4" />
               Update Referral Type
             </button>
             <button
               onClick={() => handleBulkStatusChange('invited')}
-              className="flex items-center gap-2 px-3 py-1.5 text-sm bg-white rounded border border-gray-200 hover:bg-gray-50:bg-gray-700"
+              className="flex items-center gap-2 px-3 py-1.5 text-sm bg-white rounded border border-gray-200 hover:bg-gray-50"
             >
               <Mail className="h-4 w-4" />
               Mark as Invited
             </button>
             <button
               onClick={handleBulkDelete}
-              className="flex items-center gap-2 px-3 py-1.5 text-sm bg-white rounded border border-red-200 text-red-600 hover:bg-red-50:bg-red-900/20"
+              className="flex items-center gap-2 px-3 py-1.5 text-sm bg-white rounded border border-red-200 text-red-600 hover:bg-red-50"
             >
               <Trash2 className="h-4 w-4" />
               Delete

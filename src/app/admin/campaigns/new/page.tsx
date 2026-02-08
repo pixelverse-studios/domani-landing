@@ -115,7 +115,7 @@ export default function NewCampaignPage() {
       <div className="mb-8">
         <button
           onClick={() => router.push('/admin/campaigns')}
-          className="flex items-center gap-2 text-gray-600 hover:text-gray-900:text-white mb-4"
+          className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4"
         >
           <ArrowLeft className="h-4 w-4" />
           Back to Campaigns
@@ -276,7 +276,7 @@ export default function NewCampaignPage() {
                   Recipient Selection
                 </label>
                 <div className="space-y-4">
-                  <label className="flex items-center gap-3 p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50:bg-gray-800">
+                  <label className="flex items-center gap-3 p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
                     <input
                       type="radio"
                       {...register('recipientType')}
@@ -291,7 +291,7 @@ export default function NewCampaignPage() {
                     </div>
                   </label>
                   
-                  <label className="flex items-center gap-3 p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50:bg-gray-800">
+                  <label className="flex items-center gap-3 p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
                     <input
                       type="radio"
                       {...register('recipientType')}
@@ -317,7 +317,7 @@ export default function NewCampaignPage() {
                     {waitlistData?.entries.map((entry) => (
                       <label
                         key={entry.id}
-                        className="flex items-center gap-3 p-2 hover:bg-gray-50:bg-gray-800 rounded"
+                        className="flex items-center gap-3 p-2 hover:bg-gray-50 rounded"
                       >
                         <input
                           type="checkbox"
@@ -431,7 +431,7 @@ export default function NewCampaignPage() {
                       Send Options
                     </h3>
                     <div className="space-y-4">
-                      <label className="flex items-center gap-3 p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50:bg-gray-800">
+                      <label className="flex items-center gap-3 p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
                         <input
                           type="radio"
                           checked={!isScheduling}
@@ -446,7 +446,7 @@ export default function NewCampaignPage() {
                         </div>
                       </label>
                       
-                      <label className="flex items-center gap-3 p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50:bg-gray-800">
+                      <label className="flex items-center gap-3 p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
                         <input
                           type="radio"
                           checked={isScheduling}

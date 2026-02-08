@@ -3,6 +3,7 @@
 <!-- This file is automatically sent via email on successful deployment, then reset for the next cycle -->
 
 ## Latest deploy summary
+- Simplified site design to use light mode only with sage green color palette for consistent visual experience across all devices
 - Created centralized theme system foundation for sage green color palette migration
 - Added color tokens file with complete sage palette (primary, backgrounds, text, priority, borders)
 - Enhanced theme color documentation with comprehensive usage examples
@@ -103,6 +104,19 @@
 - Note: 'dark' still appears in GoogleSignInButton.tsx as a variant prop name, not a Tailwind class
 - Verification: 0 files contain dark: classes in className attributes
 - Light mode design is now the only supported mode across the entire landing page
+- DOM-437: Added code comment above variants object in GoogleSignInButton.tsx (lines 27-28)
+- Comment clarifies "dark" is a button style variant, not a Tailwind dark mode class
+- Prevents future developers from mistakenly removing the "dark" variant prop
+- File: src/components/auth/GoogleSignInButton.tsx
+- DOM-437: Updated mobile browser themeColor from old indigo (#6366f1) to sage green (#7D9B8A)
+- SECURITY AUDIT completed for PR #36 (dark mode removal)
+- Audit location: docs/audits/landing/2026-02-08-security-audit-pr36-dark-mode-removal.md
+- Verdict: APPROVED - No security vulnerabilities introduced
+- Findings: 0 critical, 0 high, 1 medium (CSS syntax error - UX bug), 1 low (informational)
+- Verified: Auth flows unchanged, input validation intact, no XSS vectors, admin security maintained
+- Security improvement: Removed dangerouslySetInnerHTML from ThemeScript component
+- Action required: Fix CSS hover state syntax errors in 3 files before merge (non-security UX bug)
+- DOM-437: Added clarifying comment to GoogleSignInButton.tsx to prevent future confusion about "dark" variant
 - https://www.domani-app.com/ (logo, nav underline, hero section blobs, hero phone mockup, social proof, MIT spotlight accessibility)
 - https://www.domani-app.com/about (logo + nav underline)
 - https://www.domani-app.com/pricing (logo + nav underline)

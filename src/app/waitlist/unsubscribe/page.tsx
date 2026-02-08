@@ -55,20 +55,20 @@ export default async function UnsubscribePage({ searchParams }: PageProps) {
 
         {/* Footer Links */}
         <div className="mt-12 flex flex-wrap justify-center gap-6 text-sm text-gray-500">
-          <Link href="/" className="hover:text-primary-600:text-primary-300">
+          <Link href="/" className="hover:text-primary-600">
             Homepage
           </Link>
-          <Link href="/privacy" className="hover:text-primary-600:text-primary-300">
+          <Link href="/privacy" className="hover:text-primary-600">
             Privacy Policy
           </Link>
-          <Link href="/terms" className="hover:text-primary-600:text-primary-300">
+          <Link href="/terms" className="hover:text-primary-600">
             Terms of Service
           </Link>
         </div>
 
         <p className="mt-8 text-center text-xs text-gray-500">
           Questions?{' '}
-          <a href="mailto:support@domani-app.com" className="underline hover:text-primary-600:text-primary-300">
+          <a href="mailto:support@domani-app.com" className="underline hover:text-primary-600">
             support@domani-app.com
           </a>
         </p>

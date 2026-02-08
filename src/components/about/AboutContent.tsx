@@ -113,11 +113,10 @@ function GlassCard({
         relative overflow-hidden rounded-2xl
         bg-white/70[0.04]
         backdrop-blur-xl
-        border border-white/50[0.08]
+        border border-white/50
         shadow-[0_8px_32px_rgba(0,0,0,0.08)]
-       [0_8px_32px_rgba(0,0,0,0.3)]
-        ${hover ? 'hover:shadow-[0_20px_48px_rgba(99,102,241,0.12)]:shadow-[0_20px_48px_rgba(99,102,241,0.15)]' : ''}
-        ${hover ? 'hover:border-primary-200/50:border-primary-500/20' : ''}
+        ${hover ? 'hover:shadow-[0_20px_48px_rgba(99,102,241,0.12)]' : ''}
+        ${hover ? 'hover:border-primary-200/50' : ''}
         transition-shadow duration-300
         ${className}
       `}

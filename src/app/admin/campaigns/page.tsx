@@ -184,7 +184,7 @@ export default function CampaignsPage() {
                 'px-4 py-2 text-sm font-medium rounded-md transition-colors capitalize',
                 statusFilter === status
                   ? 'bg-white text-gray-900 shadow-sm'
-                  : 'text-gray-600 hover:text-gray-900:text-white'
+                  : 'text-gray-600 hover:text-gray-900'
               )}
             >
               {status}
@@ -301,7 +301,7 @@ export default function CampaignsPage() {
                       e.stopPropagation()
                       router.push(`/admin/campaigns/${campaign.id}`)
                     }}
-                    className="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-sm bg-gray-100 rounded hover:bg-gray-200:bg-gray-600 transition-colors"
+                    className="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-sm bg-gray-100 rounded hover:bg-gray-200 transition-colors"
                   >
                     <Eye className="h-4 w-4" />
                     View
@@ -331,7 +331,7 @@ export default function CampaignsPage() {
           <button
             onClick={() => setPage(p => Math.max(1, p - 1))}
             disabled={page === 1}
-            className="p-2 rounded hover:bg-gray-100:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="p-2 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Previous
           </button>
@@ -341,7 +341,7 @@ export default function CampaignsPage() {
           <button
             onClick={() => setPage(p => p + 1)}
             disabled={page >= Math.ceil(total / 9)}
-            className="p-2 rounded hover:bg-gray-100:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="p-2 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Next
           </button>

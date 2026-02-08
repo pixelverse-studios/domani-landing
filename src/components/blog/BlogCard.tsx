@@ -17,7 +17,7 @@ export function BlogCard({ post }: BlogCardProps) {
       <div className={`h-2 w-full bg-gradient-to-r ${post.accent}`} aria-hidden />
       <div className="flex flex-col gap-5 p-6">
         <div>
-          <h2 className="text-2xl font-semibold text-gray-900 transition-colors group-hover:text-primary-600:text-primary-300">
+          <h2 className="text-2xl font-semibold text-gray-900 transition-colors group-hover:text-primary-600">
             <Link href={`/blog/${post.slug}`}>{post.title}</Link>
           </h2>
           <p className="mt-3 text-gray-600">{post.description}</p>
@@ -30,7 +30,7 @@ export function BlogCard({ post }: BlogCardProps) {
         <div className="mt-2">
           <Link
             href={`/blog/${post.slug}`}
-            className="inline-flex items-center gap-2 text-sm font-semibold text-primary-600 transition hover:text-primary-500:text-primary-200"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-primary-600 transition hover:text-primary-500"
             aria-label={`Read ${post.title}`}
           >
             Read article

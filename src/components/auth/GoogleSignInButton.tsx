@@ -24,6 +24,8 @@ export function GoogleSignInButton({
   const [isHovered, setIsHovered] = useState(false)
 
   // Google brand colors and specifications
+  // NOTE: "dark" is a button variant prop (light/dark/neutral style options),
+  // NOT a Tailwind dark mode class. This is intentional and unrelated to theme support.
   const variants = {
     light: {
       bg: '#FFFFFF',

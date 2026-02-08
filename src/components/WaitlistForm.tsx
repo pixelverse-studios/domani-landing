@@ -123,7 +123,7 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
                 autoComplete="email"
                 aria-required="true"
                 aria-describedby="email-description"
-                className="w-full px-4 py-3 border rounded-lg outline-none transition-all duration-200 bg-white text-gray-900 border-gray-300 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500:border-primary-400"
+                className="w-full px-4 py-3 border rounded-lg outline-none transition-all duration-200 bg-white text-gray-900 border-gray-300 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
                 placeholder="Enter your email"
               />
               <p id="email-description" className="mt-1 text-xs text-gray-500">
@@ -190,7 +190,7 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
                       })
                     }
                   }}
-                  className="py-3 px-6 rounded-lg font-semibold border border-gray-300 text-gray-700 hover:bg-gray-50:bg-gray-800 transition-all duration-200"
+                  className="py-3 px-6 rounded-lg font-semibold border border-gray-300 text-gray-700 hover:bg-gray-50 transition-all duration-200"
                 >
                   Learn More
                 </button>
@@ -204,7 +204,7 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
                   {PRIVACY_URL && (
                     <Link
                       href={PRIVACY_URL}
-                      className="underline hover:text-gray-700:text-gray-200"
+                      className="underline hover:text-gray-700"
                       {...legalLinkProps(PRIVACY_URL)}
                     >
                       Privacy Policy
@@ -214,7 +214,7 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
                   {TERMS_URL && (
                     <Link
                       href={TERMS_URL}
-                      className="underline hover:text-gray-700:text-gray-200"
+                      className="underline hover:text-gray-700"
                       {...legalLinkProps(TERMS_URL)}
                     >
                       Terms of Service
@@ -284,7 +284,7 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
             {!isSuccess && (
               <button
                 onClick={onClose}
-                className="absolute top-4 right-4 text-gray-400 hover:text-gray-600:text-gray-300 transition-colors"
+                className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
                 aria-label="Close modal"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

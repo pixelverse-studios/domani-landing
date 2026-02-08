@@ -153,18 +153,17 @@ function GlassCard({
       transition={{ type: 'spring', stiffness: 400, damping: 25 }}
       className={`
         relative overflow-hidden rounded-2xl
-        bg-white/70[0.04]
+        bg-white/70
         backdrop-blur-xl
-        border ${highlight ? 'border-primary-300' : 'border-white/50[0.08]'}
+        border ${highlight ? 'border-primary-300' : 'border-white/50'}
         shadow-[0_8px_32px_rgba(0,0,0,0.08)]
-       [0_8px_32px_rgba(0,0,0,0.3)]
-        ${hover ? 'hover:shadow-[0_20px_48px_rgba(99,102,241,0.12)]:shadow-[0_20px_48px_rgba(99,102,241,0.15)]' : ''}
-        ${hover ? 'hover:border-primary-200/50:border-primary-500/20' : ''}
+        ${hover ? 'hover:shadow-[0_20px_48px_rgba(99,102,241,0.12)]' : ''}
+        ${hover ? 'hover:border-primary-200/50' : ''}
         transition-shadow duration-300
         ${className}
       `}
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-transparent[0.02] pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none" />
       {highlight && (
         <div className="absolute inset-0 bg-gradient-to-br from-primary-500/5 via-transparent to-primary-600/5 pointer-events-none" />
       )}
@@ -235,7 +234,7 @@ export function PricingContent({ plan, faqs, testimonials, comparison }: Pricing
     <div className="relative overflow-hidden">
       {/* Mesh gradient background */}
       <div className="fixed inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-b from-primary-50/80 via-white to-primary-100/50[#0A0A0F][#0F0F18][#0A0A0F]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-primary-50/80 via-white to-primary-100/50" />
         <div className="absolute top-[10%] left-[15%] w-[500px] h-[500px] rounded-full bg-gradient-to-br from-primary-300/30 to-transparent blur-[100px] animate-blob" />
         <div className="absolute top-[40%] right-[10%] w-[400px] h-[400px] rounded-full bg-gradient-to-br from-primary-300/25 to-transparent blur-[80px] animate-blob animation-delay-2000" />
         <div className="absolute bottom-[20%] left-[20%] w-[350px] h-[350px] rounded-full bg-gradient-to-br from-primary-300/20 to-transparent blur-[90px] animate-blob animation-delay-4000" />
@@ -549,7 +548,7 @@ export function PricingContent({ plan, faqs, testimonials, comparison }: Pricing
       </div>
 
       {/* Bottom gradient fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white[#0A0A0F] to-transparent pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent pointer-events-none" />
     </div>
   )
 }

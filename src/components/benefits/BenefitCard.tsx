@@ -59,7 +59,7 @@ export function BenefitCard({ benefit, className }: BenefitCardProps) {
 
         <div className="mt-auto">
           <PortalTooltip citation={benefit.citation}>
-            <button className="inline-flex items-center gap-1.5 text-xs text-gray-500 hover:text-primary-600:text-primary-400 cursor-pointer transition-all duration-200 group">
+            <button className="inline-flex items-center gap-1.5 text-xs text-gray-500 hover:text-primary-600 cursor-pointer transition-all duration-200 group">
               <svg 
                 className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" 
                 fill="none" 

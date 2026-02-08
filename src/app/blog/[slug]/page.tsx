@@ -68,7 +68,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <article className="w-full" data-blog-article>
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-primary-600 transition hover:text-primary-500:text-primary-200"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-primary-600 transition hover:text-primary-500"
           >
             <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -85,7 +85,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <span>{post.readingTime}</span>
           </div>
 
-          <div className="prose prose-lg mt-10 max-w-none text-gray-700 prose-headings:text-gray-900 prose-strong:text-gray-900 prose-em:text-gray-900 prose-li:text-gray-700 prose-a:text-primary-600:text-white:text-white:text-gray-100:text-gray-100:text-primary-300">
+          <div className="prose prose-lg mt-10 max-w-none text-gray-700 prose-headings:text-gray-900 prose-strong:text-gray-900 prose-em:text-gray-900 prose-li:text-gray-700 prose-a:text-primary-600">
             <MDXContent />
           </div>
         </article>
@@ -95,7 +95,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <h2 className="text-base font-semibold text-gray-900">Related reading</h2>
             <div className="mt-4 space-y-4">
               {relatedPosts.map((related) => (
-                <Link key={related.slug} href={`/blog/${related.slug}`} className="block rounded-2xl border border-gray-100 px-4 py-3 text-sm text-gray-700 transition hover:border-primary-200 hover:text-primary-600:border-primary-500/40">
+                <Link key={related.slug} href={`/blog/${related.slug}`} className="block rounded-2xl border border-gray-100 px-4 py-3 text-sm text-gray-700 transition hover:border-primary-200 hover:text-primary-600">
                   <p className="font-semibold">{related.title}</p>
                   <p className="mt-1 text-xs text-gray-500">{related.description}</p>
                 </Link>

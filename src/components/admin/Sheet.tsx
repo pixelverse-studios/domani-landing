@@ -83,7 +83,7 @@ export function Sheet({ isOpen, onClose, title, children, width = 'md' }: SheetP
           </h2>
           <button
             onClick={onClose}
-            className="rounded-lg p-2 text-gray-500 hover:bg-gray-100:bg-gray-800 transition-colors"
+            className="rounded-lg p-2 text-gray-500 hover:bg-gray-100 transition-colors"
             aria-label="Close"
           >
             <X className="h-5 w-5" />

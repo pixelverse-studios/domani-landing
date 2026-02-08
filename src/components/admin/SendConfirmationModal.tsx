@@ -63,7 +63,7 @@ export function SendConfirmationModal({
             </div>
             <button
               onClick={onClose}
-              className="p-2 hover:bg-gray-100:bg-gray-700 rounded-lg transition-colors"
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
               disabled={isLoading}
             >
               <X className="h-5 w-5" />
@@ -106,7 +106,7 @@ export function SendConfirmationModal({
               <h3 className="font-medium text-gray-900 mb-3">Send Options</h3>
               <div className="space-y-3">
                 {/* Send to All */}
-                <label className="flex items-start gap-3 p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50:bg-gray-700/50 transition-colors">
+                <label className="flex items-start gap-3 p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
                   <input
                     type="radio"
                     name="sendType"
@@ -129,7 +129,7 @@ export function SendConfirmationModal({
                 </label>
                 
                 {/* Send Test */}
-                <label className="flex items-start gap-3 p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50:bg-gray-700/50 transition-colors">
+                <label className="flex items-start gap-3 p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
                   <input
                     type="radio"
                     name="sendType"
@@ -216,7 +216,7 @@ export function SendConfirmationModal({
           <div className="flex justify-between items-center p-6 border-t border-gray-200 bg-gray-50">
             <button
               onClick={onClose}
-              className="px-4 py-2 text-gray-600 hover:text-gray-900:text-white font-medium"
+              className="px-4 py-2 text-gray-600 hover:text-gray-900 font-medium"
               disabled={isLoading}
             >
               Cancel

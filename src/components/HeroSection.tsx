@@ -94,7 +94,7 @@ export default function HeroSection({
             <div className="relative mx-auto max-w-md lg:max-w-none">
               <div className="absolute inset-0 rotate-6 scale-105 rounded-3xl bg-gradient-to-r from-primary-500 to-primary-700 opacity-10 blur-xl" />
 
-              <div className="relative overflow-hidden rounded-3xl bg-white shadow-[0_4px_8px_rgba(0,0,0,0.12),0_8px_24px_rgba(0,0,0,0.08),0_16px_48px_rgba(0,0,0,0.04)] transition-shadow duration-300 hover:shadow-[0_8px_16px_rgba(0,0,0,0.15),0_16px_32px_rgba(0,0,0,0.1),0_24px_56px_rgba(0,0,0,0.05)] ">
+              <div className="relative overflow-hidden rounded-3xl bg-white shadow-[0_4px_8px_rgba(0,0,0,0.12),0_8px_24px_rgba(0,0,0,0.08),0_16px_48px_rgba(0,0,0,0.04)] transition-shadow duration-300 hover:shadow-[0_8px_16px_rgba(0,0,0,0.15),0_16px_32px_rgba(0,0,0,0.1),0_24px_56px_rgba(0,0,0,0.05)]">
                 {/* Phone status bar */}
                 <div className="flex items-center justify-between border-b border-gray-100 bg-gray-50 px-6 py-2 text-xs text-gray-700  ">
                   <span>9:00 PM</span>

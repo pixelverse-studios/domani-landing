@@ -95,7 +95,7 @@ export function AdminSidebar() {
             <div className="lg:hidden">
               <button
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="p-1 rounded-md hover:bg-gray-100:bg-gray-700"
+                className="p-1 rounded-md hover:bg-gray-100"
               >
                 <X className="h-5 w-5" />
               </button>
@@ -114,7 +114,7 @@ export function AdminSidebar() {
                     'flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors',
                     active
                       ? 'bg-primary-50 text-primary-600'
-                      : 'text-gray-700 hover:bg-gray-100:bg-gray-700/50'
+                      : 'text-gray-700 hover:bg-gray-100'
                   )}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
@@ -152,7 +152,7 @@ export function AdminSidebar() {
             {user && (
               <button
                 onClick={handleLogout}
-                className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-md hover:bg-gray-100:bg-gray-700/50 transition-colors text-sm text-gray-700"
+                className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-md hover:bg-gray-100 transition-colors text-sm text-gray-700"
                 title="Sign out"
               >
                 <LogOut className="h-5 w-5" />

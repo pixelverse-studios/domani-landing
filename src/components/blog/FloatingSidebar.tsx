@@ -54,7 +54,7 @@ export function FloatingSidebar({ relatedPosts }: FloatingSidebarProps) {
               <Link
                 key={related.slug}
                 href={`/blog/${related.slug}`}
-                className="block rounded-2xl border border-gray-100 px-4 py-3 text-sm text-gray-700 transition hover:border-primary-200 hover:text-primary-600:border-primary-500/40"
+                className="block rounded-2xl border border-gray-100 px-4 py-3 text-sm text-gray-700 transition hover:border-primary-200 hover:text-primary-600"
               >
                 <p className="font-semibold">{related.title}</p>
                 <p className="mt-1 text-xs text-gray-500">{related.description}</p>

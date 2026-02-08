@@ -113,7 +113,7 @@ export default function UnsubscribeForm({ initialEmail = '' }: UnsubscribeFormPr
                     autoComplete="email"
                     aria-required="true"
                     aria-describedby="email-help"
-                    className="w-full pl-10 px-4 py-3 border rounded-lg outline-none transition-all duration-200 bg-white text-gray-900 border-gray-300 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500:border-primary-400"
+                    className="w-full pl-10 px-4 py-3 border rounded-lg outline-none transition-all duration-200 bg-white text-gray-900 border-gray-300 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
                     placeholder="Enter your email"
                   />
                 </div>
@@ -170,7 +170,7 @@ export default function UnsubscribeForm({ initialEmail = '' }: UnsubscribeFormPr
               <button
                 type="button"
                 onClick={handleCancel}
-                className="flex-1 py-3 px-6 rounded-lg font-semibold border border-gray-300 text-gray-700 hover:bg-gray-50:bg-gray-800 transition-all duration-200"
+                className="flex-1 py-3 px-6 rounded-lg font-semibold border border-gray-300 text-gray-700 hover:bg-gray-50 transition-all duration-200"
               >
                 <span className="flex items-center justify-center gap-2">
                   <ArrowLeft className="w-4 h-4" />
@@ -269,7 +269,7 @@ export default function UnsubscribeForm({ initialEmail = '' }: UnsubscribeFormPr
                   setFormState('input')
                   setErrorMessage(null)
                 }}
-                className="py-3 px-6 rounded-lg font-semibold border border-gray-300 text-gray-700 hover:bg-gray-50:bg-gray-800 transition-all duration-200"
+                className="py-3 px-6 rounded-lg font-semibold border border-gray-300 text-gray-700 hover:bg-gray-50 transition-all duration-200"
               >
                 <span className="flex items-center justify-center gap-2">
                   <ArrowLeft className="w-4 h-4" />

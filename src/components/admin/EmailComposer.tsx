@@ -87,7 +87,7 @@ export function EmailComposer({
       onClick={onClick}
       title={title}
       className={cn(
-        'p-2 rounded hover:bg-gray-100:bg-gray-700 transition-colors',
+        'p-2 rounded hover:bg-gray-100 transition-colors',
         isActive && 'bg-gray-100 text-primary'
       )}
     >
@@ -215,7 +215,7 @@ export function EmailComposer({
                       <button
                         key={variable}
                         onClick={() => insertVariable(variable)}
-                        className="block w-full text-left px-2 py-1.5 text-sm rounded hover:bg-gray-100:bg-gray-700"
+                        className="block w-full text-left px-2 py-1.5 text-sm rounded hover:bg-gray-100"
                       >
                         {`{{${variable}}}`}
                       </button>
@@ -234,7 +234,7 @@ export function EmailComposer({
                 'flex items-center gap-2 px-3 py-1.5 rounded text-sm font-medium transition-colors',
                 showPreview
                   ? 'bg-primary text-white'
-                  : 'bg-gray-100 hover:bg-gray-200:bg-gray-600'
+                  : 'bg-gray-100 hover:bg-gray-200'
               )}
             >
               <Eye className="h-4 w-4" />
@@ -263,7 +263,7 @@ export function EmailComposer({
                     'flex items-center gap-2 px-3 py-1.5 rounded text-sm',
                     previewMode === 'desktop'
                       ? 'bg-primary text-white'
-                      : 'bg-gray-100 hover:bg-gray-200:bg-gray-600'
+                      : 'bg-gray-100 hover:bg-gray-200'
                   )}
                 >
                   <Monitor className="h-4 w-4" />
@@ -275,7 +275,7 @@ export function EmailComposer({
                     'flex items-center gap-2 px-3 py-1.5 rounded text-sm',
                     previewMode === 'mobile'
                       ? 'bg-primary text-white'
-                      : 'bg-gray-100 hover:bg-gray-200:bg-gray-600'
+                      : 'bg-gray-100 hover:bg-gray-200'
                   )}
                 >
                   <Smartphone className="h-4 w-4" />

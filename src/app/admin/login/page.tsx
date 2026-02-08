@@ -141,7 +141,7 @@ function AdminLoginForm() {
           >
             <Link
               href="/"
-              className="inline-flex items-center text-gray-600 hover:text-gray-900:text-white transition-colors"
+              className="inline-flex items-center text-gray-600 hover:text-gray-900 transition-colors"
             >
               <ChevronLeft className="w-4 h-4 mr-1" />
               Back to Domani
@@ -279,7 +279,7 @@ function AdminLoginForm() {
                 Having trouble signing in?{' '}
                 <a
                   href="mailto:support@domani-app.com"
-                  className="text-primary-600 hover:text-primary-700:text-primary-300 font-medium"
+                  className="text-primary-600 hover:text-primary-700 font-medium"
                 >
                   Contact support
                 </a>

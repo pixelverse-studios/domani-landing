@@ -133,9 +133,9 @@ export default function WaitlistInline() {
                   bg-white text-gray-900
                   ${error
                     ? 'border-red-500 focus:ring-2 focus:ring-red-500/20'
-                    : 'border-gray-300 focus:ring-4 focus:ring-primary-500/30 focus:border-primary-500:border-primary-400'
+                    : 'border-gray-300 focus:ring-4 focus:ring-primary-500/30 focus:border-primary-500'
                   }
-                  placeholder:text-gray-400:text-gray-500 outline-none transition-all duration-200
+                  placeholder:text-gray-400 outline-none transition-all duration-200
                   focus:scale-[1.02] focus:shadow-lg
                 `}
                 disabled={isSubmitting}
@@ -196,7 +196,7 @@ export default function WaitlistInline() {
               {PRIVACY_URL && (
                 <Link
                   href={PRIVACY_URL}
-                  className="underline hover:text-gray-700:text-gray-300"
+                  className="underline hover:text-gray-700"
                   {...legalLinkProps(PRIVACY_URL)}
                 >
                   Privacy Policy
@@ -206,7 +206,7 @@ export default function WaitlistInline() {
               {TERMS_URL && (
                 <Link
                   href={TERMS_URL}
-                  className="underline hover:text-gray-700:text-gray-300"
+                  className="underline hover:text-gray-700"
                   {...legalLinkProps(TERMS_URL)}
                 >
                   Terms of Service
@@ -220,7 +220,7 @@ export default function WaitlistInline() {
           <button
             type="button"
             onClick={() => setShowModal(true)}
-            className="underline hover:text-gray-700:text-gray-300"
+            className="underline hover:text-gray-700"
           >
             Want to tell us more?
           </button>
