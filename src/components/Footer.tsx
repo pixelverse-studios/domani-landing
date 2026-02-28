@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
+import { CONTACT_EMAIL } from '@/lib/config/site'
 
 interface FooterLink {
   label: string
@@ -120,10 +121,10 @@ export function Footer({ className }: FooterProps) {
             </a>
           </p>
           <a
-            href="mailto:support@domani-app.com"
+            href={`mailto:${CONTACT_EMAIL}`}
             className="text-xs text-gray-500 transition-colors hover:text-primary-600  "
           >
-            support@domani-app.com
+            {CONTACT_EMAIL}
           </a>
         </div>
       </div>

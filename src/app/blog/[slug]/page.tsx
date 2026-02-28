@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { BlogCard } from '@/components/blog/BlogCard'
 import { blogPosts, getPostBySlug, mdxModules } from '@/lib/blog/posts'
+import { SITE_URL } from '@/lib/config/site'
 import { FloatingSidebar } from '@/components/blog/FloatingSidebar'
 
 interface BlogPostPageProps {
@@ -22,7 +23,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     return {}
   }
 
-  const canonical = `https://domani.app/blog/${post.slug}`
+  const canonical = `${SITE_URL}/blog/${post.slug}`
 
   return {
     title: `${post.title} | Domani Blog`,

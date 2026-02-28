@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { CONTACT_EMAIL } from '@/lib/config/site'
 
 export const metadata: Metadata = {
   title: 'Delete Your Account | Domani',
@@ -140,8 +141,8 @@ export default function DeleteAccountPage() {
           <p className="mt-2 text-white/90">
             If you&apos;re locked out of your account or can&apos;t complete the in-app deletion process, we can help.
             Email us at{' '}
-            <a href="mailto:support@domani-app.com" className="font-medium underline">
-              support@domani-app.com
+            <a href={`mailto:${CONTACT_EMAIL}`} className="font-medium underline">
+              {CONTACT_EMAIL}
             </a>{' '}
             with the email address associated with your Domani account, and we&apos;ll process your deletion request manually.
           </p>
@@ -165,8 +166,8 @@ export default function DeleteAccountPage() {
 
         <p className="mt-8 text-center text-xs text-gray-500">
           Last updated: December 2025 · Questions?{' '}
-          <a href="mailto:support@domani-app.com" className="underline hover:text-primary-600">
-            support@domani-app.com
+          <a href={`mailto:${CONTACT_EMAIL}`} className="underline hover:text-primary-600">
+            {CONTACT_EMAIL}
           </a>
         </p>
       </div>

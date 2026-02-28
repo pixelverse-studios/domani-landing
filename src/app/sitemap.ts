@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next'
 import { blogPosts } from '@/lib/blog/posts'
+import { SITE_URL } from '@/lib/config/site'
 
 /**
  * Dynamic sitemap generation for Domani
@@ -8,7 +9,7 @@ import { blogPosts } from '@/lib/blog/posts'
  * Learn more: https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://domani.app'
+  const baseUrl = SITE_URL
   const currentDate = new Date()
 
   // Static routes with priority and change frequency

@@ -5,9 +5,7 @@
 
 import { Organization, WebSite, SoftwareApplication, FAQPage } from 'schema-dts'
 import { testimonials, averageRating } from '@/data/testimonials'
-
-const SITE_URL = 'https://domani.app'
-const SITE_NAME = 'Domani'
+import { SITE_URL, SITE_NAME, CONTACT_EMAIL } from '@/lib/config/site'
 
 /**
  * Organization schema - Used in root layout
@@ -35,7 +33,7 @@ export function createOrganizationSchema(): Organization {
     ],
     contactPoint: {
       '@type': 'ContactPoint',
-      email: 'support@domani-app.com',
+      email: CONTACT_EMAIL,
       contactType: 'customer support',
       availableLanguage: 'English',
     },

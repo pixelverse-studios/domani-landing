@@ -1,4 +1,5 @@
 import { Resend } from 'resend'
+import { CONTACT_EMAIL } from '@/lib/config/site'
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import { CampaignStatus } from '@/types/email'
@@ -7,8 +8,8 @@ const resend = new Resend(process.env.RESEND_API_KEY)
 
 // Email configuration using existing domain
 const EMAIL_CONFIG = {
-  from: 'Domani <hello@domani-app.com>',
-  replyTo: 'hello@domani-app.com',
+  from: `Domani <${CONTACT_EMAIL}>`,
+  replyTo: CONTACT_EMAIL,
 }
 
 // Rate limiting constants for low volume usage
