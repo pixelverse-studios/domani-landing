@@ -77,7 +77,7 @@ export const homepageMetadata: Metadata = {
  * Pricing page metadata
  */
 export const pricingMetadata: Metadata = {
-  title: TITLE_TEMPLATES.pricing,
+  title: { absolute: TITLE_TEMPLATES.pricing },
   description: META_TEMPLATES.pricing,
   keywords: [...PAGE_KEYWORDS.pricing],
   openGraph: {
@@ -113,7 +113,7 @@ export const pricingMetadata: Metadata = {
  * About page metadata
  */
 export const aboutMetadata: Metadata = {
-  title: TITLE_TEMPLATES.about,
+  title: { absolute: TITLE_TEMPLATES.about },
   description: META_TEMPLATES.about,
   keywords: [...PAGE_KEYWORDS.about],
   openGraph: {
@@ -149,7 +149,7 @@ export const aboutMetadata: Metadata = {
  * FAQ page metadata
  */
 export const faqMetadata: Metadata = {
-  title: TITLE_TEMPLATES.faq,
+  title: { absolute: TITLE_TEMPLATES.faq },
   description: META_TEMPLATES.faq,
   keywords: [...PAGE_KEYWORDS.faq],
   openGraph: {
@@ -204,7 +204,7 @@ export function createPageMetadata({
   const fullTitle = title.includes('|') ? title : TITLE_TEMPLATES.default(title)
 
   return {
-    title: fullTitle,
+    title: { absolute: fullTitle },
     description,
     keywords: keywords.length > 0 ? keywords : undefined,
     openGraph: {
