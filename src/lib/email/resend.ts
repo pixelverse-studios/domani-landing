@@ -102,7 +102,7 @@ This is an automated notification from Domani waitlist system.
   try {
     const { data, error } = await resend.emails.send({
       from: EMAIL_CONFIG.from,
-      to: ['admin@domani.app'], // TODO: Replace with actual admin email address
+      to: ['admin@domani-app.com'],
       subject: `[Domani] New Waitlist Signup: ${name}`,
       html: adminHtml,
       text: adminText,

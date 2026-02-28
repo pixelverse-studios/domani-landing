@@ -30,7 +30,7 @@ export const metadata: Metadata = mergeMetadata({
     description: 'Transform chaotic mornings into focused execution with evening planning psychology.',
     type: 'website',
     locale: 'en_US',
-    url: 'https://domani.app',
+    url: 'https://www.domani-app.com',
     siteName: 'Domani',
     images: [{
       url: '/og-image.png',

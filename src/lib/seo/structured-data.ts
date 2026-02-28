@@ -6,7 +6,7 @@
 import { Organization, WebSite, SoftwareApplication, FAQPage } from 'schema-dts'
 import { testimonials, averageRating } from '@/data/testimonials'
 
-const SITE_URL = 'https://domani.app'
+const SITE_URL = 'https://www.domani-app.com'
 const SITE_NAME = 'Domani'
 
 /**

@@ -25,6 +25,7 @@
 - Fixed background rendering issues on About page by correcting malformed Tailwind classes and removing noisy texture overlay
 - Added align prop to DownloadButtons component allowing flexible left or center alignment for different page layouts
 - Updated hero section download buttons to align left for improved visual hierarchy and flow with surrounding content
+- Fixed all domain references from incorrect domani.app to correct domani-app.com across SEO configuration, email templates, and security page
 
 ## Notes for internal team
 - DOM-434 completed - 32 evening-* color references replaced across 10 files (PR #35)
@@ -167,6 +168,11 @@
 - DynamicCTA: Passes align prop to DownloadButtons component (line 168)
 - HeroSection: Updated DynamicCTA usage to include align="start" (line 61)
 - Result: Hero section download buttons now left-aligned, other pages remain centered by default
+- DEV-373 completed: Fixed 16 instances of domani.app → domani-app.com across 9 files
+- SEO files: metadata.ts SITE_URL, structured-data.ts SITE_URL, sitemap.ts baseUrl, robots.ts sitemap+host, layout.tsx OG URL, blog/[slug]/page.tsx canonical
+- Email files: waitlist-welcome.tsx (6 instances - URLs and email addresses), resend.ts admin notification email
+- Security page: security@domani.app → security@domani-app.com (description text + mailto link)
+- Verification: 0 instances of domani.app remain in src/ (grep confirmed)
 
 ## Changed URLs
 - https://www.domani-app.com/

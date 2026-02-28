@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     return {}
   }
 
-  const canonical = `https://domani.app/blog/${post.slug}`
+  const canonical = `https://www.domani-app.com/blog/${post.slug}`
 
   return {
     title: `${post.title} | Domani Blog`,

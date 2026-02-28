@@ -23,7 +23,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: '/', // Prevent ChatGPT browsing from accessing
       },
     ],
-    sitemap: 'https://domani.app/sitemap.xml',
-    host: 'https://domani.app',
+    sitemap: 'https://www.domani-app.com/sitemap.xml',
+    host: 'https://www.domani-app.com',
   }
 }

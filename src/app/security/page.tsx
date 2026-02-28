@@ -40,7 +40,7 @@ const practices = [
   {
     title: 'Responsible disclosure',
     description:
-      'Security researchers can report vulnerabilities to security@domani.app. We review submissions within 48 hours and coordinate fixes with the reporter.',
+      'Security researchers can report vulnerabilities to security@domani-app.com. We review submissions within 48 hours and coordinate fixes with the reporter.',
   },
 ]
 
@@ -68,7 +68,7 @@ export default function SecurityPage() {
         <div className="mt-12 rounded-3xl bg-gradient-to-r from-evening-600 to-primary-600 p-6 text-white shadow-xl">
           <h3 className="text-xl font-semibold">Need a security review or DPA?</h3>
           <p className="mt-2 text-sm text-white/80">
-            Email <a href="mailto:security@domani.app" className="underline">security@domani.app</a> for vendor questionnaires, penetration-test results,
+            Email <a href="mailto:security@domani-app.com" className="underline">security@domani-app.com</a> for vendor questionnaires, penetration-test results,
             or to request a data processing agreement. You can also view our <Link href="/privacy" className="underline">privacy policy</Link>.
           </p>
         </div>
