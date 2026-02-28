@@ -41,7 +41,7 @@ export const baseMetadata: Metadata = {
  * Homepage metadata
  */
 export const homepageMetadata: Metadata = {
-  title: TITLE_TEMPLATES.homepage,
+  title: { absolute: TITLE_TEMPLATES.homepage },
   description: META_TEMPLATES.homepage,
   keywords: [...PAGE_KEYWORDS.homepage],
   openGraph: {

@@ -168,11 +168,15 @@
 - DynamicCTA: Passes align prop to DownloadButtons component (line 168)
 - HeroSection: Updated DynamicCTA usage to include align="start" (line 61)
 - Result: Hero section download buttons now left-aligned, other pages remain centered by default
+- DEV-374 completed: Wired up homepage metadata export for proper SEO title, description, keywords, OG tags, and canonical URL
 - DEV-373 completed: Fixed 16 instances of domani.app → domani-app.com across 9 files
 - SEO files: metadata.ts SITE_URL, structured-data.ts SITE_URL, sitemap.ts baseUrl, robots.ts sitemap+host, layout.tsx OG URL, blog/[slug]/page.tsx canonical
 - Email files: waitlist-welcome.tsx (6 instances - URLs and email addresses), resend.ts admin notification email
 - Security page: security@domani.app → security@domani-app.com (description text + mailto link)
 - Verification: 0 instances of domani.app remain in src/ (grep confirmed)
+- DEV-374: Added `export const metadata = mergeMetadata(homepageMetadata)` to src/app/page.tsx
+- DEV-374: Changed homepageMetadata title to use `{ absolute: ... }` to prevent layout template from double-appending "| Domani"
+- DEV-374: Files modified: src/app/page.tsx, src/lib/seo/metadata.ts
 
 ## Changed URLs
 - https://www.domani-app.com/

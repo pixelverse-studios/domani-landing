@@ -1,4 +1,5 @@
 import { Suspense } from 'react';
+import { mergeMetadata, homepageMetadata } from '@/lib/seo/metadata';
 import HeroSection from '@/components/HeroSection';
 import { MITSpotlight } from '@/components/features/MITSpotlight';
 import { PlanLockSpotlight } from '@/components/features/PlanLockSpotlight';
@@ -7,6 +8,8 @@ import { BenefitsSection } from '@/components/benefits/BenefitsSection';
 import { AppShowcase } from '@/components/showcase/AppShowcase';
 import { HomePageClient } from '@/components/home/HomePageClient';
 import Analytics from '@/components/Analytics';
+
+export const metadata = mergeMetadata(homepageMetadata);
 
 function LandingFallback() {
   return (
