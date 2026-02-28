@@ -1,11 +1,13 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { createPageMetadata } from '@/lib/seo/metadata'
 import { CONTACT_EMAIL } from '@/lib/config/site'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: 'Privacy Policy | Domani',
   description: 'Learn how Domani collects, uses, and protects your data across the web and mobile experience.',
-}
+  path: '/privacy',
+})
 
 const sections = [
   {

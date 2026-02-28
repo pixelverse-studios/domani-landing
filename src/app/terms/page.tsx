@@ -1,10 +1,12 @@
 import type { Metadata } from 'next'
+import { createPageMetadata } from '@/lib/seo/metadata'
 import { CONTACT_EMAIL } from '@/lib/config/site'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: 'Terms of Service | Domani',
   description: "Review the rules for using Domani's evening planning platform, purchases, and content.",
-}
+  path: '/terms',
+})
 
 const sections = [
   {
