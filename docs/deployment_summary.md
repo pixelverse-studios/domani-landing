@@ -168,6 +168,7 @@
 - DynamicCTA: Passes align prop to DownloadButtons component (line 168)
 - HeroSection: Updated DynamicCTA usage to include align="start" (line 61)
 - Result: Hero section download buttons now left-aligned, other pages remain centered by default
+- Migrated font loading from render-blocking CSS @import to optimized next/font/google for faster page loads
 - Updated web manifest PWA colors from old purple branding to sage green palette
 - DEV-374 completed: Wired up homepage metadata export for proper SEO title, description, keywords, OG tags, and canonical URL
 - DEV-373 completed: Fixed 16 instances of domani.app → domani-app.com across 9 files
