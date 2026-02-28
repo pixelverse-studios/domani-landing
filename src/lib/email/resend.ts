@@ -1,5 +1,6 @@
 import { Resend } from 'resend'
 import { WaitlistWelcomeEmail, WaitlistWelcomeEmailText } from '@/emails/waitlist-welcome'
+import { CONTACT_EMAIL } from '@/lib/config/site'
 
 // Initialize Resend with API key from environment
 const resend = new Resend(process.env.RESEND_API_KEY)
@@ -7,8 +8,8 @@ const resend = new Resend(process.env.RESEND_API_KEY)
 // Email configuration
 // Using verified domain for production emails
 const EMAIL_CONFIG = {
-  from: 'Domani <hello@domani-app.com>', // Using verified domain
-  replyTo: 'hello@domani-app.com',
+  from: `Domani <${CONTACT_EMAIL}>`,
+  replyTo: CONTACT_EMAIL,
 }
 
 export interface SendWaitlistWelcomeEmailParams {
@@ -102,7 +103,7 @@ This is an automated notification from Domani waitlist system.
   try {
     const { data, error } = await resend.emails.send({
       from: EMAIL_CONFIG.from,
-      to: ['admin@domani-app.com'],
+      to: [CONTACT_EMAIL],
       subject: `[Domani] New Waitlist Signup: ${name}`,
       html: adminHtml,
       text: adminText,

@@ -1,3 +1,5 @@
+import { CONTACT_EMAIL, SITE_URL } from '@/lib/config/site'
+
 interface WaitlistWelcomeEmailProps {
   name?: string
   position?: number
@@ -154,7 +156,7 @@ export function WaitlistWelcomeEmail({ name }: WaitlistWelcomeEmailProps) {
             </p>
 
             <div style="text-align: center; margin: 40px 0;">
-                <a href="https://www.domani-app.com" class="button">Visit Domani</a>
+                <a href="${SITE_URL}" class="button">Visit Domani</a>
             </div>
 
             <div class="social-section">
@@ -163,8 +165,8 @@ export function WaitlistWelcomeEmail({ name }: WaitlistWelcomeEmailProps) {
                     Know someone who struggles with chaotic mornings? Share Domani with them:
                 </p>
                 <div class="social-links">
-                    <a href="https://twitter.com/intent/tweet?text=I just joined the waitlist for @DomaniApp - an evening planning app that transforms your mornings! Check it out: https://www.domani-app.com">Share on Twitter</a>
-                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://www.domani-app.com">Share on LinkedIn</a>
+                    <a href="https://twitter.com/intent/tweet?text=I just joined the waitlist for @DomaniApp - an evening planning app that transforms your mornings! Check it out: ${SITE_URL}">Share on Twitter</a>
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=${SITE_URL}">Share on LinkedIn</a>
                 </div>
             </div>
         </div>
@@ -175,7 +177,7 @@ export function WaitlistWelcomeEmail({ name }: WaitlistWelcomeEmailProps) {
             </p>
             <p>
                 Questions? Reply to this email or reach out at
-                <a href="mailto:hello@domani-app.com">hello@domani-app.com</a>
+                <a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a>
             </p>
             <p style="margin-top: 20px; font-size: 12px; color: #666666;">
                 You're receiving this because you signed up for the Domani waitlist.
@@ -209,12 +211,12 @@ You wake up overwhelmed, scrambling to figure out what's important. Your morning
 The Domani Solution:
 Plan tomorrow tonight, when you're calm and reflective. Wake up with clarity and execute with focus.
 
-Visit us at: https://www.domani-app.com
+Visit us at: ${SITE_URL}
 
 Help us spread the word!
 Know someone who struggles with chaotic mornings? Share Domani with them.
 
-Questions? Reply to this email or reach out at hello@domani-app.com
+Questions? Reply to this email or reach out at ${CONTACT_EMAIL}
 
 © ${new Date().getFullYear()} Domani. Plan Tomorrow Tonight.
 

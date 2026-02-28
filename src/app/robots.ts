@@ -1,4 +1,5 @@
 import { MetadataRoute } from 'next'
+import { SITE_URL } from '@/lib/config/site'
 
 /**
  * Robots.txt configuration for Domani
@@ -23,7 +24,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: '/', // Prevent ChatGPT browsing from accessing
       },
     ],
-    sitemap: 'https://www.domani-app.com/sitemap.xml',
-    host: 'https://www.domani-app.com',
+    sitemap: `${SITE_URL}/sitemap.xml`,
+    host: SITE_URL,
   }
 }

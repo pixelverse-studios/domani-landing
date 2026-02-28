@@ -1,6 +1,7 @@
 import { ShieldOff, ArrowLeft, Home, Lock } from 'lucide-react'
 import Link from 'next/link'
 import type { Metadata } from 'next'
+import { CONTACT_EMAIL } from '@/lib/config/site'
 
 export const metadata: Metadata = {
   title: 'Unauthorized Access',
@@ -74,7 +75,7 @@ export default function UnauthorizedPage() {
           <p className="text-sm text-gray-500">
             If you believe this is an error, please{' '}
             <a
-              href="mailto:support@domani-app.com"
+              href={`mailto:${CONTACT_EMAIL}`}
               className="font-medium text-purple-600 hover:text-purple-500"
             >
               contact support

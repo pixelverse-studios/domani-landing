@@ -7,6 +7,7 @@ import { motion } from 'framer-motion'
 import { toast } from 'sonner'
 import { useAdminUser } from '@/hooks/useAdminUser'
 import { useGoogleAuth } from '@/hooks/useGoogleAuth'
+import { CONTACT_EMAIL } from '@/lib/config/site'
 import { GoogleSignInButton } from '@/components/auth/GoogleSignInButton'
 import { OAuthDevNotice } from './oauth-dev-notice'
 import {
@@ -278,7 +279,7 @@ function AdminLoginForm() {
               <p className="text-sm text-gray-600">
                 Having trouble signing in?{' '}
                 <a
-                  href="mailto:support@domani-app.com"
+                  href={`mailto:${CONTACT_EMAIL}`}
                   className="text-primary-600 hover:text-primary-700 font-medium"
                 >
                   Contact support

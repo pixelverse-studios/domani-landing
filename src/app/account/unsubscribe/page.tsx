@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import AccountUnsubscribeForm from '@/components/AccountUnsubscribeForm'
+import { CONTACT_EMAIL } from '@/lib/config/site'
 
 export const metadata: Metadata = {
   title: 'Unsubscribe from Email Notifications | Domani',
@@ -99,8 +100,8 @@ export default async function AccountUnsubscribePage({ searchParams }: PageProps
 
         <p className="mt-8 text-center text-xs text-gray-500">
           Questions?{' '}
-          <a href="mailto:support@domani-app.com" className="underline hover:text-primary-600">
-            support@domani-app.com
+          <a href={`mailto:${CONTACT_EMAIL}`} className="underline hover:text-primary-600">
+            {CONTACT_EMAIL}
           </a>
         </p>
       </div>

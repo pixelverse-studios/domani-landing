@@ -5,10 +5,7 @@
 
 import { Metadata } from 'next'
 import { PAGE_KEYWORDS, META_TEMPLATES, TITLE_TEMPLATES } from './keywords'
-
-const SITE_URL = 'https://www.domani-app.com'
-const SITE_NAME = 'Domani'
-const TWITTER_HANDLE = '@domaniapp'
+import { SITE_URL, SITE_NAME, TWITTER_HANDLE } from '@/lib/config/site'
 
 /**
  * Base metadata configuration

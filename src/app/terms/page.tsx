@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { CONTACT_EMAIL } from '@/lib/config/site'
 
 export const metadata: Metadata = {
   title: 'Terms of Service | Domani',
@@ -90,7 +91,7 @@ export default function TermsPage() {
         </div>
 
         <p className="mt-12 text-sm text-gray-500">
-          Latest update: December 2025. Questions? Email <a href="mailto:support@domani-app.com" className="underline">support@domani-app.com</a>.
+          Latest update: December 2025. Questions? Email <a href={`mailto:${CONTACT_EMAIL}`} className="underline">{CONTACT_EMAIL}</a>.
         </p>
       </div>
     </main>

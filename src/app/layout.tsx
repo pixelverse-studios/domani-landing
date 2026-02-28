@@ -5,6 +5,7 @@ import { Toaster } from 'sonner'
 import { AuthHandler } from '@/components/auth/AuthHandler'
 import { StructuredData } from '@/components/seo/StructuredData'
 import { mergeMetadata } from '@/lib/seo/metadata'
+import { SITE_URL } from '@/lib/config/site'
 import Header from '@/components/Header'
 import { SiteBehaviourConsentGate } from '@/components/privacy/SiteBehaviourConsentGate'
 import { Footer } from '@/components/Footer'
@@ -30,7 +31,7 @@ export const metadata: Metadata = mergeMetadata({
     description: 'Transform chaotic mornings into focused execution with evening planning psychology.',
     type: 'website',
     locale: 'en_US',
-    url: 'https://www.domani-app.com',
+    url: SITE_URL,
     siteName: 'Domani',
     images: [{
       url: '/og-image.png',
