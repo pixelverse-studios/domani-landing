@@ -4,8 +4,8 @@
  */
 
 import { Organization, WebSite, SoftwareApplication, FAQPage } from 'schema-dts'
-import { testimonials, averageRating } from '@/data/testimonials'
 import { SITE_URL, SITE_NAME, CONTACT_EMAIL } from '@/lib/config/site'
+import { getAppStoreUrl, getPlayStoreUrl } from '@/lib/config/appStores'
 
 /**
  * Organization schema - Used in root layout
@@ -64,28 +64,6 @@ export function createWebsiteSchema(): WebSite {
  * Critical for app visibility in search results
  */
 export function createSoftwareApplicationSchema(): SoftwareApplication {
-  const reviewEntries = testimonials.map((testimonial) => ({
-    '@type': 'Review' as const,
-    author: {
-      '@type': 'Person' as const,
-      name: testimonial.name,
-      jobTitle: testimonial.role,
-      worksFor: {
-        '@type': 'Organization' as const,
-        name: testimonial.company,
-      },
-    },
-    datePublished: testimonial.date,
-    reviewBody: testimonial.quote,
-    name: `${testimonial.company} review`,
-    reviewRating: {
-      '@type': 'Rating' as const,
-      ratingValue: testimonial.rating.toFixed(1),
-      bestRating: '5',
-      worstRating: '1',
-    },
-  }))
-
   return {
     '@type': 'SoftwareApplication',
     '@id': `${SITE_URL}#softwareapplication`,
@@ -93,7 +71,8 @@ export function createSoftwareApplicationSchema(): SoftwareApplication {
     url: SITE_URL,
     applicationCategory: 'ProductivityApplication',
     applicationSubCategory: 'Task Management',
-    operatingSystem: 'Web, iOS, Android',
+    operatingSystem: 'iOS, Android',
+    installUrl: [getAppStoreUrl(), getPlayStoreUrl()],
     offers: {
       '@type': 'Offer',
       price: '0',
@@ -110,15 +89,6 @@ export function createSoftwareApplicationSchema(): SoftwareApplication {
       'Progress Tracking',
       'Multi-device Sync',
     ],
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: averageRating.toFixed(2),
-      reviewCount: testimonials.length,
-      ratingCount: testimonials.length,
-      bestRating: '5',
-      worstRating: '1',
-    },
-    review: reviewEntries,
   }
 }
 

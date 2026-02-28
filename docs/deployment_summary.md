@@ -168,6 +168,7 @@
 - DynamicCTA: Passes align prop to DownloadButtons component (line 168)
 - HeroSection: Updated DynamicCTA usage to include align="start" (line 61)
 - Result: Hero section download buttons now left-aligned, other pages remain centered by default
+- Fixed SoftwareApplication structured data schema to include app store install URLs and removed fabricated review data to comply with Google guidelines
 - Added OG tags, Twitter cards, and canonical URLs to legal pages (privacy, terms, security, delete-account)
 - Fixed pricing page meta description to accurately reflect lifetime payment model instead of incorrect monthly pricing
 - Migrated font loading from render-blocking CSS @import to optimized next/font/google for faster page loads
@@ -181,6 +182,11 @@
 - DEV-374: Added `export const metadata = mergeMetadata(homepageMetadata)` to src/app/page.tsx
 - DEV-374: Changed homepageMetadata title to use `{ absolute: ... }` to prevent layout template from double-appending "| Domani"
 - DEV-374: Files modified: src/app/page.tsx, src/lib/seo/metadata.ts
+- DEV-379 completed: Fixed SoftwareApplication schema in src/lib/seo/structured-data.ts
+- DEV-379: Added installUrl with TestFlight and Google Play store links from appStores config
+- DEV-379: Removed fabricated aggregateRating and review properties (testimonial data used as fake reviews)
+- DEV-379: Changed operatingSystem from "Web, iOS, Android" to "iOS, Android" (native mobile app)
+- DEV-379: Removed unused testimonials/averageRating import
 
 ## Changed URLs
 - https://www.domani-app.com/
