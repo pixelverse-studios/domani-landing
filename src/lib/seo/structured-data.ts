@@ -3,9 +3,10 @@
  * Optimized for search engine rich results and visibility
  */
 
-import { Organization, WebSite, SoftwareApplication, FAQPage } from 'schema-dts'
+import { Organization, WebSite, SoftwareApplication, FAQPage, BlogPosting } from 'schema-dts'
 import { SITE_URL, SITE_NAME, CONTACT_EMAIL } from '@/lib/config/site'
 import { getAppStoreUrl, getPlayStoreUrl } from '@/lib/config/appStores'
+import type { BlogPost } from '@/lib/blog/posts'
 
 /**
  * Organization schema - Used in root layout
@@ -93,6 +94,40 @@ export function createSoftwareApplicationSchema(): SoftwareApplication {
 }
 
 /**
+ * BlogPosting schema - Used on individual blog post pages
+ * Enables article rich results in Google search
+ */
+export function createBlogPostingSchema(post: BlogPost): BlogPosting {
+  return {
+    '@type': 'BlogPosting',
+    '@id': `${SITE_URL}/blog/${post.slug}#article`,
+    headline: post.title,
+    description: post.description,
+    datePublished: post.publishedAt,
+    dateModified: post.modifiedAt || post.publishedAt,
+    author: {
+      '@type': 'Person',
+      name: post.author,
+      url: SITE_URL,
+    },
+    publisher: {
+      '@type': 'Organization',
+      '@id': `${SITE_URL}#organization`,
+      name: SITE_NAME,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${SITE_URL}/logo.png`,
+      },
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${SITE_URL}/blog/${post.slug}`,
+    },
+    keywords: post.keywords.join(', '),
+  }
+}
+
+/**
  * FAQ Page schema - Used on FAQ page
  * Enables FAQ rich results in Google search
  */
@@ -115,7 +150,7 @@ export function createFAQPageSchema(faqs: Array<{ question: string; answer: stri
  * Helper function to safely stringify JSON-LD for script tags
  * Prevents XSS by escaping dangerous characters
  */
-export function stringifyJsonLd(data: Organization | WebSite | SoftwareApplication | FAQPage): string {
+export function stringifyJsonLd(data: Organization | WebSite | SoftwareApplication | FAQPage | BlogPosting): string {
   return JSON.stringify(
     {
       '@context': 'https://schema.org',
