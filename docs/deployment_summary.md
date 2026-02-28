@@ -168,6 +168,7 @@
 - DynamicCTA: Passes align prop to DownloadButtons component (line 168)
 - HeroSection: Updated DynamicCTA usage to include align="start" (line 61)
 - Result: Hero section download buttons now left-aligned, other pages remain centered by default
+- Added OG tags, Twitter cards, and canonical URLs to legal pages (privacy, terms, security, delete-account)
 - Fixed pricing page meta description to accurately reflect lifetime payment model instead of incorrect monthly pricing
 - Migrated font loading from render-blocking CSS @import to optimized next/font/google for faster page loads
 - Updated web manifest PWA colors from old purple branding to sage green palette
