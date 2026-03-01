@@ -193,6 +193,29 @@
 - DEV-380: Added author and modifiedAt fields to BlogPost interface in src/lib/blog/posts.ts
 - DEV-380: Rendered JSON-LD script tag in src/app/blog/[slug]/page.tsx
 - DEV-380: Schema includes headline, author, datePublished, dateModified, publisher with logo, keywords
+- PR review fixes applied across epic/dev-372 branch
+- Added dedicated SECURITY_EMAIL constant to site config (security@pixelversestudios.io)
+- Updated security page to use SECURITY_EMAIL for responsible disclosure section
+- Fixed remaining evening-* gradient colors in security, privacy, delete-account, and blog post pages
+- Fixed blog post accent colors: evening-500/10 → primary-400/10, purple-500/10 → primary-600/10
+- Changed BlogPosting author type from Person to Organization (matches "Domani Team" author)
+- Moved Inter font initialization below imports in layout.tsx for proper code organization
+- Removed redundant font-family declaration from globals.css (superseded by next/font inter.className)
+- Minified JSON-LD output (removed pretty-printing) for smaller HTML payload
+- Extended beta end date from March 1 to April 1, 2026
+- Security review completed for epic/dev-372 branch changes (no vulnerabilities found)
+- Performance review completed for epic/dev-372 branch changes (all three audited changes approved, no regressions)
+
+## Notes for internal team
+- Security audit epic/dev-372: 0 critical, 0 high, 0 medium, 0 low findings
+- SECURITY_EMAIL constant safe: rendered via React JSX text, never reaches dangerouslySetInnerHTML
+- JSON-LD XSS protection intact: .replace(/</g, '\\u003c') preserved after pretty-print removal
+- BlogPosting author Person→Organization: all fields are hardcoded static values, no injection surface
+- Full audit: docs/audits/landing/2026-02-28-17-00-00-security-review-dev-372.md
+- Non-blocking recommendation: add > and & escaping to stringifyJsonLd for belt-and-suspenders hardening
+- Performance audit epic/dev-372: 3 changes audited - font-family removal (Low, safe), JSON-LD minification (Low, ~80-120 bytes wire saving per page), Inter init move (Low, code-only)
+- Full audit: docs/audits/landing/2026-02-28-10-00-00-performance-review-dev-372.md
+- Key finding: evening-600 removal in this branch is a bug fix - that Tailwind class was undefined in config, meaning gradients using it produced no color in production
 
 ## Changed URLs
 - https://www.domani-app.com/

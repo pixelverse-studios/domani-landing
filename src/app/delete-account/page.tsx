@@ -138,7 +138,7 @@ export default function DeleteAccountPage() {
         </section>
 
         {/* Can't Access Your Account */}
-        <section className="mt-8 rounded-3xl bg-gradient-to-r from-primary-600 to-evening-600 p-8 text-white shadow-xl">
+        <section className="mt-8 rounded-3xl bg-gradient-to-r from-primary-600 to-primary-700 p-8 text-white shadow-xl">
           <h2 className="text-xl font-semibold">Can&apos;t access your account?</h2>
           <p className="mt-2 text-white/90">
             If you&apos;re locked out of your account or can&apos;t complete the in-app deletion process, we can help.

@@ -83,7 +83,7 @@ export default function PrivacyPage() {
           ))}
         </div>
 
-        <div className="mt-12 rounded-3xl bg-gradient-to-r from-primary-600 to-evening-600 p-6 text-white shadow-xl">
+        <div className="mt-12 rounded-3xl bg-gradient-to-r from-primary-600 to-primary-700 p-6 text-white shadow-xl">
           <h3 className="text-xl font-semibold">Need to talk to a human?</h3>
           <p className="mt-2 text-sm text-white/80">
             Email <a href={`mailto:${CONTACT_EMAIL}`} className="underline">{CONTACT_EMAIL}</a> or{' '}

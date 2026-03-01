@@ -1,12 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import '@/styles/globals.css'
-
-const inter = Inter({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800'],
-  display: 'swap',
-})
 import QueryProvider from '@/providers/QueryProvider'
 import { Toaster } from 'sonner'
 import { AuthHandler } from '@/components/auth/AuthHandler'
@@ -16,6 +10,12 @@ import { SITE_URL } from '@/lib/config/site'
 import Header from '@/components/Header'
 import { SiteBehaviourConsentGate } from '@/components/privacy/SiteBehaviourConsentGate'
 import { Footer } from '@/components/Footer'
+
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800'],
+  display: 'swap',
+})
 
 export const metadata: Metadata = mergeMetadata({
   title: {

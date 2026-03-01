@@ -106,7 +106,8 @@ export function createBlogPostingSchema(post: BlogPost): BlogPosting {
     datePublished: post.publishedAt,
     dateModified: post.modifiedAt || post.publishedAt,
     author: {
-      '@type': 'Person',
+      '@type': 'Organization',
+      '@id': `${SITE_URL}#organization`,
       name: post.author,
       url: SITE_URL,
     },
@@ -156,7 +157,5 @@ export function stringifyJsonLd(data: Organization | WebSite | SoftwareApplicati
       '@context': 'https://schema.org',
       ...(data as unknown as Record<string, unknown>),
     },
-    null,
-    2
   ).replace(/</g, '\\u003c')
 }

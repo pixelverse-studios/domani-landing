@@ -21,7 +21,7 @@ export const blogPosts: BlogPost[] = [
     author: 'Domani Team',
     readingTime: '7 min read',
     keywords: ['evening planning routine', 'plan tomorrow tonight', 'calm mornings'],
-    accent: 'from-primary-500/10 via-evening-500/10 to-white',
+    accent: 'from-primary-500/10 via-primary-400/10 to-white',
   },
   {
     slug: 'decision-fatigue-app',
@@ -41,7 +41,7 @@ export const blogPosts: BlogPost[] = [
     author: 'Domani Team',
     readingTime: '8 min read',
     keywords: ['sunsama alternative', 'evening planning app', 'daily planner app'],
-    accent: 'from-purple-500/10 via-primary-500/10 to-white',
+    accent: 'from-primary-600/10 via-primary-500/10 to-white',
   },
 ]
 

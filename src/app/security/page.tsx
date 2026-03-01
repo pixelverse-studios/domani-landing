@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { createPageMetadata } from '@/lib/seo/metadata'
-import { CONTACT_EMAIL } from '@/lib/config/site'
+import { CONTACT_EMAIL, SECURITY_EMAIL } from '@/lib/config/site'
 
 export const metadata: Metadata = createPageMetadata({
   title: 'Security Practices | Domani',
@@ -43,7 +43,7 @@ const practices = [
   {
     title: 'Responsible disclosure',
     description:
-      `Security researchers can report vulnerabilities to ${CONTACT_EMAIL}. We review submissions within 48 hours and coordinate fixes with the reporter.`,
+      `Security researchers can report vulnerabilities to ${SECURITY_EMAIL}. We review submissions within 48 hours and coordinate fixes with the reporter.`,
   },
 ]
 
@@ -68,7 +68,7 @@ export default function SecurityPage() {
           ))}
         </div>
 
-        <div className="mt-12 rounded-3xl bg-gradient-to-r from-evening-600 to-primary-600 p-6 text-white shadow-xl">
+        <div className="mt-12 rounded-3xl bg-gradient-to-r from-primary-600 to-primary-700 p-6 text-white shadow-xl">
           <h3 className="text-xl font-semibold">Need a security review or DPA?</h3>
           <p className="mt-2 text-sm text-white/80">
             Email <a href={`mailto:${CONTACT_EMAIL}`} className="underline">{CONTACT_EMAIL}</a> for vendor questionnaires, penetration-test results,
