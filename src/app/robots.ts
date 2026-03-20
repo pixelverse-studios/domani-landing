@@ -13,7 +13,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/', '/admin/', '/private/'],
+        disallow: ['/api/', '/admin/', '/private/', '/oauth-redirect', '/auth/', '/alt', '/dashboard', '/welcome', '/account/', '/waitlist/'],
       },
       {
         userAgent: 'GPTBot',
