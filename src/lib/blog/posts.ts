@@ -1,5 +1,10 @@
 import type { ComponentType } from 'react'
 
+export interface BlogFAQ {
+  question: string
+  answer: string
+}
+
 export interface BlogPost {
   slug: string
   title: string
@@ -10,38 +15,84 @@ export interface BlogPost {
   readingTime: string
   keywords: string[]
   accent: string
+  faqs?: BlogFAQ[]
 }
 
 export const blogPosts: BlogPost[] = [
   {
     slug: 'evening-planning-routine',
     title: 'Evening Planning Routine: The Science of Waking Up Ready',
-    description: 'A relaxed 15-minute nightly check-in that locks in tomorrow’s wins and lets you wake up ready.',
+    description: 'A relaxed 15-minute nightly routine backed by decision fatigue research. Plan tomorrow tonight and wake up with clarity instead of chaos.',
     publishedAt: '2025-01-11',
+    modifiedAt: '2026-03-21',
     author: 'Domani Team',
-    readingTime: '7 min read',
-    keywords: ['evening planning routine', 'plan tomorrow tonight', 'calm mornings'],
+    readingTime: '8 min read',
+    keywords: ['evening planning routine', 'plan tomorrow tonight', 'calm mornings', 'night before planning', 'evening routine for productivity', 'reduce morning decision fatigue'],
     accent: 'from-primary-500/10 via-primary-400/10 to-white',
+    faqs: [
+      {
+        question: 'How long does an evening planning routine take?',
+        answer: 'Most people spend 10 to 15 minutes on their evening planning routine. The key is consistency, not duration. A short nightly check-in where you review the day, pick your top priorities for tomorrow, and lock your plan is more effective than an elaborate hour-long session.',
+      },
+      {
+        question: 'What is the best time to do evening planning?',
+        answer: 'The ideal time is 30 to 60 minutes before you want to wind down for sleep. This gives your brain time to offload open loops without the planning session itself keeping you awake. Many people pair it with an existing habit like making tea or journaling.',
+      },
+      {
+        question: 'Does planning at night actually help you sleep better?',
+        answer: 'Research published in the Journal of Experimental Psychology found that writing a specific to-do list for the next day helped participants fall asleep significantly faster than journaling about completed tasks. Offloading tomorrow\'s plan reduces the cognitive load that keeps your mind racing at bedtime.',
+      },
+    ],
   },
   {
     slug: 'decision-fatigue-app',
     title: 'Decision Fatigue App Playbook: Remove Morning Overwhelm',
-    description: 'Tame morning thrash with simple nightly habits—capture, pick three tasks, lock the plan.',
+    description: 'Decision fatigue drains your willpower before lunch. Learn the psychology behind it and how shifting decisions to the evening can transform your mornings.',
     publishedAt: '2025-01-12',
+    modifiedAt: '2026-03-21',
     author: 'Domani Team',
-    readingTime: '6 min read',
-    keywords: ['decision fatigue app', 'most important task', 'productivity psychology'],
+    readingTime: '8 min read',
+    keywords: ['decision fatigue app', 'most important task', 'productivity psychology', 'morning decision fatigue', 'reduce morning overwhelm', 'willpower depletion'],
     accent: 'from-amber-500/10 via-primary-500/10 to-white',
+    faqs: [
+      {
+        question: 'What is decision fatigue and how does it affect productivity?',
+        answer: 'Decision fatigue is the deteriorating quality of decisions after a long session of decision-making. Research by social psychologist Roy Baumeister showed that willpower draws from a finite daily reserve. Each decision you make in the morning — what to wear, what to eat, what to work on first — depletes that reserve, leaving less mental energy for the work that actually matters.',
+      },
+      {
+        question: 'How many decisions does the average person make per day?',
+        answer: 'Various studies estimate that adults make around 35,000 decisions per day, though many are unconscious. The problem is that your most important work decisions compete with trivial ones for the same cognitive resources. By pre-deciding your top priorities the night before, you remove dozens of morning decisions and preserve willpower for execution.',
+      },
+      {
+        question: 'Can an app really help with decision fatigue?',
+        answer: 'An app cannot eliminate decision fatigue, but it can reduce the number of decisions you face each morning. Apps like Domani use structured evening planning — a 3 to 6 task limit, energy-based scheduling, and a plan lock feature — to move planning decisions to the evening when you are calm, so mornings become about execution rather than deliberation.',
+      },
+    ],
   },
   {
     slug: 'sunsama-alternative',
     title: 'Sunsama Alternative: Domani for Evening-First Planning',
-    description: 'See how an evening-first flow compares to Sunsama when you want calm, press-play mornings.',
+    description: 'Comparing Sunsama and Domani side by side — pricing, planning philosophy, and features. See why evening-first planning delivers calmer mornings.',
     publishedAt: '2025-01-13',
+    modifiedAt: '2026-03-21',
     author: 'Domani Team',
-    readingTime: '8 min read',
-    keywords: ['sunsama alternative', 'evening planning app', 'daily planner app'],
+    readingTime: '9 min read',
+    keywords: ['sunsama alternative', 'evening planning app', 'daily planner app', 'sunsama vs domani', 'sunsama pricing', 'best daily planner 2026'],
     accent: 'from-primary-600/10 via-primary-500/10 to-white',
+    faqs: [
+      {
+        question: 'How much does Sunsama cost compared to Domani?',
+        answer: 'Sunsama costs $20 per month ($240 per year) with no free tier — only a 14-day trial. Domani offers a 14-day free trial followed by a one-time lifetime payment of $34.99 (currently $9.99 during the early adopter period). Over one year, Sunsama costs roughly 7 times more than Domani\'s lifetime price.',
+      },
+      {
+        question: 'What is the main difference between Sunsama and Domani?',
+        answer: 'The core difference is when you plan. Sunsama is built around morning planning — you start each day by pulling tasks and time-blocking your calendar. Domani is built around evening planning — you plan tomorrow tonight when you are calm, lock your plan, and wake up ready to execute. This means Domani preserves your morning mental energy for doing the work rather than deciding what to do.',
+      },
+      {
+        question: 'Can I switch from Sunsama to Domani easily?',
+        answer: 'Yes. Since Domani focuses on just three to six daily tasks, you can recreate your key commitments in a few minutes. The bigger shift is the habit change: instead of planning at 8am, you plan at 9pm. Most people find the transition takes about a week. Start by doing both in parallel — your Sunsama morning routine plus a quick Domani evening plan — then drop the morning session once the evening habit sticks.',
+      },
+    ],
   },
 ]
 
