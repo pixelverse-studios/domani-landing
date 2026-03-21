@@ -85,7 +85,7 @@ export const pricingMetadata: Metadata = {
     locale: 'en_US',
     url: `${SITE_URL}/pricing`,
     siteName: SITE_NAME,
-    title: 'Pricing - Lifetime Access | Domani',
+    title: 'Domani Pricing - Free 14-Day Trial, Then Lifetime Access',
     description: META_TEMPLATES.pricing,
     images: [
       {
@@ -100,7 +100,7 @@ export const pricingMetadata: Metadata = {
     card: 'summary_large_image',
     site: TWITTER_HANDLE,
     creator: TWITTER_HANDLE,
-    title: 'Pricing - Lifetime Access | Domani',
+    title: 'Domani Pricing - Free 14-Day Trial, Then Lifetime Access',
     description: META_TEMPLATES.pricing,
     images: [`${SITE_URL}/og-pricing.png`],
   },
@@ -121,7 +121,7 @@ export const aboutMetadata: Metadata = {
     locale: 'en_US',
     url: `${SITE_URL}/about`,
     siteName: SITE_NAME,
-    title: 'About Domani - The Science of Evening Planning',
+    title: 'About Domani - Why Evening Planning Works Better For You',
     description: META_TEMPLATES.about,
     images: [
       {
@@ -136,7 +136,7 @@ export const aboutMetadata: Metadata = {
     card: 'summary_large_image',
     site: TWITTER_HANDLE,
     creator: TWITTER_HANDLE,
-    title: 'About Domani - The Science of Evening Planning',
+    title: 'About Domani - Why Evening Planning Works Better For You',
     description: META_TEMPLATES.about,
     images: [`${SITE_URL}/og-about.png`],
   },
@@ -157,7 +157,7 @@ export const faqMetadata: Metadata = {
     locale: 'en_US',
     url: `${SITE_URL}/faq`,
     siteName: SITE_NAME,
-    title: 'Frequently Asked Questions - Evening Planning Guide | Domani',
+    title: 'Evening Planning FAQ - Common Questions About Domani',
     description: META_TEMPLATES.faq,
     images: [
       {
@@ -172,7 +172,7 @@ export const faqMetadata: Metadata = {
     card: 'summary_large_image',
     site: TWITTER_HANDLE,
     creator: TWITTER_HANDLE,
-    title: 'FAQ - Evening Planning Guide | Domani',
+    title: 'Evening Planning FAQ - Common Questions About Domani',
     description: META_TEMPLATES.faq,
     images: [`${SITE_URL}/og-faq.png`],
   },
