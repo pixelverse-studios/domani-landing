@@ -115,7 +115,37 @@ export function MITSpotlight() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-100px' }}
-              transition={{ duration: 0.5, delay: 0.3 }}
+              transition={{ duration: 0.5, delay: 0.25 }}
+              className="mb-6 space-y-4"
+            >
+              <div>
+                <h3 className="mb-1.5 text-base font-semibold text-gray-900">
+                  Reduce Morning Decision Fatigue
+                </h3>
+                <p className="text-sm text-gray-600">
+                  Research shows we make thousands of decisions a day, and each one drains mental
+                  energy. By choosing your most important task the night before, you skip the
+                  morning debate entirely. Your daily planner is already set — just open it and go.
+                </p>
+              </div>
+              <div>
+                <h3 className="mb-1.5 text-base font-semibold text-gray-900">
+                  One Priority, Not Twenty
+                </h3>
+                <p className="text-sm text-gray-600">
+                  Most task management apps encourage long lists. Domani does the opposite. By
+                  spotlighting a single high-priority task, you get the clarity that traditional
+                  to-do lists can&apos;t provide. It&apos;s a simpler approach to planning your
+                  morning routine — and it works.
+                </p>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-100px' }}
+              transition={{ duration: 0.5, delay: 0.35 }}
               className="flex flex-wrap justify-center gap-4 text-sm text-gray-500  lg:justify-start"
             >
               <span className="flex items-center gap-2">
