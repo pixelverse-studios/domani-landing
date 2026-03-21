@@ -4,8 +4,8 @@ import { createPageMetadata } from '@/lib/seo/metadata'
 import { CONTACT_EMAIL } from '@/lib/config/site'
 
 export const metadata: Metadata = createPageMetadata({
-  title: 'Privacy Policy | Domani',
-  description: 'Learn how Domani collects, uses, and protects your data across the web and mobile experience.',
+  title: 'Privacy Policy - How Domani Protects Your Data',
+  description: 'Learn how Domani collects, uses, and protects your personal data across web, iOS, and Android. We value transparency and keep your planning data private.',
   path: '/privacy',
 })
 

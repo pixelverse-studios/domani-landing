@@ -50,7 +50,7 @@ export default function HeroSection({
               data-hero-copy="headline"
               className="mt-6 text-4xl font-bold leading-tight text-gray-900  sm:text-5xl md:text-6xl"
             >
-              Plan Tomorrow, Tonight
+              The Evening Planning App That Owns Your Mornings
             </h1>
 
             <p data-hero-motion className="mt-6 text-lg text-gray-600  sm:text-xl lg:max-w-2xl">
