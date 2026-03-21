@@ -115,17 +115,48 @@ export function PlanLockSpotlight() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="mb-6 text-lg text-gray-600 "
             >
-              Planning the night before helps you start the day with clarity instead of hesitation.
-              When morning arrives, there&apos;s no need to second-guess or debate — you already know
-              what you intended to do. Domani supports execution by helping you trust the decisions
-              you made while calm and clear-headed.
+              Whether you&apos;re prepping for a morning shift, a packed class schedule, or a day
+              of back-to-back errands — planning the night before means you wake up ready instead
+              of reactive. No second-guessing, no debating. You already decided what matters while
+              you were calm and clear-headed.
             </motion.p>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-100px' }}
-              transition={{ duration: 0.5, delay: 0.3 }}
+              transition={{ duration: 0.5, delay: 0.25 }}
+              className="mb-6 space-y-4"
+            >
+              <div>
+                <h3 className="mb-1.5 text-base font-semibold text-gray-900">
+                  Lock Your Plan, Free Your Mind
+                </h3>
+                <p className="text-sm text-gray-600">
+                  Once you finalize tomorrow&apos;s tasks, Domani encourages you to commit. No
+                  midnight edits, no 6 AM reshuffling. This simple boundary turns your evening
+                  planning session into a promise to yourself — and gives your brain permission to
+                  stop worrying and rest.
+                </p>
+              </div>
+              <div>
+                <h3 className="mb-1.5 text-base font-semibold text-gray-900">
+                  Build a Consistent Evening Planning Routine
+                </h3>
+                <p className="text-sm text-gray-600">
+                  The best morning routine starts the night before. Spending 10 minutes each
+                  evening reviewing your day and setting tomorrow&apos;s priorities creates a habit
+                  that compounds over time. Within weeks, planning becomes automatic — and your
+                  mornings feel completely different.
+                </p>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-100px' }}
+              transition={{ duration: 0.5, delay: 0.35 }}
               className="flex flex-wrap justify-center gap-4 text-sm text-gray-500  lg:justify-start"
             >
               <span className="flex items-center gap-2">

@@ -108,7 +108,7 @@ export function createBlogPostingSchema(post: BlogPost): BlogPosting {
     author: {
       '@type': 'Organization',
       '@id': `${SITE_URL}#organization`,
-      name: post.author,
+      name: post.author.name,
       url: SITE_URL,
     },
     publisher: {

@@ -259,11 +259,11 @@ export function PricingContent({ plan, faqs, testimonials, comparison }: Pricing
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
                 <span className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent">
-                  Own Your Mornings,
+                  Domani Pricing:
                 </span>
                 <br />
                 <span className="bg-gradient-to-r from-primary-600 via-primary-600 to-primary-600 bg-clip-text text-transparent">
-                  Forever
+                  Free Trial, Then Yours Forever
                 </span>
               </h1>
 
