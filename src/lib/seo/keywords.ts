@@ -149,8 +149,8 @@ export const META_TEMPLATES = {
 export const TITLE_TEMPLATES = {
   homepage: 'Domani - Plan Tomorrow Tonight, Wake Up Ready to Execute',
   pricing: 'Domani Pricing - Free 14-Day Trial, Then Lifetime Access',
-  about: 'About Domani - Why Evening Planning Works Better',
-  faq: 'Evening Planning FAQ - Questions About Domani',
+  about: 'About Domani - Why Evening Planning Works Better For You',
+  faq: 'Evening Planning FAQ - Common Questions About Domani',
   default: (pageTitle: string) => `${pageTitle} | Domani`,
 } as const
 

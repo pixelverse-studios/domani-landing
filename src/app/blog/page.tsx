@@ -4,7 +4,7 @@ import { BlogCard } from '@/components/blog/BlogCard'
 import { blogPosts } from '@/lib/blog/posts'
 
 export const metadata: Metadata = {
-  title: 'Domani Blog - Evening Planning Tips & Guides',
+  title: 'Domani Blog - Evening Planning Tips, Guides & Research',
   description:
     'Friendly guides on evening planning, beating decision fatigue, and choosing the right daily planning tools so you can plan tomorrow tonight.',
 }

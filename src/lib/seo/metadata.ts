@@ -121,7 +121,7 @@ export const aboutMetadata: Metadata = {
     locale: 'en_US',
     url: `${SITE_URL}/about`,
     siteName: SITE_NAME,
-    title: 'About Domani - Why Evening Planning Works Better',
+    title: 'About Domani - Why Evening Planning Works Better For You',
     description: META_TEMPLATES.about,
     images: [
       {
@@ -136,7 +136,7 @@ export const aboutMetadata: Metadata = {
     card: 'summary_large_image',
     site: TWITTER_HANDLE,
     creator: TWITTER_HANDLE,
-    title: 'About Domani - Why Evening Planning Works Better',
+    title: 'About Domani - Why Evening Planning Works Better For You',
     description: META_TEMPLATES.about,
     images: [`${SITE_URL}/og-about.png`],
   },
@@ -157,7 +157,7 @@ export const faqMetadata: Metadata = {
     locale: 'en_US',
     url: `${SITE_URL}/faq`,
     siteName: SITE_NAME,
-    title: 'Evening Planning FAQ - Questions About Domani',
+    title: 'Evening Planning FAQ - Common Questions About Domani',
     description: META_TEMPLATES.faq,
     images: [
       {
@@ -172,7 +172,7 @@ export const faqMetadata: Metadata = {
     card: 'summary_large_image',
     site: TWITTER_HANDLE,
     creator: TWITTER_HANDLE,
-    title: 'Evening Planning FAQ - Questions About Domani',
+    title: 'Evening Planning FAQ - Common Questions About Domani',
     description: META_TEMPLATES.faq,
     images: [`${SITE_URL}/og-faq.png`],
   },
