@@ -122,28 +122,35 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </div>
         </article>
 
-        <aside className="w-full space-y-8 rounded-3xl border border-white/40 bg-white/70 p-6 shadow-xl backdrop-blur lg:hidden">
-          <div>
-            <h2 className="text-base font-semibold text-gray-900">Related reading</h2>
-            <div className="mt-4 space-y-4">
+        <aside className="w-full space-y-5 lg:hidden">
+          <div className="rounded-2xl border border-gray-100/80 bg-white/95 p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.06)] backdrop-blur-sm">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-primary-600">
+              Related reading
+            </p>
+            <div className="mt-4 space-y-1">
               {relatedPosts.map((related) => (
-                <Link key={related.slug} href={`/blog/${related.slug}`} className="block rounded-2xl border border-gray-100 px-4 py-3 text-sm text-gray-700 transition hover:border-primary-200 hover:text-primary-600">
-                  <p className="font-semibold">{related.title}</p>
-                  <p className="mt-1 text-xs text-gray-500">{related.description}</p>
+                <Link key={related.slug} href={`/blog/${related.slug}`} className="group -mx-2 block rounded-xl px-3 py-2.5 transition-all duration-200 hover:bg-primary-50/60">
+                  <p className="text-[13px] font-semibold leading-snug text-gray-800 transition-colors group-hover:text-primary-700">{related.title}</p>
+                  <p className="mt-1 line-clamp-2 text-[12px] leading-relaxed text-gray-400 transition-colors group-hover:text-gray-500">{related.description}</p>
                 </Link>
               ))}
             </div>
           </div>
-          <div className="rounded-2xl bg-gradient-to-r from-primary-600 to-primary-700 p-5 text-white shadow-lg">
-            <p className="text-sm font-semibold uppercase tracking-[0.3em]">Ready to plan tonight?</p>
-            <p className="mt-3 text-lg font-semibold">Try Domani free</p>
-            <p className="mt-1 text-sm text-white/80">The evening planning app that inspired this article. Free during public beta.</p>
-            <Link
-              href="/"
-              className="mt-4 inline-flex items-center justify-center rounded-xl bg-white/10 px-5 py-2 text-sm font-semibold text-white transition hover:bg-white/20"
-            >
-              Get started
-            </Link>
+          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary-700 via-primary-600 to-primary-800 p-5 shadow-[0_4px_16px_rgba(90,119,101,0.3)]">
+            <div className="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-white/5" />
+            <div className="absolute -bottom-4 -left-4 h-20 w-20 rounded-full bg-white/5" />
+            <div className="relative">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-white/60">Ready to plan tonight?</p>
+              <p className="mt-2.5 text-[17px] font-bold leading-tight text-white">Try Domani free</p>
+              <p className="mt-1.5 text-[13px] leading-relaxed text-white/70">The evening planning app behind this article. Free during public beta.</p>
+              <Link
+                href="/"
+                className="group mt-4 inline-flex items-center gap-1.5 rounded-lg bg-white px-4 py-2 text-[13px] font-semibold text-primary-700 shadow-sm transition-all duration-200 hover:shadow-md hover:gap-2.5"
+              >
+                Get started
+                <svg className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+              </Link>
+            </div>
           </div>
         </aside>
         <FloatingSidebar relatedPosts={relatedPosts} />
