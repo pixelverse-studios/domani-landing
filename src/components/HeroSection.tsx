@@ -20,7 +20,7 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({
-  subheadline = "Make better decisions when you're calm, not rushed. Execute with clarity.",
+  subheadline = "Plan tonight when you're calm, not tomorrow when you're rushed. Start your day with a clear plan.",
 }: HeroSectionProps) {
   return (
     <section
