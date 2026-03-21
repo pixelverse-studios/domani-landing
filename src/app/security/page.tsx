@@ -4,8 +4,8 @@ import { createPageMetadata } from '@/lib/seo/metadata'
 import { CONTACT_EMAIL, SECURITY_EMAIL } from '@/lib/config/site'
 
 export const metadata: Metadata = createPageMetadata({
-  title: 'Security Practices | Domani',
-  description: 'See how Domani safeguards customer data with encryption, monitoring, and incident response.',
+  title: 'Security - How Domani Keeps Your Data Safe',
+  description: 'See how Domani safeguards your data with AES-256 encryption, SOC 2 compliant hosting, secure authentication, real-time monitoring, and incident response.',
   path: '/security',
 })
 

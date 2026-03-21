@@ -3,8 +3,8 @@ import { createPageMetadata } from '@/lib/seo/metadata'
 import { CONTACT_EMAIL } from '@/lib/config/site'
 
 export const metadata: Metadata = createPageMetadata({
-  title: 'Terms of Service | Domani',
-  description: "Review the rules for using Domani's evening planning platform, purchases, and content.",
+  title: 'Terms of Service - Domani Evening Planning App',
+  description: "Review the terms of service for Domani's evening planning app, including lifetime purchase terms, account usage, content guidelines, and your rights as a user.",
   path: '/terms',
 })
 

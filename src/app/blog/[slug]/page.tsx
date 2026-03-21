@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation'
 import { BlogCard } from '@/components/blog/BlogCard'
 import { blogPosts, getPostBySlug, mdxModules } from '@/lib/blog/posts'
 import { SITE_URL } from '@/lib/config/site'
-import { createBlogPostingSchema, stringifyJsonLd } from '@/lib/seo/structured-data'
+import { createBlogPostingSchema, createFAQPageSchema, stringifyJsonLd } from '@/lib/seo/structured-data'
 import { FloatingSidebar } from '@/components/blog/FloatingSidebar'
 
 interface BlogPostPageProps {
@@ -30,6 +30,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     title: `${post.title} | Domani Blog`,
     description: post.description,
     keywords: post.keywords,
+    authors: [{ name: post.author.name }],
     alternates: {
       canonical,
     },
@@ -39,6 +40,9 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       url: canonical,
       type: 'article',
       tags: post.keywords,
+      authors: [post.author.name],
+      publishedTime: post.publishedAt,
+      modifiedTime: post.modifiedAt,
     },
     twitter: {
       card: 'summary_large_image',
@@ -65,6 +69,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const relatedPosts = blogPosts.filter((item) => item.slug !== post.slug)
 
   const blogPostingSchema = createBlogPostingSchema(post)
+  const faqSchema = post.faqs?.length ? createFAQPageSchema(post.faqs) : null
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-white via-primary-50/30 to-primary-50/5 pb-24 pt-32">
@@ -72,6 +77,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: stringifyJsonLd(blogPostingSchema) }}
       />
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: stringifyJsonLd(faqSchema) }}
+        />
+      )}
       <div className="mx-auto flex flex-col gap-12 px-4 sm:px-6 lg:grid lg:grid-cols-[minmax(0,1fr)_340px] lg:items-start lg:gap-16 lg:px-8">
         <article className="w-full" data-blog-article>
           <Link
@@ -87,11 +98,25 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           <h1 className="mt-6 text-4xl font-bold text-gray-900">{post.title}</h1>
           <p className="mt-4 text-lg text-gray-600">{post.description}</p>
 
-          <div className="mt-6 flex flex-wrap gap-4 text-sm text-gray-500">
+          <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-gray-500">
+            <div className="flex items-center gap-2">
+              <img src={post.author.avatar} alt={post.author.name} className="h-6 w-6 rounded-full" />
+              <span className="font-medium text-gray-700">{post.author.name}</span>
+            </div>
+            <span className="h-1 w-1 rounded-full bg-gray-300" aria-hidden />
             <span>{new Date(post.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
             <span className="h-1 w-1 rounded-full bg-gray-300" aria-hidden />
             <span>{post.readingTime}</span>
           </div>
+          {post.categories.length > 0 && (
+            <div className="mt-3 flex flex-wrap gap-2">
+              {post.categories.map((cat) => (
+                <span key={cat} className="rounded-full bg-primary-50 px-3 py-1 text-xs font-medium text-primary-700">
+                  {cat}
+                </span>
+              ))}
+            </div>
+          )}
 
           <div className="prose prose-lg mt-10 max-w-none text-gray-700 prose-headings:text-gray-900 prose-strong:text-gray-900 prose-em:text-gray-900 prose-li:text-gray-700 prose-a:text-primary-600">
             <MDXContent />

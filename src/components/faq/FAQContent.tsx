@@ -45,7 +45,7 @@ export function FAQContent({ faqs }: FAQContentProps) {
       <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="max-w-3xl mx-auto text-center mb-16">
         <motion.h1 variants={fadeInUp} className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
           <span className="bg-gradient-to-r from-primary-600 to-primary-700 bg-clip-text text-transparent">
-            Frequently Asked Questions
+            Evening Planning FAQ
           </span>
         </motion.h1>
         <motion.p

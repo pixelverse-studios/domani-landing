@@ -4,8 +4,8 @@ import { createPageMetadata } from '@/lib/seo/metadata'
 import { CONTACT_EMAIL } from '@/lib/config/site'
 
 export const metadata: Metadata = createPageMetadata({
-  title: 'Delete Your Account | Domani',
-  description: 'Learn how to delete your Domani account and what happens to your data. Google Play and App Store compliant account deletion process.',
+  title: 'Delete Your Domani Account - Data Removal Guide',
+  description: 'Learn how to delete your Domani account and what happens to your data. Step-by-step process compliant with Google Play and App Store requirements.',
   path: '/delete-account',
 })
 

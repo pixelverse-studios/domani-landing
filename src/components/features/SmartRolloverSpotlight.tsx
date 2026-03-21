@@ -114,17 +114,48 @@ export function SmartRolloverSpotlight() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="mb-6 text-lg text-gray-600 "
             >
-              Didn&apos;t finish everything yesterday? No problem. When you open Domani the next
-              morning, you&apos;ll see your incomplete tasks and choose which ones to carry forward.
-              No automatic task pile-ups, no guilt-inducing backlogs — just a simple prompt that
-              lets you intentionally decide what still matters today.
+              Life happens — the meeting ran long, the kids got sick, or you just ran out of
+              energy. When you open Domani the next morning, you&apos;ll see your incomplete tasks
+              and choose which ones to carry forward. No automatic pile-ups, no guilt — just a
+              simple prompt to decide what still matters today.
             </motion.p>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-100px' }}
-              transition={{ duration: 0.5, delay: 0.3 }}
+              transition={{ duration: 0.5, delay: 0.25 }}
+              className="mb-6 space-y-4"
+            >
+              <div>
+                <h3 className="mb-1.5 text-base font-semibold text-gray-900">
+                  No Task Debt, No Guilt
+                </h3>
+                <p className="text-sm text-gray-600">
+                  Traditional task management apps let unfinished items pile up silently, creating
+                  a backlog that weighs on you. Domani takes a different approach: incomplete tasks
+                  surface as a conscious choice, not an automatic rollover. You decide what still
+                  deserves your time — and what you can let go.
+                </p>
+              </div>
+              <div>
+                <h3 className="mb-1.5 text-base font-semibold text-gray-900">
+                  A Daily Planner That Adapts to Real Life
+                </h3>
+                <p className="text-sm text-gray-600">
+                  Plans change. Priorities shift. Smart Rollover is designed for how life actually
+                  works — not a perfect schedule, but an intentional one. Whether you finished
+                  three out of five tasks or had to scrap the whole list, tomorrow is always a
+                  fresh start with yesterday&apos;s context built in.
+                </p>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-100px' }}
+              transition={{ duration: 0.5, delay: 0.35 }}
               className="flex flex-wrap justify-center gap-4 text-sm text-gray-500  lg:justify-start"
             >
               <span className="flex items-center gap-2">

@@ -20,7 +20,7 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({
-  subheadline = "Make better decisions when you're calm, not rushed. Execute with clarity.",
+  subheadline = "Plan tonight when you're calm, not tomorrow when you're rushed. Start your day with a clear plan.",
 }: HeroSectionProps) {
   return (
     <section
@@ -50,7 +50,7 @@ export default function HeroSection({
               data-hero-copy="headline"
               className="mt-6 text-4xl font-bold leading-tight text-gray-900  sm:text-5xl md:text-6xl"
             >
-              Plan Tomorrow, Tonight
+              The Evening Planning App That Transforms Your Mornings
             </h1>
 
             <p data-hero-motion className="mt-6 text-lg text-gray-600  sm:text-xl lg:max-w-2xl">
