@@ -117,6 +117,35 @@ export const blogPosts: BlogPost[] = [
     ],
   },
   {
+    slug: 'overwhelmed-every-morning',
+    title: 'How to Stop Feeling Overwhelmed Every Morning',
+    description: 'Morning overwhelm is not a character flaw — it is a planning problem. Learn why mornings feel so stressful and how a simple evening routine can fix it.',
+    publishedAt: '2026-03-21',
+    author: BLOG_AUTHORS.domani,
+    readingTime: '10 min read',
+    keywords: ['overwhelmed every morning', 'morning anxiety', 'stressed in the morning', 'too many things to do in the morning', 'reduce morning stress', 'morning overwhelm'],
+    accent: 'from-amber-400/10 via-primary-500/10 to-white',
+    categories: ['Evening Planning', 'Productivity Science'],
+    faqs: [
+      {
+        question: 'Why do I feel so overwhelmed every morning?',
+        answer: 'Morning overwhelm typically stems from three factors: elevated cortisol upon waking, decision fatigue from an unstructured day, and attentional competition where every undone task fights for your attention simultaneously. Without a pre-made plan, your brain interprets the ambiguity as a threat, triggering stress instead of motivation.',
+      },
+      {
+        question: 'How do I stop being stressed in the morning?',
+        answer: 'The most effective single change is to plan your day the night before. A 10 to 15 minute evening routine where you pick your top priorities and commit to them eliminates the morning scramble to figure out what to do. You wake up with a clear plan instead of an open question.',
+      },
+      {
+        question: 'Does morning anxiety go away on its own?',
+        answer: 'Occasional morning stress is normal, but chronic morning overwhelm usually does not resolve without changing the underlying pattern. If you are waking up anxious because you do not know what your day holds, the fix is structural: create a plan the night before so your mornings start with clarity instead of uncertainty.',
+      },
+      {
+        question: 'How many tasks should I plan for each day?',
+        answer: 'Research on cognitive load suggests three to six tasks is the sweet spot for most people. Fewer than three and you may not feel productive. More than six and the list itself becomes overwhelming. Start with three — your Most Important Task plus two supporting tasks — and adjust based on your capacity and schedule.',
+      },
+    ],
+  },
+  {
     slug: 'why-planning-at-night-is-better',
     title: 'Why Planning at Night Is Better Than Planning in the Morning',
     description: 'Evening planning outperforms morning planning according to decision fatigue research. Here are five science-backed reasons to plan your day the night before.',
@@ -157,5 +186,6 @@ export const mdxModules: Record<string, MDXModule> = {
   'evening-planning-routine': () => import('../../../content/blog/evening-planning-routine.mdx'),
   'decision-fatigue-app': () => import('../../../content/blog/decision-fatigue-app.mdx'),
   'sunsama-alternative': () => import('../../../content/blog/sunsama-alternative.mdx'),
+  'overwhelmed-every-morning': () => import('../../../content/blog/overwhelmed-every-morning.mdx'),
   'why-planning-at-night-is-better': () => import('../../../content/blog/why-planning-at-night-is-better.mdx'),
 }
