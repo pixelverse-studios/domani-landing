@@ -4,8 +4,8 @@ import Image, { StaticImageData } from 'next/image'
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Calendar, BarChart3, Signal, Target, Brain, Sparkles, type LucideIcon } from 'lucide-react'
-import domaniApp from '@/media/Domani-app.png'
-import analyticsMockup from '@/media/Analytics.png'
+import todayScreen from '@/media/Today Screen.png'
+import progressScreen from '@/media/Progress Screen.png'
 import { cn } from '@/lib/utils'
 import DynamicCTA from '@/components/DynamicCTA'
 
@@ -28,7 +28,7 @@ const screens: ScreenData[] = [
     id: 'today',
     title: 'Today View',
     subtitle: 'Your daily view for staying focused on what matters',
-    image: domaniApp,
+    image: todayScreen,
     features: [
       { icon: Target, title: 'Priority Focus', description: 'See your most important task front and center' },
       { icon: Signal, title: 'Priority Signals', description: 'Importance is obvious at a glance' },
@@ -39,7 +39,7 @@ const screens: ScreenData[] = [
     id: 'analytics',
     title: 'Analytics Dashboard',
     subtitle: 'Track your productivity patterns and improve',
-    image: analyticsMockup,
+    image: progressScreen,
     features: [
       { icon: BarChart3, title: 'Completion Rates', description: 'See your task completion trends over time' },
       { icon: Brain, title: 'Productivity Insights', description: 'Discover your peak performance patterns' },
