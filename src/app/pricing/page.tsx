@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import { pricingMetadata } from '@/lib/seo/metadata'
 import Header from '@/components/Header'
 import { PricingContent } from '@/components/pricing/PricingContent'
+import { StructuredData } from '@/components/seo/StructuredData'
 import {
   Moon,
   Smartphone,
@@ -128,6 +129,7 @@ export default function PricingPage() {
 
   return (
     <>
+      <StructuredData type="faq" faqs={faqs} />
       <Header />
       <main className="min-h-screen pt-24">
         <PricingContent plan={plan} faqs={faqs} testimonials={testimonials} comparison={comparison} />
