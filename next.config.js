@@ -3,6 +3,7 @@ const createMDX = require('@next/mdx')
 const withMDX = createMDX({
   extension: /\.mdx?$/,
   options: {
+    remarkPlugins: [['remark-gfm']],
     providerImportSource: '@/mdx-components',
   },
 })

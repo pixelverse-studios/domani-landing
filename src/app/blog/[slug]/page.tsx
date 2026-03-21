@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { BlogCard } from '@/components/blog/BlogCard'
 import { blogPosts, getPostBySlug, mdxModules } from '@/lib/blog/posts'
 import { SITE_URL } from '@/lib/config/site'
 import { createBlogPostingSchema, createFAQPageSchema, stringifyJsonLd } from '@/lib/seo/structured-data'
@@ -137,27 +136,19 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </div>
           <div className="rounded-2xl bg-gradient-to-r from-primary-600 to-primary-700 p-5 text-white shadow-lg">
             <p className="text-sm font-semibold uppercase tracking-[0.3em]">Ready to plan tonight?</p>
-            <p className="mt-3 text-lg font-semibold">Join the Domani waitlist</p>
-            <p className="mt-1 text-sm text-white/80">Try the evening planning app that inspired this article. Now in public beta.</p>
+            <p className="mt-3 text-lg font-semibold">Try Domani free</p>
+            <p className="mt-1 text-sm text-white/80">The evening planning app that inspired this article. Free during public beta.</p>
             <Link
-              href="/#inline-email"
+              href="/"
               className="mt-4 inline-flex items-center justify-center rounded-xl bg-white/10 px-5 py-2 text-sm font-semibold text-white transition hover:bg-white/20"
             >
-              Get notified
+              Get started
             </Link>
           </div>
         </aside>
         <FloatingSidebar relatedPosts={relatedPosts} />
       </div>
 
-      <section className="container mx-auto mt-16 px-4 sm:px-6 lg:px-8">
-        <h2 className="text-2xl font-semibold text-gray-900">Keep exploring</h2>
-        <div className="mt-6 grid gap-6 lg:grid-cols-2">
-          {relatedPosts.slice(0, 2).map((post) => (
-            <BlogCard key={post.slug} post={post} />
-          ))}
-        </div>
-      </section>
     </main>
   )
 }

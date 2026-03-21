@@ -41,12 +41,12 @@ export function FloatingSidebar({ relatedPosts }: FloatingSidebarProps) {
   return (
     <div
       className={cn(
-        'pointer-events-none fixed top-24 z-30 hidden w-[320px] transition-all duration-300 lg:block',
+        'pointer-events-none fixed top-24 z-30 hidden w-[320px] max-h-[calc(100vh-6rem-2rem)] transition-all duration-300 lg:block',
         isVisible ? 'opacity-100 translate-y-0' : 'pointer-events-none opacity-0 translate-y-3'
       )}
       style={{ left: offsetLeft }}
     >
-      <div className="pointer-events-auto space-y-8 rounded-3xl border border-white/40 bg-white/90 p-6 shadow-2xl">
+      <div className="pointer-events-auto max-h-[calc(100vh-6rem-2rem)] space-y-8 overflow-y-auto rounded-3xl border border-white/40 bg-white/90 p-6 shadow-2xl">
         <div>
           <h2 className="text-base font-semibold text-gray-900">Related reading</h2>
           <div className="mt-4 space-y-4">
@@ -64,13 +64,13 @@ export function FloatingSidebar({ relatedPosts }: FloatingSidebarProps) {
         </div>
         <div className="rounded-2xl bg-gradient-to-r from-primary-600 to-primary-700 p-5 text-white shadow-lg">
           <p className="text-sm font-semibold uppercase tracking-[0.3em]">Ready to plan tonight?</p>
-          <p className="mt-3 text-lg font-semibold">Join the Domani waitlist</p>
-          <p className="mt-1 text-sm text-white/80">Try the evening planning app that inspired this article. Now in public beta.</p>
+          <p className="mt-3 text-lg font-semibold">Try Domani free</p>
+          <p className="mt-1 text-sm text-white/80">The evening planning app that inspired this article. Free during public beta.</p>
           <Link
-            href="/#inline-email"
+            href="/"
             className="mt-4 inline-flex items-center justify-center rounded-xl bg-white/10 px-5 py-2 text-sm font-semibold text-white transition hover:bg-white/20"
           >
-            Get notified
+            Get started
           </Link>
         </div>
       </div>
