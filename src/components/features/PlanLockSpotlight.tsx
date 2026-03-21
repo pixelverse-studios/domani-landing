@@ -125,7 +125,38 @@ export function PlanLockSpotlight() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-100px' }}
-              transition={{ duration: 0.5, delay: 0.3 }}
+              transition={{ duration: 0.5, delay: 0.25 }}
+              className="mb-6 space-y-4"
+            >
+              <div>
+                <h3 className="mb-1.5 text-base font-semibold text-gray-900">
+                  Lock Your Plan, Free Your Mind
+                </h3>
+                <p className="text-sm text-gray-600">
+                  Once you finalize tomorrow&apos;s tasks, Domani encourages you to commit. No
+                  midnight edits, no 6 AM reshuffling. This simple boundary turns your evening
+                  planning session into a promise to yourself — and gives your brain permission to
+                  stop worrying and rest.
+                </p>
+              </div>
+              <div>
+                <h3 className="mb-1.5 text-base font-semibold text-gray-900">
+                  Build a Consistent Evening Planning Routine
+                </h3>
+                <p className="text-sm text-gray-600">
+                  The best morning routine starts the night before. Spending 10 minutes each
+                  evening reviewing your day and setting tomorrow&apos;s priorities creates a habit
+                  that compounds over time. Within weeks, planning becomes automatic — and your
+                  mornings feel completely different.
+                </p>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-100px' }}
+              transition={{ duration: 0.5, delay: 0.35 }}
               className="flex flex-wrap justify-center gap-4 text-sm text-gray-500  lg:justify-start"
             >
               <span className="flex items-center gap-2">
