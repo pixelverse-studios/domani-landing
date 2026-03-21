@@ -5,16 +5,35 @@ export interface BlogFAQ {
   answer: string
 }
 
+export interface BlogAuthor {
+  name: string
+  bio: string
+  avatar: string
+}
+
+export const BLOG_AUTHORS: Record<string, BlogAuthor> = {
+  domani: {
+    name: 'Domani Team',
+    bio: 'The team behind the evening planning app that transforms your mornings.',
+    avatar: '/images/domani-avatar.png',
+  },
+}
+
+export type BlogCategory = 'Evening Planning' | 'Productivity Science' | 'App Comparisons'
+
+export const BLOG_CATEGORIES: BlogCategory[] = ['Evening Planning', 'Productivity Science', 'App Comparisons']
+
 export interface BlogPost {
   slug: string
   title: string
   description: string
   publishedAt: string
   modifiedAt?: string
-  author: string
+  author: BlogAuthor
   readingTime: string
   keywords: string[]
   accent: string
+  categories: BlogCategory[]
   faqs?: BlogFAQ[]
 }
 
@@ -25,10 +44,11 @@ export const blogPosts: BlogPost[] = [
     description: 'A relaxed 15-minute nightly routine backed by decision fatigue research. Plan tomorrow tonight and wake up with clarity instead of chaos.',
     publishedAt: '2025-01-11',
     modifiedAt: '2026-03-21',
-    author: 'Domani Team',
+    author: BLOG_AUTHORS.domani,
     readingTime: '8 min read',
     keywords: ['evening planning routine', 'plan tomorrow tonight', 'calm mornings', 'night before planning', 'evening routine for productivity', 'reduce morning decision fatigue'],
     accent: 'from-primary-500/10 via-primary-400/10 to-white',
+    categories: ['Evening Planning'],
     faqs: [
       {
         question: 'How long does an evening planning routine take?',
@@ -50,10 +70,11 @@ export const blogPosts: BlogPost[] = [
     description: 'Decision fatigue drains your willpower before lunch. Learn the psychology behind it and how shifting decisions to the evening can transform your mornings.',
     publishedAt: '2025-01-12',
     modifiedAt: '2026-03-21',
-    author: 'Domani Team',
+    author: BLOG_AUTHORS.domani,
     readingTime: '8 min read',
     keywords: ['decision fatigue app', 'most important task', 'productivity psychology', 'morning decision fatigue', 'reduce morning overwhelm', 'willpower depletion'],
     accent: 'from-amber-500/10 via-primary-500/10 to-white',
+    categories: ['Productivity Science', 'Evening Planning'],
     faqs: [
       {
         question: 'What is decision fatigue and how does it affect productivity?',
@@ -75,10 +96,11 @@ export const blogPosts: BlogPost[] = [
     description: 'Comparing Sunsama and Domani side by side — pricing, planning philosophy, and features. See why evening-first planning delivers calmer mornings.',
     publishedAt: '2025-01-13',
     modifiedAt: '2026-03-21',
-    author: 'Domani Team',
+    author: BLOG_AUTHORS.domani,
     readingTime: '9 min read',
     keywords: ['sunsama alternative', 'evening planning app', 'daily planner app', 'sunsama vs domani', 'sunsama pricing', 'best daily planner 2026'],
     accent: 'from-primary-600/10 via-primary-500/10 to-white',
+    categories: ['App Comparisons'],
     faqs: [
       {
         question: 'How much does Sunsama cost compared to Domani?',
@@ -99,10 +121,11 @@ export const blogPosts: BlogPost[] = [
     title: 'Why Planning at Night Is Better Than Planning in the Morning',
     description: 'Evening planning outperforms morning planning according to decision fatigue research. Here are five science-backed reasons to plan your day the night before.',
     publishedAt: '2026-03-21',
-    author: 'Domani Team',
+    author: BLOG_AUTHORS.domani,
     readingTime: '10 min read',
     keywords: ['why planning at night is better', 'evening planning routine', 'plan your day the night before', 'night before planning benefits', 'morning vs evening planning', 'decision fatigue'],
     accent: 'from-primary-500/10 via-amber-400/10 to-white',
+    categories: ['Evening Planning', 'Productivity Science'],
     faqs: [
       {
         question: 'Is planning at night better than planning in the morning?',

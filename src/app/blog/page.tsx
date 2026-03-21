@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { BlogCard } from '@/components/blog/BlogCard'
-import { blogPosts } from '@/lib/blog/posts'
+import { blogPosts, BLOG_CATEGORIES } from '@/lib/blog/posts'
+import { BlogCategoryFilter } from '@/components/blog/BlogCategoryFilter'
 
 export const metadata: Metadata = {
   title: 'Domani Blog - Evening Planning Tips, Guides & Research',
@@ -61,11 +62,7 @@ export default function BlogIndexPage() {
           ))}
         </div>
 
-        <div className="mt-20 space-y-10">
-          {blogPosts.map((post) => (
-            <BlogCard key={post.slug} post={post} />
-          ))}
-        </div>
+        <BlogCategoryFilter categories={BLOG_CATEGORIES} posts={blogPosts} />
       </section>
     </main>
   )
