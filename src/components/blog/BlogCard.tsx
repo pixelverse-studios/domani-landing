@@ -17,12 +17,26 @@ export function BlogCard({ post }: BlogCardProps) {
       <div className={`h-2 w-full bg-gradient-to-r ${post.accent}`} aria-hidden />
       <div className="flex flex-col gap-5 p-6">
         <div>
+          {post.categories.length > 0 && (
+            <div className="mb-3 flex flex-wrap gap-2">
+              {post.categories.map((cat) => (
+                <span key={cat} className="rounded-full bg-primary-50 px-3 py-1 text-xs font-medium text-primary-700">
+                  {cat}
+                </span>
+              ))}
+            </div>
+          )}
           <h2 className="text-2xl font-semibold text-gray-900 transition-colors group-hover:text-primary-600">
             <Link href={`/blog/${post.slug}`}>{post.title}</Link>
           </h2>
           <p className="mt-3 text-gray-600">{post.description}</p>
         </div>
         <div className="flex flex-wrap items-center gap-3 text-sm text-gray-500">
+          <div className="flex items-center gap-2">
+            <img src={post.author.avatar} alt={post.author.name} className="h-5 w-5 rounded-full" />
+            <span>{post.author.name}</span>
+          </div>
+          <span className="h-1 w-1 rounded-full bg-gray-300" aria-hidden />
           <span>{dateFormatter.format(new Date(post.publishedAt))}</span>
           <span className="h-1 w-1 rounded-full bg-gray-300" aria-hidden />
           <span>{post.readingTime}</span>
