@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation'
 import { BlogCard } from '@/components/blog/BlogCard'
 import { blogPosts, getPostBySlug, mdxModules } from '@/lib/blog/posts'
 import { SITE_URL } from '@/lib/config/site'
-import { createBlogPostingSchema, stringifyJsonLd } from '@/lib/seo/structured-data'
+import { createBlogPostingSchema, createFAQPageSchema, stringifyJsonLd } from '@/lib/seo/structured-data'
 import { FloatingSidebar } from '@/components/blog/FloatingSidebar'
 
 interface BlogPostPageProps {
@@ -65,6 +65,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const relatedPosts = blogPosts.filter((item) => item.slug !== post.slug)
 
   const blogPostingSchema = createBlogPostingSchema(post)
+  const faqSchema = post.faqs?.length ? createFAQPageSchema(post.faqs) : null
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-white via-primary-50/30 to-primary-50/5 pb-24 pt-32">
@@ -72,6 +73,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: stringifyJsonLd(blogPostingSchema) }}
       />
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: stringifyJsonLd(faqSchema) }}
+        />
+      )}
       <div className="mx-auto flex flex-col gap-12 px-4 sm:px-6 lg:grid lg:grid-cols-[minmax(0,1fr)_340px] lg:items-start lg:gap-16 lg:px-8">
         <article className="w-full" data-blog-article>
           <Link
