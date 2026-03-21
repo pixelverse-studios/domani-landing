@@ -105,10 +105,10 @@ export function MITSpotlight() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="mb-6 text-lg text-gray-600 "
             >
-              Domani gives you a simple way to elevate one task above the rest. By marking a task as
-              high priority, your focus becomes unmistakable. When tomorrow begins, you&apos;re not
-              deciding what matters — you&apos;re executing what you already chose. Less hesitation.
-              More momentum.
+              Whether it&apos;s a big presentation, a school pickup, or finally calling the doctor —
+              Domani lets you elevate one task above the rest. Mark it as high priority and when
+              tomorrow begins, you&apos;re not scrambling to figure out what matters. You already
+              know. Less hesitation. More momentum.
             </motion.p>
 
             <motion.div

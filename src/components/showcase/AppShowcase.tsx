@@ -27,12 +27,12 @@ const screens: ScreenData[] = [
   {
     id: 'today',
     title: 'Today View',
-    subtitle: 'Your command center for focused execution',
+    subtitle: 'Your daily view for staying focused on what matters',
     image: domaniApp,
     features: [
       { icon: Target, title: 'Priority Focus', description: 'See your most important task front and center' },
       { icon: Signal, title: 'Priority Signals', description: 'Importance is obvious at a glance' },
-      { icon: Sparkles, title: 'Morning Momentum', description: 'Start executing immediately, no decision fatigue' },
+      { icon: Sparkles, title: 'Morning Momentum', description: 'Wake up and get moving — no scrambling to figure out your day' },
     ],
   },
   {
@@ -61,7 +61,7 @@ export function AppShowcase() {
       <div className="mx-auto max-w-7xl text-center">
         <h2 className="text-4xl font-bold text-gray-900 md:text-5xl">See Domani in Action</h2>
         <p className="mx-auto mt-6 max-w-3xl text-xl text-gray-600">
-          Experience the interface everyone is using to transform their chaotic mornings into productive powerhouses.
+          See how people are turning chaotic mornings into calm, focused starts to their day.
         </p>
       </div>
       <div className="mx-auto mt-12 max-w-4xl">

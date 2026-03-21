@@ -115,10 +115,10 @@ export function PlanLockSpotlight() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="mb-6 text-lg text-gray-600 "
             >
-              Planning the night before helps you start the day with clarity instead of hesitation.
-              When morning arrives, there&apos;s no need to second-guess or debate — you already know
-              what you intended to do. Domani supports execution by helping you trust the decisions
-              you made while calm and clear-headed.
+              Whether you&apos;re prepping for a morning shift, a packed class schedule, or a day
+              of back-to-back errands — planning the night before means you wake up ready instead
+              of reactive. No second-guessing, no debating. You already decided what matters while
+              you were calm and clear-headed.
             </motion.p>
 
             <motion.div

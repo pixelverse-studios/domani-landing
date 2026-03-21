@@ -114,10 +114,10 @@ export function SmartRolloverSpotlight() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="mb-6 text-lg text-gray-600 "
             >
-              Didn&apos;t finish everything yesterday? No problem. When you open Domani the next
-              morning, you&apos;ll see your incomplete tasks and choose which ones to carry forward.
-              No automatic task pile-ups, no guilt-inducing backlogs — just a simple prompt that
-              lets you intentionally decide what still matters today.
+              Life happens — the meeting ran long, the kids got sick, or you just ran out of
+              energy. When you open Domani the next morning, you&apos;ll see your incomplete tasks
+              and choose which ones to carry forward. No automatic pile-ups, no guilt — just a
+              simple prompt to decide what still matters today.
             </motion.p>
 
             <motion.div
