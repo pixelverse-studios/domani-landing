@@ -90,7 +90,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         question: 'Can I switch from Sunsama to Domani easily?',
-        answer: 'Yes. You can export your Sunsama tasks and import them into Domani. The bigger shift is the habit change: instead of planning at 8am, you plan at 9pm. Most people find the transition takes about a week. Start by doing both in parallel — your Sunsama morning routine plus a quick Domani evening plan — then drop the morning session once the evening habit sticks.',
+        answer: 'Yes. Since Domani focuses on just three to six daily tasks, you can recreate your key commitments in a few minutes. The bigger shift is the habit change: instead of planning at 8am, you plan at 9pm. Most people find the transition takes about a week. Start by doing both in parallel — your Sunsama morning routine plus a quick Domani evening plan — then drop the morning session once the evening habit sticks.',
       },
     ],
   },
