@@ -94,6 +94,34 @@ export const blogPosts: BlogPost[] = [
       },
     ],
   },
+  {
+    slug: 'why-planning-at-night-is-better',
+    title: 'Why Planning at Night Is Better Than Planning in the Morning',
+    description: 'Evening planning outperforms morning planning according to decision fatigue research. Here are five science-backed reasons to plan your day the night before.',
+    publishedAt: '2026-03-21',
+    author: 'Domani Team',
+    readingTime: '10 min read',
+    keywords: ['why planning at night is better', 'evening planning routine', 'plan your day the night before', 'night before planning benefits', 'morning vs evening planning', 'decision fatigue'],
+    accent: 'from-primary-500/10 via-amber-400/10 to-white',
+    faqs: [
+      {
+        question: 'Is planning at night better than planning in the morning?',
+        answer: 'Research on decision fatigue and circadian rhythms suggests yes for most people. Evening planning moves decisions to a reflective period when cognitive costs are lower, and preserves your peak morning brainpower for execution. A 2018 study also found that writing a to-do list before bed helps you fall asleep faster.',
+      },
+      {
+        question: 'How long should evening planning take?',
+        answer: 'Ten to fifteen minutes is the sweet spot. Review what happened today, pick three to six priorities for tomorrow, and lock the plan. The routine should feel effortless, not like an extra chore. If it takes longer than 15 minutes, you are probably overcomplicating it.',
+      },
+      {
+        question: 'What if I forget to plan the night before?',
+        answer: 'It happens. When it does, spend five minutes doing a quick morning plan, but keep it minimal: pick your MIT and two supporting tasks. The goal is to get back to evening planning that night rather than letting the morning habit take over permanently.',
+      },
+      {
+        question: 'Can I combine evening and morning planning?',
+        answer: 'You can, but most people find it redundant. If you planned well last night, the morning session becomes unnecessary. Some people use a 60-second morning check-in to glance at the plan and mentally commit, but the actual decision-making stays in the evening.',
+      },
+    ],
+  },
 ]
 
 export function getPostBySlug(slug: string) {
@@ -106,4 +134,5 @@ export const mdxModules: Record<string, MDXModule> = {
   'evening-planning-routine': () => import('../../../content/blog/evening-planning-routine.mdx'),
   'decision-fatigue-app': () => import('../../../content/blog/decision-fatigue-app.mdx'),
   'sunsama-alternative': () => import('../../../content/blog/sunsama-alternative.mdx'),
+  'why-planning-at-night-is-better': () => import('../../../content/blog/why-planning-at-night-is-better.mdx'),
 }
