@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import { aboutMetadata } from '@/lib/seo/metadata'
 import Header from '@/components/Header'
 import { AboutContent, type AboutValue } from '@/components/about/AboutContent'
+import { Breadcrumb } from '@/components/ui/Breadcrumb'
 // import { TestimonialsSection } from '@/components/testimonials/TestimonialsSection'
 
 export const metadata: Metadata = aboutMetadata
@@ -44,6 +45,9 @@ export default function AboutPage() {
     <>
       <Header />
       <main className="min-h-screen pt-24">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <Breadcrumb items={[{ label: 'About' }]} />
+        </div>
         <AboutContent values={values} />
         {/* <TestimonialsSection
           background="transparent"

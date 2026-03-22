@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import { faqMetadata } from '@/lib/seo/metadata'
 import { StructuredData } from '@/components/seo/StructuredData'
 import Header from '@/components/Header'
+import { Breadcrumb } from '@/components/ui/Breadcrumb'
 import { FAQContent } from '@/components/faq/FAQContent'
 import {
   PRICING_CONFIG,
@@ -136,6 +137,9 @@ export default function FAQPage() {
       <Header />
 
       <main className="min-h-screen bg-gradient-to-b from-primary-50/80 via-white to-primary-100/50 pt-24">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <Breadcrumb items={[{ label: 'FAQ' }]} />
+        </div>
         <FAQContent faqs={faqs} />
       </main>
     </>
