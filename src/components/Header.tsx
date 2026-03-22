@@ -8,6 +8,7 @@ import { Menu, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 import { Logo } from './Logo'
+import { getCurrentPhase } from '@/lib/config/cta'
 
 const navLinks = [
   { href: '/about', label: 'About' },
@@ -47,9 +48,22 @@ function NavLink({ href, label, className, disableUnderline = false, onClick }: 
   )
 }
 
+function getHeaderCTA() {
+  const phase = getCurrentPhase()
+  switch (phase) {
+    case 'pre-beta':
+      return { text: 'Join Waitlist', href: '/#waitlist-form' }
+    case 'beta':
+      return { text: 'Try Free', href: '/' }
+    case 'post-beta':
+      return { text: 'Download Free', href: '/' }
+  }
+}
+
 export default function Header() {
   const [isMobileOpen, setIsMobileOpen] = useState(false)
   const pathname = usePathname()
+  const cta = getHeaderCTA()
 
   useEffect(() => {
     setIsMobileOpen(false)
@@ -67,6 +81,12 @@ export default function Header() {
           {navLinks.map((link) => (
             <NavLink key={link.href} {...link} />
           ))}
+          <Link
+            href={cta.href}
+            className="ml-2 rounded-lg bg-primary-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-primary-700 hover:shadow-md"
+          >
+            {cta.text}
+          </Link>
         </nav>
 
         <div className="flex items-center gap-3 md:justify-self-end">
@@ -109,6 +129,13 @@ export default function Header() {
                     className="block text-base text-gray-700 after:hidden"
                   />
                 ))}
+                <Link
+                  href={cta.href}
+                  onClick={() => setIsMobileOpen(false)}
+                  className="mt-2 block rounded-lg bg-primary-600 px-4 py-2.5 text-center text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-primary-700"
+                >
+                  {cta.text}
+                </Link>
               </motion.div>
             </motion.nav>
           )}
