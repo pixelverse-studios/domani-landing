@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { BlogCard } from '@/components/blog/BlogCard'
 import { blogPosts, BLOG_CATEGORIES } from '@/lib/blog/posts'
 import { BlogCategoryFilter } from '@/components/blog/BlogCategoryFilter'
+import { Breadcrumb } from '@/components/ui/Breadcrumb'
 
 export const metadata: Metadata = {
   title: 'Domani Blog - Evening Planning Tips, Guides & Research',
@@ -32,6 +33,7 @@ export default function BlogIndexPage() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-white via-primary-50/30 to-primary-50/5 pb-24 pt-32">
       <section className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <Breadcrumb items={[{ label: 'Blog' }]} />
         <div className="mx-auto max-w-2xl text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-primary-500">Domani Blog</p>
           <h1 className="mt-4 text-4xl font-bold text-gray-900 sm:text-5xl text-balance">

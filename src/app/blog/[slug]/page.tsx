@@ -5,6 +5,7 @@ import { blogPosts, getPostBySlug, mdxModules } from '@/lib/blog/posts'
 import { SITE_URL } from '@/lib/config/site'
 import { createBlogPostingSchema, createFAQPageSchema, stringifyJsonLd } from '@/lib/seo/structured-data'
 import { FloatingSidebar } from '@/components/blog/FloatingSidebar'
+import { Breadcrumb } from '@/components/ui/Breadcrumb'
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -84,15 +85,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       )}
       <div className="mx-auto flex flex-col gap-12 px-4 sm:px-6 lg:grid lg:grid-cols-[minmax(0,1fr)_340px] lg:items-start lg:gap-16 lg:px-8">
         <article className="w-full" data-blog-article>
-          <Link
-            href="/blog"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-primary-600 transition hover:text-primary-500"
-          >
-            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-            Back to blog
-          </Link>
+          <Breadcrumb items={[
+            { label: 'Blog', href: '/blog' },
+            { label: post.title },
+          ]} />
 
           <h1 className="mt-6 text-4xl font-bold text-gray-900">{post.title}</h1>
           <p className="mt-4 text-lg text-gray-600">{post.description}</p>

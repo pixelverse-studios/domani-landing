@@ -11,6 +11,7 @@ import {
   Brain,
   RefreshCw,
 } from 'lucide-react'
+import { Breadcrumb } from '@/components/ui/Breadcrumb'
 import {
   PRICING_CONFIG,
   getCurrentPriceDisplay,
@@ -132,6 +133,9 @@ export default function PricingPage() {
       <StructuredData type="faq" faqs={faqs} />
       <Header />
       <main className="min-h-screen pt-24">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <Breadcrumb items={[{ label: 'Pricing' }]} />
+        </div>
         <PricingContent plan={plan} faqs={faqs} testimonials={testimonials} comparison={comparison} />
       </main>
     </>
