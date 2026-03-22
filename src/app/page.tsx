@@ -5,6 +5,7 @@ import { MITSpotlight } from '@/components/features/MITSpotlight';
 import { PlanLockSpotlight } from '@/components/features/PlanLockSpotlight';
 import { SmartRolloverSpotlight } from '@/components/features/SmartRolloverSpotlight';
 import { BenefitsSection } from '@/components/benefits/BenefitsSection';
+import { HowItWorks } from '@/components/sections/HowItWorks';
 import { WhoUsesDomani } from '@/components/sections/WhoUsesDomani';
 import { AppShowcase } from '@/components/showcase/AppShowcase';
 import { HomePageClient } from '@/components/home/HomePageClient';
@@ -19,6 +20,7 @@ function LandingFallback() {
       <main className="min-h-screen overflow-x-clip bg-white pt-16">
         <div className="overflow-x-clip">
           <HeroSection />
+          <HowItWorks />
           <MITSpotlight />
           <PlanLockSpotlight />
           <SmartRolloverSpotlight />
