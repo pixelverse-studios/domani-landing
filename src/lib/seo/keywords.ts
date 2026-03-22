@@ -84,6 +84,70 @@ export const SEO_KEYWORDS = {
     'better than todoist',
   ],
 
+  // Audience-specific keywords
+  audienceSpecific: [
+    'planner app for teachers',
+    'planner app for nurses',
+    'planner for busy parents',
+    'planner app for students',
+    'planner for shift workers',
+    'planner app for ADHD',
+    'planner for remote workers',
+    'planner app for freelancers',
+  ],
+
+  // Expanded competitor keywords
+  competitorExpanded: [
+    'ticktick alternative',
+    'notion daily planner alternative',
+    'things 3 alternative',
+    'any.do alternative',
+    'fabulous app alternative',
+    'routinery alternative',
+    'best daily planner app 2026',
+    'planner app no subscription',
+    'one time purchase planner app',
+    'free daily planner app',
+  ],
+
+  // Emotional/problem-aware expanded
+  emotionalExpanded: [
+    'morning anxiety before work',
+    'sunday scaries',
+    'cant sleep thinking about tomorrow',
+    'too many things to do',
+    'stressed about work tomorrow',
+    'how to stop overthinking tasks',
+    'always running late in the morning',
+    'how to stop doom scrolling at night',
+  ],
+
+  // Seasonal keywords
+  seasonal: [
+    'new year productivity goals',
+    'back to school planner app',
+    'how to be more productive in 2026',
+    'how to plan after vacation',
+  ],
+
+  // Expanded methodology keywords
+  methodExpanded: [
+    'eat the frog method',
+    '1-3-5 rule productivity',
+    'time blocking for beginners',
+    'deep work planning',
+    'getting things done app',
+  ],
+
+  // Expanded solution keywords
+  solutionExpanded: [
+    'evening routine for productivity',
+    'nightly planning habit',
+    'how to start your day with focus',
+    'how to plan your day effectively',
+    'wind down routine that helps productivity',
+  ],
+
   // ASO keywords (App Store Optimization)
   aso: {
     primary: [
@@ -109,8 +173,11 @@ export const SEO_KEYWORDS = {
 export const PAGE_KEYWORDS = {
   homepage: [
     ...SEO_KEYWORDS.brand,
-    ...SEO_KEYWORDS.primary.slice(0, 3),
-    ...SEO_KEYWORDS.solutionAware.slice(0, 2),
+    ...SEO_KEYWORDS.primary,
+    ...SEO_KEYWORDS.solutionAware.slice(0, 3),
+    ...SEO_KEYWORDS.solutionExpanded.slice(0, 2),
+    ...SEO_KEYWORDS.problemAware.slice(0, 3),
+    ...SEO_KEYWORDS.audienceSpecific.slice(0, 3),
   ],
   pricing: [
     'domani pricing',
@@ -118,18 +185,25 @@ export const PAGE_KEYWORDS = {
     'lifetime productivity app',
     'sunsama alternative cheaper',
     'affordable task management',
+    'planner app no subscription',
+    'one time purchase planner app',
+    'free daily planner app',
   ],
   about: [
     'domani story',
     'evening planning psychology',
-    'productivity app founders',
     'why evening planning works',
+    'planner for busy parents',
+    'planner app for teachers',
+    'planner for shift workers',
   ],
   faq: [
     'how does evening planning work',
     'morning routine tips',
     'reduce decision fatigue',
     'ivy lee method tutorial',
+    'how to plan your day effectively',
+    'how to stop overthinking tasks',
   ],
 } as const
 
