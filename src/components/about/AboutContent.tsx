@@ -144,12 +144,13 @@ export function AboutContent({ values }: AboutContentProps) {
         <>
           <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
             Research shows that decision fatigue peaks in the morning. Your brain is bombarded with
-            choices: What should I work on first? What&apos;s actually important? Should I respond to
-            this email or start that project?
+            choices: What should I tackle first? Which deadline matters most? Do I deal with the
+            urgent thing or the important one?
           </p>
           <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
-            By the time you&apos;ve made these decisions, you&apos;ve already burned through precious mental
-            energy. The best hours of your day—gone, spent on planning instead of doing.
+            This isn&apos;t just an office problem. Parents face it before the school run. Students face it
+            before class. Nurses face it before a shift. By the time you&apos;ve sorted your priorities,
+            you&apos;ve already burned through precious mental energy — and the day has barely started.
           </p>
           <div className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-r from-red-50 to-red-100 border border-red-100">
             <div className="flex-shrink-0 w-14 h-14 rounded-full bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center text-white font-bold text-base shadow-lg shadow-red-500/25">
@@ -356,8 +357,9 @@ export function AboutContent({ values }: AboutContentProps) {
                 obsessed with solving one problem extremely well: chaotic mornings.
               </p>
               <p className="text-lg md:text-xl text-gray-700 leading-relaxed">
-                Every feature in Domani exists because we needed it ourselves. The evening planning
-                mode? We use it every night. The smart reminders? They helped us finally build the habit.
+                Every feature in Domani exists because we needed it ourselves. Teachers, parents,
+                freelancers, and shift workers use it alongside founders and engineers. The evening
+                planning mode works because it meets people where they are — at the end of a real day.
               </p>
               <p className="text-xl md:text-2xl font-semibold bg-gradient-to-r from-primary-600 to-primary-700 bg-clip-text text-transparent">
                 This isn&apos;t just an app. It&apos;s how we run our lives.
