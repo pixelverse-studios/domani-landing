@@ -5,6 +5,7 @@ import { MITSpotlight } from '@/components/features/MITSpotlight';
 import { PlanLockSpotlight } from '@/components/features/PlanLockSpotlight';
 import { SmartRolloverSpotlight } from '@/components/features/SmartRolloverSpotlight';
 import { BenefitsSection } from '@/components/benefits/BenefitsSection';
+import { WhoUsesDomani } from '@/components/sections/WhoUsesDomani';
 import { AppShowcase } from '@/components/showcase/AppShowcase';
 import { HomePageClient } from '@/components/home/HomePageClient';
 import Analytics from '@/components/Analytics';
@@ -22,6 +23,7 @@ function LandingFallback() {
           <PlanLockSpotlight />
           <SmartRolloverSpotlight />
           <BenefitsSection />
+          <WhoUsesDomani />
           <AppShowcase />
           {/* Testimonials temporarily disabled until real quotes are ready */}
         </div>
