@@ -40,11 +40,11 @@ const gridFeatures: GridFeature[] = [
     notion: false,
   },
   {
-    label: 'Plan Lock',
+    label: 'Reminder shortcuts',
     domani: true,
-    sunsama: false,
-    todoist: false,
-    ticktick: false,
+    sunsama: true,
+    todoist: true,
+    ticktick: true,
     notion: false,
   },
   {

@@ -86,7 +86,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         question: 'Can an app really help with decision fatigue?',
-        answer: 'An app cannot eliminate decision fatigue, but it can reduce the number of decisions you face each morning. Apps like Domani use structured evening planning — a 3 to 6 task limit, energy-based scheduling, and a plan lock feature — to move planning decisions to the evening when you are calm, so mornings become about execution rather than deliberation.',
+        answer: 'An app cannot eliminate decision fatigue, but it can reduce the number of decisions you face each morning. Apps like Domani use structured evening planning — a 3 to 6 task limit, custom categories, and task rollover — to move planning decisions to the evening when you are calm, so mornings become about execution rather than deliberation.',
       },
     ],
   },
@@ -232,7 +232,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         question: 'What does Domani have that TickTick does not?',
-        answer: 'Domani offers evening-first planning with built-in reminders, Plan Lock to commit to your plan, task limit guardrails (the 3-6 rule), and energy-based scheduling — features designed to reduce morning decision fatigue.',
+        answer: 'Domani offers evening-first planning with built-in reminders, task rollover, task limit guardrails (the 3-6 rule), and custom categories with smart sorting — features designed to reduce morning decision fatigue.',
       },
     ],
   },
