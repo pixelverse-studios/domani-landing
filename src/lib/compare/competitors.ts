@@ -183,6 +183,7 @@ export const competitors: Competitor[] = [
           'Domani offers evening-first planning, Plan Lock (commit to your plan and stop second-guessing), built-in task limit guardrails (the 3-6 rule), and energy-based scheduling. These features are designed to reduce morning decision fatigue.',
       },
     ],
+    blogSlug: 'ticktick-alternative',
   },
   {
     slug: 'notion',

@@ -203,6 +203,39 @@ export const blogPosts: BlogPost[] = [
       },
     ],
   },
+  {
+    slug: 'ticktick-alternative',
+    title: 'TickTick Alternative: Why Evening-First Planning Beats Feature Overload',
+    description: 'TickTick does everything. Domani does one thing better. Compare features, pricing, and planning philosophy to find the right daily planner for you.',
+    publishedAt: '2026-03-23',
+    author: BLOG_AUTHORS.domani,
+    readingTime: '9 min read',
+    keywords: ['ticktick alternative', 'ticktick vs domani', 'simple task app', 'ticktick too complicated', 'minimalist planner app', 'best daily planner app 2026'],
+    accent: 'from-primary-600/10 via-emerald-400/10 to-white',
+    categories: ['App Comparisons'],
+    faqs: [
+      {
+        question: 'Is Domani a good TickTick alternative?',
+        answer: 'If you are looking for a simpler, more focused daily planner with evening-first planning philosophy, yes. Domani does not try to replace TickTick\'s full feature set — it replaces the specific workflow of deciding what to do each day.',
+      },
+      {
+        question: 'Is Domani simpler than TickTick?',
+        answer: 'Yes, by design. TickTick offers tasks, habits, calendar, Pomodoro, Kanban boards, and more. Domani focuses exclusively on evening planning and morning execution. Fewer features means fewer decisions.',
+      },
+      {
+        question: 'How does Domani pricing compare to TickTick?',
+        answer: 'TickTick Premium costs $35.99 per year as a recurring subscription. Domani is a one-time payment of $34.99 (currently $9.99 for early adopters) with lifetime access and all future updates.',
+      },
+      {
+        question: 'Can I use Domani and TickTick together?',
+        answer: 'Yes. Some people use TickTick as their master task inbox and project manager, then use Domani each evening to pull their top three to six priorities for the next day.',
+      },
+      {
+        question: 'What does Domani have that TickTick does not?',
+        answer: 'Domani offers evening-first planning with built-in reminders, Plan Lock to commit to your plan, task limit guardrails (the 3-6 rule), and energy-based scheduling — features designed to reduce morning decision fatigue.',
+      },
+    ],
+  },
 ]
 
 export function getPostBySlug(slug: string) {
@@ -218,4 +251,5 @@ export const mdxModules: Record<string, MDXModule> = {
   'overwhelmed-every-morning': () => import('../../../content/blog/overwhelmed-every-morning.mdx'),
   'why-planning-at-night-is-better': () => import('../../../content/blog/why-planning-at-night-is-better.mdx'),
   'planner-app-for-teachers': () => import('../../../content/blog/planner-app-for-teachers.mdx'),
+  'ticktick-alternative': () => import('../../../content/blog/ticktick-alternative.mdx'),
 }
