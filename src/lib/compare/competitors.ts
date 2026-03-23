@@ -55,11 +55,12 @@ export const competitors: Competitor[] = [
     features: [
       { feature: 'Planning philosophy', domani: 'Evening-first', competitor: 'Morning-first' },
       { feature: 'Task limit guardrails', domani: true, competitor: false },
-      { feature: 'Plan Lock feature', domani: true, competitor: false },
-      { feature: 'Energy-based scheduling', domani: true, competitor: false },
-      { feature: 'Calendar integrations', domani: 'Coming soon', competitor: true },
+      { feature: 'Task rollover', domani: true, competitor: false },
+      { feature: 'Custom categories', domani: true, competitor: false },
+      { feature: 'Reminder shortcuts', domani: true, competitor: true },
+      { feature: 'Calendar integrations', domani: false, competitor: true },
       { feature: 'Team features', domani: false, competitor: true },
-      { feature: 'Third-party integrations', domani: 'Limited', competitor: 'Extensive' },
+      { feature: 'Third-party integrations', domani: false, competitor: 'Extensive' },
       { feature: 'Pricing model', domani: 'Lifetime ($34.99)', competitor: 'Subscription ($240/yr)' },
       { feature: 'Free trial', domani: '14 days', competitor: '14 days' },
     ],
@@ -102,14 +103,14 @@ export const competitors: Competitor[] = [
     weaknesses: [
       'No evening planning mode — planning is always reactive',
       'No task limit guardrails — lists grow endlessly',
-      'No Plan Lock — easy to second-guess and reshuffle',
+      'No evening planning nudges — easy to second-guess and reshuffle',
       'Subscription pricing for full features',
     ],
     features: [
       { feature: 'Planning philosophy', domani: 'Evening-first', competitor: 'Anytime / reactive' },
       { feature: 'Task limit guardrails', domani: true, competitor: false },
-      { feature: 'Plan Lock feature', domani: true, competitor: false },
-      { feature: 'Energy-based scheduling', domani: true, competitor: false },
+      { feature: 'Task rollover', domani: true, competitor: false },
+      { feature: 'Custom categories', domani: true, competitor: true },
       { feature: 'Project management', domani: 'Simple daily focus', competitor: 'Full projects, labels, filters' },
       { feature: 'Natural language input', domani: false, competitor: true },
       { feature: 'Free tier', domani: '14-day trial', competitor: 'Yes (limited)' },
@@ -153,17 +154,17 @@ export const competitors: Competitor[] = [
     weaknesses: [
       'Feature overload for daily planning',
       'No evening-first planning philosophy',
-      'No Plan Lock or task limit guardrails',
+      'No task limit guardrails or evening planning workflow',
       'Complexity can increase decision fatigue',
     ],
     features: [
       { feature: 'Planning philosophy', domani: 'Evening-first', competitor: 'Anytime / feature-driven' },
       { feature: 'Task limit guardrails', domani: true, competitor: false },
-      { feature: 'Plan Lock feature', domani: true, competitor: false },
+      { feature: 'Task rollover', domani: true, competitor: false },
+      { feature: 'Custom categories', domani: true, competitor: true },
       { feature: 'Habit tracking', domani: 'Streak tracking', competitor: 'Full habit tracker' },
       { feature: 'Pomodoro timer', domani: false, competitor: true },
       { feature: 'Kanban boards', domani: false, competitor: true },
-      { feature: 'Calendar integration', domani: 'Coming soon', competitor: true },
       { feature: 'Pricing model', domani: 'Lifetime ($34.99)', competitor: 'Subscription ($35.99/yr)' },
     ],
     faqs: [
@@ -180,9 +181,10 @@ export const competitors: Competitor[] = [
       {
         question: 'What does Domani have that TickTick doesn\'t?',
         answer:
-          'Domani offers evening-first planning, Plan Lock (commit to your plan and stop second-guessing), built-in task limit guardrails (the 3-6 rule), and energy-based scheduling. These features are designed to reduce morning decision fatigue.',
+          'Domani offers evening-first planning, built-in task limit guardrails (the 3-6 rule), task rollover, and custom categories with smart sorting. These features are designed to reduce morning decision fatigue.',
       },
     ],
+    blogSlug: 'ticktick-alternative',
   },
   {
     slug: 'notion',
@@ -210,7 +212,8 @@ export const competitors: Competitor[] = [
     features: [
       { feature: 'Planning philosophy', domani: 'Evening-first (built-in)', competitor: 'DIY (build your own)' },
       { feature: 'Task limit guardrails', domani: true, competitor: false },
-      { feature: 'Plan Lock feature', domani: true, competitor: false },
+      { feature: 'Task rollover', domani: true, competitor: false },
+      { feature: 'Custom categories', domani: true, competitor: true },
       { feature: 'Setup time', domani: '30 seconds', competitor: 'Hours (custom templates)' },
       { feature: 'Notes and docs', domani: false, competitor: true },
       { feature: 'Database views', domani: false, competitor: true },
@@ -226,7 +229,7 @@ export const competitors: Competitor[] = [
       {
         question: 'Why use Domani instead of a Notion template?',
         answer:
-          'Notion templates require maintenance, break when you update properties, and don\'t enforce planning habits. Domani has built-in evening reminders, Plan Lock, task limit guardrails, and streak tracking — features you can\'t replicate easily in Notion.',
+          'Notion templates require maintenance, break when you update properties, and don\'t enforce planning habits. Domani has built-in evening reminders, task limit guardrails, task rollover, and streak tracking — features you can\'t replicate easily in Notion.',
       },
       {
         question: 'Is Domani cheaper than Notion?',

@@ -13,6 +13,7 @@ import { getCurrentPhase } from '@/lib/config/cta'
 const navLinks = [
   { href: '/about', label: 'About' },
   { href: '/pricing', label: 'Pricing' },
+  { href: '/compare', label: 'Compare' },
   { href: '/faq', label: 'FAQ' },
   { href: '/blog', label: 'Blog' },
 ]
