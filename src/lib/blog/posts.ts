@@ -19,9 +19,9 @@ export const BLOG_AUTHORS: Record<string, BlogAuthor> = {
   },
 }
 
-export type BlogCategory = 'Evening Planning' | 'Productivity Science' | 'App Comparisons'
+export type BlogCategory = 'Evening Planning' | 'Productivity Science' | 'App Comparisons' | 'For Your Schedule'
 
-export const BLOG_CATEGORIES: BlogCategory[] = ['Evening Planning', 'Productivity Science', 'App Comparisons']
+export const BLOG_CATEGORIES: BlogCategory[] = ['Evening Planning', 'Productivity Science', 'App Comparisons', 'For Your Schedule']
 
 export interface BlogPost {
   slug: string
@@ -174,6 +174,35 @@ export const blogPosts: BlogPost[] = [
       },
     ],
   },
+  {
+    slug: 'planner-app-for-teachers',
+    title: 'Planner App for Teachers: How Evening Planning Saves Your Mornings',
+    description: 'Teachers juggle lesson plans, grading, meetings, and personal life before 8 AM. Learn how a simple evening planning habit can transform your teaching day.',
+    publishedAt: '2026-03-23',
+    author: BLOG_AUTHORS.domani,
+    readingTime: '7 min read',
+    keywords: ['planner app for teachers', 'teacher daily planner', 'planning app for educators', 'teacher morning routine', 'evening planning for teachers'],
+    accent: 'from-amber-400/10 via-primary-400/10 to-white',
+    categories: ['Evening Planning', 'For Your Schedule'],
+    faqs: [
+      {
+        question: 'What is the best planner app for teachers?',
+        answer: 'The best planner app for teachers is one that fits your workflow without adding complexity. If your mornings are chaotic and you spend the first hour reacting instead of teaching, look for an app built around evening planning — where you decide tomorrow\'s priorities the night before while you are calm.',
+      },
+      {
+        question: 'How do teachers plan their day effectively?',
+        answer: 'The most effective approach is evening planning: spend ten minutes each night reviewing your day, choosing tomorrow\'s top priority, and adding two to four supporting tasks. This eliminates morning scrambling and ensures your prep periods have a purpose.',
+      },
+      {
+        question: 'Is Domani free for teachers?',
+        answer: 'Domani is free for everyone during the public beta period with full access to all features. After the beta, it will be a one-time lifetime purchase — no monthly subscription.',
+      },
+      {
+        question: 'How long does evening planning take?',
+        answer: 'Ten minutes is the sweet spot. Review what happened today, pick your Most Important Task for tomorrow, add a few supporting tasks, and lock the plan. If it takes longer than fifteen minutes, you are probably overcomplicating it.',
+      },
+    ],
+  },
 ]
 
 export function getPostBySlug(slug: string) {
@@ -188,4 +217,5 @@ export const mdxModules: Record<string, MDXModule> = {
   'sunsama-alternative': () => import('../../../content/blog/sunsama-alternative.mdx'),
   'overwhelmed-every-morning': () => import('../../../content/blog/overwhelmed-every-morning.mdx'),
   'why-planning-at-night-is-better': () => import('../../../content/blog/why-planning-at-night-is-better.mdx'),
+  'planner-app-for-teachers': () => import('../../../content/blog/planner-app-for-teachers.mdx'),
 }
