@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next'
 import { blogPosts } from '@/lib/blog/posts'
+import { getAllCompetitorSlugs } from '@/lib/compare/competitors'
 import { SITE_URL } from '@/lib/config/site'
 
 /**
@@ -45,6 +46,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
     {
+      url: `${baseUrl}/compare`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/privacy`,
       lastModified: currentDate,
       changeFrequency: 'yearly',
@@ -77,5 +84,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.75,
   }))
 
-  return [...staticRoutes, ...blogRoutes]
+  const compareRoutes: MetadataRoute.Sitemap = getAllCompetitorSlugs().map((slug) => ({
+    url: `${baseUrl}/compare/${slug}`,
+    lastModified: currentDate,
+    changeFrequency: 'monthly',
+    priority: 0.8,
+  }))
+
+  return [...staticRoutes, ...blogRoutes, ...compareRoutes]
 }
