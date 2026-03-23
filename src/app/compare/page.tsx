@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { Check, X, ArrowRight, Crown } from 'lucide-react'
+import { Check, X, ArrowRight } from 'lucide-react'
 import { competitors } from '@/lib/compare/competitors'
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
 import Header from '@/components/Header'
@@ -145,12 +145,7 @@ export default function ComparePage() {
                     <th className="sticky left-0 z-10 bg-white py-4 pl-5 pr-3 text-left font-medium text-gray-400">
                       Feature
                     </th>
-                    <th className="relative px-3 py-4 text-center">
-                      <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                        <span className="inline-flex items-center gap-1 rounded-full bg-primary-600 px-2.5 py-0.5 text-[10px] font-semibold text-white">
-                          <Crown className="h-3 w-3" />
-                        </span>
-                      </div>
+                    <th className="px-3 py-4 text-center">
                       <span className="font-bold text-primary-700">Domani</span>
                     </th>
                     {competitors.map((c) => (
