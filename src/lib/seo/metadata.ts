@@ -51,14 +51,6 @@ export const homepageMetadata: Metadata = {
     siteName: SITE_NAME,
     title: TITLE_TEMPLATES.homepage,
     description: META_TEMPLATES.homepage,
-    images: [
-      {
-        url: `${SITE_URL}/og-image.png`,
-        width: 1200,
-        height: 630,
-        alt: 'Domani - Plan Tomorrow Tonight',
-      },
-    ],
   },
   twitter: {
     card: 'summary_large_image',
@@ -66,7 +58,6 @@ export const homepageMetadata: Metadata = {
     creator: TWITTER_HANDLE,
     title: TITLE_TEMPLATES.homepage,
     description: META_TEMPLATES.homepage,
-    images: [`${SITE_URL}/twitter-image.png`],
   },
   alternates: {
     canonical: SITE_URL,
@@ -87,14 +78,6 @@ export const pricingMetadata: Metadata = {
     siteName: SITE_NAME,
     title: 'Domani Pricing - Free 14-Day Trial, Then Lifetime Access',
     description: META_TEMPLATES.pricing,
-    images: [
-      {
-        url: `${SITE_URL}/og-pricing.png`,
-        width: 1200,
-        height: 630,
-        alt: 'Domani Pricing Plans',
-      },
-    ],
   },
   twitter: {
     card: 'summary_large_image',
@@ -102,7 +85,6 @@ export const pricingMetadata: Metadata = {
     creator: TWITTER_HANDLE,
     title: 'Domani Pricing - Free 14-Day Trial, Then Lifetime Access',
     description: META_TEMPLATES.pricing,
-    images: [`${SITE_URL}/og-pricing.png`],
   },
   alternates: {
     canonical: `${SITE_URL}/pricing`,
@@ -123,14 +105,6 @@ export const aboutMetadata: Metadata = {
     siteName: SITE_NAME,
     title: 'About Domani - Why Evening Planning Works Better For You',
     description: META_TEMPLATES.about,
-    images: [
-      {
-        url: `${SITE_URL}/og-about.png`,
-        width: 1200,
-        height: 630,
-        alt: 'About Domani',
-      },
-    ],
   },
   twitter: {
     card: 'summary_large_image',
@@ -138,7 +112,6 @@ export const aboutMetadata: Metadata = {
     creator: TWITTER_HANDLE,
     title: 'About Domani - Why Evening Planning Works Better For You',
     description: META_TEMPLATES.about,
-    images: [`${SITE_URL}/og-about.png`],
   },
   alternates: {
     canonical: `${SITE_URL}/about`,
@@ -159,14 +132,6 @@ export const faqMetadata: Metadata = {
     siteName: SITE_NAME,
     title: 'Evening Planning FAQ - Common Questions About Domani',
     description: META_TEMPLATES.faq,
-    images: [
-      {
-        url: `${SITE_URL}/og-faq.png`,
-        width: 1200,
-        height: 630,
-        alt: 'Domani FAQ',
-      },
-    ],
   },
   twitter: {
     card: 'summary_large_image',
@@ -174,7 +139,6 @@ export const faqMetadata: Metadata = {
     creator: TWITTER_HANDLE,
     title: 'Evening Planning FAQ - Common Questions About Domani',
     description: META_TEMPLATES.faq,
-    images: [`${SITE_URL}/og-faq.png`],
   },
   alternates: {
     canonical: `${SITE_URL}/faq`,
@@ -200,8 +164,13 @@ export function createPageMetadata({
   type?: 'website' | 'article'
 }): Metadata {
   const fullUrl = `${SITE_URL}${path}`
-  const ogImage = image || `${SITE_URL}/og-image.png`
   const fullTitle = title.includes('|') ? title : TITLE_TEMPLATES.default(title)
+  const imageConfig = image
+    ? {
+        openGraphImages: [{ url: image, width: 1200, height: 630, alt: title }],
+        twitterImages: [image],
+      }
+    : { openGraphImages: undefined, twitterImages: undefined }
 
   return {
     title: { absolute: fullTitle },
@@ -214,14 +183,7 @@ export function createPageMetadata({
       siteName: SITE_NAME,
       title: fullTitle,
       description,
-      images: [
-        {
-          url: ogImage,
-          width: 1200,
-          height: 630,
-          alt: title,
-        },
-      ],
+      ...(imageConfig.openGraphImages && { images: imageConfig.openGraphImages }),
     },
     twitter: {
       card: 'summary_large_image',
@@ -229,7 +191,7 @@ export function createPageMetadata({
       creator: TWITTER_HANDLE,
       title: fullTitle,
       description,
-      images: [ogImage],
+      ...(imageConfig.twitterImages && { images: imageConfig.twitterImages }),
     },
     alternates: {
       canonical: fullUrl,

@@ -40,12 +40,6 @@ export const metadata: Metadata = mergeMetadata({
     locale: 'en_US',
     url: SITE_URL,
     siteName: 'Domani',
-    images: [{
-      url: '/og-image.png',
-      width: 1200,
-      height: 630,
-      alt: 'Domani - Evening Planning App',
-    }],
   },
   twitter: {
     card: 'summary_large_image',
@@ -53,7 +47,6 @@ export const metadata: Metadata = mergeMetadata({
     creator: '@domaniapp',
     title: 'Domani - Plan Tomorrow Tonight',
     description: 'Transform chaotic mornings into focused execution with evening planning.',
-    images: ['/twitter-image.png'],
   },
 })
 
