@@ -72,7 +72,7 @@ export default function SocialProof() {
         >
           {(displayCount ?? 0).toLocaleString()}
         </motion.span>
-        <span className="text-sm text-gray-600">people planning smarter</span>
+        <span className="text-sm text-gray-600">people planning tomorrow tonight</span>
       </div>
 
     </motion.div>
