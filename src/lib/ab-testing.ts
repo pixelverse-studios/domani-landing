@@ -12,22 +12,22 @@ export interface ABTestVariant {
 // A/B testing can be re-enabled later with new experiments.
 export const testVariants: Record<string, ABTestVariant> = {
   A: {
-    headline: "Plan Tomorrow, Tonight",
-    subheadline: "Make better decisions when you're calm, not rushed. Execute with clarity.",
+    headline: "Plan Tomorrow Tonight. Wake Up Clear on What Matters.",
+    subheadline: "Domani is the productivity app built around evening planning psychology, so you decide tomorrow when you're calm and wake up clear on what matters.",
     ctaText: PRIMARY_CTA_LABEL,
     secondaryCtaText: "See How It Works",
     variant: 'A'
   },
   B: {
-    headline: "Plan Tomorrow, Tonight",
-    subheadline: "Make better decisions when you're calm, not rushed. Execute with clarity.",
+    headline: "Plan Tomorrow Tonight. Wake Up Clear on What Matters.",
+    subheadline: "Domani is the productivity app built around evening planning psychology, so you decide tomorrow when you're calm and wake up clear on what matters.",
     ctaText: PRIMARY_CTA_LABEL,
     secondaryCtaText: "See How It Works",
     variant: 'B'
   },
   C: {
-    headline: "Plan Tomorrow, Tonight",
-    subheadline: "Make better decisions when you're calm, not rushed. Execute with clarity.",
+    headline: "Plan Tomorrow Tonight. Wake Up Clear on What Matters.",
+    subheadline: "Domani is the productivity app built around evening planning psychology, so you decide tomorrow when you're calm and wake up clear on what matters.",
     ctaText: PRIMARY_CTA_LABEL,
     secondaryCtaText: "See How It Works",
     variant: 'C'

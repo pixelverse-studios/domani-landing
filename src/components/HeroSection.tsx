@@ -2,7 +2,7 @@ import dynamic from 'next/dynamic'
 import DynamicCTA from './DynamicCTA'
 import SocialProof from './SocialProof'
 import { SectionDivider } from '@/components/ui/SectionDivider'
-import { getCurrentBadgeText, PRIMARY_CTA_SUBTEXT, PRIMARY_TAGLINE } from '@/lib/config/cta'
+import { getCurrentBadgeText, PRIMARY_CTA_SUBTEXT } from '@/lib/config/cta'
 
 const HeroMotionLayer = dynamic(() => import('./hero/HeroMotionLayer').then((mod) => mod.HeroMotionLayer), {
   loading: () => null,
@@ -20,7 +20,7 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({
-  subheadline = "Plan tonight when you're calm, not tomorrow when you're rushed. Start your day with a clear plan.",
+  subheadline = "Domani is the productivity app built around evening planning psychology, so you decide tomorrow when you're calm and wake up clear on what matters.",
 }: HeroSectionProps) {
   return (
     <section
@@ -50,7 +50,7 @@ export default function HeroSection({
               data-hero-copy="headline"
               className="mt-6 text-4xl font-bold leading-tight text-gray-900  sm:text-5xl md:text-6xl"
             >
-              The Evening Planning App That Transforms Your Mornings
+              Plan Tomorrow Tonight. Wake Up Clear on What Matters.
             </h1>
 
             <p data-hero-motion className="mt-6 text-lg text-gray-600  sm:text-xl lg:max-w-2xl">
@@ -69,19 +69,19 @@ export default function HeroSection({
                 <svg className="h-5 w-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
+                Plan at night when calm. Execute in the morning when focused.
+              </span>
+              <span className="flex items-center gap-2">
+                <svg className="h-5 w-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
                 {PRIMARY_CTA_SUBTEXT}
               </span>
               <span className="flex items-center gap-2">
                 <svg className="h-5 w-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                Upgrade for more flexibility when you need it
-              </span>
-              <span className="flex items-center gap-2">
-                <svg className="h-5 w-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                {PRIMARY_TAGLINE}
+                Upgrade for more flexibility, history, and support when you need it
               </span>
             </div>
 
