@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { blogPosts, getPostBySlug, mdxModules } from '@/lib/blog/posts'
+import { PRIMARY_CTA_LABEL } from '@/lib/config/cta'
 import { SITE_URL } from '@/lib/config/site'
 import { createBlogPostingSchema, createFAQPageSchema, stringifyJsonLd } from '@/lib/seo/structured-data'
 import { FloatingSidebar } from '@/components/blog/FloatingSidebar'
@@ -137,7 +138,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <div className="absolute -bottom-4 -left-4 h-20 w-20 rounded-full bg-white/5" />
             <div className="relative">
               <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-white/60">Ready to plan tonight?</p>
-              <p className="mt-2.5 text-[17px] font-bold leading-tight text-white">Try Domani free</p>
+              <p className="mt-2.5 text-[17px] font-bold leading-tight text-white">{PRIMARY_CTA_LABEL}</p>
               <p className="mt-1.5 text-[13px] leading-relaxed text-white/70">The evening planning app behind this article. Start free with 3 intentional tasks per day.</p>
               <Link
                 href="/"
