@@ -13,68 +13,89 @@ import {
 } from 'lucide-react'
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
 import {
-  PRICING_CONFIG,
   getCurrentPriceDisplay,
   getGeneralPriceDisplay,
   getCurrentPricingLabel,
   getDiscountPercentage,
   hasActiveDiscount,
-  getTrialDurationDisplay,
 } from '@/lib/config/pricing'
 
 export const metadata: Metadata = pricingMetadata
 
 export default function PricingPage() {
-  const trialDuration = getTrialDurationDisplay()
   const discountPercent = getDiscountPercentage()
+  const priceDisplay = hasActiveDiscount()
+    ? `${getCurrentPriceDisplay()} (normally ${getGeneralPriceDisplay()})`
+    : getCurrentPriceDisplay()
 
-  const plan = {
+  const freeTier = {
+    name: 'Free',
+    price: '$0',
+    period: 'to start',
+    description:
+      'A deliberately small daily plan for people who want clarity, not list sprawl.',
+    features: [
+      '3 intentional tasks per day',
+      'Evening planning mode',
+      'Morning execution view',
+      '7-day history',
+    ],
+    footnote: 'Three tasks is a focusing tool, not a teaser limit.',
+  }
+
+  const paidPlan = {
     name: 'Lifetime',
     currentPrice: getCurrentPriceDisplay(),
     originalPrice: hasActiveDiscount() ? getGeneralPriceDisplay() : undefined,
     discountLabel: hasActiveDiscount() ? getCurrentPricingLabel() : undefined,
     discountPercent: hasActiveDiscount() ? discountPercent : undefined,
     period: 'one-time payment',
-    description: 'Pay once, own forever. All features included.',
-    trialMessage: `Start with a ${trialDuration} free trial`,
+    description:
+      'Expanded flexibility for deeper planning habits, with no recurring subscription.',
     features: [
-      'Evening planning mode',
-      'Morning execution view',
       'Unlimited tasks',
-      'Advanced analytics',
+      'Custom categories',
+      'Unlimited history',
       'Multi-device sync',
+      'Advanced analytics',
       'All future updates',
     ],
     highlightFeatures: [
       {
         icon: <Moon className="w-6 h-6" />,
         title: 'Evening Planning',
-        description: 'Plan your tomorrow when you\'re calm and reflective, not rushed and stressed.',
+        description:
+          'Keep the same calm nightly planning ritual, with more room for complex days and layered priorities.',
       },
       {
         icon: <Target className="w-6 h-6" />,
-        title: 'Priority Focus',
-        description: 'Mark your most important task and always know what to tackle first.',
+        title: 'More Flexible Task Capacity',
+        description:
+          'Go beyond the focused free tier when your work, family, or project load needs more than three tasks.',
       },
       {
         icon: <Brain className="w-6 h-6" />,
-        title: 'Smart Reminders',
-        description: 'Proactive nudges help you build the evening planning habit effortlessly.',
+        title: 'Deeper Planning History',
+        description:
+          'Look back on patterns, revisit past plans, and understand what helps your evenings feel lighter.',
       },
       {
         icon: <BarChart3 className="w-6 h-6" />,
         title: 'Analytics Dashboard',
-        description: 'Track completion rates, build streaks, and see your productivity patterns.',
+        description:
+          'Track completion trends and planning consistency without turning the app into a noisy productivity scoreboard.',
       },
       {
         icon: <Smartphone className="w-6 h-6" />,
         title: 'Multi-Device Sync',
-        description: 'Plan on your iPad, execute on your iPhone. Everything stays in sync.',
+        description:
+          'Plan on the device that fits your evening, then wake up to the same clear view everywhere.',
       },
       {
         icon: <RefreshCw className="w-6 h-6" />,
         title: 'Lifetime Updates',
-        description: 'All future features and improvements included. No additional payments.',
+        description:
+          'Pay once and keep the expanded experience as Domani evolves, without recurring subscription pressure.',
       },
     ],
   }
@@ -83,40 +104,50 @@ export default function PricingPage() {
     {
       name: 'Sarah M.',
       role: 'Product Manager',
-      quote: 'I used to wake up anxious about my day. Now I wake up with clarity and purpose. Domani changed my mornings completely.',
+      quote:
+        'The free tier was enough to prove the habit. Once it clicked, paying for more flexibility felt natural, not forced.',
       rating: 5,
     },
     {
       name: 'James K.',
       role: 'Startup Founder',
-      quote: 'The evening planning concept is genius. I\'m more productive before 10am than I used to be all day.',
+      quote:
+        'What sold me was the philosophy: fewer tasks, better decisions, calmer mornings. The upgrade just gave me more room to use it fully.',
       rating: 5,
     },
     {
       name: 'Emily R.',
       role: 'Freelance Designer',
-      quote: 'Simple, focused, and actually works. I\'ve tried dozens of task apps - this one finally stuck.',
+      quote:
+        'It never felt like I was being pushed out of free. It felt like the app respected my focus first, then offered more when I needed it.',
       rating: 5,
     },
   ]
 
-  const comparison = {
-    monthlyPrice: 4.99,
-    monthsToPayoff: 10,
-  }
-
   const faqs = [
     {
-      question: 'How does the free trial work?',
-      answer: `You get ${PRICING_CONFIG.trial.durationDays} days of full access completely free. No credit card required to start. Try every feature and see if Domani is right for you.`,
+      question: 'Why does the free tier stop at 3 tasks per day?',
+      answer:
+        'Because Domani is designed to help you prioritize, not build a longer list. Three tasks is enough to choose what matters, commit to it at night, and wake up with a plan you can actually follow through on.',
     },
     {
-      question: "What happens after my trial ends?",
-      answer: "After your trial, you can unlock lifetime access with a simple one-time purchase. No subscriptions, no recurring fees—just pay once and own Domani forever.",
+      question: 'Is the free tier actually useful, or just a teaser?',
+      answer:
+        'It is meant to be genuinely useful. If your best days come from one meaningful priority and a couple of supporting tasks, the free tier may be all you need. It is intentionally small so the product stays clarity-first.',
     },
     {
-      question: 'Is this really a one-time payment?',
-      answer: 'Yes! Pay once and use Domani forever. No subscriptions, no recurring fees. You also get all future updates included.',
+      question: 'What changes when I upgrade?',
+      answer:
+        'Paid access gives you more flexibility, not a different philosophy. You keep the same evening-planning flow, but unlock more task capacity, deeper history, categories, analytics, sync, and long-term room to grow.',
+    },
+    {
+      question: 'How should I decide whether to stay free or upgrade?',
+      answer:
+        'Stay free if three intentional tasks per day keeps you focused and consistent. Upgrade when your routine needs more room, more history, or more customization, not because the free tier is trying to frustrate you.',
+    },
+    {
+      question: 'What does Lifetime access cost?',
+      answer: `Lifetime access is currently ${priceDisplay}. It is a one-time purchase with no recurring subscription, and it includes future updates to the paid experience.`,
     },
     {
       question: 'What payment methods do you accept?',
@@ -124,7 +155,8 @@ export default function PricingPage() {
     },
     {
       question: 'Can I get a refund?',
-      answer: 'Refunds are handled through your app store (Apple App Store or Google Play) according to their refund policies.',
+      answer:
+        'Refunds are handled through your app store (Apple App Store or Google Play) according to their refund policies.',
     },
   ]
 
@@ -136,7 +168,12 @@ export default function PricingPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumb items={[{ label: 'Pricing' }]} />
         </div>
-        <PricingContent plan={plan} faqs={faqs} testimonials={testimonials} comparison={comparison} />
+        <PricingContent
+          freeTier={freeTier}
+          paidPlan={paidPlan}
+          faqs={faqs}
+          testimonials={testimonials}
+        />
       </main>
     </>
   )

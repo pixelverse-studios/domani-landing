@@ -212,7 +212,7 @@ export const PAGE_KEYWORDS = {
  */
 export const META_TEMPLATES = {
   homepage: 'Plan tomorrow tonight and wake up ready to execute. Domani is the free evening planning app for iOS and Android that turns chaotic mornings into focused ones.',
-  pricing: 'Try Domani free for 14 days, then pay once for lifetime access. No subscriptions. Evening planning app for iOS and Android, 80% cheaper than Sunsama.',
+  pricing: 'Start free with 3 intentional tasks per day, then upgrade for more flexibility when you need it. Domani is the evening planning app that helps you wake up clear.',
   about: 'Domani was built on one idea: planning at night beats planning in the morning. Discover the science behind evening planning and how it works on iOS and Android.',
   faq: 'Answers to common questions about evening planning, morning routines, decision fatigue, and how Domani helps you start each day with focus and clarity.',
 } as const
@@ -222,7 +222,7 @@ export const META_TEMPLATES = {
  */
 export const TITLE_TEMPLATES = {
   homepage: 'Domani - Plan Tomorrow Tonight, Wake Up Ready to Execute',
-  pricing: 'Domani Pricing - Free 14-Day Trial, Then Lifetime Access',
+  pricing: 'Domani Pricing - Start Free, Upgrade When You Need More',
   about: 'About Domani - Why Evening Planning Works Better For You',
   faq: 'Evening Planning FAQ - Common Questions About Domani',
   default: (pageTitle: string) => `${pageTitle} | Domani`,
