@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og'
 
-export const alt = 'Domani Pricing - Free to Start, Lifetime Access'
+export const alt = 'Domani Pricing - Start Free, Upgrade When You Need More'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -40,7 +40,7 @@ export default async function OGImage() {
               maxWidth: '900px',
             }}
           >
-            Free to Start, Lifetime Access
+            Start free with three intentional tasks
           </div>
           <div
             style={{
@@ -50,7 +50,7 @@ export default async function OGImage() {
               maxWidth: '800px',
             }}
           >
-            No subscriptions. Try free for 14 days, then one payment for lifetime access.
+            Domani keeps free usage focused, then opens more flexibility when your planning routine grows.
           </div>
         </div>
         <div

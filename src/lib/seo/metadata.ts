@@ -76,14 +76,14 @@ export const pricingMetadata: Metadata = {
     locale: 'en_US',
     url: `${SITE_URL}/pricing`,
     siteName: SITE_NAME,
-    title: 'Domani Pricing - Free 14-Day Trial, Then Lifetime Access',
+    title: 'Domani Pricing - Start Free, Upgrade When You Need More',
     description: META_TEMPLATES.pricing,
   },
   twitter: {
     card: 'summary_large_image',
     site: TWITTER_HANDLE,
     creator: TWITTER_HANDLE,
-    title: 'Domani Pricing - Free 14-Day Trial, Then Lifetime Access',
+    title: 'Domani Pricing - Start Free, Upgrade When You Need More',
     description: META_TEMPLATES.pricing,
   },
   alternates: {

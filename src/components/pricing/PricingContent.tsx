@@ -6,8 +6,6 @@ import {
   Check,
   Sparkles,
   Shield,
-  RefreshCw,
-  Zap,
   Star,
   ChevronDown,
   Lock,
@@ -28,13 +26,21 @@ interface PricingPlan {
   discountPercent?: number
   period: string
   description: string
-  trialMessage: string
   features: string[]
   highlightFeatures: {
     icon: ReactNode
     title: string
     description: string
   }[]
+}
+
+interface FreeTierPlan {
+  name: string
+  price: string
+  period: string
+  description: string
+  features: string[]
+  footnote: string
 }
 
 interface PricingFaq {
@@ -49,16 +55,11 @@ interface Testimonial {
   rating: number
 }
 
-interface SubscriptionComparison {
-  monthlyPrice: number
-  monthsToPayoff: number
-}
-
 interface PricingContentProps {
-  plan: PricingPlan
+  freeTier: FreeTierPlan
+  paidPlan: PricingPlan
   faqs: PricingFaq[]
   testimonials: Testimonial[]
-  comparison: SubscriptionComparison
 }
 
 // =============================================================================
@@ -223,12 +224,27 @@ function StarRating({ rating }: { rating: number }) {
 // Main Component
 // =============================================================================
 
-export function PricingContent({ plan, faqs, testimonials, comparison }: PricingContentProps) {
+export function PricingContent({ freeTier, paidPlan, faqs, testimonials }: PricingContentProps) {
   const heroRef = useRef(null)
   const heroInView = useInView(heroRef, { once: true })
 
-  const yearlySubscriptionCost = comparison.monthlyPrice * 12
-  const savingsAfterYear = yearlySubscriptionCost - parseFloat(plan.currentPrice.replace(/[^0-9.]/g, ''))
+  const freeTierReasons = [
+    {
+      title: 'It forces prioritization',
+      description:
+        'Three tasks makes you choose what matters tonight instead of waking up to an endless list tomorrow.',
+    },
+    {
+      title: 'It lowers morning friction',
+      description:
+        'A smaller plan is easier to trust, easier to start, and less likely to trigger overthinking when the day begins.',
+    },
+    {
+      title: 'It proves the habit first',
+      description:
+        'You should be able to feel the value of evening planning before deciding whether you need more flexibility.',
+    },
+  ]
 
   return (
     <div className="relative overflow-hidden">
@@ -254,29 +270,30 @@ export function PricingContent({ plan, faqs, testimonials, comparison }: Pricing
             <motion.div variants={fadeInUp} className="text-center lg:text-left">
               <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-100/80 text-primary-700 text-sm font-medium backdrop-blur-sm border border-primary-200/50 mb-6">
                 <Sparkles className="w-4 h-4" />
-                {plan.discountLabel || 'Lifetime Access'}
+                Focused by design
               </span>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
                 <span className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent">
-                  Domani Pricing:
+                  Start free with
                 </span>
                 <br />
                 <span className="bg-gradient-to-r from-primary-600 via-primary-600 to-primary-600 bg-clip-text text-transparent">
-                  Free Trial, Then Yours Forever
+                  three intentional tasks
                 </span>
               </h1>
 
               <p className="text-lg sm:text-xl text-gray-600 mb-8 max-w-lg mx-auto lg:mx-0">
-                One payment. Lifetime access. No subscriptions, no recurring fees.
+                Domani is built to reduce overwhelm, not expand your list. The free tier keeps your
+                daily plan tight on purpose, and paid access opens more room when your routine needs it.
               </p>
 
               {/* Quick Benefits */}
               <div className="space-y-3 mb-8">
                 {[
-                  'Plan tomorrow tonight, wake up ready',
-                  'Smart reminders build lasting habits',
-                  'Track progress with beautiful analytics',
+                  '3 tasks per day to sharpen prioritization',
+                  'Plan when calm, wake up with a clear direction',
+                  'Upgrade for more flexibility, history, and insight',
                 ].map((benefit) => (
                   <div key={benefit} className="flex items-center gap-3 justify-center lg:justify-start">
                     <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
@@ -295,134 +312,124 @@ export function PricingContent({ plan, faqs, testimonials, comparison }: Pricing
 
             {/* Right Side - Compact Pricing Card */}
             <motion.div variants={scaleIn}>
-              <GlassCard hover={false} highlight className="p-6 sm:p-8">
-                {/* Discount Badge */}
-                {plan.discountPercent && plan.discountPercent > 0 && (
-                  <div className="flex justify-center mb-4">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-primary-500 to-primary-600 text-white text-sm font-semibold shadow-lg shadow-primary-500/25">
-                      <Sparkles className="w-3.5 h-3.5" />
-                      {plan.discountPercent}% Off
-                    </span>
-                  </div>
-                )}
-
-                {/* Price Display */}
-                <div className="text-center mb-4">
-                  <div className="flex items-center justify-center gap-2 mb-1">
-                    {plan.originalPrice && (
-                      <span className="text-xl text-gray-400 line-through">{plan.originalPrice}</span>
-                    )}
-                    <span className="text-5xl sm:text-6xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
-                      {plan.currentPrice}
-                    </span>
-                  </div>
-                  <p className="text-gray-500">{plan.period}</p>
-                </div>
-
-                {/* Features Grid */}
-                <div className="grid grid-cols-2 gap-2 mb-4">
-                  {plan.features.slice(0, 6).map((feature) => (
-                    <div key={feature} className="flex items-center gap-1.5">
-                      <Check className="w-4 h-4 text-green-500 flex-shrink-0" />
-                      <span className="text-gray-700 text-sm">{feature}</span>
+              <div className="space-y-4">
+                <GlassCard hover={false} className="p-6">
+                  <div className="flex items-center justify-between gap-3">
+                    <div>
+                      <p className="text-sm font-semibold text-primary-700">{freeTier.name}</p>
+                      <div className="mt-1 flex items-end gap-2">
+                        <span className="text-4xl font-bold text-gray-900">{freeTier.price}</span>
+                        <span className="text-sm text-gray-500">{freeTier.period}</span>
+                      </div>
                     </div>
-                  ))}
-                </div>
-
-                {/* Trial Banner */}
-                <div className="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-lg p-3 mb-4">
-                  <div className="flex items-center justify-center gap-2 text-green-700">
-                    <Shield className="w-4 h-4" />
-                    <span className="font-semibold text-sm">{plan.trialMessage}</span>
+                    <span className="rounded-full bg-primary-100 px-3 py-1 text-xs font-semibold text-primary-700">
+                      Clarity first
+                    </span>
                   </div>
-                </div>
 
-                {/* CTA */}
-                <div className="mb-4">
-                  <DynamicCTA showSubtext={false} analyticsLocation="pricing-card" size="large" />
-                </div>
+                  <p className="mt-4 text-sm text-gray-600">{freeTier.description}</p>
 
-                {/* Trust Signals */}
-                <div className="flex items-center justify-center gap-3 text-xs text-gray-500">
-                  <div className="flex items-center gap-1">
-                    <Lock className="w-3 h-3" />
-                    <span>Secure</span>
+                  <div className="mt-5 space-y-2">
+                    {freeTier.features.map((feature) => (
+                      <div key={feature} className="flex items-center gap-2">
+                        <Check className="h-4 w-4 flex-shrink-0 text-green-500" />
+                        <span className="text-sm text-gray-700">{feature}</span>
+                      </div>
+                    ))}
                   </div>
-                  <span>•</span>
-                  <span>App Store Refunds</span>
-                  <span>•</span>
-                  <span>GDPR</span>
-                </div>
-              </GlassCard>
+
+                  <p className="mt-4 text-xs font-medium text-primary-700">{freeTier.footnote}</p>
+                </GlassCard>
+
+                <GlassCard hover={false} highlight className="p-6 sm:p-8">
+                  {paidPlan.discountPercent && paidPlan.discountPercent > 0 && (
+                    <div className="flex justify-center mb-4">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-primary-500 to-primary-600 text-white text-sm font-semibold shadow-lg shadow-primary-500/25">
+                        <Sparkles className="w-3.5 h-3.5" />
+                        {paidPlan.discountLabel}
+                      </span>
+                    </div>
+                  )}
+
+                  <div className="text-center mb-4">
+                    <p className="text-sm font-semibold text-primary-700">{paidPlan.name}</p>
+                    <div className="mt-2 flex items-center justify-center gap-2 mb-1">
+                      {paidPlan.originalPrice && (
+                        <span className="text-xl text-gray-400 line-through">{paidPlan.originalPrice}</span>
+                      )}
+                      <span className="text-5xl sm:text-6xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+                        {paidPlan.currentPrice}
+                      </span>
+                    </div>
+                    <p className="text-gray-500">{paidPlan.period}</p>
+                  </div>
+
+                  <p className="mb-5 text-center text-sm text-gray-600">{paidPlan.description}</p>
+
+                  <div className="grid grid-cols-2 gap-2 mb-5">
+                    {paidPlan.features.map((feature) => (
+                      <div key={feature} className="flex items-center gap-1.5">
+                        <Check className="w-4 h-4 text-green-500 flex-shrink-0" />
+                        <span className="text-gray-700 text-sm">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="bg-gradient-to-r from-primary-50 to-primary-100 border border-primary-200 rounded-lg p-3 mb-4">
+                    <div className="flex items-center justify-center gap-2 text-primary-700">
+                      <Shield className="w-4 h-4" />
+                      <span className="font-semibold text-sm">
+                        More flexibility, same calm planning philosophy
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="mb-3">
+                    <DynamicCTA showSubtext={false} analyticsLocation="pricing-card" size="large" />
+                  </div>
+                  <p className="text-center text-xs text-gray-500">
+                    Start free on iOS and Android. Upgrade only if your planning routine wants more room.
+                  </p>
+                </GlassCard>
+              </div>
             </motion.div>
           </div>
         </motion.div>
 
-        {/* Subscription Comparison */}
-        <AnimatedSection className="max-w-3xl mx-auto mb-24">
+        {/* Free Tier Framing */}
+        <AnimatedSection className="max-w-5xl mx-auto mb-24">
           <div className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
-              Why Lifetime Makes Sense
+              Why the free tier stops at three
             </h2>
             <p className="text-gray-600 text-lg">
-              See how quickly the lifetime deal pays for itself
+              Domani is not trying to help you carry more. It is trying to help you decide better.
             </p>
           </div>
 
-          <GlassCard hover={false} className="p-8">
-            <div className="grid md:grid-cols-2 gap-8">
-              {/* If Subscription */}
-              <div className="text-center p-6 rounded-xl bg-gray-50 border border-gray-200">
-                <p className="text-sm font-medium text-gray-500 mb-2">
-                  If we offered monthly
-                </p>
-                <p className="text-3xl font-bold text-gray-400 mb-1">
-                  ${comparison.monthlyPrice.toFixed(2)}/mo
-                </p>
-                <p className="text-gray-500">
-                  = ${yearlySubscriptionCost.toFixed(2)}/year
-                </p>
-              </div>
-
-              {/* Lifetime */}
-              <div className="text-center p-6 rounded-xl bg-gradient-to-br from-primary-50 to-primary-100 border border-primary-200">
-                <p className="text-sm font-medium text-primary-600 mb-2">
-                  Lifetime Deal
-                </p>
-                <div className="flex items-center justify-center gap-2 mb-1">
-                  {plan.originalPrice && (
-                    <span className="text-xl text-gray-400 line-through">{plan.originalPrice}</span>
-                  )}
-                  <span className="text-3xl font-bold text-primary-700">
-                    {plan.currentPrice}
-                  </span>
+          <div className="grid gap-6 md:grid-cols-3">
+            {freeTierReasons.map((reason) => (
+              <GlassCard key={reason.title} hover={false} className="p-6 h-full">
+                <div className="flex flex-col h-full">
+                  <div className="w-10 h-10 rounded-xl bg-primary-100 text-primary-700 flex items-center justify-center mb-4">
+                    <Check className="w-5 h-5" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">{reason.title}</h3>
+                  <p className="text-sm text-gray-600">{reason.description}</p>
                 </div>
-                <p className="text-primary-600">one-time, forever</p>
-              </div>
-            </div>
-
-            <div className="mt-8 text-center">
-              <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-green-50 border border-green-200">
-                <Zap className="w-5 h-5 text-green-600" />
-                <span className="font-semibold text-green-700">
-                  Pays for itself in just {comparison.monthsToPayoff} months!
-                </span>
-              </div>
-              <p className="mt-3 text-gray-500">
-                After that, it&apos;s free forever. Save ${savingsAfterYear.toFixed(2)}+ in the first year alone.
-              </p>
-            </div>
-          </GlassCard>
+              </GlassCard>
+            ))}
+          </div>
         </AnimatedSection>
 
         {/* Features Grid */}
         <AnimatedSection className="max-w-5xl mx-auto mb-24">
           <div className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
-              Everything You Need
+              What paid access expands
             </h2>
             <p className="text-gray-600 text-lg">
-              All features included, no upsells, no premium tiers
+              More flexibility for bigger planning days, without changing the core philosophy.
             </p>
           </div>
 
@@ -433,7 +440,7 @@ export function PricingContent({ plan, faqs, testimonials, comparison }: Pricing
             viewport={{ once: true, margin: '-50px' }}
             className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
           >
-            {plan.highlightFeatures.map((feature, index) => (
+            {paidPlan.highlightFeatures.map((feature) => (
               <motion.div key={feature.title} variants={scaleIn}>
                 <GlassCard className="p-6 h-full">
                   <div className="flex flex-col h-full">
@@ -456,10 +463,10 @@ export function PricingContent({ plan, faqs, testimonials, comparison }: Pricing
           <AnimatedSection className="max-w-5xl mx-auto mb-24">
             <div className="text-center mb-10">
               <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
-                Loved by Planners
+                When the routine sticks, the mornings change
               </h2>
               <p className="text-gray-600 text-lg">
-                Join thousands who&apos;ve transformed their mornings
+                The strongest upgrade story is a product that already feels useful before you pay.
               </p>
             </div>
 
@@ -520,10 +527,11 @@ export function PricingContent({ plan, faqs, testimonials, comparison }: Pricing
               transition={{ duration: 0.6, ease: smoothEase }}
             >
               <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-gray-900 via-primary-800 to-gray-900 bg-clip-text text-transparent">
-                Ready to Own Your Mornings?
+                Start free. Keep it focused.
               </h2>
               <p className="text-lg text-gray-600 mb-8 max-w-xl mx-auto">
-                Start your free trial today. No credit card required.
+                Begin with three intentional tasks per day. Upgrade only when you want more room,
+                more history, and more flexibility.
               </p>
               <DynamicCTA size="large" analyticsLocation="pricing-footer" />
 
@@ -531,15 +539,15 @@ export function PricingContent({ plan, faqs, testimonials, comparison }: Pricing
               <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm text-gray-500">
                 <div className="flex items-center gap-2">
                   <Shield className="w-4 h-4" />
-                  <span>14-Day Free Trial</span>
+                  <span>Free to start</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Lock className="w-4 h-4" />
-                  <span>Secure Payments</span>
+                  <span>One-time lifetime option</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <RefreshCw className="w-4 h-4" />
-                  <span>App Store Refunds</span>
+                  <Shield className="w-4 h-4" />
+                  <span>Secure app-store payments</span>
                 </div>
               </div>
             </motion.div>
