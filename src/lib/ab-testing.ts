@@ -1,3 +1,5 @@
+import { PRIMARY_CTA_LABEL } from '@/lib/config/cta'
+
 export interface ABTestVariant {
   headline: string
   subheadline: string
@@ -6,27 +8,27 @@ export interface ABTestVariant {
   variant: 'A' | 'B' | 'C'
 }
 
-// All variants now use the same copy for public beta launch
-// A/B testing can be re-enabled later with different experiments
+// All variants currently use the same approved messaging system.
+// A/B testing can be re-enabled later with new experiments.
 export const testVariants: Record<string, ABTestVariant> = {
   A: {
     headline: "Plan Tomorrow, Tonight",
     subheadline: "Make better decisions when you're calm, not rushed. Execute with clarity.",
-    ctaText: "Download Free",
+    ctaText: PRIMARY_CTA_LABEL,
     secondaryCtaText: "See How It Works",
     variant: 'A'
   },
   B: {
     headline: "Plan Tomorrow, Tonight",
     subheadline: "Make better decisions when you're calm, not rushed. Execute with clarity.",
-    ctaText: "Download Free",
+    ctaText: PRIMARY_CTA_LABEL,
     secondaryCtaText: "See How It Works",
     variant: 'B'
   },
   C: {
     headline: "Plan Tomorrow, Tonight",
     subheadline: "Make better decisions when you're calm, not rushed. Execute with clarity.",
-    ctaText: "Download Free",
+    ctaText: PRIMARY_CTA_LABEL,
     secondaryCtaText: "See How It Works",
     variant: 'C'
   }

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import type { BlogPost } from '@/lib/blog/posts'
+import { PRIMARY_CTA_LABEL } from '@/lib/config/cta'
 import { cn } from '@/lib/utils'
 
 interface FloatingSidebarProps {
@@ -82,10 +83,10 @@ export function FloatingSidebar({ relatedPosts }: FloatingSidebarProps) {
               Ready to plan tonight?
             </p>
             <p className="mt-2.5 text-[17px] font-bold leading-tight text-white">
-              Try Domani free
+              {PRIMARY_CTA_LABEL}
             </p>
             <p className="mt-1.5 text-[13px] leading-relaxed text-white/70">
-              The evening planning app behind this article. Free during public beta.
+              The evening planning app behind this article. Start free with 3 intentional tasks per day.
             </p>
             <Link
               href="/"

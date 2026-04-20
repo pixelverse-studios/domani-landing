@@ -1,17 +1,9 @@
 /**
  * CTA (Call-to-Action) Configuration
  *
- * Centralized configuration for managing CTA behavior based on beta phase.
- * Controls whether to show waitlist signup or download buttons.
- *
- * Phase Logic:
- * - pre-beta: Before startDate → Show waitlist form
- * - beta: Between startDate and endDate → Show download buttons
- * - post-beta: After endDate → Show download buttons (general availability)
- *
- * Environment Override:
- * Set NEXT_PUBLIC_CTA_PHASE_OVERRIDE to 'pre-beta', 'beta', or 'post-beta'
- * to force a specific phase (useful for testing).
+ * Centralized messaging for prelaunch and live CTA states.
+ * The internal phase names remain for compatibility, but visible copy
+ * should stay aligned with the current product positioning.
  */
 
 // =============================================================================
@@ -51,6 +43,14 @@ export interface CTAConfig {
   postBeta: PhaseConfig
 }
 
+export const PRIMARY_TAGLINE = 'Plan tomorrow tonight. Wake up ready.'
+export const PRIMARY_CTA_LABEL = 'Start Free'
+export const PRIMARY_CTA_SUBTEXT = 'Start free with 3 intentional tasks per day.'
+export const LIVE_BADGE_TEXT = 'Available on iPhone and Android'
+export const PRELAUNCH_CTA_LABEL = 'Get Launch Updates'
+export const PRELAUNCH_CTA_SUBTEXT = 'Join the list for launch updates and early access.'
+export const PRELAUNCH_BADGE_TEXT = 'Launching Soon'
+
 // =============================================================================
 // Configuration
 // =============================================================================
@@ -63,23 +63,23 @@ export const CTA_CONFIG: CTAConfig = {
 
   preBeta: {
     ctaType: 'waitlist',
-    headline: 'Join the Waitlist',
-    subtext: 'Be the first to know when we launch.',
-    badge: 'Coming Soon',
+    headline: PRELAUNCH_CTA_LABEL,
+    subtext: PRELAUNCH_CTA_SUBTEXT,
+    badge: PRELAUNCH_BADGE_TEXT,
   },
 
   beta: {
     ctaType: 'download',
-    headline: 'Download Now',
-    subtext: 'Public beta. Limited access.',
-    badge: 'Public Beta Now Live',
+    headline: PRIMARY_CTA_LABEL,
+    subtext: PRIMARY_CTA_SUBTEXT,
+    badge: LIVE_BADGE_TEXT,
   },
 
   postBeta: {
     ctaType: 'download',
-    headline: 'Get Started',
-    subtext: 'Start free. Upgrade anytime.',
-    badge: 'Now Available',
+    headline: PRIMARY_CTA_LABEL,
+    subtext: PRIMARY_CTA_SUBTEXT,
+    badge: LIVE_BADGE_TEXT,
   },
 } as const
 

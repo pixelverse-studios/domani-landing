@@ -5,6 +5,10 @@ import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import WaitlistForm from './WaitlistForm'
 
+type GtagWindow = Window & {
+  gtag?: (...args: unknown[]) => void
+}
+
 const PRIVACY_URL = process.env.NEXT_PUBLIC_PRIVACY_URL ?? '/privacy'
 const TERMS_URL = process.env.NEXT_PUBLIC_TERMS_URL ?? '/terms'
 
@@ -43,7 +47,7 @@ export default function WaitlistInline() {
         },
         body: JSON.stringify({ 
           email, 
-          name: 'Early Adopter' // Default name for quick signup
+                name: 'Launch Updates' // Default name for quick signup
         }),
       })
 
@@ -66,8 +70,8 @@ export default function WaitlistInline() {
       }
 
       // Track conversion
-      if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('event', 'waitlist_signup', {
+      if (typeof window !== 'undefined' && (window as GtagWindow).gtag) {
+        (window as GtagWindow).gtag('event', 'waitlist_signup', {
           event_category: 'engagement',
           event_label: 'inline_quick_form',
         })
@@ -162,10 +166,10 @@ export default function WaitlistInline() {
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                   </svg>
-                  <span className="hidden sm:inline">Joining...</span>
+                  <span className="hidden sm:inline">Sending...</span>
                 </span>
               ) : (
-                'Join Waitlist'
+                'Notify Me'
               )}
             </button>
           </div>

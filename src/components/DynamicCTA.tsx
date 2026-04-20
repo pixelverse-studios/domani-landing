@@ -9,6 +9,7 @@ import {
   shouldShowWaitlist,
   getCurrentSubtext,
   getCurrentHeadline,
+  PRELAUNCH_CTA_LABEL,
   type BetaPhase,
 } from '@/lib/config/cta'
 
@@ -40,7 +41,7 @@ interface DynamicCTAProps {
 }
 
 /**
- * DynamicCTA - Renders the appropriate CTA based on current beta phase
+ * DynamicCTA - Renders the appropriate CTA based on current launch phase
  *
  * - pre-beta: Shows WaitlistForm
  * - beta: Shows DownloadButtons
@@ -115,9 +116,9 @@ export default function DynamicCTA({
     trackCTAView(phase, analyticsLocation)
   }, [phase, analyticsLocation])
 
-  // Show scroll button if scrollToId is provided during pre-beta phase
+  // Show scroll button if scrollToId is provided during prelaunch phase
   if (showWaitlist && scrollToId) {
-    const buttonText = scrollButtonText || headline || 'Join the Waitlist'
+    const buttonText = scrollButtonText || headline || PRELAUNCH_CTA_LABEL
     const buttonPadding = size === 'large' ? 'px-8 py-4 text-lg' : 'px-6 py-3'
 
     return (
