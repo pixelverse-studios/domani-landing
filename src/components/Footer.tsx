@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import { CONTACT_EMAIL } from '@/lib/config/site'
+import { PRIMARY_TAGLINE } from '@/lib/config/cta'
 
 interface FooterLink {
   label: string
@@ -66,9 +67,7 @@ export function Footer({ className }: FooterProps) {
               </span>
             </Link>
             <p className="mt-2 text-sm text-gray-500 ">
-              Plan tomorrow tonight,
-              <br />
-              wake up ready.
+              {PRIMARY_TAGLINE}
             </p>
           </div>
 

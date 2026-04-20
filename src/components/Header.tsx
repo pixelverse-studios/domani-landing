@@ -8,7 +8,7 @@ import { Menu, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 import { Logo } from './Logo'
-import { getCurrentPhase } from '@/lib/config/cta'
+import { getCurrentPhase, PRELAUNCH_CTA_LABEL, PRIMARY_CTA_LABEL } from '@/lib/config/cta'
 
 const navLinks = [
   { href: '/about', label: 'About' },
@@ -53,11 +53,11 @@ function getHeaderCTA() {
   const phase = getCurrentPhase()
   switch (phase) {
     case 'pre-beta':
-      return { text: 'Join Waitlist', href: '/#waitlist-form' }
+      return { text: PRELAUNCH_CTA_LABEL, href: '/#waitlist-form' }
     case 'beta':
-      return { text: 'Try Free', href: '/' }
+      return { text: PRIMARY_CTA_LABEL, href: '/' }
     case 'post-beta':
-      return { text: 'Download Free', href: '/' }
+      return { text: PRIMARY_CTA_LABEL, href: '/' }
   }
 }
 

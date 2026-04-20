@@ -230,7 +230,7 @@ export default async function ComparePage({ params }: ComparePageProps) {
               Ready to try a different approach?
             </h2>
             <p className="mt-3 text-lg text-gray-500">
-              Plan tomorrow tonight. Wake up ready. Free during public beta.
+              Plan tomorrow tonight. Wake up ready. Start free with 3 intentional tasks per day.
             </p>
             <div className="mt-8">
               <DynamicCTA size="large" analyticsLocation={`compare-${comp.slug}`} />

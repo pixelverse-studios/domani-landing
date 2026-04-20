@@ -138,7 +138,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <div className="relative">
               <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-white/60">Ready to plan tonight?</p>
               <p className="mt-2.5 text-[17px] font-bold leading-tight text-white">Try Domani free</p>
-              <p className="mt-1.5 text-[13px] leading-relaxed text-white/70">The evening planning app behind this article. Free during public beta.</p>
+              <p className="mt-1.5 text-[13px] leading-relaxed text-white/70">The evening planning app behind this article. Start free with 3 intentional tasks per day.</p>
               <Link
                 href="/"
                 className="group mt-4 inline-flex items-center gap-1.5 rounded-lg bg-white px-4 py-2 text-[13px] font-semibold text-primary-700 shadow-sm transition-all duration-200 hover:shadow-md hover:gap-2.5"

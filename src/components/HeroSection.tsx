@@ -2,7 +2,7 @@ import dynamic from 'next/dynamic'
 import DynamicCTA from './DynamicCTA'
 import SocialProof from './SocialProof'
 import { SectionDivider } from '@/components/ui/SectionDivider'
-import { getCurrentBadgeText } from '@/lib/config/cta'
+import { getCurrentBadgeText, PRIMARY_CTA_SUBTEXT, PRIMARY_TAGLINE } from '@/lib/config/cta'
 
 const HeroMotionLayer = dynamic(() => import('./hero/HeroMotionLayer').then((mod) => mod.HeroMotionLayer), {
   loading: () => null,
@@ -69,19 +69,19 @@ export default function HeroSection({
                 <svg className="h-5 w-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                100% free during beta
+                {PRIMARY_CTA_SUBTEXT}
               </span>
               <span className="flex items-center gap-2">
                 <svg className="h-5 w-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                All premium features unlocked
+                Upgrade for more flexibility when you need it
               </span>
               <span className="flex items-center gap-2">
                 <svg className="h-5 w-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                Help shape the product
+                {PRIMARY_TAGLINE}
               </span>
             </div>
 

@@ -145,7 +145,7 @@ export function AppShowcase() {
                 <DynamicCTA
                   analyticsLocation="app-showcase"
                   scrollToId="waitlist-form"
-                  scrollButtonText="Get Early Access"
+                  scrollButtonText="Start Free"
                   align="start"
                 />
               </div>

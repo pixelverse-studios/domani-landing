@@ -31,7 +31,7 @@ export default function AboutPage() {
       icon: 'wallet',
       title: 'Simple, Fair Pricing',
       description:
-        '14-day free trial with full access, then one simple lifetime price. No subscriptions, no hidden fees—pay once, own it forever.',
+        'Start free with 3 intentional tasks per day, then upgrade for more flexibility and support when you want it.',
     },
     {
       icon: 'shield',
