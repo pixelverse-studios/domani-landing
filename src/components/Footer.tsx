@@ -28,6 +28,7 @@ const footerSections: FooterSection[] = [
       { label: 'Blog', href: '/blog' },
       { label: 'Compare', href: '/compare' },
       { label: 'FAQ', href: '/faq' },
+      { label: 'Support', href: '/support' },
     ],
   },
   {
