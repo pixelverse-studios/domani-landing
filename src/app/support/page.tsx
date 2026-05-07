@@ -122,19 +122,19 @@ export default function SupportPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(contactSchema).replace(/</g, '\\u003c') }}
       />
-      <main className="min-h-screen bg-[#faf8f5] pt-24 text-[#314038] [@media(prefers-color-scheme:dark)]:bg-[#111713] [@media(prefers-color-scheme:dark)]:text-[#edf3ee]">
+      <main className="min-h-screen bg-gradient-to-b from-primary-50/80 via-white to-primary-100/50 pt-24 text-gray-900">
         <div className="mx-auto w-full max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
           <Breadcrumb items={[{ label: 'Support' }]} />
 
           <section className="grid gap-10 py-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(360px,0.7fr)] lg:items-end lg:py-14">
             <div className="max-w-3xl">
-              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-primary-700 [@media(prefers-color-scheme:dark)]:text-primary-300">
+              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-primary-600">
                 Domani Support
               </p>
-              <h1 className="mt-5 text-4xl font-bold leading-[1.02] tracking-tight text-[#26352e] sm:text-5xl lg:text-6xl [@media(prefers-color-scheme:dark)]:text-white">
+              <h1 className="mt-5 text-4xl font-bold leading-[1.02] tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
                 Help with your account, purchases, and planning data.
               </h1>
-              <p className="mt-6 max-w-2xl text-lg leading-8 text-[#647267] [@media(prefers-color-scheme:dark)]:text-[#b8c6bc]">
+              <p className="mt-6 max-w-2xl text-lg leading-8 text-gray-600">
                 Use this page when you need a human, a policy link, or the correct store-managed refund path.
                 We can help with Domani app behavior, account access, notifications, and task data questions.
               </p>
@@ -148,7 +148,7 @@ export default function SupportPage() {
                 </a>
                 <Link
                   href="/faq"
-                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-[#d8d2c8] bg-white/70 px-5 py-3 text-sm font-semibold text-[#314038] shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] transition hover:-translate-y-0.5 hover:border-primary-300 hover:text-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-500/20 active:translate-y-0 [@media(prefers-color-scheme:dark)]:border-white/10 [@media(prefers-color-scheme:dark)]:bg-white/5 [@media(prefers-color-scheme:dark)]:text-[#edf3ee] [@media(prefers-color-scheme:dark)]:shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-primary-200 bg-white/80 px-5 py-3 text-sm font-semibold text-gray-900 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] transition hover:-translate-y-0.5 hover:border-primary-300 hover:text-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-500/20 active:translate-y-0"
                 >
                   Check FAQ
                   <ArrowRight className="h-4 w-4" aria-hidden />
@@ -156,24 +156,24 @@ export default function SupportPage() {
               </div>
             </div>
 
-            <aside className="rounded-[2rem] border border-white/70 bg-white/80 p-6 shadow-[0_24px_70px_-46px_rgba(49,64,56,0.8)] [@media(prefers-color-scheme:dark)]:border-white/10 [@media(prefers-color-scheme:dark)]:bg-white/[0.06] [@media(prefers-color-scheme:dark)]:shadow-none">
+            <aside className="rounded-[2rem] border border-white/70 bg-white/85 p-6 shadow-[0_24px_70px_-46px_rgba(49,64,56,0.8)]">
               <div className="flex items-center gap-3">
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary-100 text-primary-800 [@media(prefers-color-scheme:dark)]:bg-primary-300/15 [@media(prefers-color-scheme:dark)]:text-primary-200">
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary-100 text-primary-700">
                   <MessageSquareText className="h-5 w-5" aria-hidden />
                 </div>
                 <div>
-                  <h2 className="text-base font-semibold text-[#26352e] [@media(prefers-color-scheme:dark)]:text-white">
+                  <h2 className="text-base font-semibold text-gray-900">
                     What to expect
                   </h2>
-                  <p className="text-sm text-[#6f7d73] [@media(prefers-color-scheme:dark)]:text-[#a8b6ac]">
+                  <p className="text-sm text-gray-500">
                     Clear context helps us solve the issue faster.
                   </p>
                 </div>
               </div>
               <ul className="mt-6 space-y-4">
                 {responseGuidance.map((item) => (
-                  <li key={item} className="flex gap-3 text-sm leading-6 text-[#536258] [@media(prefers-color-scheme:dark)]:text-[#c4d0c7]">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary-700 [@media(prefers-color-scheme:dark)]:text-primary-300" aria-hidden />
+                  <li key={item} className="flex gap-3 text-sm leading-6 text-gray-600">
+                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary-600" aria-hidden />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -183,10 +183,10 @@ export default function SupportPage() {
 
           <section aria-labelledby="support-topics" className="py-10">
             <div className="flex max-w-3xl flex-col gap-3">
-              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary-700 [@media(prefers-color-scheme:dark)]:text-primary-300">
+              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary-600">
                 Support Topics
               </p>
-              <h2 id="support-topics" className="text-3xl font-bold text-[#26352e] [@media(prefers-color-scheme:dark)]:text-white">
+              <h2 id="support-topics" className="text-3xl font-bold text-gray-900">
                 Tell us where you are stuck.
               </h2>
             </div>
@@ -196,13 +196,13 @@ export default function SupportPage() {
                 return (
                   <article
                     key={topic.title}
-                    className="rounded-2xl border border-[#e5dfd5] bg-white/65 p-5 shadow-[0_16px_40px_-32px_rgba(49,64,56,0.75)] [@media(prefers-color-scheme:dark)]:border-white/10 [@media(prefers-color-scheme:dark)]:bg-white/[0.045]"
+                    className="rounded-2xl border border-primary-100 bg-white/75 p-5 shadow-[0_16px_40px_-32px_rgba(49,64,56,0.75)]"
                   >
-                    <Icon className="h-5 w-5 text-primary-700 [@media(prefers-color-scheme:dark)]:text-primary-300" aria-hidden />
-                    <h3 className="mt-4 text-lg font-semibold text-[#26352e] [@media(prefers-color-scheme:dark)]:text-white">
+                    <Icon className="h-5 w-5 text-primary-600" aria-hidden />
+                    <h3 className="mt-4 text-lg font-semibold text-gray-900">
                       {topic.title}
                     </h3>
-                    <p className="mt-2 text-sm leading-6 text-[#66746a] [@media(prefers-color-scheme:dark)]:text-[#adbbb1]">
+                    <p className="mt-2 text-sm leading-6 text-gray-600">
                       {topic.description}
                     </p>
                   </article>
@@ -212,10 +212,10 @@ export default function SupportPage() {
           </section>
 
           <section className="grid gap-6 py-10 lg:grid-cols-[0.85fr_1.15fr]">
-            <div className="rounded-[2rem] bg-[#314038] p-7 text-white shadow-[0_24px_70px_-48px_rgba(49,64,56,0.9)] [@media(prefers-color-scheme:dark)]:bg-[#dce8df] [@media(prefers-color-scheme:dark)]:text-[#172119]">
-              <ShieldCheck className="h-6 w-6 text-primary-200 [@media(prefers-color-scheme:dark)]:text-primary-700" aria-hidden />
+            <div className="rounded-[2rem] bg-gradient-to-br from-primary-700 to-primary-800 p-7 text-white shadow-[0_24px_70px_-48px_rgba(49,64,56,0.9)]">
+              <ShieldCheck className="h-6 w-6 text-primary-200" aria-hidden />
               <h2 className="mt-5 text-2xl font-bold">Refunds are handled by the store where you purchased.</h2>
-              <p className="mt-4 text-sm leading-6 text-white/75 [@media(prefers-color-scheme:dark)]:text-[#46554b]">
+              <p className="mt-4 text-sm leading-6 text-white/80">
                 Domani can help investigate purchase access issues, but Apple and Google manage refund eligibility
                 and payment reversals for app store purchases.
               </p>
@@ -226,16 +226,16 @@ export default function SupportPage() {
                 href="https://support.apple.com/en-us/118223"
                 target="_blank"
                 rel="noreferrer"
-                className="group rounded-2xl border border-[#e5dfd5] bg-white/70 p-6 transition hover:-translate-y-0.5 hover:border-primary-300 focus:outline-none focus:ring-4 focus:ring-primary-500/20 [@media(prefers-color-scheme:dark)]:border-white/10 [@media(prefers-color-scheme:dark)]:bg-white/[0.045]"
+                className="group rounded-2xl border border-primary-100 bg-white/75 p-6 transition hover:-translate-y-0.5 hover:border-primary-300 focus:outline-none focus:ring-4 focus:ring-primary-500/20"
               >
-                <p className="text-sm font-semibold text-primary-700 [@media(prefers-color-scheme:dark)]:text-primary-300">Apple App Store</p>
-                <h3 className="mt-3 text-xl font-semibold text-[#26352e] [@media(prefers-color-scheme:dark)]:text-white">
+                <p className="text-sm font-semibold text-primary-600">Apple App Store</p>
+                <h3 className="mt-3 text-xl font-semibold text-gray-900">
                   Request through Apple Support
                 </h3>
-                <p className="mt-3 text-sm leading-6 text-[#66746a] [@media(prefers-color-scheme:dark)]:text-[#adbbb1]">
+                <p className="mt-3 text-sm leading-6 text-gray-600">
                   Apple directs users to sign in at reportaproblem.apple.com and choose Request a refund for eligible purchases.
                 </p>
-                <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary-700 group-hover:gap-3 [@media(prefers-color-scheme:dark)]:text-primary-300">
+                <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary-600 group-hover:gap-3">
                   Open Apple guidance <ArrowRight className="h-4 w-4" aria-hidden />
                 </span>
               </a>
@@ -244,16 +244,16 @@ export default function SupportPage() {
                 href="https://support.google.com/googleplay/answer/15574897?hl=en"
                 target="_blank"
                 rel="noreferrer"
-                className="group rounded-2xl border border-[#e5dfd5] bg-white/70 p-6 transition hover:-translate-y-0.5 hover:border-primary-300 focus:outline-none focus:ring-4 focus:ring-primary-500/20 [@media(prefers-color-scheme:dark)]:border-white/10 [@media(prefers-color-scheme:dark)]:bg-white/[0.045]"
+                className="group rounded-2xl border border-primary-100 bg-white/75 p-6 transition hover:-translate-y-0.5 hover:border-primary-300 focus:outline-none focus:ring-4 focus:ring-primary-500/20"
               >
-                <p className="text-sm font-semibold text-primary-700 [@media(prefers-color-scheme:dark)]:text-primary-300">Google Play</p>
-                <h3 className="mt-3 text-xl font-semibold text-[#26352e] [@media(prefers-color-scheme:dark)]:text-white">
+                <p className="text-sm font-semibold text-primary-600">Google Play</p>
+                <h3 className="mt-3 text-xl font-semibold text-gray-900">
                   Request through Google Play
                 </h3>
-                <p className="mt-3 text-sm leading-6 text-[#66746a] [@media(prefers-color-scheme:dark)]:text-[#adbbb1]">
+                <p className="mt-3 text-sm leading-6 text-gray-600">
                   Google Play provides its refund request flow and notes that refund decisions can take up to 4 days.
                 </p>
-                <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary-700 group-hover:gap-3 [@media(prefers-color-scheme:dark)]:text-primary-300">
+                <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary-600 group-hover:gap-3">
                   Open Google guidance <ArrowRight className="h-4 w-4" aria-hidden />
                 </span>
               </a>
@@ -262,49 +262,49 @@ export default function SupportPage() {
 
           <section className="grid gap-6 py-10 lg:grid-cols-[0.95fr_1.05fr]">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary-700 [@media(prefers-color-scheme:dark)]:text-primary-300">
+              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary-600">
                 Helpful Links
               </p>
-              <h2 className="mt-3 text-3xl font-bold text-[#26352e] [@media(prefers-color-scheme:dark)]:text-white">
+              <h2 className="mt-3 text-3xl font-bold text-gray-900">
                 Start with the policy or guide closest to your issue.
               </h2>
-              <p className="mt-4 max-w-xl text-sm leading-6 text-[#66746a] [@media(prefers-color-scheme:dark)]:text-[#adbbb1]">
+              <p className="mt-4 max-w-xl text-sm leading-6 text-gray-600">
                 These pages are public and crawlable, so you can use them for review, privacy, account removal,
                 and general help references.
               </p>
             </div>
 
-            <div className="divide-y divide-[#e5dfd5] rounded-[2rem] border border-[#e5dfd5] bg-white/70 [@media(prefers-color-scheme:dark)]:divide-white/10 [@media(prefers-color-scheme:dark)]:border-white/10 [@media(prefers-color-scheme:dark)]:bg-white/[0.045]">
+            <div className="divide-y divide-primary-100 rounded-[2rem] border border-primary-100 bg-white/75">
               {quickLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="group flex items-center justify-between gap-5 p-5 transition hover:bg-white/70 [@media(prefers-color-scheme:dark)]:hover:bg-white/[0.05]"
+                  className="group flex items-center justify-between gap-5 p-5 transition hover:bg-white/90"
                 >
                   <span>
-                    <span className="block font-semibold text-[#26352e] [@media(prefers-color-scheme:dark)]:text-white">
+                    <span className="block font-semibold text-gray-900">
                       {link.label}
                     </span>
-                    <span className="mt-1 block text-sm leading-6 text-[#66746a] [@media(prefers-color-scheme:dark)]:text-[#adbbb1]">
+                    <span className="mt-1 block text-sm leading-6 text-gray-600">
                       {link.description}
                     </span>
                   </span>
-                  <ArrowRight className="h-4 w-4 shrink-0 text-primary-700 transition group-hover:translate-x-1 [@media(prefers-color-scheme:dark)]:text-primary-300" aria-hidden />
+                  <ArrowRight className="h-4 w-4 shrink-0 text-primary-600 transition group-hover:translate-x-1" aria-hidden />
                 </Link>
               ))}
             </div>
           </section>
 
-          <section className="mt-8 rounded-[2rem] border border-primary-200/80 bg-primary-50 p-6 sm:p-8 [@media(prefers-color-scheme:dark)]:border-primary-300/20 [@media(prefers-color-scheme:dark)]:bg-primary-300/10">
+          <section className="mt-8 rounded-[2rem] border border-primary-200/80 bg-primary-50 p-6 sm:p-8">
             <div className="grid gap-6 md:grid-cols-[auto_1fr_auto] md:items-center">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-primary-800 [@media(prefers-color-scheme:dark)]:bg-white/10 [@media(prefers-color-scheme:dark)]:text-primary-200">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-primary-700">
                 <HelpCircle className="h-6 w-6" aria-hidden />
               </div>
               <div>
-                <h2 className="text-2xl font-bold text-[#26352e] [@media(prefers-color-scheme:dark)]:text-white">
+                <h2 className="text-2xl font-bold text-gray-900">
                   Still need help?
                 </h2>
-                <p className="mt-2 text-sm leading-6 text-[#5f6d63] [@media(prefers-color-scheme:dark)]:text-[#bdc9c0]">
+                <p className="mt-2 text-sm leading-6 text-gray-600">
                   Email <a href={`mailto:${CONTACT_EMAIL}`} className="font-semibold underline underline-offset-4">{CONTACT_EMAIL}</a>.
                   Include screenshots when they help explain the issue.
                 </p>
