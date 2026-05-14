@@ -9,14 +9,12 @@ import { HowItWorks } from '@/components/sections/HowItWorks';
 import { WhoUsesDomani } from '@/components/sections/WhoUsesDomani';
 import { AppShowcase } from '@/components/showcase/AppShowcase';
 import { HomePageClient } from '@/components/home/HomePageClient';
-import Analytics from '@/components/Analytics';
 
 export const metadata = mergeMetadata(homepageMetadata);
 
 function LandingFallback() {
   return (
     <>
-      <Analytics />
       <main className="min-h-screen overflow-x-clip bg-white pt-16">
         <div className="overflow-x-clip">
           <HeroSection />

@@ -211,9 +211,9 @@ export const PAGE_KEYWORDS = {
  * Meta description templates optimized for CTR
  */
 export const META_TEMPLATES = {
-  homepage: 'Plan tomorrow tonight and wake up ready to execute. Domani is the free evening planning app for iOS and Android that turns chaotic mornings into focused ones.',
-  pricing: 'Try Domani free for 14 days, then pay once for lifetime access. No subscriptions. Evening planning app for iOS and Android, 80% cheaper than Sunsama.',
-  about: 'Domani was built on one idea: planning at night beats planning in the morning. Discover the science behind evening planning and how it works on iOS and Android.',
+  homepage: 'Plan tomorrow tonight and wake up ready to execute. Domani is the evening planning app, now live on iOS and Android.',
+  pricing: 'Try Domani free for 14 days on iOS and Android, then pay once for lifetime access. No subscriptions.',
+  about: 'Domani was built on one idea: planning at night beats planning in the morning. Discover the science behind evening planning, now live on iOS and Android.',
   faq: 'Answers to common questions about evening planning, morning routines, decision fatigue, and how Domani helps you start each day with focus and clarity.',
 } as const
 

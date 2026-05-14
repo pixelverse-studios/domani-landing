@@ -57,7 +57,7 @@ export default function HeroSection({
               <span data-hero-copy="subheadline">{subheadline}</span>
             </p>
 
-            <div data-hero-motion className="mt-8" id="waitlist-form">
+            <div data-hero-motion className="mt-8 scroll-mt-28" id="download">
               <DynamicCTA size="large" analyticsLocation="hero" align="start" />
             </div>
 
@@ -69,19 +69,19 @@ export default function HeroSection({
                 <svg className="h-5 w-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                100% free during beta
+                Plan tomorrow in under 10 minutes
               </span>
               <span className="flex items-center gap-2">
                 <svg className="h-5 w-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                All premium features unlocked
+                Wake up with your top priority clear
               </span>
               <span className="flex items-center gap-2">
                 <svg className="h-5 w-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                Help shape the product
+                Carry unfinished tasks forward intentionally
               </span>
             </div>
 

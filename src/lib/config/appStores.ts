@@ -12,6 +12,12 @@ export interface StoreConfig {
   available: boolean
   /** Store name for display/analytics */
   name: string
+  /** Public availability state for display copy */
+  status: 'live' | 'beta' | 'coming_soon'
+  /** Primary button label */
+  ctaLabel: string
+  /** Secondary button label */
+  ctaSubtext: string
 }
 
 export interface AppStoreConfig {
@@ -21,14 +27,20 @@ export interface AppStoreConfig {
 
 export const APP_STORE_CONFIG: AppStoreConfig = {
   ios: {
-    url: 'https://testflight.apple.com/join/1dgpHTK3',
+    url: 'https://apps.apple.com/us/app/domani-daily-planner/id6755746985',
     available: true,
     name: 'App Store',
+    status: 'live',
+    ctaLabel: 'Download',
+    ctaSubtext: 'on the App Store',
   },
   android: {
     url: 'https://play.google.com/store/apps/details?id=com.baitedz.domaniapp',
     available: true,
     name: 'Google Play',
+    status: 'live',
+    ctaLabel: 'Get it',
+    ctaSubtext: 'on Google Play',
   },
 }
 

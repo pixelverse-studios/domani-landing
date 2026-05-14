@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import WaitlistForm from './WaitlistForm'
+import { trackAnalyticsEvent } from '@/lib/analytics/attribution'
 
 const PRIVACY_URL = process.env.NEXT_PUBLIC_PRIVACY_URL ?? '/privacy'
 const TERMS_URL = process.env.NEXT_PUBLIC_TERMS_URL ?? '/terms'
@@ -65,13 +66,10 @@ export default function WaitlistInline() {
         return
       }
 
-      // Track conversion
-      if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('event', 'waitlist_signup', {
-          event_category: 'engagement',
-          event_label: 'inline_quick_form',
-        })
-      }
+      trackAnalyticsEvent('waitlist_signup', {
+        event_category: 'engagement',
+        event_label: 'inline_quick_form',
+      })
 
       setIsSuccess(true)
       setEmail('')

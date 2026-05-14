@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { validateEmail } from '@/utils/validation'
+import { trackAnalyticsEvent } from '@/lib/analytics/attribution'
 
 const PRIVACY_URL = process.env.NEXT_PUBLIC_PRIVACY_URL ?? '/privacy'
 const TERMS_URL = process.env.NEXT_PUBLIC_TERMS_URL ?? '/terms'
@@ -56,13 +57,10 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
         throw new Error(data.error || 'Something went wrong')
       }
 
-      // Track conversion
-      if (typeof window !== 'undefined' && (window as typeof window & { gtag?: (...args: unknown[]) => void }).gtag) {
-        (window as typeof window & { gtag: (...args: unknown[]) => void }).gtag('event', 'waitlist_signup', {
-          event_category: 'engagement',
-          event_label: variant === 'modal' ? 'modal_form' : 'inline_form',
-        })
-      }
+      trackAnalyticsEvent('waitlist_signup', {
+        event_category: 'engagement',
+        event_label: variant === 'modal' ? 'modal_form' : 'inline_form',
+      })
 
       setIsSuccess(true)
 

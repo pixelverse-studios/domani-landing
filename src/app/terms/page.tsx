@@ -12,7 +12,7 @@ const sections = [
   {
     title: '1. Acceptance of terms',
     body:
-      'By creating an account or joining the waitlist you agree to these terms and our Privacy Policy. If you are using Domani on behalf of a company, you confirm you have authority to bind that company.',
+      'By creating an account or using Domani you agree to these terms and our Privacy Policy. If you are using Domani on behalf of a company, you confirm you have authority to bind that company.',
   },
   {
     title: '2. Eligibility & accounts',

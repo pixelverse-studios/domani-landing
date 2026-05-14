@@ -23,7 +23,7 @@ const sections = [
     title: 'How we use your data',
     items: [
       'Provide and personalize the Domani planning experience.',
-      'Send transactional emails (plan reminders, waitlist confirmations, billing notices).',
+      'Send transactional emails (plan reminders, account notices, support updates, and billing notices).',
       'Monitor performance, detect abuse, and keep the platform reliable.',
       'Share anonymized usage metrics to understand which features help the most.',
     ],

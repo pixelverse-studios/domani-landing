@@ -222,7 +222,7 @@ export default function ComparePage() {
               Ready to try evening-first planning?
             </h2>
             <p className="mt-3 text-lg text-gray-500">
-              Free during public beta. No credit card required.
+              Live on iOS and Android with a 14-day free trial.
             </p>
             <div className="mt-8">
               <DynamicCTA size="large" analyticsLocation="compare-index" />

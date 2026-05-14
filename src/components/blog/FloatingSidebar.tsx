@@ -85,7 +85,7 @@ export function FloatingSidebar({ relatedPosts }: FloatingSidebarProps) {
               Try Domani free
             </p>
             <p className="mt-1.5 text-[13px] leading-relaxed text-white/70">
-              The evening planning app behind this article. Free during public beta.
+              The evening planning app behind this article. Live on iOS, with Android in beta.
             </p>
             <Link
               href="/"

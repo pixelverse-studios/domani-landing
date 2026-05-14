@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type MouseEvent } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -49,15 +49,22 @@ function NavLink({ href, label, className, disableUnderline = false, onClick }: 
   )
 }
 
-function getHeaderCTA() {
+interface HeaderCTA {
+  text: string
+  href: string
+  anchorId?: string
+  external?: boolean
+}
+
+function getHeaderCTA(): HeaderCTA {
   const phase = getCurrentPhase()
   switch (phase) {
     case 'pre-beta':
-      return { text: 'Join Waitlist', href: '/#waitlist-form' }
+      return { text: 'Join Waitlist', href: '/#download', anchorId: 'download' }
     case 'beta':
-      return { text: 'Try Free', href: '/' }
+      return { text: 'Get Domani', href: '/#download', anchorId: 'download' }
     case 'post-beta':
-      return { text: 'Download Free', href: '/' }
+      return { text: 'Get Domani', href: '/#download', anchorId: 'download' }
   }
 }
 
@@ -65,6 +72,24 @@ export default function Header() {
   const [isMobileOpen, setIsMobileOpen] = useState(false)
   const pathname = usePathname()
   const cta = getHeaderCTA()
+
+  const handleCTAClick = (event: MouseEvent<HTMLAnchorElement>, headerCTA: HeaderCTA) => {
+    if (headerCTA.external || pathname !== '/' || !headerCTA.anchorId) return
+
+    const target = document.getElementById(headerCTA.anchorId)
+    if (!target) return
+
+    event.preventDefault()
+    setIsMobileOpen(false)
+    window.history.pushState(null, '', `#${headerCTA.anchorId}`)
+
+    const offset = 96
+    const targetTop = target.getBoundingClientRect().top + window.scrollY - offset
+    window.scrollTo({
+      top: Math.max(0, targetTop),
+      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+    })
+  }
 
   useEffect(() => {
     setIsMobileOpen(false)
@@ -84,6 +109,8 @@ export default function Header() {
           ))}
           <Link
             href={cta.href}
+            {...(cta.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+            onClick={(event) => handleCTAClick(event, cta)}
             className="ml-2 rounded-lg bg-primary-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-primary-700 hover:shadow-md"
           >
             {cta.text}
@@ -132,7 +159,8 @@ export default function Header() {
                 ))}
                 <Link
                   href={cta.href}
-                  onClick={() => setIsMobileOpen(false)}
+                  {...(cta.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                  onClick={(event) => handleCTAClick(event, cta)}
                   className="mt-2 block rounded-lg bg-primary-600 px-4 py-2.5 text-center text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-primary-700"
                 >
                   {cta.text}

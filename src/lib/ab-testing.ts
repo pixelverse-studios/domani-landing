@@ -6,7 +6,7 @@ export interface ABTestVariant {
   variant: 'A' | 'B' | 'C'
 }
 
-// All variants now use the same copy for public beta launch
+// All variants now use the same launch copy.
 // A/B testing can be re-enabled later with different experiments
 export const testVariants: Record<string, ABTestVariant> = {
   A: {

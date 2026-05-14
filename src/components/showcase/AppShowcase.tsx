@@ -144,8 +144,8 @@ export function AppShowcase() {
               <div className="mt-8">
                 <DynamicCTA
                   analyticsLocation="app-showcase"
-                  scrollToId="waitlist-form"
-                  scrollButtonText="Get Early Access"
+                  scrollToId="download"
+                  scrollButtonText="Get Domani"
                   align="start"
                 />
               </div>

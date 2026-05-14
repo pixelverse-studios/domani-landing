@@ -10,6 +10,7 @@ import { SITE_URL } from '@/lib/config/site'
 import Header from '@/components/Header'
 import { SiteBehaviourConsentGate } from '@/components/privacy/SiteBehaviourConsentGate'
 import { Footer } from '@/components/Footer'
+import Analytics from '@/components/Analytics'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -69,6 +70,7 @@ export default function RootLayout({
         <StructuredData type="software" />
       </head>
       <body className="font-sans antialiased bg-white text-foreground transition-colors overflow-x-hidden">
+        <Analytics />
         <QueryProvider>
           <AuthHandler />
           <Header />

@@ -71,15 +71,15 @@ export const CTA_CONFIG: CTAConfig = {
   beta: {
     ctaType: 'download',
     headline: 'Download Now',
-    subtext: 'Public beta. Limited access.',
-    badge: 'Public Beta Now Live',
+    subtext: 'Available now on iOS and Android.',
+    badge: 'Now Live',
   },
 
   postBeta: {
     ctaType: 'download',
     headline: 'Get Started',
-    subtext: 'Start free. Upgrade anytime.',
-    badge: 'Now Available',
+    subtext: 'Available now on iOS and Android.',
+    badge: 'Now Live',
   },
 } as const
 

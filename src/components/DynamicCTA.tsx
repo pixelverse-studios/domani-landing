@@ -11,6 +11,7 @@ import {
   getCurrentHeadline,
   type BetaPhase,
 } from '@/lib/config/cta'
+import { trackAnalyticsEvent } from '@/lib/analytics/attribution'
 
 interface DynamicCTAProps {
   /** Additional CSS classes */
@@ -75,14 +76,11 @@ export default function DynamicCTA({
       return
     }
 
-    // Track scroll action
-    if (typeof window !== 'undefined' && (window as typeof window & { gtag?: (...args: unknown[]) => void }).gtag) {
-      (window as typeof window & { gtag: (...args: unknown[]) => void }).gtag('event', 'cta_scroll', {
-        event_category: 'engagement',
-        event_label: analyticsLocation,
-        scroll_target: scrollToId,
-      })
-    }
+    trackAnalyticsEvent('cta_scroll', {
+      event_category: 'engagement',
+      event_label: analyticsLocation,
+      scroll_target: scrollToId,
+    })
 
     // Calculate position with offset for fixed header
     const offset = 100
@@ -174,27 +172,23 @@ export default function DynamicCTA({
  * Track CTA view event with phase information
  */
 function trackCTAView(phase: BetaPhase, location: string) {
-  if (typeof window !== 'undefined' && (window as typeof window & { gtag?: (...args: unknown[]) => void }).gtag) {
-    (window as typeof window & { gtag: (...args: unknown[]) => void }).gtag('event', 'cta_view', {
-      event_category: 'engagement',
-      event_label: location,
-      beta_phase: phase,
-    })
-  }
+  trackAnalyticsEvent('cta_view', {
+    event_category: 'engagement',
+    event_label: location,
+    beta_phase: phase,
+  })
 }
 
 /**
  * Track CTA conversion event with phase information
  */
 function trackCTAConversion(phase: BetaPhase, location: string, ctaType: 'waitlist' | 'download') {
-  if (typeof window !== 'undefined' && (window as typeof window & { gtag?: (...args: unknown[]) => void }).gtag) {
-    (window as typeof window & { gtag: (...args: unknown[]) => void }).gtag('event', 'cta_conversion', {
-      event_category: 'conversion',
-      event_label: location,
-      beta_phase: phase,
-      cta_type: ctaType,
-    })
-  }
+  trackAnalyticsEvent('cta_conversion', {
+    event_category: 'conversion',
+    event_label: location,
+    beta_phase: phase,
+    cta_type: ctaType,
+  })
 }
 
 /**

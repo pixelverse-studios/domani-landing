@@ -195,7 +195,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         question: 'Is Domani free for teachers?',
-        answer: 'Domani is free for everyone during the public beta period with full access to all features. After the beta, it will be a one-time lifetime purchase — no monthly subscription.',
+        answer: 'Domani offers a 14-day free trial with full access to all features on iOS and Android. After the trial, it is a one-time lifetime purchase — no monthly subscription.',
       },
       {
         question: 'How long does evening planning take?',
