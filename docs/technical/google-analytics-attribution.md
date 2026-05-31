@@ -23,9 +23,31 @@ Landing pages capture first-touch and current-touch attribution from:
 - `utm_term`
 - `utm_id`
 - paid click IDs: `gclid`, `fbclid`, `ttclid`, `li_fat_id`
+- Google iOS/web-to-app click IDs: `gbraid`, `wbraid`
+- Microsoft Ads click ID: `msclkid`
 - external referrer host
 
-Attribution is stored in `localStorage` and attached to page views and key conversion events, including download button clicks.
+Attribution is stored in `localStorage` and attached to page views and key conversion events.
+
+## Tracked Events
+
+Core acquisition and conversion events:
+
+- `page_view`: manual GA4 page views for client-side navigation, with auto page views disabled.
+- `ad_landing`: first ad/campaign landing event per page path and session.
+- `app_store_click`: App Store and Google Play outbound clicks, including platform, store name, destination URL, CTA location, and attribution.
+- `download_button_click`: legacy App Store and Google Play click event retained during the migration to `app_store_click`.
+- `waitlist_signup`: successful waitlist submissions.
+- `cta_view`, `cta_scroll`, `cta_conversion`, and `header_cta_click`: marketing CTA exposure and intent events.
+
+Engagement and diagnostic events:
+
+- `external_link_click`, `email_link_click`, and `phone_link_click`: delegated outbound/contact link tracking outside app store buttons.
+- `faq_expand`: FAQ question expansion.
+- `ab_test_assignment`: hero experiment assignment when experiments are enabled.
+- `web_vitals`: Core Web Vitals metrics reported through Next.js.
+
+Admin, dashboard, auth, and OAuth redirect paths are excluded from marketing analytics.
 
 ## Link Conventions
 

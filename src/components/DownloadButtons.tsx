@@ -15,13 +15,15 @@ interface DownloadButtonsProps {
   showSubtext?: boolean
   size?: 'default' | 'large'
   align?: 'start' | 'center'
+  analyticsLocation?: string
 }
 
 export default function DownloadButtons({
   className = '',
   showSubtext = true,
   size = 'default',
-  align = 'center'
+  align = 'center',
+  analyticsLocation = 'unknown',
 }: DownloadButtonsProps) {
   const buttonHeight = size === 'large' ? 'h-14' : 'h-12'
   const iconSize = size === 'large' ? 'w-8 h-8' : 'w-7 h-7'
@@ -29,10 +31,24 @@ export default function DownloadButtons({
   const subtextSize = size === 'large' ? 'text-xs' : 'text-[10px]'
 
   const handleClick = (store: 'ios' | 'android') => {
+    const config = store === 'ios' ? APP_STORE_CONFIG.ios : APP_STORE_CONFIG.android
+
     trackAnalyticsEvent('download_button_click', {
       event_category: 'engagement',
       event_label: store,
       platform: store,
+      cta_location: analyticsLocation,
+    })
+
+    trackAnalyticsEvent('app_store_click', {
+      event_category: 'conversion',
+      event_label: `${analyticsLocation}:${store}`,
+      platform: store,
+      store_name: config.name,
+      store_status: config.status,
+      store_available: config.available,
+      destination_url: config.url,
+      cta_location: analyticsLocation,
     })
   }
 
@@ -50,6 +66,7 @@ export default function DownloadButtons({
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => handleClick('ios')}
+          data-analytics-store-link="true"
           {...(!iosAvailable && { 'aria-disabled': true })}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
@@ -81,6 +98,7 @@ export default function DownloadButtons({
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => handleClick('android')}
+          data-analytics-store-link="true"
           {...(!androidAvailable && { 'aria-disabled': true })}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}

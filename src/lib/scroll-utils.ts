@@ -1,3 +1,5 @@
+import { trackAnalyticsEvent } from '@/lib/analytics/attribution'
+
 /**
  * Scrolls to an element with accessibility support
  * Respects user's reduced motion preference
@@ -133,13 +135,10 @@ export function scrollToEmailSignup() {
     offset: 100, // Account for fixed header
     focusAfterScroll: true,
     onComplete: () => {
-      // Track the scroll action for analytics
-      if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('event', 'scroll_to_signup', {
-          event_category: 'engagement',
-          event_label: 'cta_scroll_to_email'
-        })
-      }
+      trackAnalyticsEvent('scroll_to_signup', {
+        event_category: 'engagement',
+        event_label: 'cta_scroll_to_email'
+      })
     }
   })
 }

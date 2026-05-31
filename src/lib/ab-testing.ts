@@ -1,3 +1,5 @@
+import { trackAnalyticsEvent } from '@/lib/analytics/attribution'
+
 export interface ABTestVariant {
   headline: string
   subheadline: string
@@ -59,13 +61,11 @@ export function getABTestVariant(): ABTestVariant {
   document.cookie = `ab_variant=${randomVariant}; expires=${date.toUTCString()}; path=/`
 
   // Track variant assignment
-  if ((window as typeof window & { gtag?: (...args: unknown[]) => void }).gtag) {
-    (window as typeof window & { gtag: (...args: unknown[]) => void }).gtag('event', 'ab_test_assignment', {
-      event_category: 'experiment',
-      event_label: 'hero_section',
-      variant: randomVariant
-    })
-  }
+  trackAnalyticsEvent('ab_test_assignment', {
+    event_category: 'experiment',
+    event_label: 'hero_section',
+    variant: randomVariant
+  })
 
   return testVariants[randomVariant as keyof typeof testVariants]
 }

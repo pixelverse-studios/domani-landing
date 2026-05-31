@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { trackAnalyticsEvent } from '@/lib/analytics/attribution'
 
 interface FAQEntry {
   question: string
@@ -30,12 +31,24 @@ const categoryVariants = {
 
 function FAQItem({ question, answer }: FAQEntry) {
   const [isOpen, setIsOpen] = useState(false)
+  const handleToggle = () => {
+    const nextOpen = !isOpen
+
+    if (nextOpen) {
+      trackAnalyticsEvent('faq_expand', {
+        event_category: 'engagement',
+        event_label: question,
+      })
+    }
+
+    setIsOpen(nextOpen)
+  }
 
   return (
     <div className="group bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 ease-in-out">
       <button
         type="button"
-        onClick={() => setIsOpen((prev) => !prev)}
+        onClick={handleToggle}
         className="flex w-full items-center justify-between p-6 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-400"
         aria-expanded={isOpen}
       >
