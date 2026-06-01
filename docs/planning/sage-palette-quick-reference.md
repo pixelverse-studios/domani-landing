@@ -511,9 +511,6 @@ docs/
 │   ├── sage-green-palette-migration-plan.md  ← Full strategy document
 │   ├── sage-palette-tickets.md               ← Linear ticket templates
 │   └── sage-palette-quick-reference.md       ← THIS FILE (quick lookup)
-│
-└── audits/landing/
-    └── (audit logs will be created here during implementation)
 
 src/
 ├── lib/theme/

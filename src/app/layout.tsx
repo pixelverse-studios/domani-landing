@@ -11,6 +11,7 @@ import Header from '@/components/Header'
 import { SiteBehaviourConsentGate } from '@/components/privacy/SiteBehaviourConsentGate'
 import { Footer } from '@/components/Footer'
 import Analytics from '@/components/Analytics'
+import WebVitals from '@/components/WebVitals'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -71,6 +72,7 @@ export default function RootLayout({
       </head>
       <body className="font-sans antialiased bg-white text-foreground transition-colors overflow-x-hidden">
         <Analytics />
+        <WebVitals />
         <QueryProvider>
           <AuthHandler />
           <Header />

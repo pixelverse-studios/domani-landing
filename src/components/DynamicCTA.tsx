@@ -164,6 +164,7 @@ export default function DynamicCTA({
       size={size}
       showSubtext={showSubtext}
       align={align}
+      analyticsLocation={analyticsLocation}
     />
   )
 }

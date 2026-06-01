@@ -690,7 +690,7 @@ export function hexToHSL(hex: string): string
 - Keyboard nav works on all interactive elements
 
 **Deliverable:**
-- Accessibility audit report in `docs/audits/landing/`
+- Accessibility findings captured in the relevant pull request
 
 ---
 
@@ -736,22 +736,20 @@ export function hexToHSL(hex: string): string
 
 ---
 
-#### Ticket 12: Documentation & Audit Trail
+#### Ticket 12: Documentation & Deployment Notes
 **Priority:** P2
 **Estimate:** 1 hour
 **Tasks:**
 - Update `docs/deployment_summary.md`
-- Create final audit log in `docs/audits/landing/`
 - Document theme system usage for future devs
 - Update any relevant READMEs
 
 **Acceptance Criteria:**
 - Deployment summary lists all changes
-- Audit log created with timestamp
 - Theme system documented for reuse
 
 **Deliverable:**
-- Complete audit trail in `docs/`
+- Documentation updates captured in `docs/` and the pull request
 
 ---
 

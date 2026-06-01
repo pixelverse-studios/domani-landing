@@ -3,6 +3,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
+import { trackAnalyticsEvent } from '@/lib/analytics/attribution'
 
 /**
  * Logout API call
@@ -68,12 +69,9 @@ export function useAdminLogout() {
         duration: 2000,
       })
 
-      // Track logout event (if analytics are configured)
-      if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('event', 'admin_logout', {
-          method: 'manual',
-        })
-      }
+      trackAnalyticsEvent('admin_logout', {
+        method: 'manual',
+      })
 
       // Small delay to show the success message
       await new Promise(resolve => setTimeout(resolve, 500))

@@ -3,8 +3,9 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Mail, AlertCircle, CheckCircle, ArrowLeft, XCircle, BellOff } from 'lucide-react'
+import { Mail, AlertCircle, ArrowLeft, XCircle, BellOff } from 'lucide-react'
 import { validateEmail } from '@/utils/validation'
+import { trackAnalyticsEvent } from '@/lib/analytics/attribution'
 
 type FormState = 'input' | 'confirm' | 'success' | 'error'
 
@@ -66,12 +67,9 @@ export default function AccountUnsubscribeForm({ initialEmail = '' }: AccountUns
         throw new Error('Something went wrong. Please try again.')
       }
 
-      // Track unsubscribe event
-      if (typeof window !== 'undefined' && (window as typeof window & { gtag?: (...args: unknown[]) => void }).gtag) {
-        (window as typeof window & { gtag: (...args: unknown[]) => void }).gtag('event', 'account_email_unsubscribe', {
-          event_category: 'engagement',
-        })
-      }
+      trackAnalyticsEvent('account_email_unsubscribe', {
+        event_category: 'engagement',
+      })
 
       setFormState('success')
     } catch (err) {

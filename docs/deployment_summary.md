@@ -3,20 +3,20 @@
 <!-- This file is automatically sent via email on successful deployment, then reset for the next cycle -->
 
 ## Latest deploy summary
-- Fixed blog sidebar not scrolling when content exceeds viewport height
-- Updated blog sidebar CTA from waitlist language to open beta messaging
-- Removed redundant "Keep exploring" section from blog posts (sidebar covers related reading)
-- Fixed markdown tables not rendering in blog posts (added remark-gfm)
+- Expanded GA4 analytics tracking for paid campaign attribution, app store clicks, outbound links, CTA activity, FAQ engagement, and Web Vitals.
+- Added attribution support for UTMs and paid click IDs across Google, Meta, TikTok, LinkedIn, and Microsoft campaigns.
+- Replaced legacy prompt audit-trail workflow with AGENTS.md guidance that uses git commits and pull requests for history.
+- Added SEO keyword research, SEO competitor analysis, and keyword strategy docs.
 
 ## Notes for internal team
-- FloatingSidebar.tsx: added max-height and overflow-y-auto
-- Blog post page: removed "Keep exploring" section and unused BlogCard import
-- next.config.js: added remark-gfm plugin for GFM table support
-- 3 blog posts affected by table fix: sunsama-alternative, why-planning-at-night-is-better, evening-planning-routine
+- Meta Pixel setup is intentionally deferred until ad launch prep; Meta traffic can still be attributed in GA4 through UTMs and fbclid.
+- App Store / Google Play clicks now emit both download_button_click and app_store_click during the migration.
+- Removed docs/audits and claude.md; AGENTS.md is now the canonical agent guide.
 
 ## Changed URLs
-- https://www.domani-app.com/blog/sunsama-alternative
-- https://www.domani-app.com/blog/why-planning-at-night-is-better
-- https://www.domani-app.com/blog/evening-planning-routine
-- https://www.domani-app.com/blog/decision-fatigue-app
-- https://www.domani-app.com/blog/overwhelmed-every-morning
+- https://www.domani-app.com/
+- https://www.domani-app.com/pricing
+- https://www.domani-app.com/about
+- https://www.domani-app.com/compare
+- https://www.domani-app.com/faq
+- https://www.domani-app.com/blog

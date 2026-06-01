@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Mail, AlertCircle, CheckCircle, ArrowLeft, XCircle } from 'lucide-react'
 import { validateEmail } from '@/utils/validation'
+import { trackAnalyticsEvent } from '@/lib/analytics/attribution'
 
 type FormState = 'input' | 'confirm' | 'success' | 'error'
 
@@ -66,12 +67,9 @@ export default function UnsubscribeForm({ initialEmail = '' }: UnsubscribeFormPr
         throw new Error('Something went wrong. Please try again.')
       }
 
-      // Track unsubscribe event
-      if (typeof window !== 'undefined' && (window as typeof window & { gtag?: (...args: unknown[]) => void }).gtag) {
-        (window as typeof window & { gtag: (...args: unknown[]) => void }).gtag('event', 'waitlist_unsubscribe', {
-          event_category: 'engagement',
-        })
-      }
+      trackAnalyticsEvent('waitlist_unsubscribe', {
+        event_category: 'engagement',
+      })
 
       setFormState('success')
     } catch (err) {

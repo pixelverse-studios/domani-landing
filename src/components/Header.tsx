@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils'
 
 import { Logo } from './Logo'
 import { getCurrentPhase } from '@/lib/config/cta'
+import { trackAnalyticsEvent } from '@/lib/analytics/attribution'
 
 const navLinks = [
   { href: '/about', label: 'About' },
@@ -74,6 +75,13 @@ export default function Header() {
   const cta = getHeaderCTA()
 
   const handleCTAClick = (event: MouseEvent<HTMLAnchorElement>, headerCTA: HeaderCTA) => {
+    trackAnalyticsEvent('header_cta_click', {
+      event_category: 'engagement',
+      event_label: headerCTA.text,
+      cta_location: 'header',
+      destination_url: headerCTA.href,
+    })
+
     if (headerCTA.external || pathname !== '/' || !headerCTA.anchorId) return
 
     const target = document.getElementById(headerCTA.anchorId)
@@ -124,7 +132,13 @@ export default function Header() {
             aria-expanded={isMobileOpen}
             aria-controls="mobile-navigation"
             className="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-xl border border-gray-200 bg-white/70 text-gray-600 hover:text-gray-900 shadow-sm transition"
-            onClick={() => setIsMobileOpen((prev) => !prev)}
+            onClick={() => {
+              trackAnalyticsEvent('mobile_menu_toggle', {
+                event_category: 'engagement',
+                event_label: isMobileOpen ? 'close' : 'open',
+              })
+              setIsMobileOpen((prev) => !prev)
+            }}
           >
             {isMobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
