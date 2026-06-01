@@ -6,6 +6,7 @@ import Script from 'next/script'
 import {
   captureAttribution,
   getCurrentAdEventParams,
+  getCurrentUrlAdEventParams,
   getAttributionEventParams,
   isAnalyticsPath,
   trackAnalyticsEvent,
@@ -50,6 +51,7 @@ function PageViewTracker() {
 
     const query = searchParams.toString()
     const pagePath = query ? `${pathname}?${query}` : pathname
+    const landingAdParams = getCurrentUrlAdEventParams()
     const pageParams = {
       page_path: pagePath,
       ...getAttributionEventParams(),
@@ -63,16 +65,15 @@ function PageViewTracker() {
       ...pageParams,
     })
 
-    trackAdLanding(pagePath)
+    trackAdLanding(pagePath, landingAdParams)
   }, [pathname, searchParams])
 
   return null
 }
 
-function trackAdLanding(pagePath: string) {
+function trackAdLanding(pagePath: string, adParams: ReturnType<typeof getCurrentUrlAdEventParams>) {
   if (typeof window === 'undefined') return
 
-  const adParams = getCurrentAdEventParams()
   if (!adParams.ad_platform) return
 
   const key = `domani_ad_landing:${pagePath}`
@@ -150,41 +151,48 @@ function installOutboundLinkTracking() {
 }
 
 export default function Analytics() {
+  const pathname = usePathname()
+  const shouldLoadAnalytics = isConfigured && isAnalyticsPath(pathname)
+
   useEffect(() => {
-    if (!isConfigured || typeof window === 'undefined') return
+    if (typeof window === 'undefined') return
+
+    if (!shouldLoadAnalytics) {
+      delete (window as typeof window & {
+        trackEvent?: typeof trackAnalyticsEvent
+      }).trackEvent
+
+      return
+    }
 
     ;(window as typeof window & {
       trackEvent?: typeof trackAnalyticsEvent
     }).trackEvent = trackAnalyticsEvent
 
     return installOutboundLinkTracking()
-  }, [])
+  }, [shouldLoadAnalytics])
 
-  if (!isConfigured) {
+  if (!shouldLoadAnalytics) {
     return null
   }
 
   return (
     <>
-      {isConfigured && (
-        <>
-          <Script
-            src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-            strategy="afterInteractive"
-          />
-          <Script id="google-analytics" strategy="afterInteractive">
-            {`
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){window.dataLayer.push(arguments);}
-              gtag('js', new Date());
+      <Script
+        src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){window.dataLayer.push(arguments);}
+          gtag('js', new Date());
 
-              gtag('config', '${GA_MEASUREMENT_ID}', {
-                send_page_view: false,
-              });
-            `}
-          </Script>
-        </>
-      )}
+          gtag('config', '${GA_MEASUREMENT_ID}', {
+            send_page_view: false,
+          });
+        `}
+      </Script>
       <Suspense fallback={null}>
         <PageViewTracker />
       </Suspense>

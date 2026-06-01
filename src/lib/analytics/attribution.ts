@@ -133,6 +133,19 @@ function getAdPlatform(touch: AttributionTouch): string {
   return source
 }
 
+function toAdEventParams(touch: AttributionTouch): EventParams {
+  return {
+    ad_platform: getAdPlatform(touch),
+    ad_source: touch.source,
+    ad_medium: touch.medium,
+    ad_campaign: touch.campaign,
+    ad_content: touch.content,
+    ad_term: touch.term,
+    ad_id: touch.adId,
+    ad_click_id: touch.clickId,
+  }
+}
+
 function flattenTouch(prefix: 'first' | 'current', touch: AttributionTouch): EventParams {
   return {
     [`${prefix}_source`]: touch.source,
@@ -186,16 +199,16 @@ export function getCurrentAdEventParams(): EventParams {
   const attribution = getStoredAttribution() || captureAttribution()
   if (!attribution || !isPaidOrCampaignTouch(attribution.current)) return {}
 
-  return {
-    ad_platform: getAdPlatform(attribution.current),
-    ad_source: attribution.current.source,
-    ad_medium: attribution.current.medium,
-    ad_campaign: attribution.current.campaign,
-    ad_content: attribution.current.content,
-    ad_term: attribution.current.term,
-    ad_id: attribution.current.adId,
-    ad_click_id: attribution.current.clickId,
-  }
+  return toAdEventParams(attribution.current)
+}
+
+export function getCurrentUrlAdEventParams(): EventParams {
+  if (typeof window === 'undefined') return {}
+
+  const touch = buildTouch()
+  if (!touch.hasExplicitCampaignSignal || !isPaidOrCampaignTouch(touch)) return {}
+
+  return toAdEventParams(touch)
 }
 
 export function isAnalyticsPath(pathname: string): boolean {

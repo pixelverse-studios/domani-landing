@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import { AdminLoginResponse, AdminUserWithDetails } from '@/types/admin'
 import { z } from 'zod'
+import { trackAnalyticsEvent } from '@/lib/analytics/attribution'
 
 /**
  * Login credentials schema
@@ -105,13 +106,10 @@ export function useAdminLogin() {
         duration: 3000,
       })
 
-      // Track login event (if analytics are configured)
-      if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('event', 'admin_login', {
-          method: 'email',
-          role: data.user.role,
-        })
-      }
+      trackAnalyticsEvent('admin_login', {
+        method: 'email',
+        role: data.user.role,
+      })
     },
     onError: (error: Error) => {
       // Show error toast
@@ -120,12 +118,9 @@ export function useAdminLogin() {
         duration: 5000,
       })
 
-      // Track failed login (if analytics are configured)
-      if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('event', 'admin_login_failed', {
-          error: error.message,
-        })
-      }
+      trackAnalyticsEvent('admin_login_failed', {
+        error: error.message,
+      })
     },
   })
 
