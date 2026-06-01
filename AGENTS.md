@@ -1,72 +1,19 @@
-# Domani Landing Page - Development Guide for Claude Code
+# Domani Landing Page - Agent Guide
 
 ## Project Overview
 Domani's landing page is a high-converting marketing site that showcases the evening planning productivity concept. Built with Next.js 14, it focuses on emotional storytelling, social proof, and clear value proposition to drive conversions to free tier signups.
 
 ## Documentation Requirements
-**IMPORTANT: ALL documentation and audit files MUST be created in the `docs/` directory**
+**IMPORTANT: ALL project documentation files MUST be created in the `docs/` directory**
+
+Do not create prompt-by-prompt audit trail files. Use git commits and pull requests for change history and review context.
 
 ### Directory Structure:
 ```
 docs/
-├── audits/
-│   └── landing/        # Landing page audit files
 ├── features/           # Feature documentation
 ├── technical/          # Technical documentation
 └── planning/           # Planning and strategy documents
-```
-
-## Audit Trail Requirements
-**IMPORTANT: Create an audit file after EVERY prompt**
-
-After completing any task or answering any prompt, create an audit file with the following:
-
-### File Naming Convention:
-```
-docs/audits/landing/YYYY-MM-DD-HH-MM-SS-[brief-description].md
-```
-Example: `docs/audits/landing/2025-01-15-14-30-45-hero-section.md`
-
-### Audit File Template:
-```markdown
-# Audit Log - Landing Page - [Date Time]
-
-## Prompt Summary
-[Summarize what the user asked for]
-
-## Actions Taken
-1. [List each action performed]
-2. [Include files created/modified]
-3. [Note any decisions made]
-
-## Files Changed
-- `apps/landing/path/to/file1.tsx` - [Brief description of changes]
-- `apps/landing/path/to/file2.ts` - [Brief description of changes]
-
-## Components/Features Affected
-- [Component/Feature name]
-- [Related dependencies]
-
-## Testing Considerations
-- [What should be tested]
-- [Potential edge cases]
-- [Device/browser testing needs]
-
-## Performance Impact
-- [Bundle size changes]
-- [Loading time considerations]
-- [SEO implications]
-
-## Next Steps
-- [Suggested follow-up tasks]
-- [A/B testing opportunities]
-
-## Notes
-[Any additional context, warnings, or important information]
-
-## Timestamp
-Created: YYYY-MM-DD HH:MM:SS
-Page Section: [hero/features/pricing/etc]
 ```
 
 ## Pull Request Workflow
@@ -202,7 +149,6 @@ apps/landing/
 │       ├── animations/               # Lottie/Rive files
 │       └── og/                       # Open Graph images
 ├── docs/                              # All documentation
-│   ├── audits/landing/                # Landing-specific audits
 │   ├── features/                      # Feature documentation
 │   ├── technical/                     # Technical docs
 │   └── planning/                      # Planning docs
@@ -1033,77 +979,7 @@ describe('Waitlist Flow', () => {
 7. **Test Everything**: Data drives decisions
 8. **Accessibility**: WCAG 2.1 AA compliance minimum
 9. **Progressive Enhancement**: Core functionality works without JS
-10. **Audit Everything**: Document all changes for history
-11. **Documentation in /docs**: ALL documentation must be in the docs/ directory
+10. **Documentation in /docs**: ALL documentation must be in the docs/ directory
 
 ## Resources & References
 - [Next.js 14 Docs](https://nextjs.org/docs)
-- [Tailwind CSS](https://tailwindcss.com)
-- [Framer Motion](https://www.framer.com/motion)
-- [PostHog Analytics](https://posthog.com/docs)
-- [Vercel Deployment](https://vercel.com/docs)
-- [Web.dev Performance](https://web.dev/measure)
-- [Schema.org](https://schema.org)
-
-## Key Metrics to Track
-- **Conversion Rate**: Visitors → Signups
-- **Bounce Rate**: Keep under 40%
-- **Time on Page**: Target 2+ minutes
-- **Page Speed**: LCP < 2.5s, FID < 100ms, CLS < 0.1
-- **SEO Rankings**: Track core keywords
-- **Social Shares**: Viral coefficient
-- **A/B Test Results**: Statistical significance
-
-## Landing Page Mantras
-- "Every pixel drives conversion"
-- "Load fast, convert faster"
-- "Story sells, features tell"
-- "Mobile-first, always"
-- "Test, iterate, improve"
-- "Document with audit trails"
-- "All docs in /docs directory"
-
-## CRITICAL: Deployment Summary Updates
-
-**IMMEDIATELY after completing ANY work, APPEND to `docs/deployment_summary.md` BEFORE doing anything else.**
-
-### Accumulation Workflow:
-- **ADD** new bullet points below existing ones (don't replace previous entries)
-- The summary accumulates across multiple PRs until `main` is pushed
-- After pushing to `main`: hook sends accumulated summary via email, then file auto-resets
-
-### Required Sections:
-
-1. **Latest deploy summary** - Client-facing changes (plain language)
-   - Focus on WHAT changed, not HOW
-   - Each bullet = one clear sentence
-
-2. **Notes for internal team** - Technical details (NOT sent in client email)
-   - Ticket IDs, file changes, environment notes
-
-3. **Changed URLs** - Full URLs affected (used for SEO re-indexing)
-   - Use bullet points: `- https://www.domani-app.com/page`
-   - No extra text after URLs
-
-### Example:
-```markdown
-## Latest deploy summary
-- Added dark mode toggle to settings page
-- Fixed contact form validation on mobile
-- Updated homepage hero messaging
-
-## Notes for internal team
-- TICKET-123, TICKET-124 completed
-- Files: components/settings.tsx, components/contact-form.tsx
-
-## Changed URLs
-- https://www.domani-app.com/
-- https://www.domani-app.com/settings
-- https://www.domani-app.com/contact
-```
-
-### How It Works:
-1. **Work on feature branch** - Make changes, update `deployment_summary.md`
-2. **Push feature branch** - Hook skips (not main), summary stays populated
-3. **Merge PR to main** - Summary still accumulates
-4. **Push main to remote** - Hook fires, sends email, resets file

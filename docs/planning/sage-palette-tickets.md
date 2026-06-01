@@ -414,7 +414,7 @@ Comprehensive accessibility audit to ensure the new sage green palette meets WCA
 - Screen readers (VoiceOver, NVDA)
 
 **Deliverable:**
-Create `docs/audits/landing/2026-02-07-accessibility-sage-palette.md` with:
+Capture accessibility findings in the pull request with:
 - Contrast ratio test results
 - WAVE scan results
 - Any issues found and how they were fixed
@@ -478,7 +478,7 @@ Comprehensive visual regression testing across all pages and viewports to ensure
 5. Document any regressions
 
 **Deliverable:**
-Create `docs/audits/landing/2026-02-07-visual-regression-sage.md` with:
+Capture visual regression results in the pull request with:
 - Screenshot gallery (before/after)
 - List of any visual regressions found
 - Notes on intentional changes vs bugs
@@ -532,7 +532,7 @@ Performance audit to ensure the color migration didn't negatively impact page lo
 5. Test on throttled network (Fast 3G)
 
 **Deliverable:**
-Create `docs/audits/landing/2026-02-07-performance-sage.md` with:
+Capture performance results in the pull request with:
 - Lighthouse score comparison table
 - Bundle size comparison
 - Core Web Vitals results
@@ -556,15 +556,15 @@ Create `docs/audits/landing/2026-02-07-performance-sage.md` with:
 **Labels:** `documentation`, `deployment`
 
 **Description:**
-Final documentation updates, audit trail creation, and deployment summary for the sage green palette migration.
+Final documentation updates and deployment summary for the sage green palette migration.
 
 **Acceptance Criteria:**
 - [ ] **Deployment Summary:**
   - [ ] Update `docs/deployment_summary.md` with all changes
   - [ ] List all affected URLs
   - [ ] Note any breaking changes (should be none)
-- [ ] **Audit Log:**
-  - [ ] Create `docs/audits/landing/2026-02-07-[timestamp]-sage-palette-complete.md`
+- [ ] **Pull Request Notes:**
+  - [ ] Document final implementation details in the pull request
   - [ ] Document all files changed
   - [ ] Document all color mappings
   - [ ] Include before/after screenshots
@@ -576,14 +576,14 @@ Final documentation updates, audit trail creation, and deployment summary for th
 - [ ] **README Updates (if needed):**
   - [ ] Update any color-related documentation
   - [ ] Update design system references
-- [ ] **CLAUDE.md Updates:**
+- [ ] **AGENTS.md Updates:**
   - [ ] Update color palette references
   - [ ] Update component implementation examples
 
 **Deliverables:**
 1. Updated `docs/deployment_summary.md`
-2. Complete audit log in `docs/audits/landing/`
-3. Theme system usage guide (can be in audit log or separate file)
+2. Complete pull request notes
+3. Theme system usage guide in `docs/`
 
 **Template for Deployment Summary:**
 ```markdown
@@ -659,7 +659,7 @@ Epic: Sage Green Palette Migration
 5. **Create PR:** Against `dev` branch (or `main` if no dev branch)
 6. **Review:** Get approval from team/designer
 7. **Merge:** Squash and merge to keep history clean
-8. **Update Audit:** Note completion in audit log
+8. **Update PR:** Note completion in pull request notes
 
 ### Testing Strategy:
 - **Unit Tests:** Not required for color changes (no logic changes)
@@ -701,7 +701,7 @@ Epic: Sage Green Palette Migration
 - `high-visibility` - User-facing high-impact
 - `accessibility` - Accessibility-related
 - `testing` - Testing and QA
-- `documentation` - Docs and audit trails
+- `documentation` - Docs and pull request notes
 - `P0`, `P1`, `P2` - Priority levels (or use Linear's built-in priorities)
 
 ---
