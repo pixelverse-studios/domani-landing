@@ -19,6 +19,15 @@ const isConfigured =
   /^G-[A-Z0-9]+$/.test(GA_MEASUREMENT_ID || '')
 
 type Gtag = (...args: unknown[]) => void
+type GoogleAnalyticsWindow = typeof window & {
+  [key: `ga-disable-${string}`]: boolean | undefined
+}
+
+function setGoogleAnalyticsDisabled(disabled: boolean) {
+  if (typeof window === 'undefined' || !GA_MEASUREMENT_ID) return
+
+  ;(window as GoogleAnalyticsWindow)[`ga-disable-${GA_MEASUREMENT_ID}`] = disabled
+}
 
 function ensureGtag(): Gtag | null {
   if (typeof window === 'undefined') return null
@@ -156,6 +165,8 @@ export default function Analytics() {
 
   useEffect(() => {
     if (typeof window === 'undefined') return
+
+    setGoogleAnalyticsDisabled(!shouldLoadAnalytics)
 
     if (!shouldLoadAnalytics) {
       delete (window as typeof window & {
