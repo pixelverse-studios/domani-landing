@@ -69,6 +69,14 @@ export default function WaitlistInline() {
       trackAnalyticsEvent('waitlist_signup', {
         event_category: 'engagement',
         event_label: 'inline_quick_form',
+        form_variant: 'inline_quick',
+      })
+
+      trackAnalyticsEvent('generate_lead', {
+        event_category: 'conversion',
+        event_label: 'inline_quick_form',
+        form_variant: 'inline_quick',
+        lead_source: 'waitlist',
       })
 
       setIsSuccess(true)

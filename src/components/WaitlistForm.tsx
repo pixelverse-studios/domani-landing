@@ -60,6 +60,14 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
       trackAnalyticsEvent('waitlist_signup', {
         event_category: 'engagement',
         event_label: variant === 'modal' ? 'modal_form' : 'inline_form',
+        form_variant: variant,
+      })
+
+      trackAnalyticsEvent('generate_lead', {
+        event_category: 'conversion',
+        event_label: variant === 'modal' ? 'modal_form' : 'inline_form',
+        form_variant: variant,
+        lead_source: 'waitlist',
       })
 
       setIsSuccess(true)
