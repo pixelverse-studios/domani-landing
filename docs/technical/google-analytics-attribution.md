@@ -2,6 +2,9 @@
 
 Domani uses GA4 through `NEXT_PUBLIC_GA_MEASUREMENT_ID`.
 
+This document also defines the current paid-media tracking loading standard for
+future Meta, Reddit, Google Ads, and app-store attribution work.
+
 ## Required Environment Variable
 
 Set this in production and local environments when GA should run:
@@ -48,6 +51,34 @@ Engagement and diagnostic events:
 - `web_vitals`: Core Web Vitals metrics reported through Next.js.
 
 Admin, dashboard, auth, and OAuth redirect paths are excluded from marketing analytics.
+
+## Script Loading And Consent Decision
+
+Current launch assumption: Domani is launching paid media primarily in the
+United States. For this launch, marketing measurement scripts may load without a
+separate in-app consent banner when they are documented in the privacy policy,
+environment-gated where applicable, and excluded from non-marketing surfaces.
+
+Required loading standard:
+
+- Google Analytics loads only when `NEXT_PUBLIC_GA_MEASUREMENT_ID` is configured
+  with a real `G-...` ID.
+- SiteBehaviour loads only on marketing analytics paths.
+- Future Meta and Reddit pixels must load only when their public pixel ID
+  environment variables are configured.
+- Future Meta, Reddit, Google Ads, and app-store attribution integrations must
+  reuse the same excluded path standard as GA4 and SiteBehaviour.
+- Do not load marketing analytics on `/admin`, `/dashboard`, `/auth`, or
+  `/oauth-redirect` and their child routes.
+- Do not place marketing pixels in API routes, server-only admin flows, or
+  authenticated dashboard surfaces.
+- If Domani expands paid acquisition into regions that require prior opt-in
+  consent, add a shared consent state before enabling advertising pixels there.
+
+The privacy policy must name or describe the analytics and advertising
+measurement providers currently in use or intentionally prepared for launch:
+Google Analytics, SiteBehaviour, Meta, Reddit, Google Ads, and app-store
+attribution providers.
 
 ## Link Conventions
 
