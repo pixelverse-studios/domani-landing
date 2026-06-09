@@ -39,9 +39,11 @@ Core acquisition and conversion events:
 - `page_view`: manual GA4 page views for client-side navigation, with auto page views disabled.
 - `ad_landing`: first ad/campaign landing event per page path and session.
 - `app_store_click`: App Store and Google Play outbound clicks, including platform, store name, destination URL, CTA location, and attribution.
+- `cta_conversion`: conversion-intent CTA interactions. Download clicks emit this with `cta_type: download`; pre-beta waitlist CTAs emit this with `cta_type: waitlist`.
 - `download_button_click`: legacy App Store and Google Play click event retained during the migration to `app_store_click`.
-- `waitlist_signup`: successful waitlist submissions.
-- `cta_view`, `cta_scroll`, `cta_conversion`, and `header_cta_click`: marketing CTA exposure and intent events.
+- `generate_lead`: GA4-recommended lead event emitted after successful waitlist submissions, with the same form context and attribution as `waitlist_signup`.
+- `waitlist_signup`: successful waitlist submissions, retained as Domani's product-specific waitlist event.
+- `cta_view`, `cta_scroll`, and `header_cta_click`: marketing CTA exposure and intent events.
 
 Engagement and diagnostic events:
 
@@ -51,6 +53,31 @@ Engagement and diagnostic events:
 - `web_vitals`: Core Web Vitals metrics reported through Next.js.
 
 Admin, dashboard, auth, and OAuth redirect paths are excluded from marketing analytics.
+
+## Recommended GA4 Key Events
+
+Mark these events as GA4 key events for paid campaign reporting:
+
+- `generate_lead`: primary lead conversion for waitlist submissions.
+- `cta_conversion` where `cta_type = download`: primary download-intent conversion.
+
+Keep `waitlist_signup` available for product-specific funnel analysis, but use
+`generate_lead` as the Google-recommended lead event for ad-platform reporting.
+Keep `app_store_click` available for platform/store diagnostics, but do not mark
+it as a key event when `cta_conversion` download events are marked as key events;
+otherwise one store click will count as two conversions.
+
+Recommended custom dimensions:
+
+- Attribution: `first_source`, `first_medium`, `first_campaign`,
+  `first_content`, `first_term`, `first_ad_id`, `first_click_id`,
+  `current_source`, `current_medium`, `current_campaign`, `current_content`,
+  `current_term`, `current_ad_id`, `current_click_id`, `ad_platform`,
+  `ad_source`, `ad_medium`, `ad_campaign`, `ad_content`, `ad_term`, `ad_id`,
+  and `ad_click_id`.
+- Waitlist context: `form_variant` and `lead_source`.
+- Download context: `cta_type`, `cta_location`, `platform`, `store_name`,
+  `store_status`, `store_available`, and `destination_url`.
 
 ## Script Loading And Consent Decision
 
