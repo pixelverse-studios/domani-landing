@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import WaitlistForm from './WaitlistForm'
-import { trackAnalyticsEvent } from '@/lib/analytics/attribution'
+import { getWaitlistAttributionPayload, trackAnalyticsEvent } from '@/lib/analytics/attribution'
 
 const PRIVACY_URL = process.env.NEXT_PUBLIC_PRIVACY_URL ?? '/privacy'
 const TERMS_URL = process.env.NEXT_PUBLIC_TERMS_URL ?? '/terms'
@@ -44,7 +44,8 @@ export default function WaitlistInline() {
         },
         body: JSON.stringify({ 
           email, 
-          name: 'Early Adopter' // Default name for quick signup
+          name: 'Early Adopter', // Default name for quick signup
+          attribution: getWaitlistAttributionPayload(),
         }),
       })
 

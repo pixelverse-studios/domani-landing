@@ -31,6 +31,10 @@ Landing pages capture first-touch and current-touch attribution from:
 - external referrer host
 
 Attribution is stored in `localStorage` and attached to page views and key conversion events.
+Waitlist submissions also send the first-touch and current-touch attribution
+payload to `/api/waitlist`; the API sanitizes the payload and stores it under
+`waitlist.metadata.attribution` in Supabase. If `localStorage` is unavailable,
+the client still sends the current page/referrer attribution where possible.
 
 ## Tracked Events
 
@@ -78,6 +82,48 @@ Recommended custom dimensions:
 - Waitlist context: `form_variant` and `lead_source`.
 - Download context: `cta_type`, `cta_location`, `platform`, `store_name`,
   `store_status`, `store_available`, and `destination_url`.
+
+## Waitlist Metadata
+
+New waitlist records store attribution in the existing `metadata` JSONB column:
+
+```json
+{
+  "attribution": {
+    "first": {
+      "source": "meta",
+      "medium": "paid_social",
+      "campaign": "ios_android_launch",
+      "content": "evening-planning",
+      "term": null,
+      "adId": null,
+      "clickId": "fbclid-value",
+      "referrer": null,
+      "landingPage": "/?utm_source=meta&utm_medium=paid_social&utm_campaign=ios_android_launch&utm_content=evening-planning&fbclid=fbclid-value",
+      "capturedAt": "2026-06-09T00:00:00.000Z",
+      "hasExplicitCampaignSignal": true
+    },
+    "current": {
+      "source": "meta",
+      "medium": "paid_social",
+      "campaign": "ios_android_launch",
+      "content": "evening-planning",
+      "term": null,
+      "adId": null,
+      "clickId": "fbclid-value",
+      "referrer": null,
+      "landingPage": "/?utm_source=meta&utm_medium=paid_social&utm_campaign=ios_android_launch&utm_content=evening-planning&fbclid=fbclid-value",
+      "capturedAt": "2026-06-09T00:00:00.000Z",
+      "hasExplicitCampaignSignal": true
+    }
+  }
+}
+```
+
+The API only accepts the known attribution keys, trims strings, applies length
+limits, strips unknown landing-page query parameters, and ignores malformed
+attribution payloads so waitlist signup behavior continues to work for
+direct/organic users and browsers with blocked storage.
 
 ## Script Loading And Consent Decision
 

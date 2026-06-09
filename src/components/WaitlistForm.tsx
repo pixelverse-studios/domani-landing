@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { validateEmail } from '@/utils/validation'
-import { trackAnalyticsEvent } from '@/lib/analytics/attribution'
+import { getWaitlistAttributionPayload, trackAnalyticsEvent } from '@/lib/analytics/attribution'
 
 const PRIVACY_URL = process.env.NEXT_PUBLIC_PRIVACY_URL ?? '/privacy'
 const TERMS_URL = process.env.NEXT_PUBLIC_TERMS_URL ?? '/terms'
@@ -45,7 +45,10 @@ export default function WaitlistForm({ variant = 'modal', onClose, onSuccess }: 
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({
+          email,
+          attribution: getWaitlistAttributionPayload(),
+        }),
       })
 
       const data = await response.json()

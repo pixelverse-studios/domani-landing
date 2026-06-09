@@ -3,6 +3,43 @@ import { supabaseAdmin } from '@/lib/supabase'
 import { validateEmail } from '@/utils/validation'
 import { sendWaitlistWelcomeEmail } from '@/lib/email/resend'
 
+type AttributionTouchInput = Record<string, unknown>
+
+interface SanitizedAttributionTouch {
+  source: string | null
+  medium: string | null
+  campaign: string | null
+  content: string | null
+  term: string | null
+  adId: string | null
+  clickId: string | null
+  referrer: string | null
+  landingPage: string | null
+  capturedAt: string | null
+  hasExplicitCampaignSignal: boolean
+}
+
+interface SanitizedAttribution {
+  first: SanitizedAttributionTouch
+  current: SanitizedAttributionTouch
+}
+
+const ATTRIBUTION_QUERY_PARAMS = [
+  'utm_source',
+  'utm_medium',
+  'utm_campaign',
+  'utm_content',
+  'utm_term',
+  'utm_id',
+  'gclid',
+  'gbraid',
+  'wbraid',
+  'fbclid',
+  'ttclid',
+  'msclkid',
+  'li_fat_id',
+]
+
 // Simple in-memory rate limiting store
 const rateLimitStore = new Map<string, { count: number; resetTime: number }>()
 
@@ -41,6 +78,78 @@ function checkRateLimit(identifier: string): boolean {
   return true
 }
 
+function sanitizeString(value: unknown, maxLength: number): string | null {
+  if (typeof value !== 'string') return null
+
+  const trimmed = value.trim()
+  if (!trimmed) return null
+
+  return trimmed.slice(0, maxLength)
+}
+
+function sanitizeBoolean(value: unknown): boolean {
+  return value === true
+}
+
+function sanitizeLandingPage(value: unknown): string | null {
+  const landingPage = sanitizeString(value, 1000)
+  if (!landingPage) return null
+
+  try {
+    const url = new URL(landingPage, 'https://domani.local')
+    const sanitizedParams = new URLSearchParams()
+
+    ATTRIBUTION_QUERY_PARAMS.forEach((param) => {
+      const paramValue = url.searchParams.get(param)
+      if (paramValue) {
+        sanitizedParams.set(param, paramValue.slice(0, 200))
+      }
+    })
+
+    const query = sanitizedParams.toString()
+    return `${url.pathname}${query ? `?${query}` : ''}`.slice(0, 500)
+  } catch {
+    return landingPage.split('?')[0].slice(0, 500) || null
+  }
+}
+
+function sanitizeAttributionTouch(value: unknown): SanitizedAttributionTouch | null {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return null
+
+  const touch = value as AttributionTouchInput
+  const source = sanitizeString(touch.source, 80)
+  const medium = sanitizeString(touch.medium, 80)
+  const hasExplicitCampaignSignal = sanitizeBoolean(touch.hasExplicitCampaignSignal)
+
+  if (!source && !medium && !hasExplicitCampaignSignal) return null
+
+  return {
+    source,
+    medium,
+    campaign: sanitizeString(touch.campaign, 160),
+    content: sanitizeString(touch.content, 160),
+    term: sanitizeString(touch.term, 160),
+    adId: sanitizeString(touch.adId, 160),
+    clickId: sanitizeString(touch.clickId, 200),
+    referrer: sanitizeString(touch.referrer, 255),
+    landingPage: sanitizeLandingPage(touch.landingPage),
+    capturedAt: sanitizeString(touch.capturedAt, 40),
+    hasExplicitCampaignSignal,
+  }
+}
+
+function sanitizeAttribution(value: unknown): SanitizedAttribution | null {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return null
+
+  const attribution = value as Record<string, unknown>
+  const first = sanitizeAttributionTouch(attribution.first)
+  const current = sanitizeAttributionTouch(attribution.current)
+
+  if (!first || !current) return null
+
+  return { first, current }
+}
+
 export async function POST(request: NextRequest) {
   try {
     // Get client IP for rate limiting
@@ -67,7 +176,8 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { email } = body
+    const { email, attribution } = body
+    const sanitizedAttribution = sanitizeAttribution(attribution)
 
     // Validate required fields
     if (!email) {
@@ -132,6 +242,7 @@ export async function POST(request: NextRequest) {
           ip: ip === 'unknown' ? null : ip,
           userAgent: request.headers.get('user-agent') || null,
           referrer: request.headers.get('referer') || null,
+          attribution: sanitizedAttribution,
         }
       })
       .select()

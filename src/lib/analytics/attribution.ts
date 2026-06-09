@@ -7,7 +7,7 @@ type AnalyticsWindow = typeof window & {
   gtag?: Gtag
 }
 
-interface AttributionTouch {
+export interface AttributionTouch {
   source: string
   medium: string
   campaign?: string
@@ -21,7 +21,7 @@ interface AttributionTouch {
   hasExplicitCampaignSignal: boolean
 }
 
-interface StoredAttribution {
+export interface StoredAttribution {
   first: AttributionTouch
   current: AttributionTouch
 }
@@ -53,6 +53,12 @@ function getStoredAttribution(): StoredAttribution | null {
   } catch {
     return null
   }
+}
+
+export function getWaitlistAttributionPayload(): StoredAttribution | null {
+  if (typeof window === 'undefined') return null
+
+  return getStoredAttribution() || captureAttribution()
 }
 
 function storeAttribution(attribution: StoredAttribution) {
