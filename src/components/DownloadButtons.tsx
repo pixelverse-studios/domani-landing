@@ -9,6 +9,7 @@ import {
   APP_STORE_CONFIG,
 } from '@/lib/config/appStores'
 import { trackAnalyticsEvent } from '@/lib/analytics/attribution'
+import { trackMetaDownloadIntent } from '@/lib/analytics/meta-pixel'
 
 interface DownloadButtonsProps {
   className?: string
@@ -58,6 +59,8 @@ export default function DownloadButtons({
       cta_type: 'download',
       ...storeEventParams,
     })
+
+    trackMetaDownloadIntent(storeEventParams)
   }
 
   const appStoreUrl = getAppStoreUrl()

@@ -3,7 +3,7 @@
 Domani uses GA4 through `NEXT_PUBLIC_GA_MEASUREMENT_ID`.
 
 This document also defines the current paid-media tracking loading standard for
-future Meta, Reddit, Google Ads, and app-store attribution work.
+Meta, Reddit, Google Ads, and app-store attribution work.
 
 ## Required Environment Variable
 
@@ -14,6 +14,15 @@ NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
 ```
 
 The placeholder value is ignored so local/dev builds do not send invalid analytics traffic.
+
+For Meta Pixel browser tracking, set this only after the pixel is created in
+Meta Events Manager:
+
+```bash
+NEXT_PUBLIC_META_PIXEL_ID=000000000000000
+```
+
+The placeholder value is ignored. The value must be the numeric Meta Pixel ID.
 
 ## Source Tracking
 
@@ -54,6 +63,22 @@ Engagement and diagnostic events:
 
 Admin, dashboard, auth, and OAuth redirect paths are excluded from marketing analytics.
 
+## Meta Pixel Events
+
+Meta Pixel loads through `NEXT_PUBLIC_META_PIXEL_ID` and reuses the same
+marketing path exclusions as GA4. It is not loaded on admin, dashboard, auth, or
+OAuth redirect routes.
+
+Configured Meta browser events:
+
+- `PageView`: fired manually on eligible route changes after attribution is captured.
+- `ViewContent`: fired once per session and page path when the visitor lands with paid/campaign URL signals.
+- `Lead`: fired after successful waitlist submissions if the dormant waitlist flow is enabled again.
+- `DownloadIntent`: custom event fired once per App Store or Google Play click. Use this for Meta custom conversions tied to app-store intent.
+
+All Meta events include the same first-touch/current-touch attribution fields
+used by GA4 when available.
+
 ## Recommended GA4 Key Events
 
 Mark these events as GA4 key events for paid campaign reporting:
@@ -91,7 +116,9 @@ Required loading standard:
 - Google Analytics loads only when `NEXT_PUBLIC_GA_MEASUREMENT_ID` is configured
   with a real `G-...` ID.
 - SiteBehaviour loads only on marketing analytics paths.
-- Future Meta and Reddit pixels must load only when their public pixel ID
+- Meta Pixel loads only when `NEXT_PUBLIC_META_PIXEL_ID` is configured with a
+  real numeric Pixel ID.
+- Future Reddit pixels must load only when their public pixel ID
   environment variables are configured.
 - Future Meta, Reddit, Google Ads, and app-store attribution integrations must
   reuse the same excluded path standard as GA4 and SiteBehaviour.
