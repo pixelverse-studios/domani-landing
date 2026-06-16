@@ -5,6 +5,11 @@ Domani uses GA4 through `NEXT_PUBLIC_GA_MEASUREMENT_ID`.
 This document also defines the current paid-media tracking loading standard for
 Meta, Reddit, Google Ads, and app-store attribution work.
 
+Current launch QA scope is Meta/Instagram only. See
+`docs/planning/meta-campaign-launch-qa.md` for the active UTM matrix, smoke-test
+procedure, and Meta Events Manager checklist. Reddit Pixel and Google Ads
+app-install conversion setup remain deferred backlog work.
+
 ## Required Environment Variable
 
 Set this in production and local environments when GA should run:
