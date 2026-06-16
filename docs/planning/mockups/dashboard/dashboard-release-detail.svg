@@ -1,0 +1,129 @@
+<svg width="1440" height="1200" viewBox="0 0 1440 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1440" height="1200" fill="#f6f7fb"/>
+  <circle cx="1170" cy="20" r="320" fill="#3f00e9" opacity="0.045"/>
+  <circle cx="260" cy="1180" r="360" fill="#9b5cff" opacity="0.035"/>
+  <rect x="0" y="0" width="260" height="1200" fill="#fbfbff"/>
+  <line x1="260" y1="0" x2="260" y2="1200" stroke="#e3e0ea" />
+  <text x="34" y="54" fill="#171521" font-family="Poppins, Arial, sans-serif" font-size="22" font-weight="900" text-anchor="start" letter-spacing="0" opacity="1">PixelVerse</text>
+  <text x="34" y="78" fill="#8b8797" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="700" text-anchor="start" letter-spacing="1.6" opacity="1">Dashboard</text>
+  <text x="52" y="122" fill="#696577" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" text-anchor="start" letter-spacing="0" opacity="1">Overview</text>
+    <circle cx="34" cy="117" r="5" fill="#d2cfdb"/><text x="52" y="170" fill="#696577" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" text-anchor="start" letter-spacing="0" opacity="1">Clients</text>
+    <circle cx="34" cy="165" r="5" fill="#d2cfdb"/><text x="52" y="218" fill="#696577" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" text-anchor="start" letter-spacing="0" opacity="1">Websites</text>
+    <circle cx="34" cy="213" r="5" fill="#d2cfdb"/><text x="52" y="266" fill="#696577" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" text-anchor="start" letter-spacing="0" opacity="1">Deployments</text>
+    <circle cx="34" cy="261" r="5" fill="#d2cfdb"/><text x="52" y="314" fill="#696577" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" text-anchor="start" letter-spacing="0" opacity="1">SEO Health</text>
+    <circle cx="34" cy="309" r="5" fill="#d2cfdb"/><text x="52" y="362" fill="#696577" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" text-anchor="start" letter-spacing="0" opacity="1">Agenda</text>
+    <circle cx="34" cy="357" r="5" fill="#d2cfdb"/><text x="52" y="410" fill="#696577" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" text-anchor="start" letter-spacing="0" opacity="1">Prospects</text>
+    <circle cx="34" cy="405" r="5" fill="#d2cfdb"/><rect x="20" y="432" width="220" height="40" rx="14" fill="url(#sideGrad)"/><text x="52" y="458" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="850" text-anchor="start" letter-spacing="0" opacity="1">Domani</text>
+    <circle cx="34" cy="453" r="5" fill="#ffffff"/><text x="52" y="506" fill="#696577" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" text-anchor="start" letter-spacing="0" opacity="1">Docs</text>
+    <circle cx="34" cy="501" r="5" fill="#d2cfdb"/><text x="34" y="558" fill="#8b8797" font-family="Inter, Arial, sans-serif" font-size="11" font-weight="900" text-anchor="start" letter-spacing="1.8" opacity="1">COMING SOON</text>
+  <text x="52" y="598" fill="#aaa5b5" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" text-anchor="start" letter-spacing="0" opacity="1">Projects</text>
+  <text x="52" y="646" fill="#aaa5b5" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" text-anchor="start" letter-spacing="0" opacity="1">Audits</text>
+  <rect x="260" y="0" width="1180" height="76" fill="#ffffff" opacity="0.96"/>
+  <line x1="260" y1="76" x2="1440" y2="76" stroke="#e3e0ea" />
+  <text x="304" y="47" fill="#171521" font-family="Poppins, Arial, sans-serif" font-size="20" font-weight="900" text-anchor="start" letter-spacing="0" opacity="1">Domani Release Detail</text>
+  <rect x="1088" y="20" width="168" height="36" rx="12" fill="#f5f3fb" stroke="#eeeaf5" />
+  <text x="1110" y="43" fill="#8b8797" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="650" text-anchor="start" letter-spacing="0" opacity="1">Search dashboard</text>
+  <rect x="1274" y="18" width="42" height="42" rx="14" fill="#f1ebff" stroke="none" />
+  <text x="1295" y="45" fill="#3f00e9" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="900" text-anchor="middle" letter-spacing="0" opacity="1">P</text>
+  <g transform="translate(304 116)">
+    <rect width="50" height="50" rx="16" fill="url(#domaniGrad)"/>
+    <text x="25" y="32" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="950" text-anchor="middle" letter-spacing="0" opacity="1">D</text>
+    <text x="68" y="21" fill="#171521" font-family="Poppins, Arial, sans-serif" font-size="25" font-weight="900" text-anchor="start" letter-spacing="0" opacity="1">Domani</text>
+    <text x="68" y="46" fill="#696577" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="650" text-anchor="start" letter-spacing="0" opacity="1">App analytics and release operations</text>
+  </g>
+  <g transform="translate(304 198)"><rect x="0" y="0" width="120" height="42" rx="14" fill="#ffffff" stroke="#e3e0ea"/>
+      <text x="20" y="27" fill="#3f00e9" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="900" text-anchor="start" letter-spacing="0" opacity="1">O</text>
+      <text x="42" y="27" fill="#696577" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="800" text-anchor="start" letter-spacing="0" opacity="1">Overview</text><rect x="130" y="0" width="120" height="42" rx="14" fill="#ffffff" stroke="#e3e0ea"/>
+      <text x="150" y="27" fill="#3f00e9" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="900" text-anchor="start" letter-spacing="0" opacity="1">F</text>
+      <text x="172" y="27" fill="#696577" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="800" text-anchor="start" letter-spacing="0" opacity="1">Feedback</text><rect x="260" y="0" width="120" height="42" rx="14" fill="#ffffff" stroke="#e3e0ea"/>
+      <text x="280" y="27" fill="#3f00e9" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="900" text-anchor="start" letter-spacing="0" opacity="1">W</text>
+      <text x="302" y="27" fill="#696577" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="800" text-anchor="start" letter-spacing="0" opacity="1">Waitlist</text><rect x="390" y="0" width="93" height="42" rx="14" fill="#ffffff" stroke="#e3e0ea"/>
+      <text x="410" y="27" fill="#3f00e9" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="900" text-anchor="start" letter-spacing="0" opacity="1">U</text>
+      <text x="432" y="27" fill="#696577" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="800" text-anchor="start" letter-spacing="0" opacity="1">Users</text><rect x="493" y="0" width="129" height="42" rx="14" fill="#ffffff" stroke="#e3e0ea"/>
+      <text x="513" y="27" fill="#3f00e9" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="900" text-anchor="start" letter-spacing="0" opacity="1">C</text>
+      <text x="535" y="27" fill="#696577" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="800" text-anchor="start" letter-spacing="0" opacity="1">Campaigns</text><rect x="632" y="0" width="116" height="42" rx="14" fill="#171521" stroke="#171521"/>
+      <text x="652" y="27" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="900" text-anchor="start" letter-spacing="0" opacity="1">R</text>
+      <text x="674" y="27" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="800" text-anchor="start" letter-spacing="0" opacity="1">Releases</text></g><g transform="translate(304 272)">
+    <text x="0" y="0" fill="#171521" font-family="Poppins, Arial, sans-serif" font-size="34" font-weight="950" text-anchor="start" letter-spacing="0" opacity="1">Release 1.2</text>
+    <text x="0" y="30" fill="#696577" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="700" text-anchor="start" letter-spacing="0" opacity="1">Smarter evening planning setup</text>
+    <rect x="536" y="-24" width="118" height="28" rx="14" fill="#e8f6ef" stroke="none" />
+  <text x="595" y="-5" fill="#17845f" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="800" text-anchor="middle" letter-spacing="0" opacity="1">Public preview</text>
+    <rect x="666" y="-24" width="86" height="28" rx="14" fill="#fff3d8" stroke="none" />
+  <text x="709" y="-5" fill="#9a6a13" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="800" text-anchor="middle" letter-spacing="0" opacity="1">Planned</text>
+    <rect x="766" y="-24" width="126" height="28" rx="14" fill="#e9f3ff" stroke="none" />
+  <text x="829" y="-5" fill="#286aa9" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="800" text-anchor="middle" letter-spacing="0" opacity="1">iOS + Android</text>
+    <rect x="910" y="-30" width="104" height="44" rx="14" fill="#ffffff" stroke="#e3e0ea" />
+    <text x="944" y="-2" fill="#171521" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="850" text-anchor="start" letter-spacing="0" opacity="1">Save</text>
+    <rect x="1030" y="-30" width="104" height="44" rx="14" fill="#171521" stroke="#171521" />
+    <text x="1056" y="-2" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="850" text-anchor="start" letter-spacing="0" opacity="1">Publish</text>
+  </g>
+  <g transform="translate(304 342)">
+    <rect x="0" y="0" width="350" height="306" rx="22" fill="#ffffff" stroke="#e3e0ea" />
+    <text x="24" y="36" fill="#171521" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="900" text-anchor="start" letter-spacing="0" opacity="1">Release settings</text>
+    <text x="24" y="70" fill="#8b8797" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="850" text-anchor="start" letter-spacing="1" opacity="1">VERSION</text>
+  <rect x="24" y="82" width="128" height="44" rx="13" fill="#fbfbfe" stroke="#eeeaf5" />
+  <text x="40" y="110" fill="#171521" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="760" text-anchor="start" letter-spacing="0" opacity="1">1.2</text>
+    <text x="174" y="70" fill="#8b8797" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="850" text-anchor="start" letter-spacing="1" opacity="1">TARGET DATE</text>
+  <rect x="174" y="82" width="150" height="44" rx="13" fill="#fbfbfe" stroke="#eeeaf5" />
+  <text x="190" y="110" fill="#171521" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="760" text-anchor="start" letter-spacing="0" opacity="1">Aug 1, 2026</text>
+    <text x="24" y="152" fill="#8b8797" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="850" text-anchor="start" letter-spacing="1" opacity="1">STATUS</text>
+  <rect x="24" y="164" width="138" height="44" rx="13" fill="#fbfbfe" stroke="#eeeaf5" />
+  <text x="40" y="192" fill="#171521" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="760" text-anchor="start" letter-spacing="0" opacity="1">Planned</text>
+    <text x="184" y="152" fill="#8b8797" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="850" text-anchor="start" letter-spacing="1" opacity="1">VISIBILITY</text>
+  <rect x="184" y="164" width="140" height="44" rx="13" fill="#fbfbfe" stroke="#eeeaf5" />
+  <text x="200" y="192" fill="#171521" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="760" text-anchor="start" letter-spacing="0" opacity="1">Public preview</text>
+    <text x="24" y="244" fill="#8b8797" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="850" text-anchor="start" letter-spacing="1" opacity="1">Platforms</text>
+    <rect x="24" y="260" width="58" height="28" rx="14" fill="#e9f3ff" stroke="none" />
+  <text x="53" y="279" fill="#286aa9" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="800" text-anchor="middle" letter-spacing="0" opacity="1">iOS</text>
+    <rect x="90" y="260" width="88" height="28" rx="14" fill="#e9f3ff" stroke="none" />
+  <text x="134" y="279" fill="#286aa9" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="800" text-anchor="middle" letter-spacing="0" opacity="1">Android</text>
+    <rect x="188" y="260" width="88" height="28" rx="14" fill="#fbfbfe" stroke="none" />
+  <text x="232" y="279" fill="#8b8797" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="800" text-anchor="middle" letter-spacing="0" opacity="1">Web off</text>
+
+    <rect x="374" y="0" width="760" height="306" rx="22" fill="#ffffff" stroke="#e3e0ea" />
+    <text x="398" y="36" fill="#171521" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="900" text-anchor="start" letter-spacing="0" opacity="1">Public summary</text>
+    <rect x="398" y="58" width="688" height="62" rx="14" fill="#fbfbfe" stroke="#eeeaf5" />
+    <text x="416" y="84" fill="#696577" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="650" text-anchor="start" letter-spacing="0" opacity="1">We are making the first few nights with Domani easier, with clearer setup prompts</text>
+    <text x="416" y="106" fill="#696577" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="650" text-anchor="start" letter-spacing="0" opacity="1">and better guidance for choosing a realistic tomorrow plan.</text>
+    <text x="398" y="156" fill="#8b8797" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="850" text-anchor="start" letter-spacing="1" opacity="1">Highlights</text>
+    <rect x="398" y="174" width="688" height="42" rx="12" fill="#fbfbfe" stroke="#eeeaf5" />
+    <text x="416" y="201" fill="#171521" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="850" text-anchor="start" letter-spacing="0" opacity="1">Guided first plan</text>
+    <rect x="398" y="226" width="688" height="42" rx="12" fill="#fbfbfe" stroke="#eeeaf5" />
+    <text x="416" y="253" fill="#171521" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="850" text-anchor="start" letter-spacing="0" opacity="1">Category suggestions</text>
+  </g>
+  <g transform="translate(304 676)">
+    <rect x="0" y="0" width="706" height="328" rx="22" fill="#ffffff" stroke="#e3e0ea" />
+    <text x="24" y="38" fill="#171521" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="900" text-anchor="start" letter-spacing="0" opacity="1">Release notes</text>
+    <text x="24" y="64" fill="#696577" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="650" text-anchor="start" letter-spacing="0" opacity="1">Public-facing notes are edited here before approval.</text>
+    <rect x="24" y="90" width="658" height="64" rx="16" fill="#fbfbfe" stroke="#eeeaf5" />
+    <rect x="44" y="108" width="42" height="28" rx="14" fill="#f1ebff" stroke="none" />
+  <text x="65" y="127" fill="#3f00e9" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="800" text-anchor="middle" letter-spacing="0" opacity="1">1</text>
+    <text x="104" y="118" fill="#171521" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="900" text-anchor="start" letter-spacing="0" opacity="1">Guided first plan</text>
+    <text x="104" y="140" fill="#696577" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="650" text-anchor="start" letter-spacing="0" opacity="1">A calmer walkthrough for choosing your first most important task.</text>
+    <rect x="24" y="170" width="658" height="64" rx="16" fill="#fbfbfe" stroke="#eeeaf5" />
+    <rect x="44" y="188" width="42" height="28" rx="14" fill="#f1ebff" stroke="none" />
+  <text x="65" y="207" fill="#3f00e9" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="800" text-anchor="middle" letter-spacing="0" opacity="1">2</text>
+    <text x="104" y="198" fill="#171521" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="900" text-anchor="start" letter-spacing="0" opacity="1">Category suggestions</text>
+    <text x="104" y="220" fill="#696577" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="650" text-anchor="start" letter-spacing="0" opacity="1">Helpful starter categories without forcing a rigid workflow.</text>
+    <rect x="24" y="250" width="164" height="42" rx="14" fill="#171521" stroke="#171521" />
+    <text x="52" y="277" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="850" text-anchor="start" letter-spacing="0" opacity="1">Add highlight</text>
+
+    <rect x="732" y="0" width="402" height="328" rx="22" fill="#ffffff" stroke="#e3e0ea" />
+    <text x="756" y="38" fill="#171521" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="900" text-anchor="start" letter-spacing="0" opacity="1">Internal log</text>
+    <text x="756" y="64" fill="#696577" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="650" text-anchor="start" letter-spacing="0" opacity="1">Private notes for build, API, and support context.</text>
+    <rect x="756" y="92" width="354" height="160" rx="14" fill="#272331" stroke="#272331" />
+    <text x="778" y="124" fill="#e9e4ff" font-family="JetBrains Mono, Menlo, monospace" font-size="13" font-weight="650" text-anchor="start" letter-spacing="0" opacity="1">api: added release_public_view</text>
+    <text x="778" y="154" fill="#e9e4ff" font-family="JetBrains Mono, Menlo, monospace" font-size="13" font-weight="650" text-anchor="start" letter-spacing="0" opacity="1">db: release_notes.lifecycle_status</text>
+    <text x="778" y="184" fill="#e9e4ff" font-family="JetBrains Mono, Menlo, monospace" font-size="13" font-weight="650" text-anchor="start" letter-spacing="0" opacity="1">qa: verify platform filters</text>
+    <rect x="756" y="270" width="116" height="38" rx="13" fill="#fbfbfe" stroke="#eeeaf5" />
+    <text x="780" y="294" fill="#696577" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="850" text-anchor="start" letter-spacing="0" opacity="1">Private</text>
+  </g><defs>
+    <linearGradient id="sideGrad" x1="20" y1="0" x2="240" y2="40" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3f00e9"/>
+      <stop offset="1" stop-color="#9b5cff"/>
+    </linearGradient>
+    <linearGradient id="domaniGrad" x1="0" y1="0" x2="50" y2="50" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3f00e9"/>
+      <stop offset="1" stop-color="#9b5cff"/>
+    </linearGradient>
+  </defs></svg>
