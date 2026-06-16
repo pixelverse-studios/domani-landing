@@ -15,6 +15,10 @@ const isConfigured =
   Boolean(META_PIXEL_ID) &&
   META_PIXEL_ID !== '000000000000000' &&
   /^\d+$/.test(META_PIXEL_ID || '')
+type MetaPixelWindow = typeof window & {
+  fbq?: unknown
+  _fbq?: unknown
+}
 
 function MetaPageViewTracker() {
   const pathname = usePathname()
@@ -46,13 +50,35 @@ export default function MetaPixel() {
   const [isPixelReady, setIsPixelReady] = useState(false)
   const shouldLoadMetaPixel = isConfigured && isAnalyticsPath(pathname)
 
+  useEffect(() => {
+    if (shouldLoadMetaPixel) return
+
+    setIsPixelReady(false)
+
+    const metaPixelWindow = window as MetaPixelWindow
+    if (metaPixelWindow.fbq || metaPixelWindow._fbq) {
+      window.location.replace(window.location.href)
+      return
+    }
+
+    document.getElementById('meta-pixel')?.remove()
+  }, [shouldLoadMetaPixel])
+
   if (!shouldLoadMetaPixel) {
     return null
   }
 
   return (
     <>
-      <Script id="meta-pixel" strategy="afterInteractive" onReady={() => setIsPixelReady(true)}>
+      <Script
+        id="meta-pixel"
+        strategy="afterInteractive"
+        onReady={() => {
+          if (isAnalyticsPath(window.location.pathname)) {
+            setIsPixelReady(true)
+          }
+        }}
+      >
         {`
           !function(f,b,e,v,n,t,s)
           {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
