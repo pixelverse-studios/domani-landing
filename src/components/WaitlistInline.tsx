@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import WaitlistForm from './WaitlistForm'
 import { trackAnalyticsEvent } from '@/lib/analytics/attribution'
+import { trackMetaLead } from '@/lib/analytics/meta-pixel'
 
 const PRIVACY_URL = process.env.NEXT_PUBLIC_PRIVACY_URL ?? '/privacy'
 const TERMS_URL = process.env.NEXT_PUBLIC_TERMS_URL ?? '/terms'
@@ -69,6 +70,19 @@ export default function WaitlistInline() {
       trackAnalyticsEvent('waitlist_signup', {
         event_category: 'engagement',
         event_label: 'inline_quick_form',
+        form_variant: 'inline_quick',
+      })
+
+      trackAnalyticsEvent('generate_lead', {
+        event_category: 'conversion',
+        event_label: 'inline_quick_form',
+        form_variant: 'inline_quick',
+        lead_source: 'waitlist',
+      })
+
+      trackMetaLead({
+        event_label: 'inline_quick_form',
+        form_variant: 'inline_quick',
       })
 
       setIsSuccess(true)

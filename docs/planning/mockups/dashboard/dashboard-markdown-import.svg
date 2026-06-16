@@ -1,0 +1,100 @@
+<svg width="1440" height="1200" viewBox="0 0 1440 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1440" height="1200" fill="#f6f7fb"/>
+  <circle cx="1170" cy="20" r="320" fill="#3f00e9" opacity="0.045"/>
+  <circle cx="260" cy="1180" r="360" fill="#9b5cff" opacity="0.035"/>
+  <rect x="0" y="0" width="260" height="1200" fill="#fbfbff"/>
+  <line x1="260" y1="0" x2="260" y2="1200" stroke="#e3e0ea" />
+  <text x="34" y="54" fill="#171521" font-family="Poppins, Arial, sans-serif" font-size="22" font-weight="900" text-anchor="start" letter-spacing="0" opacity="1">PixelVerse</text>
+  <text x="34" y="78" fill="#8b8797" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="700" text-anchor="start" letter-spacing="1.6" opacity="1">Dashboard</text>
+  <text x="52" y="122" fill="#696577" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" text-anchor="start" letter-spacing="0" opacity="1">Overview</text>
+    <circle cx="34" cy="117" r="5" fill="#d2cfdb"/><text x="52" y="170" fill="#696577" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" text-anchor="start" letter-spacing="0" opacity="1">Clients</text>
+    <circle cx="34" cy="165" r="5" fill="#d2cfdb"/><text x="52" y="218" fill="#696577" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" text-anchor="start" letter-spacing="0" opacity="1">Websites</text>
+    <circle cx="34" cy="213" r="5" fill="#d2cfdb"/><text x="52" y="266" fill="#696577" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" text-anchor="start" letter-spacing="0" opacity="1">Deployments</text>
+    <circle cx="34" cy="261" r="5" fill="#d2cfdb"/><text x="52" y="314" fill="#696577" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" text-anchor="start" letter-spacing="0" opacity="1">SEO Health</text>
+    <circle cx="34" cy="309" r="5" fill="#d2cfdb"/><text x="52" y="362" fill="#696577" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" text-anchor="start" letter-spacing="0" opacity="1">Agenda</text>
+    <circle cx="34" cy="357" r="5" fill="#d2cfdb"/><text x="52" y="410" fill="#696577" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" text-anchor="start" letter-spacing="0" opacity="1">Prospects</text>
+    <circle cx="34" cy="405" r="5" fill="#d2cfdb"/><rect x="20" y="432" width="220" height="40" rx="14" fill="url(#sideGrad)"/><text x="52" y="458" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="850" text-anchor="start" letter-spacing="0" opacity="1">Domani</text>
+    <circle cx="34" cy="453" r="5" fill="#ffffff"/><text x="52" y="506" fill="#696577" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" text-anchor="start" letter-spacing="0" opacity="1">Docs</text>
+    <circle cx="34" cy="501" r="5" fill="#d2cfdb"/><text x="34" y="558" fill="#8b8797" font-family="Inter, Arial, sans-serif" font-size="11" font-weight="900" text-anchor="start" letter-spacing="1.8" opacity="1">COMING SOON</text>
+  <text x="52" y="598" fill="#aaa5b5" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" text-anchor="start" letter-spacing="0" opacity="1">Projects</text>
+  <text x="52" y="646" fill="#aaa5b5" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" text-anchor="start" letter-spacing="0" opacity="1">Audits</text>
+  <rect x="260" y="0" width="1180" height="76" fill="#ffffff" opacity="0.96"/>
+  <line x1="260" y1="76" x2="1440" y2="76" stroke="#e3e0ea" />
+  <text x="304" y="47" fill="#171521" font-family="Poppins, Arial, sans-serif" font-size="20" font-weight="900" text-anchor="start" letter-spacing="0" opacity="1">Domani Markdown Import</text>
+  <rect x="1088" y="20" width="168" height="36" rx="12" fill="#f5f3fb" stroke="#eeeaf5" />
+  <text x="1110" y="43" fill="#8b8797" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="650" text-anchor="start" letter-spacing="0" opacity="1">Search dashboard</text>
+  <rect x="1274" y="18" width="42" height="42" rx="14" fill="#f1ebff" stroke="none" />
+  <text x="1295" y="45" fill="#3f00e9" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="900" text-anchor="middle" letter-spacing="0" opacity="1">P</text>
+  <g transform="translate(304 116)">
+    <rect width="50" height="50" rx="16" fill="url(#domaniGrad)"/>
+    <text x="25" y="32" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="950" text-anchor="middle" letter-spacing="0" opacity="1">D</text>
+    <text x="68" y="21" fill="#171521" font-family="Poppins, Arial, sans-serif" font-size="25" font-weight="900" text-anchor="start" letter-spacing="0" opacity="1">Domani</text>
+    <text x="68" y="46" fill="#696577" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="650" text-anchor="start" letter-spacing="0" opacity="1">App analytics and release operations</text>
+  </g>
+  <g transform="translate(304 198)"><rect x="0" y="0" width="120" height="42" rx="14" fill="#ffffff" stroke="#e3e0ea"/>
+      <text x="20" y="27" fill="#3f00e9" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="900" text-anchor="start" letter-spacing="0" opacity="1">O</text>
+      <text x="42" y="27" fill="#696577" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="800" text-anchor="start" letter-spacing="0" opacity="1">Overview</text><rect x="130" y="0" width="120" height="42" rx="14" fill="#ffffff" stroke="#e3e0ea"/>
+      <text x="150" y="27" fill="#3f00e9" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="900" text-anchor="start" letter-spacing="0" opacity="1">F</text>
+      <text x="172" y="27" fill="#696577" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="800" text-anchor="start" letter-spacing="0" opacity="1">Feedback</text><rect x="260" y="0" width="120" height="42" rx="14" fill="#ffffff" stroke="#e3e0ea"/>
+      <text x="280" y="27" fill="#3f00e9" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="900" text-anchor="start" letter-spacing="0" opacity="1">W</text>
+      <text x="302" y="27" fill="#696577" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="800" text-anchor="start" letter-spacing="0" opacity="1">Waitlist</text><rect x="390" y="0" width="93" height="42" rx="14" fill="#ffffff" stroke="#e3e0ea"/>
+      <text x="410" y="27" fill="#3f00e9" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="900" text-anchor="start" letter-spacing="0" opacity="1">U</text>
+      <text x="432" y="27" fill="#696577" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="800" text-anchor="start" letter-spacing="0" opacity="1">Users</text><rect x="493" y="0" width="129" height="42" rx="14" fill="#ffffff" stroke="#e3e0ea"/>
+      <text x="513" y="27" fill="#3f00e9" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="900" text-anchor="start" letter-spacing="0" opacity="1">C</text>
+      <text x="535" y="27" fill="#696577" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="800" text-anchor="start" letter-spacing="0" opacity="1">Campaigns</text><rect x="632" y="0" width="116" height="42" rx="14" fill="#171521" stroke="#171521"/>
+      <text x="652" y="27" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="900" text-anchor="start" letter-spacing="0" opacity="1">R</text>
+      <text x="674" y="27" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="800" text-anchor="start" letter-spacing="0" opacity="1">Releases</text></g><g transform="translate(304 272)">
+    <text x="0" y="0" fill="#171521" font-family="Poppins, Arial, sans-serif" font-size="34" font-weight="950" text-anchor="start" letter-spacing="0" opacity="1">Import Markdown</text>
+    <text x="0" y="30" fill="#696577" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="650" text-anchor="start" letter-spacing="0" opacity="1">Create a private release draft from a controlled .md source.</text>
+    <rect x="940" y="-30" width="194" height="44" rx="14" fill="#171521" stroke="#171521" />
+    <text x="972" y="-2" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="850" text-anchor="start" letter-spacing="0" opacity="1">Create private draft</text>
+  </g>
+  <g transform="translate(304 344)">
+    <rect x="0" y="0" width="484" height="600" rx="24" fill="#ffffff" stroke="#e3e0ea" />
+    <text x="28" y="40" fill="#171521" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="900" text-anchor="start" letter-spacing="0" opacity="1">Source</text>
+    <text x="28" y="68" fill="#696577" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="650" text-anchor="start" letter-spacing="0" opacity="1">Attach the source document and origin details.</text>
+    <rect x="28" y="100" width="428" height="174" rx="20" fill="#fbfbfe" stroke="#eeeaf5" stroke-dasharray="8 8"/>
+    <text x="242" y="164" fill="#3f00e9" font-family="Poppins, Arial, sans-serif" font-size="28" font-weight="950" text-anchor="middle" letter-spacing="0" opacity="1">.md</text>
+    <text x="242" y="196" fill="#171521" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="850" text-anchor="middle" letter-spacing="0" opacity="1">Drop Markdown file here</text>
+    <text x="242" y="220" fill="#696577" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="650" text-anchor="middle" letter-spacing="0" opacity="1">or paste content in the editor</text>
+    <text x="28" y="314" fill="#8b8797" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="850" text-anchor="start" letter-spacing="1" opacity="1">SOURCE TYPE</text>
+  <rect x="28" y="326" width="202" height="44" rx="13" fill="#fbfbfe" stroke="#eeeaf5" />
+  <text x="44" y="354" fill="#171521" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="760" text-anchor="start" letter-spacing="0" opacity="1">Linear milestone</text>
+    <text x="254" y="314" fill="#8b8797" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="850" text-anchor="start" letter-spacing="1" opacity="1">REFERENCE</text>
+  <rect x="254" y="326" width="202" height="44" rx="13" fill="#fbfbfe" stroke="#eeeaf5" />
+  <text x="270" y="354" fill="#171521" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="760" text-anchor="start" letter-spacing="0" opacity="1">1.1-changelog</text>
+    <text x="28" y="398" fill="#8b8797" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="850" text-anchor="start" letter-spacing="1" opacity="1">TARGET RELEASE</text>
+  <rect x="28" y="410" width="202" height="44" rx="13" fill="#fbfbfe" stroke="#eeeaf5" />
+  <text x="44" y="438" fill="#171521" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="760" text-anchor="start" letter-spacing="0" opacity="1">Create new 1.1</text>
+    <text x="254" y="398" fill="#8b8797" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="850" text-anchor="start" letter-spacing="1" opacity="1">DEFAULT VISIBILITY</text>
+  <rect x="254" y="410" width="202" height="44" rx="13" fill="#fbfbfe" stroke="#eeeaf5" />
+  <text x="270" y="438" fill="#171521" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="760" text-anchor="start" letter-spacing="0" opacity="1">Private draft</text>
+    <text x="28" y="514" fill="#8b8797" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="850" text-anchor="start" letter-spacing="1" opacity="1">Import rules</text>
+    <text x="28" y="544" fill="#696577" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="700" text-anchor="start" letter-spacing="0" opacity="1">Raw source is saved unchanged.</text>
+    <text x="28" y="570" fill="#696577" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="700" text-anchor="start" letter-spacing="0" opacity="1">No public note is published until reviewed.</text>
+
+    <rect x="516" y="0" width="618" height="600" rx="24" fill="#ffffff" stroke="#e3e0ea" />
+    <text x="544" y="40" fill="#171521" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="900" text-anchor="start" letter-spacing="0" opacity="1">Markdown preview</text>
+    <rect x="544" y="70" width="562" height="470" rx="18" fill="#272331" stroke="#272331" />
+    <text x="570" y="110" fill="#f6f1ff" font-family="JetBrains Mono, Menlo, monospace" font-size="14" font-weight="700" text-anchor="start" letter-spacing="0" opacity="1"># Domani 1.1 Changelog</text>
+    <text x="570" y="148" fill="#cbbdff" font-family="JetBrains Mono, Menlo, monospace" font-size="14" font-weight="700" text-anchor="start" letter-spacing="0" opacity="1">## Scope</text>
+    <text x="570" y="178" fill="#e6e0f5" font-family="JetBrains Mono, Menlo, monospace" font-size="14" font-weight="650" text-anchor="start" letter-spacing="0" opacity="1">- Public changelog page</text>
+    <text x="570" y="208" fill="#e6e0f5" font-family="JetBrains Mono, Menlo, monospace" font-size="14" font-weight="650" text-anchor="start" letter-spacing="0" opacity="1">- Coming soon page</text>
+    <text x="570" y="238" fill="#e6e0f5" font-family="JetBrains Mono, Menlo, monospace" font-size="14" font-weight="650" text-anchor="start" letter-spacing="0" opacity="1">- Dashboard release editor</text>
+    <text x="570" y="286" fill="#cbbdff" font-family="JetBrains Mono, Menlo, monospace" font-size="14" font-weight="700" text-anchor="start" letter-spacing="0" opacity="1">## Technical notes</text>
+    <text x="570" y="316" fill="#e6e0f5" font-family="JetBrains Mono, Menlo, monospace" font-size="14" font-weight="650" text-anchor="start" letter-spacing="0" opacity="1">- Supabase releases table</text>
+    <text x="570" y="346" fill="#e6e0f5" font-family="JetBrains Mono, Menlo, monospace" font-size="14" font-weight="650" text-anchor="start" letter-spacing="0" opacity="1">- Markdown import endpoint</text>
+    <text x="570" y="394" fill="#cbbdff" font-family="JetBrains Mono, Menlo, monospace" font-size="14" font-weight="700" text-anchor="start" letter-spacing="0" opacity="1">## Public draft ideas</text>
+    <text x="570" y="424" fill="#e6e0f5" font-family="JetBrains Mono, Menlo, monospace" font-size="14" font-weight="650" text-anchor="start" letter-spacing="0" opacity="1">- Easier ways to see what changed</text>
+    <rect x="544" y="558" width="120" height="34" rx="12" fill="#f1ebff" stroke="none" />
+    <text x="570" y="580" fill="#3f00e9" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="850" text-anchor="start" letter-spacing="0" opacity="1">Valid .md</text>
+  </g><defs>
+    <linearGradient id="sideGrad" x1="20" y1="0" x2="240" y2="40" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3f00e9"/>
+      <stop offset="1" stop-color="#9b5cff"/>
+    </linearGradient>
+    <linearGradient id="domaniGrad" x1="0" y1="0" x2="50" y2="50" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3f00e9"/>
+      <stop offset="1" stop-color="#9b5cff"/>
+    </linearGradient>
+  </defs></svg>

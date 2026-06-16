@@ -9,6 +9,7 @@ import {
   APP_STORE_CONFIG,
 } from '@/lib/config/appStores'
 import { trackAnalyticsEvent } from '@/lib/analytics/attribution'
+import { trackMetaDownloadIntent } from '@/lib/analytics/meta-pixel'
 
 interface DownloadButtonsProps {
   className?: string
@@ -32,16 +33,7 @@ export default function DownloadButtons({
 
   const handleClick = (store: 'ios' | 'android') => {
     const config = store === 'ios' ? APP_STORE_CONFIG.ios : APP_STORE_CONFIG.android
-
-    trackAnalyticsEvent('download_button_click', {
-      event_category: 'engagement',
-      event_label: store,
-      platform: store,
-      cta_location: analyticsLocation,
-    })
-
-    trackAnalyticsEvent('app_store_click', {
-      event_category: 'conversion',
+    const storeEventParams = {
       event_label: `${analyticsLocation}:${store}`,
       platform: store,
       store_name: config.name,
@@ -49,7 +41,26 @@ export default function DownloadButtons({
       store_available: config.available,
       destination_url: config.url,
       cta_location: analyticsLocation,
+    }
+
+    trackAnalyticsEvent('download_button_click', {
+      event_category: 'engagement',
+      ...storeEventParams,
+      event_label: store,
     })
+
+    trackAnalyticsEvent('app_store_click', {
+      event_category: 'conversion',
+      ...storeEventParams,
+    })
+
+    trackAnalyticsEvent('cta_conversion', {
+      event_category: 'conversion',
+      cta_type: 'download',
+      ...storeEventParams,
+    })
+
+    trackMetaDownloadIntent(storeEventParams)
   }
 
   const appStoreUrl = getAppStoreUrl()

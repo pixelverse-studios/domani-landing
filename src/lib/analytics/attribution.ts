@@ -1,6 +1,6 @@
 'use client'
 
-type EventParams = Record<string, string | number | boolean | undefined>
+export type EventParams = Record<string, string | number | boolean | undefined>
 type Gtag = (command: 'event', eventName: string, parameters?: EventParams) => void
 type AnalyticsWindow = typeof window & {
   dataLayer?: unknown[]

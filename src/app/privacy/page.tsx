@@ -14,7 +14,7 @@ const sections = [
     title: 'What we collect',
     items: [
       'Account basics: name, email, and authentication details so we can create and secure your workspace.',
-      'Product analytics: button clicks, feature usage, and device information to improve the experience.',
+      'Product and marketing analytics: page views, button clicks, waitlist signups, app store clicks, campaign parameters, referrer details, device/browser information, and performance signals.',
       'Payment info: processed securely through the App Store or Google Play when you purchase lifetime access.',
       `Support context: messages sent to ${CONTACT_EMAIL} or in-app chat so we can resolve issues.`,
     ],
@@ -34,7 +34,7 @@ const sections = [
       'Infrastructure: Supabase (authentication + database) and Vercel (hosting).',
       'Payments: Stripe handles billing details; we never store card numbers.',
       'Email + messaging: Resend and Customer.io deliver onboarding tips and support replies.',
-      'Analytics: Google Analytics and privacy-first product analytics for aggregated insights.',
+      'Analytics and advertising measurement: Google Analytics, SiteBehaviour, Meta, Reddit, Google Ads, and app-store attribution providers may receive limited event, campaign, device, and referrer data so we can measure marketing performance.',
     ],
   },
   {
@@ -42,7 +42,8 @@ const sections = [
     items: [
       `Export or delete your account anytime from settings or by emailing ${CONTACT_EMAIL}.`,
       'Opt out of marketing messages directly in each email footer.',
-      'Update consent for analytics/tracking via the SiteBehaviour banner in the footer.',
+      'Use browser privacy controls or ad-platform settings to limit cookies, identifiers, and personalized advertising.',
+      'Marketing analytics is not loaded on admin, dashboard, authentication, or OAuth redirect pages.',
       'Residents covered by GDPR or CCPA can request access, correction, or erasure at any time.',
     ],
   },
