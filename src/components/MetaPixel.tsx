@@ -1,6 +1,6 @@
 'use client'
 
-import { Suspense, useEffect } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { usePathname, useSearchParams } from 'next/navigation'
 import Script from 'next/script'
 import {
@@ -43,6 +43,7 @@ function MetaPageViewTracker() {
 
 export default function MetaPixel() {
   const pathname = usePathname()
+  const [isPixelReady, setIsPixelReady] = useState(false)
   const shouldLoadMetaPixel = isConfigured && isAnalyticsPath(pathname)
 
   if (!shouldLoadMetaPixel) {
@@ -51,7 +52,7 @@ export default function MetaPixel() {
 
   return (
     <>
-      <Script id="meta-pixel" strategy="afterInteractive">
+      <Script id="meta-pixel" strategy="afterInteractive" onReady={() => setIsPixelReady(true)}>
         {`
           !function(f,b,e,v,n,t,s)
           {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -64,9 +65,11 @@ export default function MetaPixel() {
           fbq('init', '${META_PIXEL_ID}');
         `}
       </Script>
-      <Suspense fallback={null}>
-        <MetaPageViewTracker />
-      </Suspense>
+      {isPixelReady && (
+        <Suspense fallback={null}>
+          <MetaPageViewTracker />
+        </Suspense>
+      )}
     </>
   )
 }
