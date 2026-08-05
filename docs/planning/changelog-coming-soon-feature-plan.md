@@ -162,6 +162,8 @@ Indexes:
 - Admin filters: `(lifecycle_status, visibility, release_type)` where `archived_at is null`.
 - Semantic version: `(version_major, version_minor, coalesce(version_patch, -1))`.
 
+`releases.row_version` is the aggregate version for the release and its active note/source collection. Every mutation that changes release fields, creates/updates/archives/reorders a note, imports or changes a source, converts Markdown, or approves a conversion must lock the release row, validate the supplied aggregate version, and increment it exactly once in the same transaction. Audit-event and cache-outbox delivery updates do not increment it. A version mismatch rolls back the complete mutation.
+
 ### 4.4 `release_prds`
 
 | Column                     | SQL shape                                               | Rules                                                          |
@@ -219,26 +221,26 @@ Indexes: `(prd_id, started_at desc)` and `(release_id, started_at desc)`.
 
 ### 4.6 `release_notes`
 
-| Column                     | SQL shape                                             | Rules                                                     |
-| -------------------------- | ----------------------------------------------------- | --------------------------------------------------------- |
-| `id`                       | `uuid primary key default gen_random_uuid()`          | Immutable.                                                |
-| `release_id`               | `uuid not null references releases(id)`               | Parent release.                                           |
-| `note_type`                | `release_note_type not null`                          | Canonical enum.                                           |
-| `public_title`             | `text not null`                                       | Trimmed, 1–160 characters.                                |
-| `public_body`              | `text not null`                                       | Trimmed, 1–4,000 characters; Markdown subset allowed.     |
-| `technical_notes`          | `text`                                                | Private; max 20,000 characters.                           |
-| `platforms`                | `release_platform[] not null`                         | One or both canonical platforms; no duplicates.           |
-| `is_public`                | `boolean not null default false`                      | Generated and new notes start private.                    |
-| `sort_order`               | `integer not null`                                    | Zero-based, contiguous within active notes for a release. |
-| `source_prd_id`            | `uuid references release_prds(id)`                    | Optional provenance.                                      |
-| `source_conversion_run_id` | `uuid references release_conversion_runs(id)`         | Required for generated notes.                             |
-| `created_by`               | `uuid not null references auth.users(id)`             | Verified actor.                                           |
-| `updated_by`               | `uuid not null references auth.users(id)`             | Verified actor.                                           |
-| `row_version`              | `bigint not null default 1`                           | Incremented atomically on update.                         |
-| `created_at`               | `timestamptz not null default timezone('utc', now())` | Immutable.                                                |
-| `updated_at`               | `timestamptz not null default timezone('utc', now())` | Updated by trigger.                                       |
-| `archived_at`              | `timestamptz`                                         | Null while active.                                        |
-| `archived_by`              | `uuid references auth.users(id)`                      | Required when archived.                                   |
+| Column                     | SQL shape                                             | Rules                                                      |
+| -------------------------- | ----------------------------------------------------- | ---------------------------------------------------------- |
+| `id`                       | `uuid primary key default gen_random_uuid()`          | Immutable.                                                 |
+| `release_id`               | `uuid not null references releases(id)`               | Parent release.                                            |
+| `note_type`                | `release_note_type not null`                          | Canonical enum.                                            |
+| `public_title`             | `text not null`                                       | Trimmed, 1–160 characters.                                 |
+| `public_body`              | `text not null`                                       | Trimmed, 1–4,000 characters; canonical safe Markdown only. |
+| `technical_notes`          | `text`                                                | Private; max 20,000 characters.                            |
+| `platforms`                | `release_platform[] not null`                         | One or both canonical platforms; no duplicates.            |
+| `is_public`                | `boolean not null default false`                      | Generated and new notes start private.                     |
+| `sort_order`               | `integer not null`                                    | Zero-based, contiguous within active notes for a release.  |
+| `source_prd_id`            | `uuid references release_prds(id)`                    | Optional provenance.                                       |
+| `source_conversion_run_id` | `uuid references release_conversion_runs(id)`         | Required for generated notes.                              |
+| `created_by`               | `uuid not null references auth.users(id)`             | Verified actor.                                            |
+| `updated_by`               | `uuid not null references auth.users(id)`             | Verified actor.                                            |
+| `row_version`              | `bigint not null default 1`                           | Incremented atomically on update.                          |
+| `created_at`               | `timestamptz not null default timezone('utc', now())` | Immutable.                                                 |
+| `updated_at`               | `timestamptz not null default timezone('utc', now())` | Updated by trigger.                                        |
+| `archived_at`              | `timestamptz`                                         | Null while active.                                         |
+| `archived_by`              | `uuid references auth.users(id)`                      | Required when archived.                                    |
 
 Checks enforce text lengths, `sort_order >= 0`, one or two unique platforms, matching archive fields, and paired source provenance. A deferred trigger verifies that source records belong to the same release.
 
@@ -251,6 +253,14 @@ where archived_at is null;
 ```
 
 Reorder operations lock all active notes for the release and update them in one transaction. Temporary negative positions or a deferrable unique constraint may be used internally; partial updates are forbidden.
+
+An active GIN index on `platforms` supports public and admin platform filters:
+
+```sql
+create index release_notes_platforms_active_gin
+on release_notes using gin (platforms)
+where archived_at is null;
+```
 
 ### 4.7 `release_audit_events`
 
@@ -378,6 +388,18 @@ export interface ApiMeta {
   apiVersion: '2026-08-05';
   requestId: string;
   nextCursor: string | null;
+  cacheInvalidation?: CacheInvalidationReceipt;
+}
+
+export interface CacheInvalidationReceipt {
+  jobId: string;
+  status: 'pending' | 'delivered';
+  targets: Array<
+    | '/api/domani/releases/coming-soon'
+    | '/api/domani/releases/changelog'
+    | '/coming-soon'
+    | '/changelog'
+  >;
 }
 
 export interface ApiSuccess<T> {
@@ -385,21 +407,19 @@ export interface ApiSuccess<T> {
   meta: ApiMeta;
 }
 
-export interface FieldError {
-  field: string;
-  code: string;
-  message: string;
-}
+export type FieldErrors = Record<string, string[]>;
 
 export interface ApiErrorBody {
   error: {
     code: string;
     message: string;
-    fieldErrors: FieldError[];
+    fieldErrors: FieldErrors;
     requestId: string;
   };
 }
 ```
+
+`fieldErrors` is always an object keyed by the request field's camelCase path. Nested fields use dot notation and array entries use numeric segments, such as `notes.0.platforms`. Each value is a non-empty array of stable, human-readable validation messages. Non-field errors return `{}`. This shape matches the locked DEV-1005 error envelope.
 
 ### 7.1 Public allowlist DTOs
 
@@ -433,7 +453,17 @@ export interface PublicReleaseCollection {
 
 Public serializers construct these DTOs from an explicit selection. They must not serialize an admin object and delete private fields afterward.
 
-### 7.2 Admin DTOs
+### 7.2 Public text and Markdown safety
+
+`publicTitle` and `publicSummary` are plain text. Clients render them through normal text nodes and must never interpret them as HTML or Markdown.
+
+`publicBody` accepts only this CommonMark subset: paragraphs, soft or hard line breaks, emphasis, strong emphasis, inline code, ordered lists, unordered lists, and links. Raw HTML, images, headings, blockquotes, fenced or indented code blocks, tables, task lists, autoloaded embeds, and extension syntax are forbidden. Link destinations may use only `https:`, `http:`, or `mailto:`, or may be root-relative paths beginning with `/` or same-page fragments beginning with `#`. Protocol-relative URLs and every other scheme, including `javascript:`, `data:`, and `file:`, are forbidden.
+
+The server normalizes line endings to LF, parses the Markdown with raw HTML and extension plugins disabled, validates every node and link against the allowlist, and stores the canonical Markdown only after validation. It rejects forbidden input with 422 `UNSAFE_PUBLIC_MARKDOWN` and a `fieldErrors` entry for `publicBody`; it does not silently preserve or render rejected nodes. Deterministic conversion removes unsupported source constructs, produces only the allowed subset, and runs the same validator before persistence.
+
+The landing site renders the validated Markdown through an allowlisted AST-to-React renderer with raw HTML disabled and never uses `dangerouslySetInnerHTML`. External HTTP(S) links receive `rel="noopener noreferrer"`; user-controlled content cannot choose executable attributes. Backend and landing tests must cover encoded and mixed-case unsafe schemes, raw HTML, images, malformed links, and allowed internal/external links.
+
+### 7.3 Admin DTOs
 
 ```ts
 export interface AdminActor {
@@ -506,9 +536,29 @@ export interface AdminReleaseDetail extends AdminRelease {
     'edit' | 'publish_preview' | 'return_to_private' | 'publish' | 'unpublish' | 'archive'
   >;
 }
+
+export type ReleaseAuditEntityType = 'release' | 'note' | 'source' | 'conversion_run';
+
+export interface AdminReleaseAuditEvent {
+  id: string;
+  releaseId: string;
+  actor: AdminActor;
+  action: string;
+  entityType: ReleaseAuditEntityType;
+  entityId: string;
+  requestId: string;
+  beforeData: Record<string, unknown> | null;
+  afterData: Record<string, unknown> | null;
+  metadata: Record<string, unknown>;
+  createdAt: string;
+}
+
+export interface AdminReleaseAuditCollection {
+  events: AdminReleaseAuditEvent[];
+}
 ```
 
-### 7.3 Mutation payloads
+### 7.4 Mutation payloads
 
 ```ts
 export interface CreateReleaseRequest {
@@ -548,6 +598,7 @@ export interface CreateReleaseNoteRequest {
 }
 
 export interface UpdateReleaseNoteRequest {
+  releaseRowVersion: number;
   noteType?: ReleaseNoteType;
   publicTitle?: string;
   publicBody?: string;
@@ -556,8 +607,23 @@ export interface UpdateReleaseNoteRequest {
   isPublic?: boolean;
 }
 
+export interface ArchiveReleaseNoteRequest {
+  releaseRowVersion: number;
+}
+
 export interface ReorderReleaseNotesRequest {
   notes: Array<{ id: string; rowVersion: number }>;
+}
+
+export interface ApproveConvertedSourceRequest {
+  releaseRowVersion: number;
+  noteRowVersions: Array<{ id: string; rowVersion: number }>;
+}
+
+export interface ApproveConvertedSourceResponse {
+  source: AdminReleaseSource;
+  approvedNoteIds: string[];
+  releaseRowVersion: number;
 }
 ```
 
@@ -609,6 +675,8 @@ Ordering:
 5. Notes by `sort_order` ascending, then note UUID ascending.
 
 Query parameters: `platform=ios|android`, `limit` default 20 and maximum 100, and opaque `cursor`.
+
+When `platform` is omitted, the response contains every eligible public note. When supplied, the server includes only notes whose `platforms` array contains that platform and omits any release left with zero matching notes. The signed cursor binds the selected platform, so it cannot be reused with a different filter.
 
 Example response:
 
@@ -694,7 +762,7 @@ All routes require a verified dashboard actor. Existing-record mutations require
 | `GET /api/admin/releases`                               | Viewer | Cursor list with filters `lifecycle`, `visibility`, `releaseType`, `platform`, `version`, `archived`, `limit`, `cursor`; default sort `updated_at desc, id desc`. |
 | `POST /api/admin/releases`                              | Editor | Accepts `CreateReleaseRequest`; returns 201 with `AdminRelease`; always creates `draft + private`.                                                                |
 | `GET /api/admin/releases/:releaseId`                    | Viewer | Returns `AdminReleaseDetail` with active notes and sources; `includeArchived=true` is admin-only.                                                                 |
-| `GET /api/admin/releases/:releaseId/audit`              | Viewer | Cursor-paginated allowlisted audit events for the internal log. Raw Markdown and credentials are excluded.                                                        |
+| `GET /api/admin/releases/:releaseId/audit`              | Viewer | Cursor audit list with `action`, `entityType`, `limit`, and `cursor`; default sort `created_at desc, id desc`.                                                    |
 | `PATCH /api/admin/releases/:releaseId`                  | Editor | Accepts `UpdateReleaseRequest` and matching `If-Match`; returns updated detail.                                                                                   |
 | `POST /api/admin/releases/:releaseId/archive`           | Admin  | Matching `If-Match`; non-destructive archive and private visibility.                                                                                              |
 | `POST /api/admin/releases/:releaseId/publish-preview`   | Editor | Matching `If-Match`; validates preview rules.                                                                                                                     |
@@ -720,6 +788,47 @@ List response:
   "meta": {
     "apiVersion": "2026-08-05",
     "requestId": "req_01J4K9X8E2T4M3Q7Y5R6W1Z0AC",
+    "nextCursor": null
+  }
+}
+```
+
+The admin `platform` filter selects releases having at least one active note containing that platform. `action` is an exact, case-sensitive stored audit action; `entityType` accepts `release`, `note`, `source`, or `conversion_run`. Audit pagination defaults to 20, caps at 100, and uses the shared signed cursor rules. Audit serializers expose only `AdminReleaseAuditEvent`: before/after payloads are field allowlists and must exclude raw Markdown, tokens, credentials, provider prompts/responses, and internal exception data.
+
+Audit response example:
+
+```json
+{
+  "data": {
+    "events": [
+      {
+        "id": "f35e09de-c51d-4cdb-a1fd-30de7d36c70b",
+        "releaseId": "5f75ab8d-8b70-4d26-a414-bc75abef882d",
+        "actor": {
+          "userId": "168a4e31-74c4-487d-ad0d-131dd45bcf8a",
+          "email": "editor@pixelversestudios.com",
+          "role": "editor"
+        },
+        "action": "note.updated",
+        "entityType": "note",
+        "entityId": "4f449c68-b9f7-42d2-a6c8-af40bbb118f3",
+        "requestId": "req_01J4K9X8E2T4M3Q7Y5R6W1Z0AI",
+        "beforeData": {
+          "publicTitle": "First plan"
+        },
+        "afterData": {
+          "publicTitle": "Guided first plan"
+        },
+        "metadata": {
+          "source": "dashboard"
+        },
+        "createdAt": "2026-08-05T14:50:00.000Z"
+      }
+    ]
+  },
+  "meta": {
+    "apiVersion": "2026-08-05",
+    "requestId": "req_01J4K9X8E2T4M3Q7Y5R6W1Z0AJ",
     "nextCursor": null
   }
 }
@@ -781,12 +890,12 @@ Create request and response:
 
 ### 10.2 Release-note endpoints
 
-| Method and path                                             | Role   | Contract                                                                                              |
-| ----------------------------------------------------------- | ------ | ----------------------------------------------------------------------------------------------------- |
-| `POST /api/admin/releases/:releaseId/notes`                 | Editor | Creates a private note by default at the next contiguous order.                                       |
-| `PATCH /api/admin/releases/:releaseId/notes/:noteId`        | Editor | Requires note `If-Match`; updates allowlisted fields.                                                 |
-| `POST /api/admin/releases/:releaseId/notes/:noteId/archive` | Admin  | Requires note `If-Match`; archives and compacts remaining order atomically.                           |
-| `POST /api/admin/releases/:releaseId/notes/reorder`         | Editor | Requires release `If-Match`; body contains every active note exactly once with each note row version. |
+| Method and path                                             | Role   | Contract                                                                                                  |
+| ----------------------------------------------------------- | ------ | --------------------------------------------------------------------------------------------------------- |
+| `POST /api/admin/releases/:releaseId/notes`                 | Editor | Requires release `If-Match`; creates a private note by default at the next contiguous order.              |
+| `PATCH /api/admin/releases/:releaseId/notes/:noteId`        | Editor | Requires note `If-Match` plus body `releaseRowVersion`; updates allowlisted fields.                       |
+| `POST /api/admin/releases/:releaseId/notes/:noteId/archive` | Admin  | Requires note `If-Match` plus body `releaseRowVersion`; archives and compacts remaining order atomically. |
+| `POST /api/admin/releases/:releaseId/notes/reorder`         | Editor | Requires release `If-Match`; body contains every active note exactly once with each note row version.     |
 
 Reorder request:
 
@@ -814,6 +923,8 @@ Create-note example:
 }
 ```
 
+Create and reorder use the release `If-Match` as the aggregate version. Update and archive use the note `If-Match` as the primary-resource version and the required body `releaseRowVersion` as the aggregate version. Each successful note mutation increments the aggregate release version exactly once. Create, update, and archive responses return the complete `data.note` plus `data.releaseRowVersion`; reorder returns the ordered complete `data.notes` plus `data.releaseRowVersion`. Update/reorder responses use HTTP 200, archive uses HTTP 200 with the archived note, `ETag` identifies the primary returned resource version, and `X-Release-ETag` identifies the aggregate release version. Any note or aggregate mismatch returns 409 and rolls back ordering, audit, and invalidation work.
+
 The response is HTTP 201 with a standard envelope whose `data.note` is the complete concrete `AdminReleaseNote` record.
 
 ```json
@@ -835,7 +946,8 @@ The response is HTTP 201 with a standard envelope whose `data.note` is the compl
       "createdAt": "2026-08-05T14:45:00.000Z",
       "updatedAt": "2026-08-05T14:45:00.000Z",
       "archivedAt": null
-    }
+    },
+    "releaseRowVersion": 2
   },
   "meta": {
     "apiVersion": "2026-08-05",
@@ -856,7 +968,7 @@ Minimum role: Editor.
 Supported media types:
 
 - `application/json`
-- `multipart/form-data` with exactly one `.md` file
+- `multipart/form-data` with exactly one `.md` file in the form field named `file`
 
 Maximum decoded Markdown size is 1,048,576 bytes. Content must be valid UTF-8 and must not contain a NUL byte. Multipart filenames must end in `.md` case-insensitively. MIME metadata alone is not trusted.
 
@@ -883,6 +995,8 @@ export interface ImportMarkdownResponse {
 ```
 
 Exactly one of `releaseId` or `releaseVersion` is accepted. If `releaseVersion` does not exist, the request also supplies `releaseTitle`, `releaseSlug`, and `releaseType`, and the server creates a private draft release in the same transaction. If an existing version is found, it is linked rather than recreated.
+
+Importing into an existing release requires that release's `If-Match`. The server locks and validates the aggregate release version before inserting a new source, then increments it once and returns the updated release. Creating a new release needs no `If-Match`; its initial source is part of creation and the returned release starts at version 1. A duplicate import is read-only, does not increment either version, and returns the existing release/source. Reusing the same idempotency tuple with a conflicting `intendedSurface` returns 409 `IDEMPOTENCY_CONFLICT`.
 
 `intendedSurface` defaults to `changelog`. `convert` defaults to `false`; `true` is rejected with 422 `IMPORT_CONVERSION_NOT_SUPPORTED`. Conversion uses the separate endpoint.
 
@@ -922,7 +1036,7 @@ Example new-source response:
       "confirmedDate": null,
       "releasedAt": null,
       "ownerUserId": null,
-      "rowVersion": 1,
+      "rowVersion": 2,
       "createdAt": "2026-08-05T14:30:00.000Z",
       "updatedAt": "2026-08-05T14:30:00.000Z",
       "archivedAt": null
@@ -984,6 +1098,7 @@ export interface ConvertMarkdownResponse {
     resultingNoteIds: string[];
   };
   notes: AdminReleaseNote[];
+  releaseRowVersion: number;
 }
 ```
 
@@ -1049,7 +1164,8 @@ Example response:
         "updatedAt": "2026-08-05T15:00:00.100Z",
         "archivedAt": null
       }
-    ]
+    ],
+    "releaseRowVersion": 4
   },
   "meta": {
     "apiVersion": "2026-08-05",
@@ -1091,7 +1207,58 @@ On failure:
 
 Conversion may start from `raw`, `needs_review`, `approved`, or `failed`. A source already marked `superseded` is immutable and cannot be converted again.
 
-Approval is a separate dashboard action. `POST /api/admin/releases/:releaseId/prds/:prdId/approve` requires Editor, source `If-Match`, and `{ "noteRowVersions": [{ "id": "4f449c68-b9f7-42d2-a6c8-af40bbb118f3", "rowVersion": 1 }] }`. It verifies that every active note generated by the latest run was reviewed at the supplied version, then changes the source from `needs_review` to `approved`. Approval does not make notes public and does not publish the release. Publication is never part of import, conversion, or approval.
+### 12.2 Approval endpoint
+
+`POST /api/admin/releases/:releaseId/prds/:prdId/approve` requires Editor and source `If-Match`. Its body is `ApproveConvertedSourceRequest`:
+
+```json
+{
+  "releaseRowVersion": 4,
+  "noteRowVersions": [
+    {
+      "id": "4f449c68-b9f7-42d2-a6c8-af40bbb118f3",
+      "rowVersion": 1
+    }
+  ]
+}
+```
+
+The source must be `needs_review`. The supplied note set must contain every active note generated by the latest successful run exactly once, with no foreign, archived, duplicate, extra, or stale note. The server validates the source, aggregate release, and note versions before writing; a mismatch returns 409 `VERSION_CONFLICT` and performs no changes. A valid approval changes the source to `approved`, increments the source and aggregate release versions once, and records an audit event in the same transaction.
+
+The response is `ApproveConvertedSourceResponse` in the standard envelope:
+
+```json
+{
+  "data": {
+    "source": {
+      "id": "30142faf-bc40-4503-a4f7-83a8590c64d4",
+      "releaseId": "5f75ab8d-8b70-4d26-a414-bc75abef882d",
+      "rawMarkdown": "# Domani 1.2\n\n## Guided first plan\n\n- A calmer setup flow.",
+      "originalFilename": "domani-1.2.md",
+      "sourceType": "linear_epic",
+      "sourceReference": "DEV-1004",
+      "sourceContentSha256": "bc1fc72446f7a951fb736fcddece6b1f59fbac5ad2d234f4508eb5bcaa2bcb15",
+      "intendedSurface": "both",
+      "conversionStatus": "approved",
+      "latestConversionRunId": "d616cc04-d3df-4203-b2bd-ce8fc1e7b593",
+      "conversionErrorCode": null,
+      "conversionErrorMessage": null,
+      "rowVersion": 3,
+      "createdAt": "2026-08-05T14:40:00.000Z",
+      "updatedAt": "2026-08-05T15:10:00.000Z"
+    },
+    "approvedNoteIds": ["4f449c68-b9f7-42d2-a6c8-af40bbb118f3"],
+    "releaseRowVersion": 5
+  },
+  "meta": {
+    "apiVersion": "2026-08-05",
+    "requestId": "req_01J4K9X8E2T4M3Q7Y5R6W1Z0AK",
+    "nextCursor": null
+  }
+}
+```
+
+Approval does not make notes public and does not publish the release. Publication is never part of import, conversion, or approval.
 
 ## 13. Errors, concurrency, and pagination
 
@@ -1102,7 +1269,7 @@ Every endpoint returns `X-Request-Id`. Errors use:
   "error": {
     "code": "VERSION_CONFLICT",
     "message": "The release changed after it was loaded. Refresh and review the latest version.",
-    "fieldErrors": [],
+    "fieldErrors": {},
     "requestId": "req_01J4K9X8E2T4M3Q7Y5R6W1Z0AE"
   }
 }
@@ -1122,15 +1289,17 @@ Status mapping:
 | 422  | Well-formed request violates field or release-state rules.                            |
 | 428  | Required `If-Match` header is absent.                                                 |
 | 500  | Unexpected internal failure with sanitized message.                                   |
-| 503  | Required external rewrite or cache invalidation service unavailable.                  |
+| 503  | A requested provider-assisted rewrite is temporarily unavailable before any commit.   |
 
-Stable codes include `VALIDATION_ERROR`, `AUTH_REQUIRED`, `AUTH_INVALID`, `ROLE_REQUIRED`, `FORBIDDEN`, `NOT_FOUND`, `VERSION_CONFLICT`, `VERSION_ALREADY_EXISTS`, `SLUG_ALREADY_EXISTS`, `INVALID_STATE_TRANSITION`, `PUBLIC_NOTE_REQUIRED`, `PRECONDITION_REQUIRED`, `MARKDOWN_TOO_LARGE`, `MARKDOWN_INVALID_UTF8`, `MARKDOWN_FILE_REQUIRED`, `MARKDOWN_FILE_TYPE_INVALID`, `IMPORT_CONVERSION_NOT_SUPPORTED`, `CONVERSION_FAILED`, and `CACHE_INVALIDATION_FAILED`.
+Stable codes include `VALIDATION_ERROR`, `UNSAFE_PUBLIC_MARKDOWN`, `AUTH_REQUIRED`, `AUTH_INVALID`, `ROLE_REQUIRED`, `FORBIDDEN`, `NOT_FOUND`, `VERSION_CONFLICT`, `VERSION_ALREADY_EXISTS`, `SLUG_ALREADY_EXISTS`, `IDEMPOTENCY_CONFLICT`, `INVALID_STATE_TRANSITION`, `PUBLIC_NOTE_REQUIRED`, `PRECONDITION_REQUIRED`, `MARKDOWN_TOO_LARGE`, `MARKDOWN_INVALID_UTF8`, `MARKDOWN_FILE_REQUIRED`, `MARKDOWN_FILE_TYPE_INVALID`, `IMPORT_CONVERSION_NOT_SUPPORTED`, and `CONVERSION_FAILED`.
 
 Cursor pagination uses an opaque base64url-encoded, signed payload containing the active filters, ordered values, record ID, and API version. A cursor cannot be reused with different filters. Limit defaults to 20 and is capped at 100. Responses never expose total counts unless the query can supply them without a separate unbounded scan.
 
+Every aggregate mutation locks the release row with `SELECT FOR UPDATE` before checking child rows. It validates every supplied release, note, and source version before changing data, writes all business rows and the audit event in one transaction, and returns the new aggregate version. This serialization applies to concurrent note creation as well as edit, archive, reorder, import, conversion, and approval, preventing two individually valid child mutations from silently producing a stale combined release.
+
 ## 14. Public cache invalidation
 
-The backend owns a `ReleasePublicCacheInvalidator` interface with adapters for its API/CDN cache and the landing site revalidation receiver. Public-affecting mutations call it after the database transaction:
+The backend owns a `ReleasePublicCacheInvalidator` interface with adapters for its API/CDN cache and the landing site revalidation receiver. Public-affecting mutations enqueue invalidation through `release_cache_invalidation_jobs`:
 
 - publish preview or return preview to private;
 - publish or unpublish;
@@ -1138,9 +1307,26 @@ The backend owns a `ReleasePublicCacheInvalidator` interface with adapters for i
 - edit public summary, title, slug, timing, released timestamp, or type on visible content;
 - create, edit, archive, public-toggle, or reorder notes under visible content.
 
-Invalidation targets `/api/domani/releases/coming-soon`, `/api/domani/releases/changelog`, `/coming-soon`, and `/changelog` as applicable. Calls include a signed server-to-server secret and release ID, contain no private content, and are idempotent.
+Invalidation targets `/api/domani/releases/coming-soon`, `/api/domani/releases/changelog`, `/coming-soon`, and `/changelog` as applicable. Calls include a signed server-to-server secret and release ID, contain no private content, and are idempotent by job ID plus target.
 
-If invalidation fails after a committed mutation, the API returns 503 `CACHE_INVALIDATION_FAILED`, records an operational error with the request ID, and retries from an idempotent durable queue. Repeating the action with the current row version must retry invalidation without repeating the state transition. Public cache lifetime remains bounded by the declared cache headers.
+The state mutation, audit event, and durable invalidation job are inserted in one database transaction. If the outbox insert fails, the whole transaction rolls back and the API returns 500; no successful state transition exists to repeat. The request does not wait for external cache/CDN delivery after commit. It returns the normal 200 or 201 success with the updated resource, aggregate `rowVersion`, matching `ETag`/`X-Release-ETag` headers, and `meta.cacheInvalidation` containing the durable job ID, applicable targets, and status `pending` (or `delivered` only if an in-transaction local adapter completed without external I/O).
+
+The asynchronous dispatcher claims jobs safely, records each delivery attempt, and retries failed targets after 1 minute, 5 minutes, 15 minutes, then hourly until delivered. It emits an operational alert with the originating request ID after the third failed attempt. Delivery failure never changes an already committed success response into 503 and never asks the client to repeat the business mutation. Public cache lifetime remains bounded by the declared cache headers.
+
+Example metadata for a committed public mutation:
+
+```json
+{
+  "apiVersion": "2026-08-05",
+  "requestId": "req_01J4K9X8E2T4M3Q7Y5R6W1Z0AL",
+  "nextCursor": null,
+  "cacheInvalidation": {
+    "jobId": "a8877fc6-e93a-4608-af7d-2e7d99d60991",
+    "status": "pending",
+    "targets": ["/api/domani/releases/coming-soon", "/coming-soon"]
+  }
+}
+```
 
 ## 15. Frontend behavior contracts
 
@@ -1184,10 +1370,12 @@ The four dashboard mockups in `docs/planning/mockups/dashboard/` are visual sour
 - Verify anon/authenticated clients cannot select private tables directly.
 - Verify public serializers use allowlists and never emit forbidden field names.
 - Test all state transitions, role boundaries, audit writes, row-version conflicts, and atomic reorder rollback.
+- Test concurrent note create/edit/archive/reorder and source import/convert/approve operations against the aggregate release version, including complete rollback on a stale child or parent.
 - Test JSON and multipart import, UTF-8 validation, NUL rejection, 1 MiB boundary, idempotency, and `convert=true` rejection.
 - Test deterministic conversion, rerun supersession, preservation of reviewed notes, and rollback on failure.
+- Test the public Markdown allowlist and renderer against raw HTML, images, encoded unsafe schemes, malformed links, and allowed links without executable attributes.
 - Test public ordering, filters, empty collections, timeline precedence, and cache headers.
-- Test invalidation dispatch for every public-affecting mutation.
+- Test transactional outbox rollback, success receipts, dispatcher retries, idempotent delivery, and every public-affecting invalidation target.
 
 ### 16.2 Landing visual and logical QA
 
@@ -1203,6 +1391,7 @@ The four dashboard mockups in `docs/planning/mockups/dashboard/` are visual sour
 - Verify import paste/upload, invalid file feedback, duplicate import, source queue states, deterministic conversion, side-by-side review, approval, and retained raw source.
 - Verify 401, 403, 404, 409, 413, 415, 422, 428, 500, and 503 presentation where reachable.
 - Verify unsaved edits survive a 409 conflict until the user chooses refresh or discard.
+- Verify audit filters/pagination and approval request/response handling use the documented DTOs without rendering excluded private fields.
 
 ## 17. Definition of done by downstream ticket
 
@@ -1219,4 +1408,4 @@ The four dashboard mockups in `docs/planning/mockups/dashboard/` are visual sour
 | DEV-1013 | Mockup-faithful import/review screens, raw-source comparison, private drafts, and API error handling.                    |
 | DEV-1014 | Executed cross-repository matrix proving every epic acceptance criterion and public/private boundary.                    |
 
-No downstream ticket is complete until its verification passes, its ticket branch is committed and pushed, its pull request targets `dev-1004-changelog-coming-soon`, and its Linear status is Review.
+No downstream ticket is complete until its verification passes, its ticket branch is committed and pushed, its pull request targets `dev-1004-changelog-coming-soon`, and its Linear status is In Review.
