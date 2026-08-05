@@ -284,7 +284,7 @@ where archived_at is null;
 | `actor_user_id` | `uuid not null references auth.users(id)`             | Verified actor.                                              |
 | `actor_email`   | `text not null`                                       | Verified email snapshot.                                     |
 | `actor_role`    | `dashboard_role not null`                             | Effective role snapshot.                                     |
-| `action`        | `text not null`                                       | Stable action name.                                          |
+| `action`        | `text not null`                                       | Canonical lower-case dotted action name defined below.       |
 | `entity_type`   | `text not null`                                       | `release`, `note`, `source`, or `conversion_run`.            |
 | `entity_id`     | `uuid not null`                                       | Target entity.                                               |
 | `release_id`    | `uuid not null references releases(id)`               | Parent release.                                              |
@@ -296,7 +296,34 @@ where archived_at is null;
 
 Audit writes occur in the same database transaction as the mutation. Failure to record the event fails the mutation. Tokens, raw Markdown, and provider credentials are never written to audit data.
 
-`entity_type` has a database check constraint limiting it to `release`, `note`, `source`, or `conversion_run`. Storage, `ReleaseAuditEntityType`, query filters, and response examples use those exact values without translation.
+`entity_type` has a database check constraint limiting it to `release`, `note`, `source`, or `conversion_run`. Storage, `ReleaseAuditEntityType`, query filters, and response examples use those exact values without translation. `action` is likewise a closed vocabulary, enforced in storage rather than an arbitrary string:
+
+```sql
+alter table release_audit_events
+add constraint release_audit_events_action_check
+check (action in (
+  'release.created',
+  'release.updated',
+  'release.archived',
+  'release.preview_published',
+  'release.preview_returned_private',
+  'release.published',
+  'release.unpublished',
+  'note.created',
+  'note.updated',
+  'note.archived',
+  'note.reordered',
+  'source.imported',
+  'source.superseded',
+  'source.approved',
+  'conversion.started',
+  'conversion.succeeded',
+  'conversion.failed',
+  'conversion.superseded'
+));
+```
+
+Each mutation endpoint emits its matching specific action. Generic release PATCH emits `release.updated`, including when it changes lifecycle; the named visibility actions emit their named action instead. A new source import emits `source.imported` and one `source.superseded` event per historical source changed by that transaction. An exact duplicate import makes no database mutation and emits no audit event. Conversion writes one `conversion.started` event and one terminal `conversion.succeeded` or `conversion.failed` event; a rerun also emits `conversion.superseded` for each prior run changed. Approval emits `source.approved`. Note reorder emits one aggregate `note.reordered` event whose metadata contains the ordered note IDs, not one event per note. These rules make event cardinality and filtering deterministic.
 
 Indexes: `(release_id, created_at desc)`, `(actor_user_id, created_at desc)`, and `(action, created_at desc)`.
 
@@ -555,11 +582,31 @@ export interface AdminReleaseDetail extends AdminRelease {
 
 export type ReleaseAuditEntityType = 'release' | 'note' | 'source' | 'conversion_run';
 
+export type ReleaseAuditAction =
+  | 'release.created'
+  | 'release.updated'
+  | 'release.archived'
+  | 'release.preview_published'
+  | 'release.preview_returned_private'
+  | 'release.published'
+  | 'release.unpublished'
+  | 'note.created'
+  | 'note.updated'
+  | 'note.archived'
+  | 'note.reordered'
+  | 'source.imported'
+  | 'source.superseded'
+  | 'source.approved'
+  | 'conversion.started'
+  | 'conversion.succeeded'
+  | 'conversion.failed'
+  | 'conversion.superseded';
+
 export interface AdminReleaseAuditEvent {
   id: string;
   releaseId: string;
   actor: AdminActor;
-  action: string;
+  action: ReleaseAuditAction;
   entityType: ReleaseAuditEntityType;
   entityId: string;
   requestId: string;
@@ -662,9 +709,10 @@ Permission matrix:
 | Capability                           | Viewer | Editor | Admin |
 | ------------------------------------ | ------ | ------ | ----- |
 | List/detail/audit read               | Yes    | Yes    | Yes   |
-| Create/edit draft releases and notes | No     | Yes    | Yes   |
+| Create/edit private or public-preview releases and notes | No | Yes | Yes |
 | Import Markdown and convert          | No     | Yes    | Yes   |
 | Manage public preview                | No     | Yes    | Yes   |
+| Mutate a published release aggregate, including sources/conversions | No | No | Yes |
 | Publish or unpublish changelog       | No     | No     | Yes   |
 | Archive release or note              | No     | No     | Yes   |
 
@@ -771,6 +819,8 @@ Vary: Accept-Encoding
 
 All routes require a verified dashboard actor. Existing-record mutations require `If-Match: "<row_version>"` for the primary mutated resource. Missing `If-Match` returns 428 `PRECONDITION_REQUIRED`; malformed values return 400; stale values return 409 `VERSION_CONFLICT` and include no private current record in the error. Multi-resource operations also carry explicitly named related row versions in their body and validate all versions before writing.
 
+The roles in the endpoint tables are the normal minimums. For every aggregate mutation, the server locks the release row and re-evaluates its stored visibility before authorization and version validation. If visibility is `published`, every release PATCH, note create/update/archive/reorder, Markdown import, conversion, approval, and other aggregate mutation requires Admin and an Editor receives 403 `PUBLISHED_CONTENT_ADMIN_REQUIRED`; there is no field-level or private-source exception. This prevents a nominally private field, generated note, or mixed payload from bypassing the publication boundary and ensures all changes to a published aggregate receive Admin review. To let an Editor revise it, an Admin must first unpublish it to `private`; the Editor may then edit, import, convert, or approve, and an Admin must publish again. `allowedActions` is calculated from both role and current stored state, so mutation actions are absent for an Editor viewing a published release.
+
 ### 10.1 Release endpoints
 
 | Method and path                                         | Role   | Contract                                                                                                                                                          |
@@ -809,7 +859,7 @@ List response:
 }
 ```
 
-The admin `platform` filter selects releases having at least one active note containing that platform. `action` is an exact, case-sensitive stored audit action; `entityType` accepts `release`, `note`, `source`, or `conversion_run`. Audit pagination defaults to 20, caps at 100, and uses the shared signed cursor rules. Audit serializers expose only `AdminReleaseAuditEvent`: before/after payloads are field allowlists and must exclude raw Markdown, tokens, credentials, provider prompts/responses, and internal exception data.
+The admin `platform` filter selects releases having at least one active note containing that platform. `action` accepts `ReleaseAuditAction` and is an exact, case-sensitive match against the canonical lower-case dotted value; unknown values return 400 `VALIDATION_ERROR`. `entityType` accepts `release`, `note`, `source`, or `conversion_run`. Audit pagination defaults to 20, caps at 100, and uses the shared signed cursor rules. Audit serializers expose only `AdminReleaseAuditEvent`: before/after payloads are field allowlists and must exclude raw Markdown, tokens, credentials, provider prompts/responses, and internal exception data.
 
 Audit response example:
 
@@ -1307,7 +1357,7 @@ Status mapping:
 | 500  | Unexpected internal failure with sanitized message.                                   |
 | 503  | A requested provider-assisted rewrite is temporarily unavailable before any commit.   |
 
-Stable codes include `VALIDATION_ERROR`, `UNSAFE_PUBLIC_MARKDOWN`, `AUTH_REQUIRED`, `AUTH_INVALID`, `ROLE_REQUIRED`, `FORBIDDEN`, `NOT_FOUND`, `VERSION_CONFLICT`, `VERSION_ALREADY_EXISTS`, `SLUG_ALREADY_EXISTS`, `IDEMPOTENCY_CONFLICT`, `INVALID_STATE_TRANSITION`, `PUBLIC_NOTE_REQUIRED`, `PRECONDITION_REQUIRED`, `MARKDOWN_TOO_LARGE`, `MARKDOWN_INVALID_UTF8`, `MARKDOWN_FILE_REQUIRED`, `MARKDOWN_FILE_TYPE_INVALID`, `IMPORT_CONVERSION_NOT_SUPPORTED`, and `CONVERSION_FAILED`.
+Stable codes include `VALIDATION_ERROR`, `UNSAFE_PUBLIC_MARKDOWN`, `AUTH_REQUIRED`, `AUTH_INVALID`, `ROLE_REQUIRED`, `FORBIDDEN`, `PUBLISHED_CONTENT_ADMIN_REQUIRED`, `NOT_FOUND`, `VERSION_CONFLICT`, `VERSION_ALREADY_EXISTS`, `SLUG_ALREADY_EXISTS`, `IDEMPOTENCY_CONFLICT`, `INVALID_STATE_TRANSITION`, `PUBLIC_NOTE_REQUIRED`, `PRECONDITION_REQUIRED`, `MARKDOWN_TOO_LARGE`, `MARKDOWN_INVALID_UTF8`, `MARKDOWN_FILE_REQUIRED`, `MARKDOWN_FILE_TYPE_INVALID`, `IMPORT_CONVERSION_NOT_SUPPORTED`, and `CONVERSION_FAILED`.
 
 Cursor pagination uses an opaque base64url-encoded, signed payload containing the active filters, ordered values, record ID, and API version. A cursor cannot be reused with different filters. Limit defaults to 20 and is capped at 100. Responses never expose total counts unless the query can supply them without a separate unbounded scan.
 
@@ -1370,7 +1420,7 @@ The local mockups in `docs/planning/mockups/` are visual sources of truth for la
 - Preserve the loaded `rowVersion` and send it through `If-Match` for every mutation.
 - On 409, preserve unsaved local edits, show a conflict state, and offer refresh/review instead of silently retrying.
 - Permission-gate controls using the actor role, while treating server authorization as authoritative.
-- Viewer controls are read-only; editor controls exclude publish/unpublish/archive; admin receives all allowed actions.
+- Viewer controls are read-only. Editor controls exclude publish/unpublish/archive and all release/note mutation controls while the release is published. Admin receives the server-provided allowed actions. The dashboard must use `allowedActions` from the current detail response instead of deriving state-sensitive permissions from role alone.
 - Import shows file validation and raw Markdown preview before submission.
 - Conversion review keeps source Markdown visible beside editable private note drafts.
 - Publish actions require an explicit confirmation summarizing the public effect.
@@ -1387,6 +1437,7 @@ The four dashboard mockups in `docs/planning/mockups/dashboard/` are visual sour
 - Verify anon/authenticated clients cannot select private tables directly.
 - Verify public serializers use allowlists and never emit forbidden field names.
 - Test all state transitions, role boundaries, audit writes, row-version conflicts, and atomic reorder rollback.
+- For every Editor-capable aggregate mutation route, verify an Editor succeeds on private/public-preview content, receives 403 `PUBLISHED_CONTENT_ADMIN_REQUIRED` on published content, and an Admin succeeds when otherwise valid. Cover release/note management, import, conversion, and approval, while retaining the separate Admin-only archive rules. Include a race test proving authorization uses visibility read under the aggregate row lock rather than stale client state.
 - Test concurrent note create/edit/archive/reorder and source import/convert/approve operations against the aggregate release version, including complete rollback on a stale child or parent.
 - Test JSON and multipart import, UTF-8 validation, NUL rejection, 1 MiB boundary, idempotency, and `convert=true` rejection.
 - Test replacement-source supersession, exact-hash duplicates of current and historical sources, and preservation of prior runs and notes.
@@ -1395,6 +1446,7 @@ The four dashboard mockups in `docs/planning/mockups/dashboard/` are visual sour
 - Test public ordering, filters, empty collections, timeline precedence, and cache headers.
 - Test transactional outbox rollback, success receipts, dispatcher retries, idempotent delivery, and every public-affecting invalidation target.
 - Test that stored audit entity values, API filters, and response DTOs use the same four-value vocabulary.
+- Verify every canonical audit action's endpoint mapping, database check constraint, exact filter behavior, multi-event import/conversion cardinality, and the absence of an audit row for mutation-free duplicate imports.
 
 ### 16.2 Landing visual and logical QA
 
