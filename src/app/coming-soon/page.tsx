@@ -4,7 +4,7 @@ import { ReleasePage } from '@/components/releases/ReleasePage';
 import { getPublicReleases } from '@/lib/releases/public-releases';
 import { createPageMetadata } from '@/lib/seo/metadata';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 300;
 
 export const metadata: Metadata = createPageMetadata({
   title: 'Coming Soon',

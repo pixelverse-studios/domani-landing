@@ -11,6 +11,11 @@ const helperSource = await readFile(
   new URL('../../src/components/releases/public-release-display.ts', import.meta.url),
   'utf8'
 );
+const releaseRouteSources = await Promise.all(
+  ['coming-soon', 'changelog'].map((route) =>
+    readFile(new URL(`../../src/app/${route}/page.tsx`, import.meta.url), 'utf8')
+  )
+);
 const transpiledHelper = ts.transpileModule(helperSource, {
   compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 },
   fileName: 'public-release-display.ts',
@@ -119,4 +124,11 @@ test('timeline summaries preserve confidence semantics', () => {
     value: 'TBD',
     label: 'Timing',
   });
+});
+
+test('public release routes use the contract cache lifetime', () => {
+  for (const source of releaseRouteSources) {
+    assert.match(source, /export const revalidate = 300;/);
+    assert.doesNotMatch(source, /force-dynamic/);
+  }
 });
