@@ -3,18 +3,22 @@
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
 import { ArrowRight, Check, Clock3, Sparkles } from 'lucide-react';
 
 import type {
   PublicRelease,
   ReleaseCollection,
   ReleaseNoteType,
-  ReleasePlatform,
 } from '@/lib/releases/public-releases';
 import { cn } from '@/lib/utils';
-
-type FilterKey = 'all' | ReleasePlatform | 'feature' | 'improvement' | 'major-fixes';
+import {
+  filterReleaseNotes,
+  PUBLIC_MARKDOWN_ELEMENTS,
+  publicMarkdownLinkRel,
+  publicMarkdownUrlTransform,
+  timelineSummary,
+  type ReleaseFilter,
+} from './public-release-display';
 
 interface ReleasePageProps {
   collection: ReleaseCollection;
@@ -88,33 +92,18 @@ const pageCopy = {
   },
 } as const;
 
-const noteTypeMatches = (type: ReleaseNoteType, filter: FilterKey): boolean => {
-  if (filter === 'major-fixes') return type === 'fix' || type === 'breaking';
-  return type === filter;
-};
-
 const releaseStatus = (release: PublicRelease): string => {
   if (release.lifecycleStatus === 'in_progress') return 'In progress';
   if (release.lifecycleStatus === 'released') return 'Released';
   return 'Planned';
 };
 
-const platformLabel = (release: PublicRelease): string => {
-  const platforms = new Set(release.notes.flatMap((note) => note.platforms));
+const platformLabel = (notes: PublicRelease['notes']): string => {
+  const platforms = new Set(notes.flatMap((note) => note.platforms));
   if (platforms.has('ios') && platforms.has('android')) return 'iOS + Android';
   if (platforms.has('ios')) return 'iOS';
   if (platforms.has('android')) return 'Android';
   return 'App update';
-};
-
-const shortTimeline = (release: PublicRelease | undefined): string => {
-  if (!release?.timeline.value) return 'TBD';
-  const match = release.timeline.value.match(/^\d{4}-(\d{2})/);
-  if (!match) return 'TBD';
-  const month = Number(match[1]);
-  return new Intl.DateTimeFormat('en-US', { month: 'short', timeZone: 'UTC' }).format(
-    new Date(Date.UTC(2000, month - 1, 1))
-  );
 };
 
 const noteIcon = (type: ReleaseNoteType, index: number): React.ReactNode => {
@@ -132,6 +121,7 @@ function ReleaseHeroPanel({
   const copy = pageCopy[collection];
   const firstRelease = releases[0];
   const highlightCount = firstRelease?.notes.length ?? 0;
+  const timeline = timelineSummary(firstRelease?.timeline);
 
   return (
     <aside
@@ -155,10 +145,7 @@ function ReleaseHeroPanel({
                   firstRelease?.version ?? '—',
                   collection === 'changelog' ? 'Version' : 'Next version',
                 ],
-                [
-                  shortTimeline(firstRelease),
-                  collection === 'changelog' ? 'Released' : 'Target month',
-                ],
+                [timeline.value, timeline.label],
                 [String(highlightCount), highlightCount === 1 ? 'Highlight' : 'Highlights'],
               ].map(([value, label]) => (
                 <div key={label} className="rounded-xl border border-[#edf0ec] bg-primary-50 p-3">
@@ -197,11 +184,14 @@ function ReleaseHeroPanel({
   );
 }
 
-function ReleaseCard({ release, noteFilter }: { release: PublicRelease; noteFilter: FilterKey }) {
-  const notes =
-    noteFilter === 'all' || noteFilter === 'ios' || noteFilter === 'android'
-      ? release.notes
-      : release.notes.filter((note) => noteTypeMatches(note.type, noteFilter));
+function ReleaseCard({
+  release,
+  noteFilter,
+}: {
+  release: PublicRelease;
+  noteFilter: ReleaseFilter;
+}) {
+  const notes = filterReleaseNotes(release.notes, noteFilter);
 
   return (
     <article className="grid overflow-hidden rounded-[1.5rem] border border-[#e8e4dd]/95 bg-white/80 shadow-[0_14px_40px_rgba(61,74,68,0.07)] md:grid-cols-[13rem_minmax(0,1fr)] md:gap-6">
@@ -221,7 +211,7 @@ function ReleaseCard({ release, noteFilter }: { release: PublicRelease; noteFilt
       <div className="p-5 md:pl-0">
         <div className="mb-3 flex flex-wrap items-center gap-2">
           <span className="rounded-full bg-primary-50 px-2.5 py-1.5 text-xs font-extrabold text-primary-700">
-            {platformLabel(release)}
+            {platformLabel(notes)}
           </span>
           <span
             className={cn(
@@ -252,8 +242,9 @@ function ReleaseCard({ release, noteFilter }: { release: PublicRelease; noteFilt
               <div className="min-w-0">
                 <h3 className="text-sm font-bold leading-snug text-[#27342f]">{note.title}</h3>
                 <ReactMarkdown
-                  remarkPlugins={[remarkGfm]}
+                  allowedElements={PUBLIC_MARKDOWN_ELEMENTS}
                   skipHtml
+                  urlTransform={publicMarkdownUrlTransform}
                   components={{
                     p: ({ children }) => (
                       <p className="mt-1 text-xs leading-relaxed text-[#66736c]">{children}</p>
@@ -261,6 +252,7 @@ function ReleaseCard({ release, noteFilter }: { release: PublicRelease; noteFilt
                     a: ({ children, href }) => (
                       <a
                         href={href}
+                        rel={publicMarkdownLinkRel(href)}
                         className="font-semibold text-primary-700 underline decoration-primary-300 underline-offset-2 hover:text-primary-900"
                       >
                         {children}
@@ -296,17 +288,10 @@ function ReleaseCard({ release, noteFilter }: { release: PublicRelease; noteFilt
 
 export function ReleasePage({ collection, releases }: ReleasePageProps) {
   const copy = pageCopy[collection];
-  const [filter, setFilter] = useState<FilterKey>('all');
+  const [filter, setFilter] = useState<ReleaseFilter>('all');
   const filteredReleases = useMemo(() => {
     if (filter === 'all') return releases;
-    if (filter === 'ios' || filter === 'android') {
-      return releases.filter((release) =>
-        release.notes.some((note) => note.platforms.includes(filter))
-      );
-    }
-    return releases.filter((release) =>
-      release.notes.some((note) => noteTypeMatches(note.type, filter))
-    );
+    return releases.filter((release) => filterReleaseNotes(release.notes, filter).length > 0);
   }, [filter, releases]);
 
   return (
