@@ -582,6 +582,11 @@ export interface AdminReleaseDetail extends AdminRelease {
   >;
 }
 
+export interface AdminReleaseCapabilities {
+  canCreateRelease: boolean;
+  canViewArchivedReleases: boolean;
+}
+
 export type ReleaseAuditEntityType = 'release' | 'note' | 'source' | 'conversion_run';
 
 export type ReleaseAuditAction =
@@ -825,18 +830,18 @@ The roles in the endpoint tables are the normal minimums. For every aggregate mu
 
 ### 10.1 Release endpoints
 
-| Method and path                                         | Role   | Contract                                                                                                                                                          |
-| ------------------------------------------------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `GET /api/admin/releases`                               | Viewer | Cursor list with filters `lifecycle`, `visibility`, `releaseType`, `platform`, `version`, `archived`, `limit`, `cursor`; default sort `updated_at desc, id desc`. |
-| `POST /api/admin/releases`                              | Editor | Accepts `CreateReleaseRequest`; returns 201 with `AdminRelease`; always creates `draft + private`.                                                                |
-| `GET /api/admin/releases/:releaseId`                    | Viewer | Returns `AdminReleaseDetail` with active notes and sources; `includeArchived=true` is admin-only.                                                                 |
-| `GET /api/admin/releases/:releaseId/audit`              | Viewer | Cursor audit list with `action`, `entityType`, `limit`, and `cursor`; default sort `created_at desc, id desc`.                                                    |
-| `PATCH /api/admin/releases/:releaseId`                  | Editor | Accepts `UpdateReleaseRequest` and matching `If-Match`; returns updated detail.                                                                                   |
-| `POST /api/admin/releases/:releaseId/archive`           | Admin  | Matching `If-Match`; non-destructive archive and private visibility.                                                                                              |
-| `POST /api/admin/releases/:releaseId/publish-preview`   | Editor | Matching `If-Match`; validates preview rules.                                                                                                                     |
-| `POST /api/admin/releases/:releaseId/return-to-private` | Editor | Matching `If-Match`; removes public preview only.                                                                                                                 |
-| `POST /api/admin/releases/:releaseId/publish`           | Admin  | Matching `If-Match`; validates and publishes released content atomically.                                                                                         |
-| `POST /api/admin/releases/:releaseId/unpublish`         | Admin  | Matching `If-Match`; retains released lifecycle and history.                                                                                                      |
+| Method and path                                         | Role   | Contract                                                                                                                                                                                         |
+| ------------------------------------------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `GET /api/admin/releases`                               | Viewer | Cursor list with filters `lifecycle`, `visibility`, `releaseType`, `platform`, `version`, `archived`, `limit`, `cursor`; `archived=true` is admin-only; default sort `updated_at desc, id desc`. |
+| `POST /api/admin/releases`                              | Editor | Accepts `CreateReleaseRequest`; returns 201 with `AdminRelease`; always creates `draft + private`.                                                                                               |
+| `GET /api/admin/releases/:releaseId`                    | Viewer | Returns `AdminReleaseDetail` with active notes and sources; `includeArchived=true` is admin-only.                                                                                                |
+| `GET /api/admin/releases/:releaseId/audit`              | Viewer | Cursor audit list with `action`, `entityType`, `limit`, and `cursor`; default sort `created_at desc, id desc`.                                                                                   |
+| `PATCH /api/admin/releases/:releaseId`                  | Editor | Accepts `UpdateReleaseRequest` and matching `If-Match`; returns updated detail.                                                                                                                  |
+| `POST /api/admin/releases/:releaseId/archive`           | Admin  | Matching `If-Match`; non-destructive archive and private visibility.                                                                                                                             |
+| `POST /api/admin/releases/:releaseId/publish-preview`   | Editor | Matching `If-Match`; validates preview rules.                                                                                                                                                    |
+| `POST /api/admin/releases/:releaseId/return-to-private` | Editor | Matching `If-Match`; removes public preview only.                                                                                                                                                |
+| `POST /api/admin/releases/:releaseId/publish`           | Admin  | Matching `If-Match`; validates and publishes released content atomically.                                                                                                                        |
+| `POST /api/admin/releases/:releaseId/unpublish`         | Admin  | Matching `If-Match`; retains released lifecycle and history.                                                                                                                                     |
 
 List response:
 
@@ -844,6 +849,10 @@ List response:
 {
   "data": {
     "releases": [],
+    "capabilities": {
+      "canCreateRelease": true,
+      "canViewArchivedReleases": true
+    },
     "filters": {
       "lifecycle": null,
       "visibility": null,
@@ -860,6 +869,8 @@ List response:
   }
 }
 ```
+
+`capabilities` is derived from the verified dashboard actor on every list request. Viewers receive both values as `false`; Editors receive `canCreateRelease: true` and `canViewArchivedReleases: false`; Admins receive both as `true`. The dashboard must use these server-derived booleans for list- and create-route controls. They are presentation capabilities only: every endpoint continues to enforce its own role and state authorization independently.
 
 The admin `platform` filter selects releases having at least one active note containing that platform. `action` accepts `ReleaseAuditAction` and is an exact, case-sensitive match against the canonical lower-case dotted value; unknown values return 400 `VALIDATION_ERROR`. `entityType` accepts `release`, `note`, `source`, or `conversion_run`. Audit pagination defaults to 20, caps at 100, and uses the shared signed cursor rules. Audit serializers expose only `AdminReleaseAuditEvent`: before/after payloads are field allowlists and must exclude raw Markdown, tokens, credentials, provider prompts/responses, and internal exception data.
 
@@ -1422,6 +1433,7 @@ The local mockups in `docs/planning/mockups/` are visual sources of truth for la
 - Preserve the loaded `rowVersion` and send it through `If-Match` for every mutation.
 - On 409, preserve unsaved local edits, show a conflict state, and offer refresh/review instead of silently retrying.
 - Permission-gate controls using the actor role, while treating server authorization as authoritative.
+- Use the release-list `capabilities` object to gate the New Release control, direct access to the create screen, and archived-release navigation; do not infer these permissions from local auth metadata or release contents.
 - Viewer controls are read-only. Editor controls exclude publish/unpublish/archive and all release/note mutation controls while the release is published. Admin receives the server-provided allowed actions. The dashboard must use `allowedActions` from the current detail response instead of deriving state-sensitive permissions from role alone.
 - Import shows file validation and raw Markdown preview before submission.
 - Conversion review keeps source Markdown visible beside editable private note drafts.
