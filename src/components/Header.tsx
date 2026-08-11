@@ -43,7 +43,7 @@ function NavLink({ href, label, className, disableUnderline = false, onClick }: 
       onClick={onClick}
       aria-current={isActive ? 'page' : undefined}
       className={cn(
-        'relative text-sm font-medium transition-colors duration-200 text-gray-600 hover:text-gray-900',
+        'relative whitespace-nowrap text-sm font-medium text-gray-600 transition-colors duration-200 hover:text-gray-900',
         !disableUnderline &&
           'after:absolute after:-bottom-2 after:left-1/2 after:h-0.5 after:w-8 after:-translate-x-1/2 after:rounded-full after:bg-gradient-to-r after:from-primary-600 after:via-primary-500 after:to-primary-700 after:opacity-0 after:transition-all after:duration-200 hover:after:opacity-100 hover:after:scale-100 after:scale-0',
         !disableUnderline && isActive && 'text-gray-900 after:opacity-100 after:scale-100',
@@ -159,7 +159,7 @@ export default function Header() {
 
         <nav
           aria-label="Main navigation"
-          className="hidden md:flex items-center justify-end gap-8 pr-2"
+          className="hidden items-center justify-end gap-4 pr-2 md:flex lg:gap-8"
         >
           {primaryNavLinks.map((link) => (
             <NavLink
@@ -182,7 +182,7 @@ export default function Header() {
               aria-controls="resources-navigation-menu"
               onClick={() => setIsResourcesOpen((open) => !open)}
               className={cn(
-                'flex items-center gap-1 rounded-md text-sm font-medium text-gray-600 transition-colors duration-200 hover:text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:ring-offset-4',
+                'flex items-center gap-1 whitespace-nowrap rounded-md text-sm font-medium text-gray-600 transition-colors duration-200 hover:text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:ring-offset-4',
                 resourceLinks.some((link) => pathname === link.href) && 'text-gray-900'
               )}
             >
@@ -228,7 +228,7 @@ export default function Header() {
             href={cta.href}
             {...(cta.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
             onClick={(event) => handleCTAClick(event, cta)}
-            className="ml-2 rounded-lg bg-primary-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-primary-700 hover:shadow-md"
+            className="ml-2 whitespace-nowrap rounded-lg bg-primary-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-primary-700 hover:shadow-md"
           >
             {cta.text}
           </Link>

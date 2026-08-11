@@ -29,6 +29,13 @@ test('desktop navigation promotes Coming Soon and groups secondary resources', (
   }
 });
 
+test('desktop navigation stays on one line at the md breakpoint', () => {
+  assert.match(headerSource, /whitespace-nowrap text-sm font-medium/);
+  assert.match(headerSource, /gap-4 pr-2 md:flex lg:gap-8/);
+  assert.match(headerSource, /gap-1 whitespace-nowrap rounded-md/);
+  assert.match(headerSource, /ml-2 whitespace-nowrap rounded-lg/);
+});
+
 test('Resources dropdown exposes keyboard-accessible disclosure semantics', () => {
   assert.match(headerSource, /aria-expanded=\{isResourcesOpen\}/);
   assert.match(headerSource, /aria-controls="resources-navigation-menu"/);
