@@ -1,16 +1,16 @@
-import Link from 'next/link'
-import { cn } from '@/lib/utils'
-import { CONTACT_EMAIL } from '@/lib/config/site'
+import Link from 'next/link';
+import { cn } from '@/lib/utils';
+import { CONTACT_EMAIL } from '@/lib/config/site';
 
 interface FooterLink {
-  label: string
-  href: string
-  external?: boolean
+  label: string;
+  href: string;
+  external?: boolean;
 }
 
 interface FooterSection {
-  title: string
-  links: FooterLink[]
+  title: string;
+  links: FooterLink[];
 }
 
 const footerSections: FooterSection[] = [
@@ -19,7 +19,8 @@ const footerSections: FooterSection[] = [
     links: [
       { label: 'Features', href: '/#features' },
       { label: 'Pricing', href: '/pricing' },
-      { label: 'About', href: '/about' },
+      { label: 'Coming Soon', href: '/coming-soon' },
+      { label: 'Changelog', href: '/changelog' },
     ],
   },
   {
@@ -40,31 +41,24 @@ const footerSections: FooterSection[] = [
       { label: 'Delete Account', href: '/delete-account' },
     ],
   },
-]
+];
 
 interface FooterProps {
-  className?: string
+  className?: string;
 }
 
 export function Footer({ className }: FooterProps) {
-  const currentYear = new Date().getFullYear()
+  const currentYear = new Date().getFullYear();
 
   return (
-    <footer
-      className={cn(
-        'border-t border-gray-100 bg-white/80 py-12 backdrop-blur',
-        className
-      )}
-    >
+    <footer className={cn('border-t border-gray-100 bg-white/80 py-12 backdrop-blur', className)}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Footer Grid */}
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4 lg:gap-12">
           {/* Brand Column */}
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="inline-block">
-              <span className="text-xl font-bold text-gray-900 ">
-                Domani
-              </span>
+              <span className="text-xl font-bold text-gray-900 ">Domani</span>
             </Link>
             <p className="mt-2 text-sm text-gray-500 ">
               Plan tomorrow tonight,
@@ -76,9 +70,7 @@ export function Footer({ className }: FooterProps) {
           {/* Link Columns */}
           {footerSections.map((section) => (
             <div key={section.title}>
-              <h3 className="text-sm font-semibold text-gray-900 ">
-                {section.title}
-              </h3>
+              <h3 className="text-sm font-semibold text-gray-900 ">{section.title}</h3>
               <ul className="mt-3 space-y-2">
                 {section.links.map((link) => (
                   <li key={link.href}>
@@ -131,5 +123,5 @@ export function Footer({ className }: FooterProps) {
         </div>
       </div>
     </footer>
-  )
+  );
 }
