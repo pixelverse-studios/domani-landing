@@ -9,6 +9,19 @@ Architecture gate: DEV-1005
 Milestone: `1.1-changelog`
 Last updated: 2026-08-05
 
+## 2026-08-13 release-authoring amendment
+
+This amendment is binding where it conflicts with older field-level examples below.
+
+- `version` is a canonical `X.Y.Z` semantic version. `releaseType` is derived: a non-zero patch is `patch`, otherwise a non-zero minor is `minor`, otherwise `major`.
+- `slug` is generated once at creation from `version + title`, is not accepted from dashboard create/update requests, and remains stable after title edits.
+- `publicOverview` is the canonical rich public introduction, stored as JSONB. Supported nodes are document, paragraph, level-two/level-three heading, bullet list, ordered list, list item, and text. Text marks are limited to bold, italic, and `http`/`https`/`mailto` links. Media, embeds, code, quotes, raw HTML, and arbitrary attributes are rejected.
+- `publicSummary` remains a server-generated plain-text compatibility excerpt derived from `publicOverview`; dashboard clients do not edit it directly.
+- Create/update requests no longer accept `confirmedDate` or `releasedAt`. `confirmedDate` remains readable for legacy records only.
+- Releasing is an explicit `POST /api/admin/releases/:releaseId/mark-released` action with `{ "releasedDate": "YYYY-MM-DD" }`. The date may be today or historical, never future.
+- Newly selected `targetMonth` values must be the current month or later. Newly selected `targetDate` values must be today or later. Existing historical values remain readable and do not block unrelated edits.
+- New releases remain private by default. Visibility changes only through explicit preview, publish, return-private, and unpublish actions.
+
 ## 1. Authority and change control
 
 This document is the source of truth for DEV-1006, DEV-1007, DEV-1008, DEV-1009, DEV-1010, DEV-1011, DEV-1012, DEV-1013, DEV-1014, and DEV-1042. Those tickets must not introduce different shared fields, states, endpoints, permissions, ordering rules, or public response shapes.
