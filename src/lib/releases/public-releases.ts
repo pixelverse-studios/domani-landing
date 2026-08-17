@@ -73,34 +73,49 @@ export type ReleaseNoteType = z.infer<typeof releaseNoteTypeSchema>;
 export type PublicRelease = z.infer<typeof publicReleaseSchema>;
 export type ReleaseCollection = 'coming-soon' | 'changelog';
 
-const publicApiOrigin = (): string =>
-  (process.env.PVS_API_URL || 'http://localhost:5001').replace(/\/$/, '');
+const publicApiOrigin = (): string | null => {
+  const configuredOrigin = process.env.PVS_API_URL?.trim();
+  if (configuredOrigin) return configuredOrigin.replace(/\/$/, '');
+
+  return process.env.NODE_ENV === 'development' ? 'http://localhost:5001' : null;
+};
 
 export async function getPublicReleases(collection: ReleaseCollection): Promise<PublicRelease[]> {
+  const apiOrigin = publicApiOrigin();
+  if (!apiOrigin) {
+    console.warn(`PVS_API_URL is not configured; rendering ${collection} without release data.`);
+    return [];
+  }
+
   const releases: PublicRelease[] = [];
   let cursor: string | null = null;
 
-  for (let page = 0; page < 20; page += 1) {
-    const search = new URLSearchParams({ limit: '100' });
-    if (cursor) search.set('cursor', cursor);
+  try {
+    for (let page = 0; page < 20; page += 1) {
+      const search = new URLSearchParams({ limit: '100' });
+      if (cursor) search.set('cursor', cursor);
 
-    const response = await fetch(
-      `${publicApiOrigin()}/api/domani/releases/${collection}?${search.toString()}`,
-      {
-        headers: { Accept: 'application/json' },
-        next: { revalidate: 300 },
+      const response = await fetch(
+        `${apiOrigin}/api/domani/releases/${collection}?${search.toString()}`,
+        {
+          headers: { Accept: 'application/json' },
+          next: { revalidate: 300 },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Release service returned ${response.status}`);
       }
-    );
 
-    if (!response.ok) {
-      throw new Error(`Release service returned ${response.status}`);
+      const result = publicReleaseEnvelopeSchema.parse(await response.json());
+      releases.push(...result.data.releases);
+      cursor = result.meta.nextCursor;
+      if (!cursor) return releases;
     }
 
-    const result = publicReleaseEnvelopeSchema.parse(await response.json());
-    releases.push(...result.data.releases);
-    cursor = result.meta.nextCursor;
-    if (!cursor) return releases;
+    throw new Error('Release service pagination exceeded the safety limit');
+  } catch (error) {
+    console.error(`Unable to load ${collection} releases; rendering the empty state.`, error);
+    return [];
   }
-
-  throw new Error('Release service pagination exceeded the safety limit');
 }
