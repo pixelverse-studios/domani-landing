@@ -6,6 +6,7 @@ import ReactMarkdown from 'react-markdown';
 import { ArrowRight, Check, Clock3, Sparkles } from 'lucide-react';
 
 import type {
+  PublicOverviewNode,
   PublicRelease,
   ReleaseCollection,
   ReleaseNoteType,
@@ -92,11 +93,69 @@ const pageCopy = {
   },
 } as const;
 
-const releaseStatus = (release: PublicRelease): string => {
-  if (release.lifecycleStatus === 'in_progress') return 'In progress';
-  if (release.lifecycleStatus === 'released') return 'Released';
-  return 'Planned';
+const releaseStatus = (collection: ReleaseCollection): string =>
+  collection === 'changelog' ? 'Released' : 'Coming soon';
+
+const safeOverviewHref = (value: unknown): string | null => {
+  if (typeof value !== 'string') return null;
+  const href = value.trim();
+  if (/^(https?:\/\/|mailto:)/i.test(href)) return href;
+  return null;
 };
+
+function PublicOverview({ document, fallback }: { document: PublicOverviewNode | null; fallback: string }) {
+  if (!document) return <p className="text-base leading-relaxed text-[#66736c]">{fallback}</p>;
+
+  const renderNode = (node: PublicOverviewNode, key: string): React.ReactNode => {
+    if (node.type === 'text') {
+      let content: React.ReactNode = node.text || '';
+      for (const [index, mark] of (node.marks || []).entries()) {
+        const markKey = `${key}-mark-${index}`;
+        if (mark.type === 'bold') content = <strong key={markKey}>{content}</strong>;
+        if (mark.type === 'italic') content = <em key={markKey}>{content}</em>;
+        if (mark.type === 'link') {
+          const href = safeOverviewHref(mark.attrs?.href);
+          if (href) {
+            content = (
+              <a
+                key={markKey}
+                href={href}
+                rel="noopener noreferrer nofollow"
+                className="font-semibold text-primary-700 underline decoration-primary-300 underline-offset-2 hover:text-primary-900"
+              >
+                {content}
+              </a>
+            );
+          }
+        }
+      }
+      return content;
+    }
+
+    const children = (node.content || []).map((child, index) =>
+      renderNode(child, `${key}-${index}`)
+    );
+    if (node.type === 'doc') return <>{children}</>;
+    if (node.type === 'heading') {
+      const level = node.attrs?.level === 3 ? 3 : 2;
+      return level === 3 ? (
+        <h3 key={key} className="mt-4 text-base font-bold text-[#27342f]">{children}</h3>
+      ) : (
+        <h2 key={key} className="mt-4 text-lg font-bold text-[#27342f]">{children}</h2>
+      );
+    }
+    if (node.type === 'bulletList') {
+      return <ul key={key} className="mt-2 list-disc space-y-1 pl-5 text-base text-[#66736c]">{children}</ul>;
+    }
+    if (node.type === 'orderedList') {
+      return <ol key={key} className="mt-2 list-decimal space-y-1 pl-5 text-base text-[#66736c]">{children}</ol>;
+    }
+    if (node.type === 'listItem') return <li key={key}>{children}</li>;
+    return <p key={key} className="mt-2 text-base leading-relaxed text-[#66736c]">{children}</p>;
+  };
+
+  return <div className="max-w-4xl">{renderNode(document, 'overview')}</div>;
+}
 
 const platformLabel = (notes: PublicRelease['notes']): string => {
   const platforms = new Set(notes.flatMap((note) => note.platforms));
@@ -112,6 +171,13 @@ const noteIcon = (type: ReleaseNoteType, index: number): React.ReactNode => {
   if (type === 'improvement')
     return <ArrowRight aria-hidden="true" className="h-4 w-4 -rotate-45" />;
   return index + 1;
+};
+
+const noteTypeLabel = (type: ReleaseNoteType): string => {
+  if (type === 'fix') return 'Fix';
+  if (type === 'breaking') return 'Important change';
+  if (type === 'improvement') return 'Improvement';
+  return 'New feature';
 };
 
 function ReleaseHeroPanel({
@@ -187,9 +253,11 @@ function ReleaseHeroPanel({
 function ReleaseCard({
   release,
   noteFilter,
+  collection,
 }: {
   release: PublicRelease;
   noteFilter: ReleaseFilter;
+  collection: ReleaseCollection;
 }) {
   const notes = filterReleaseNotes(release.notes, noteFilter);
 
@@ -202,11 +270,9 @@ function ReleaseCard({
           </p>
           <p className="mt-1 text-sm font-bold text-[#66736c]">{release.timeline.label}</p>
         </div>
-        {release.lifecycleStatus === 'released' && (
-          <span className="w-fit rounded-full bg-white/75 px-2.5 py-1.5 text-xs font-extrabold text-primary-700">
-            Released
-          </span>
-        )}
+        <span className="w-fit rounded-full bg-white/75 px-2.5 py-1.5 text-xs font-extrabold text-primary-700">
+          {releaseStatus(collection)}
+        </span>
       </aside>
       <div className="p-5 md:pl-0">
         <div className="mb-3 flex flex-wrap items-center gap-2">
@@ -216,38 +282,47 @@ function ReleaseCard({
           <span
             className={cn(
               'rounded-full px-2.5 py-1.5 text-xs font-extrabold',
-              release.lifecycleStatus === 'in_progress'
-                ? 'bg-[#fff1ed] text-[#ad513b]'
+              collection === 'changelog'
+                ? 'bg-[#e4f1e9] text-primary-700'
                 : 'bg-[#fff5df] text-[#9c6d1f]'
             )}
           >
-            {releaseStatus(release)}
+            {releaseStatus(collection)}
           </span>
         </div>
         <h2 className="text-2xl font-bold leading-tight tracking-[-0.035em] text-[#24302c]">
           {release.title}
         </h2>
-        <p className="mt-2 max-w-4xl text-base leading-relaxed text-[#66736c]">
-          {release.publicSummary}
-        </p>
-        <ul className="mt-4 grid list-none gap-3 p-0 lg:grid-cols-3">
+        <div className="mt-2">
+          <PublicOverview document={release.publicOverview} fallback={release.publicSummary} />
+        </div>
+        <ul className="mt-7 list-none divide-y divide-[#dfe6e1] border-y border-[#dfe6e1] p-0">
           {notes.map((note, index) => (
             <li
               key={note.id}
-              className="grid grid-cols-[auto_minmax(0,1fr)] items-start gap-3 rounded-2xl border border-[#e8e4dd]/80 bg-white p-3.5"
+              className="grid gap-4 py-6 sm:grid-cols-[8.5rem_minmax(0,1fr)] sm:gap-8 sm:py-7"
             >
-              <span className="grid h-9 w-9 place-items-center rounded-xl bg-primary-100 text-sm font-black text-primary-700">
-                {noteIcon(note.type, index)}
-              </span>
-              <div className="min-w-0">
-                <h3 className="text-sm font-bold leading-snug text-[#27342f]">{note.title}</h3>
+              <div className="flex items-center gap-3 self-start sm:items-start">
+                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-primary-100 text-sm font-black text-primary-700">
+                  {noteIcon(note.type, index)}
+                </span>
+                <span className="pt-0.5 text-[0.68rem] font-black uppercase tracking-[0.12em] text-primary-700 sm:pt-2.5">
+                  {noteTypeLabel(note.type)}
+                </span>
+              </div>
+              <div className="min-w-0 max-w-[48rem]">
+                <h3 className="text-lg font-bold leading-snug tracking-[-0.02em] text-[#27342f]">
+                  {note.title}
+                </h3>
                 <ReactMarkdown
                   allowedElements={PUBLIC_MARKDOWN_ELEMENTS}
                   skipHtml
                   urlTransform={publicMarkdownUrlTransform}
                   components={{
                     p: ({ children }) => (
-                      <p className="mt-1 text-xs leading-relaxed text-[#66736c]">{children}</p>
+                      <p className="mt-2 text-[0.95rem] leading-[1.75] text-[#66736c]">
+                        {children}
+                      </p>
                     ),
                     a: ({ children, href }) => (
                       <a
@@ -259,17 +334,17 @@ function ReleaseCard({
                       </a>
                     ),
                     code: ({ children }) => (
-                      <code className="rounded bg-primary-50 px-1 py-0.5 font-mono text-[0.7rem] text-primary-900">
+                      <code className="rounded bg-primary-50 px-1 py-0.5 font-mono text-[0.82rem] text-primary-900">
                         {children}
                       </code>
                     ),
                     ul: ({ children }) => (
-                      <ul className="mt-1 list-disc space-y-1 pl-4 text-xs text-[#66736c]">
+                      <ul className="mt-3 list-disc space-y-1.5 pl-5 text-[0.95rem] leading-relaxed text-[#66736c] marker:text-primary-500">
                         {children}
                       </ul>
                     ),
                     ol: ({ children }) => (
-                      <ol className="mt-1 list-decimal space-y-1 pl-4 text-xs text-[#66736c]">
+                      <ol className="mt-3 list-decimal space-y-1.5 pl-5 text-[0.95rem] leading-relaxed text-[#66736c] marker:font-bold marker:text-primary-700">
                         {children}
                       </ol>
                     ),
@@ -362,7 +437,12 @@ export function ReleasePage({ collection, releases }: ReleasePageProps) {
         {filteredReleases.length > 0 ? (
           <div className="grid gap-5">
             {filteredReleases.map((release) => (
-              <ReleaseCard key={release.id} release={release} noteFilter={filter} />
+              <ReleaseCard
+                key={release.id}
+                release={release}
+                noteFilter={filter}
+                collection={collection}
+              />
             ))}
           </div>
         ) : (

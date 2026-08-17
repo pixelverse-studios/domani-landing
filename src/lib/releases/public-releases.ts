@@ -12,6 +12,34 @@ const releaseTimelineSchema = z.discriminatedUnion('kind', [
   z.object({ kind: z.literal('tbd'), value: z.null(), label: z.string() }),
 ]);
 
+export interface PublicOverviewNode {
+  type: 'doc' | 'paragraph' | 'heading' | 'bulletList' | 'orderedList' | 'listItem' | 'text';
+  attrs?: Record<string, unknown>;
+  content?: PublicOverviewNode[];
+  marks?: Array<{
+    type: 'bold' | 'italic' | 'link';
+    attrs?: Record<string, unknown>;
+  }>;
+  text?: string;
+}
+
+const publicOverviewNodeSchema: z.ZodType<PublicOverviewNode> = z.lazy(() =>
+  z.object({
+    type: z.enum(['doc', 'paragraph', 'heading', 'bulletList', 'orderedList', 'listItem', 'text']),
+    attrs: z.record(z.string(), z.unknown()).optional(),
+    content: z.array(publicOverviewNodeSchema).optional(),
+    marks: z
+      .array(
+        z.object({
+          type: z.enum(['bold', 'italic', 'link']),
+          attrs: z.record(z.string(), z.unknown()).optional(),
+        })
+      )
+      .optional(),
+    text: z.string().optional(),
+  })
+);
+
 const publicReleaseSchema = z.object({
   id: z.string(),
   version: z.string(),
@@ -20,6 +48,7 @@ const publicReleaseSchema = z.object({
   releaseType: z.enum(['major', 'minor', 'patch', 'roadmap']),
   lifecycleStatus: z.enum(['planned', 'in_progress', 'released']),
   publicSummary: z.string(),
+  publicOverview: publicOverviewNodeSchema.nullable(),
   timeline: releaseTimelineSchema,
   releasedAt: z.string().nullable(),
   notes: z.array(
