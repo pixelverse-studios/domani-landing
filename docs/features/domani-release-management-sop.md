@@ -1,314 +1,290 @@
-# Domani Release Communication SOP
+# How to Publish Domani Product Updates
 
-**Audience:** Anyone responsible for preparing, reviewing, or publishing Domani product updates  
-**Owner:** Domani / Pixelverse Studios  
-**Last updated:** August 17, 2026  
+**For:** Anyone preparing or publishing Domani release updates
 
-## Purpose
+**Last updated:** August 17, 2026
 
-This guide explains how to turn completed or upcoming Domani work into clear customer-facing release updates. It is written for release coordinators, product owners, and other team members—not developers.
+Use this guide whenever you need to tell customers about something that is coming to Domani or has already been released.
 
-The goal is simple: customers should be able to understand what is coming, what has shipped, and why it matters.
+You do not need to be a developer to use these tools. You only need accurate information about the release and access to the Pixelverse Studios dashboard.
 
-## The system at a glance
+## Where everything happens
 
-There is one place where the team manages releases:
+Create and manage releases here:
 
-- **PVS Dashboard:** Create, edit, review, and publish releases at [pixelversestudios.io/dashboard/domani/releases](https://pixelversestudios.io/dashboard/domani/releases).
-- **Coming Soon:** Customers see published future releases at [domani-app.com/coming-soon](https://www.domani-app.com/coming-soon).
-- **Changelog:** Customers see published released updates at [domani-app.com/changelog](https://www.domani-app.com/changelog).
+**[Open Domani Releases in the PVS Dashboard](https://pixelversestudios.io/dashboard/domani/releases)**
 
-You do not need a separate Domani admin account. Sign in through the normal Pixelverse Studios dashboard.
+This is the only admin area you need. Sign in with your normal Pixelverse Studios account. There is no separate Domani admin login.
 
-The system automatically decides which public page a published release belongs on:
+Customers see published updates on two pages:
 
-- A future date or month appears on **Coming Soon**.
-- A release dated today or earlier appears on the **Changelog**.
-- At the appropriate date, a release moves from Coming Soon to the Changelog automatically. Dates use New York time.
+- **[Coming Soon](https://www.domani-app.com/coming-soon):** Updates planned for the future
+- **[Changelog](https://www.domani-app.com/changelog):** Updates that have already been released
 
-## Roles
+You do not choose the public page yourself. The release date handles that automatically.
 
-One person may perform more than one role, but every release should have these responsibilities covered:
-
-- **Release owner:** Collects the information and prepares the release.
-- **Reviewer:** Checks clarity, accuracy, timing, and what is safe to share publicly.
-- **Publisher:** Gives final approval and changes the release from Draft to Published.
-- **Technical contact:** Helps only when access, data, or website delivery is not working as expected.
-
-Whenever practical, the release owner and reviewer should be different people.
-
-## Plain-language glossary
-
-| Term | What it means |
+| If the release has... | Customers will see it on... |
 |---|---|
-| **Draft** | Visible only to the team. Safe to edit and incomplete. |
-| **Published** | Approved for customers to see. Its date determines whether it appears on Coming Soon or the Changelog. |
-| **Quick description** | A short introduction that explains the overall value of the release. |
-| **Release highlight** | One customer-facing feature, improvement, fix, or important change within a release. |
-| **Team notes** | Private context for the team, such as QA reminders, technical details, support notes, or open questions. These never appear publicly. |
-| **Markdown source** | A text file that some release workflows can import as a starting point. Importing or converting it does not publish anything. |
+| A future date, future month, or no confirmed date yet | Coming Soon |
+| A confirmed release date of today or earlier | Changelog |
 
-## Before creating a release
+When the release date arrives, the update moves from Coming Soon to the Changelog automatically. The system uses New York time.
 
-Gather the following:
+## Before you start
 
-- The version number in `X.Y.Z` format, such as `1.4.2`.
-- A working title customers will understand.
-- The expected release date or month, if known.
-- A short explanation of the overall customer benefit.
-- The customer-facing changes included in the release.
-- The affected platforms: iOS, Android, or both.
-- Any private context the team may need later.
+Try to have these details ready:
 
-### Understanding the version number
+- The app version, such as `1.4.2`
+- A plain-English title
+- The expected release date or month, if known
+- A short explanation of why the update matters
+- A list of the customer-facing changes
+- Whether each change affects iOS, Android, or both
+- Any private notes the team may need
 
-The release type is calculated automatically from the version number:
+It is fine if some details are still being worked out. Start with a Draft and update it as plans become clearer.
 
-- **Major — X.0.0:** A large release that may significantly change the product.
-- **Minor — X.Y.0, where Y is greater than zero:** New features or meaningful improvements that remain compatible with the current major version.
-- **Patch — X.Y.Z, where Z is greater than zero:** Bug fixes and small improvements.
+## Create and publish a release
 
-Do not choose a release type manually. Enter the correct version and let the dashboard derive it.
+### 1. Start a Draft
 
-## Standard release workflow
+Open Domani Releases in the PVS Dashboard and create a new release. Keep the status set to **Draft** while you are working.
 
-### 1. Create the release as a Draft
+A Draft is private. Customers cannot see it.
 
-Open the Domani Releases area in the PVS Dashboard and create a new release.
+### 2. Fill in the release details
 
-Enter:
+| Field | What to enter |
+|---|---|
+| **Version** | The full app version in `X.Y.Z` format, such as `1.4.2` |
+| **Release title** | A short title that describes the main benefit to the customer |
+| **Quick description** | One short paragraph explaining what the release is about |
+| **Date or month** | The best timing information you have today |
+| **Platforms** | iOS, Android, or both |
 
-- **Version:** Use the complete `X.Y.Z` format.
-- **Release title:** Describe the main customer benefit, not an internal project name.
-- **Quick description:** Keep this concise—usually one short paragraph.
-- **Timing:** Enter the best known date or month. Update it later if plans change.
-- **Platforms:** Select every platform affected.
+Write the title for customers, not for the internal team.
 
-Save the release as **Draft** while it is being prepared.
+**Good:** “Faster evening planning”
 
-### 2. Add release highlights
+**Avoid:** “Planning flow phase two”
 
-The highlights should carry most of the release story. Add one highlight for each distinct customer-facing change.
+The dashboard works out the release type from the version:
 
-For every highlight:
+- `2.0.0` is a **major** release
+- `1.3.0` is a **minor** release
+- `1.3.1` is a **patch** release
 
-1. Choose the most accurate category:
-   - **Feature:** A new capability.
-   - **Improvement:** A better version of something that already exists.
-   - **Fix:** A corrected problem.
-   - **Breaking change:** A change that may require customers to adjust how they use the product.
-2. Write a clear title.
-3. Explain what changed and why it matters to the customer.
-4. Use headings, bold text, links, and bullet or numbered lists when they make longer information easier to scan.
-5. Confirm the correct platform or platforms.
-6. Reorder the highlights so the most important information appears first.
+You do not need to select the type yourself.
 
-New highlights are public by default. Mark a highlight **team-only/private** only when customers should not see it.
+### 3. Add the release highlights
 
-Good customer-facing wording:
+Release highlights are the main part of the public update. Add one highlight for each feature, improvement, or fix customers should know about.
 
-> Plan recurring routines faster with reusable task templates.
+For each highlight:
 
-Avoid internal wording:
+1. Give it a clear title.
+2. Explain what changed and why it is useful.
+3. Choose the category that fits best:
+   - **Feature:** Something new
+   - **Improvement:** Something existing that now works better
+   - **Fix:** A problem that has been corrected
+   - **Breaking change:** A change that may require customers to do something differently
+4. Choose the affected platform or platforms.
+5. Use headings, bold text, links, bullets, or numbered lists when they make the information easier to scan.
+6. Put the most important highlights first.
 
-> Added template CRUD endpoints and refactored task creation.
+Highlights are public by default. If a highlight is only for the team, intentionally mark it **private** or **team-only**.
 
-### 3. Add private team notes when useful
+Write about the result for the customer:
 
-Use Team Notes for information that helps the internal team but does not belong in public copy, such as:
+**Good:** “Save routines you use often as templates, so tomorrow’s plan takes less time to build.”
 
-- QA steps or known limitations.
-- Support guidance.
-- Internal launch coordination.
-- Technical or database details.
-- Questions that must be resolved before publishing.
+**Avoid:** “Added template CRUD endpoints and refactored task creation.”
 
-Do not place passwords, API keys, or other secrets in Team Notes.
+### 4. Add Team Notes, if needed
 
-### 4. Review the complete release
+Team Notes are always private. Use them for information such as:
 
-Before publishing, ask a reviewer to complete the checklist below.
+- QA reminders
+- Known limitations
+- Support instructions
+- Launch coordination
+- Technical context
+- Questions that still need an answer
 
-#### Content check
+Team Notes never appear on the public website. Even so, do not put passwords, security keys, or sensitive customer information in them.
 
-- [ ] The version follows `X.Y.Z` and matches the product build.
-- [ ] The title and quick description are understandable without technical knowledge.
-- [ ] Every public claim is accurate and approved.
-- [ ] Highlights are ordered by customer importance.
-- [ ] Each highlight has the correct category and platform.
-- [ ] Internal details are marked team-only or placed in Team Notes.
-- [ ] Dates and timing are still realistic.
-- [ ] Spelling, links, lists, and formatting have been checked.
+### 5. Review before publishing
 
-#### Visual check
+Read the release once as if you were a customer seeing it for the first time.
 
-- [ ] Longer paragraphs and lists are easy to scan.
-- [ ] Headings are used consistently.
-- [ ] The release looks good in the dashboard preview.
-- [ ] Nothing private appears in the public preview.
+Check that:
 
-### 5. Publish
+- [ ] The version matches the app release.
+- [ ] The title and description make sense without internal context.
+- [ ] Every public statement is accurate.
+- [ ] The most important highlights come first.
+- [ ] Categories and platforms are correct.
+- [ ] Private information is in Team Notes or marked team-only.
+- [ ] Dates are still realistic.
+- [ ] Links, lists, spelling, and formatting look right.
 
-When the release is approved:
+For a major release or a sensitive announcement, have someone else review it before publishing. For a small typo correction, a second review is usually unnecessary.
 
-1. Change its status from **Draft** to **Published**.
+### 6. Publish
+
+When the release is ready for customers:
+
+1. Change the status from **Draft** to **Published**.
 2. Save the release.
-3. Confirm the save succeeds before leaving the page.
+3. Wait for the success message before leaving the page.
 
-Publishing makes the release eligible to appear publicly. Its timing controls where it appears:
+Published means public. The date determines whether it appears on Coming Soon or the Changelog.
 
-- Future timing → **Coming Soon**
-- Today or earlier → **Changelog**
+### 7. Check the live page
 
-### 6. Verify the public result
-
-Open the appropriate public page and check the release:
+Open the page where the release should appear:
 
 - [Coming Soon](https://www.domani-app.com/coming-soon)
 - [Changelog](https://www.domani-app.com/changelog)
 
-Verify:
+Confirm that:
 
-- [ ] The release appears on the correct page.
+- [ ] The release is on the correct page.
 - [ ] The version, date, title, and platforms are correct.
-- [ ] The quick description is readable.
-- [ ] Public highlights appear in the intended order.
-- [ ] Team-only highlights and Team Notes are not visible.
+- [ ] The description and highlights are easy to read.
+- [ ] Highlights appear in the right order.
+- [ ] Team Notes and team-only highlights are not visible.
 - [ ] Links work.
-- [ ] The page is readable on both a computer and a phone.
+- [ ] The page looks good on both a computer and a phone.
 
-If the release does not appear immediately, wait about one minute and refresh once before troubleshooting.
+It can take up to a minute for a newly published change to appear. Wait briefly and refresh once before assuming something is wrong.
 
-## Starting from a Markdown file, when available
+## If you see an Import Markdown option
 
-If the dashboard shows a Markdown import option, it can provide a useful starting point when release information already exists in a document or has been generated from project work. If the option is not visible, prepare the release manually using the standard workflow.
+Markdown import can save time when the release information already exists in a `.md` file. It gives you a starting draft; it does not create finished customer copy.
 
 1. Create or open a Draft release.
-2. Upload the Markdown source.
-3. Confirm that the correct source was attached.
+2. Upload the Markdown file.
+3. Check that you selected the right file.
 4. Convert it into a release draft.
-5. Review every generated field and highlight.
-6. Rewrite technical or awkward wording for customers.
-7. Remove duplicates and move private details into Team Notes.
-8. Complete the normal review and publishing steps above.
+5. Review every field and highlight.
+6. Rewrite technical or awkward wording.
+7. Remove duplicates.
+8. Move private details into Team Notes.
+9. Follow the normal review and publishing steps above.
 
-Important safeguards:
+Uploading or converting a file never publishes the release. You must still review it and intentionally change the status to Published.
 
-- Importing and converting are preparation steps; they do **not** publish the release.
-- Generated content is not automatically approved.
-- The original source remains available for comparison and recordkeeping.
-- Never upload a file containing passwords, keys, customer personal data, or other secrets.
+Never upload a file containing passwords, security keys, or sensitive customer information.
 
-## Editing a published release
+If you do not see the import option, create the release manually. Nothing is wrong with your account.
 
-Published releases can be corrected when necessary.
+## Making changes after publishing
 
-1. Open the release in the PVS Dashboard.
-2. Make the smallest necessary correction.
-3. Review the public content again.
-4. Save.
-5. Recheck the appropriate public page.
+You can correct a published release:
 
-For a substantial wording or scope change, ask another person to review it before saving.
+1. Open it in the PVS Dashboard.
+2. Make the correction.
+3. Save.
+4. Check the public page again.
 
-To remove a release from public view temporarily, change it back to **Draft** and save. Use archive only when the record is no longer part of the active release history and the team has agreed to retire it.
+If you need to remove a release from the website temporarily, change it back to **Draft** and save it.
 
-## Troubleshooting
+Only archive a release when the team has agreed that it should be retired from the active release history. Do not archive something just because it needs more editing.
 
-### I cannot access the release dashboard
+## If something goes wrong
 
-- Confirm you are using the Pixelverse Studios dashboard, not a Domani admin login.
-- Sign out and back in through the normal PVS login.
-- Confirm your PVS account has the required dashboard access.
-- If access still fails, contact the dashboard administrator.
+### I cannot open the release dashboard
+
+1. Make sure you are signing in through the Pixelverse Studios dashboard, not a Domani admin page.
+2. Sign out and back in with your normal PVS account.
+3. If you still cannot get in, ask the dashboard owner to check your access.
 
 ### My changes will not save
 
-- Look for a message explaining which field needs attention.
-- Confirm the version uses the complete `X.Y.Z` format.
-- Confirm required titles and content are present.
-- Refresh only after copying any unsaved text somewhere safe.
-- If another person edited the same release, compare their newer version before reapplying your changes.
+1. Read the message on the page; it may name the field that needs attention.
+2. Make sure the version includes all three numbers, such as `1.4.2`.
+3. Check that required titles and descriptions are filled in.
+4. Copy any unsaved writing somewhere safe before refreshing.
+5. If someone else edited the release, compare their newer version before entering your changes again.
 
-### A published release is not visible
+### I published a release, but it is not on the website
 
-Check these items in order:
+Check these in order:
 
-1. The status is **Published**, not Draft.
-2. The release has valid timing information.
-3. You are checking the correct page for its date.
-4. At least one highlight intended for customers is public.
-5. You waited about one minute and refreshed the page.
+1. Is the status **Published**?
+2. Does it have a date, month, or “not confirmed” timing?
+3. Are you looking at the correct public page for that timing?
+4. Is at least one highlight public?
+5. Have you waited one minute and refreshed?
 
-If all five are correct, contact the technical owner with the release version, dashboard link, expected page, and a screenshot.
+If the answer to all five is yes, send the technical owner:
 
-### A release is on the wrong public page
+- The release version
+- A link to the release in the dashboard
+- The page where you expected it to appear
+- What happened instead
+- The time you noticed the problem
+- A screenshot
 
-Check its date or target month. Future releases belong on Coming Soon; releases dated today or earlier belong on the Changelog. The changeover follows New York time.
+### The release is on the wrong public page
 
-### A Markdown file is rejected or converts poorly
+Check its timing. A future date, future month, or unconfirmed date belongs on Coming Soon. A confirmed date of today or earlier belongs on the Changelog.
 
-- Confirm it is a Markdown (`.md`) text file and not unusually large.
-- Remove unsupported attachments or embedded media.
-- Use clear headings and lists before trying again.
-- If conversion succeeds but the copy is poor, edit it manually; conversion is only a starting point.
+### Markdown import did not work
 
-### Private information appears publicly
+- Make sure the file ends in `.md`.
+- Remove images, attachments, or unusual embedded content.
+- Use simple headings and lists, then try again.
+- If the conversion is messy, edit the result manually or create the release without importing.
 
-Treat this as urgent:
+### Private information is showing publicly
 
-1. Change the release to Draft and save, or mark the affected highlight team-only.
-2. Confirm it has disappeared from the public page.
-3. Notify the release owner and technical contact.
-4. If a secret or personal data was exposed, begin the appropriate security response immediately.
+Act immediately:
 
-## New team member onboarding
+1. Change the release back to Draft and save it. If only one highlight is affected, mark that highlight team-only instead.
+2. Check the public page and make sure the information is gone.
+3. Tell the release owner and technical owner what happened.
+4. If a password, security key, or personal information was exposed, begin the company’s security response right away.
 
-Before a new teammate manages releases, complete the following:
+## Training a new teammate
 
-- [ ] Give them their own PVS Dashboard account. Never share logins.
-- [ ] Confirm they can open Domani Releases.
-- [ ] Walk through one existing Draft together.
-- [ ] Explain Draft versus Published and Coming Soon versus Changelog.
-- [ ] Show the difference between public highlights and Team Notes.
-- [ ] Have them create a practice Draft without publishing it.
-- [ ] Review the practice release together.
-- [ ] Identify who can approve publishing and who handles technical issues.
+Use this short hands-on process instead of asking them to learn everything at once:
 
-## System ownership and support
+1. Give them their own PVS Dashboard account. Never share a login.
+2. Open an existing Draft together and explain each section.
+3. Show them the difference between Draft and Published.
+4. Show them Coming Soon and the Changelog.
+5. Point out which content is public and which content is only for the team.
+6. Have them create a practice Draft without publishing it.
+7. Review the practice release together.
+8. Make sure they know who approves publishing and who handles technical problems.
 
-Release managers should not need to configure servers, databases, website hosting, or secret values. Those belong to the technical owner.
+## Who handles what
 
-The release system has three parts:
+The person managing a release is responsible for the content, timing, review, publishing, and checking the live result.
 
-1. **PVS server:** Stores and delivers release data.
-2. **PVS dashboard:** Where the team signs in and manages releases.
-3. **Domani website:** Displays Coming Soon and Changelog content to customers.
+The technical owner is responsible for keeping these three parts connected and working:
 
-When the release system itself is updated, the technical owner should normally update it in this order:
+1. The PVS server, which stores release information
+2. The PVS dashboard, where the team manages releases
+3. The Domani website, where customers read them
 
-1. PVS server
-2. PVS dashboard
-3. Domani website
+Release managers should never need to change server settings, database settings, website hosting, or secret values.
 
-The technical owner is responsible for:
+When asking for technical help, send the information listed in the troubleshooting section. Never send passwords or secret values.
 
-- Keeping private configuration values in the approved hosting or secrets manager, never in this document or a team chat.
-- Keeping the server and Domani website connected so published changes refresh correctly.
-- Maintaining PVS Dashboard sign-in as the only admin sign-in system. A separate Domani admin account should not be added.
-- Keeping PVS account information separate from the Domani release database.
-- Verifying the dashboard login, one Draft save, one safe publish/unpublish test, Coming Soon, Changelog, and desktop/mobile display after a system update.
+## Quick publishing checklist
 
-When asking for technical help, provide the release version, dashboard link, expected result, actual result, time of the problem, and a screenshot. Never send passwords or secret values.
+Use this every time:
 
-## One-minute publishing checklist
-
-- [ ] Correct `X.Y.Z` version
+- [ ] Correct version
 - [ ] Clear title and short description
 - [ ] Accurate date or month
 - [ ] Correct platforms
-- [ ] Highlights ordered and understandable
-- [ ] Private information kept out of public fields
-- [ ] Second-person review complete
+- [ ] Highlights are clear and in the right order
+- [ ] Private information is not in public fields
+- [ ] Important or sensitive releases have a second review
 - [ ] Status changed to Published and saved successfully
-- [ ] Correct public page verified on desktop and mobile
+- [ ] Correct public page checked on a computer and phone
