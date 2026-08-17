@@ -149,9 +149,11 @@ test('timeline summaries preserve confidence semantics', () => {
   });
 });
 
-test('public release routes use the contract cache lifetime', () => {
+test('public release routes use the contract cache lifetime without build-time API calls', () => {
   for (const source of releaseRouteSources) {
     assert.match(source, /export const revalidate = 300;/);
+    assert.match(source, /import \{ connection \} from 'next\/server';/);
+    assert.match(source, /await connection\(\);/);
     assert.doesNotMatch(source, /force-dynamic/);
   }
 });

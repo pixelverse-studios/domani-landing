@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { connection } from 'next/server';
 
 import { ReleasePage } from '@/components/releases/ReleasePage';
 import { getPublicReleases } from '@/lib/releases/public-releases';
@@ -15,6 +16,7 @@ export const metadata: Metadata = createPageMetadata({
 });
 
 export default async function ChangelogPage() {
+  await connection();
   const releases = await getPublicReleases('changelog');
   return <ReleasePage collection="changelog" releases={releases} />;
 }

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { connection } from 'next/server';
 
 import { ReleasePage } from '@/components/releases/ReleasePage';
 import { getPublicReleases } from '@/lib/releases/public-releases';
@@ -15,6 +16,7 @@ export const metadata: Metadata = createPageMetadata({
 });
 
 export default async function ComingSoonPage() {
+  await connection();
   const releases = await getPublicReleases('coming-soon');
   return <ReleasePage collection="coming-soon" releases={releases} />;
 }
