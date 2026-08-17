@@ -36,6 +36,7 @@ const revalidationModule = await import(
   `data:text/javascript;base64,${Buffer.from(transpiledRevalidation.outputText).toString('base64')}`
 );
 const {
+  isReleaseInvalidationPayloadSizeAllowed,
   parseReleaseInvalidationPayload,
   releasePageForInvalidationTarget,
   verifyReleaseInvalidationSignature,
@@ -182,4 +183,9 @@ test('release invalidation rejects unknown targets and malformed identifiers', (
     ),
     null
   );
+});
+
+test('release invalidation rejects oversized request bodies', () => {
+  assert.equal(isReleaseInvalidationPayloadSizeAllowed('{}'), true);
+  assert.equal(isReleaseInvalidationPayloadSizeAllowed('x'.repeat(4_097)), false);
 });

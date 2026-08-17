@@ -2,6 +2,8 @@ import { revalidatePath } from 'next/cache';
 import { NextResponse } from 'next/server';
 
 import {
+  isReleaseInvalidationPayloadSizeAllowed,
+  MAX_RELEASE_INVALIDATION_BYTES,
   parseReleaseInvalidationPayload,
   releasePageForInvalidationTarget,
   verifyReleaseInvalidationSignature,
@@ -13,7 +15,16 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Revalidation is not configured.' }, { status: 503 });
   }
 
+  const contentLength = Number(request.headers.get('content-length'));
+  if (Number.isFinite(contentLength) && contentLength > MAX_RELEASE_INVALIDATION_BYTES) {
+    return NextResponse.json({ error: 'Revalidation request is too large.' }, { status: 413 });
+  }
+
   const body = await request.text();
+  if (!isReleaseInvalidationPayloadSizeAllowed(body)) {
+    return NextResponse.json({ error: 'Revalidation request is too large.' }, { status: 413 });
+  }
+
   if (
     !verifyReleaseInvalidationSignature(
       body,
