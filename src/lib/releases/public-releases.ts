@@ -100,6 +100,7 @@ export async function getPublicReleases(collection: ReleaseCollection): Promise<
         {
           headers: { Accept: 'application/json' },
           next: { revalidate: 300 },
+          signal: AbortSignal.timeout(8_000),
         }
       );
 
@@ -115,7 +116,7 @@ export async function getPublicReleases(collection: ReleaseCollection): Promise<
 
     throw new Error('Release service pagination exceeded the safety limit');
   } catch (error) {
-    console.error(`Unable to load ${collection} releases; rendering the empty state.`, error);
-    return [];
+    console.error(`Unable to load ${collection} releases.`, error);
+    throw error;
   }
 }

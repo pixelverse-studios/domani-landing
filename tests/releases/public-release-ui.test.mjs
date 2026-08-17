@@ -17,6 +17,10 @@ const releaseRouteSources = await Promise.all(
     readFile(new URL(`../../src/app/${route}/page.tsx`, import.meta.url), 'utf8')
   )
 );
+const publicReleaseLoaderSource = await readFile(
+  new URL('../../src/lib/releases/public-releases.ts', import.meta.url),
+  'utf8'
+);
 const transpiledHelper = ts.transpileModule(helperSource, {
   compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 },
   fileName: 'public-release-display.ts',
@@ -150,6 +154,15 @@ test('public release routes use the contract cache lifetime', () => {
     assert.match(source, /export const revalidate = 300;/);
     assert.doesNotMatch(source, /force-dynamic/);
   }
+});
+
+test('configured release API failures reach the route retry boundary', () => {
+  assert.match(publicReleaseLoaderSource, /signal: AbortSignal\.timeout\(8_000\)/);
+  assert.match(publicReleaseLoaderSource, /catch \(error\)[\s\S]*throw error;/);
+  assert.doesNotMatch(
+    publicReleaseLoaderSource,
+    /catch \(error\)[\s\S]*rendering the empty state[\s\S]*return \[\]/
+  );
 });
 
 test('release invalidation requires a valid HMAC and accepted payload', () => {
