@@ -7,14 +7,28 @@ Epic: DEV-1004
 Architecture gate: DEV-1005
 
 Milestone: `1.1-changelog`
-Last updated: 2026-08-05
+Last updated: 2026-08-17
+
+## 2026-08-17 final workflow amendment
+
+This amendment supersedes every older lifecycle, visibility, slug, note-default, calendar, and mutation example in this document where they conflict.
+
+- The dashboard exposes exactly two release statuses: `Draft` and `Published`. The richer database lifecycle and visibility values remain internal compatibility fields derived by the server.
+- Saving `Draft` maps to `draft + private`. Saving `Published` with an exact date on or before the current Domani business date maps to changelog-visible `released + published`; a future date, month, or TBD timing maps to coming-soon-visible `planned + public_preview`.
+- Public placement rolls from Coming Soon to Changelog automatically at the New York date boundary. The stored date or month never changes automatically.
+- The business calendar is `America/New_York` everywhere: validation, destination derivation, public API eligibility, and displayed release dates.
+- `slug` is hidden and server-derived from `version + title` while a release has never been published. Draft identity edits regenerate it. The first customer-visible publication freezes it permanently, including after later unpublishing or editing.
+- New highlights are public by default. An operator must intentionally mark a highlight as team-only.
+- The canonical write is one atomic editor save containing release fields and the complete ordered highlight set. Duplicate highlight IDs are rejected before any write.
+- The landing receiver is `POST /api/revalidate/releases`. It requires the exact raw JSON body signed as `sha256=<hex HMAC-SHA256>` in `x-release-invalidation-signature`, using the shared server-only `RELEASE_CACHE_INVALIDATION_SECRET`.
+- List and editor copy uses human terms—Draft, Published, Coming Soon, and Changelog. Internal lifecycle/visibility enum names are not shown as operator choices.
 
 ## 2026-08-13 release-authoring amendment
 
 This amendment is binding where it conflicts with older field-level examples below.
 
 - `version` is a canonical `X.Y.Z` semantic version. `releaseType` is derived: a non-zero patch is `patch`, otherwise a non-zero minor is `minor`, otherwise `major`.
-- `slug` is generated once at creation from `version + title`, is not accepted from dashboard create/update requests, and remains stable after title edits.
+- `slug` follows `version + title` while the release has never been published, then freezes permanently on first customer-visible publication. It is not accepted from dashboard requests.
 - `publicOverview` is the canonical rich public introduction, stored as JSONB. Supported nodes are document, paragraph, level-two/level-three heading, bullet list, ordered list, list item, and text. Text marks are limited to bold, italic, and `http`/`https`/`mailto` links. Media, embeds, code, quotes, raw HTML, and arbitrary attributes are rejected.
 - `publicSummary` remains a server-generated plain-text compatibility excerpt derived from `publicOverview`; dashboard clients do not edit it directly.
 - Create/update requests no longer accept `confirmedDate` or `releasedAt`. `confirmedDate` remains readable for legacy records only.
@@ -240,26 +254,26 @@ Indexes: `(prd_id, started_at desc)` and `(release_id, started_at desc)`.
 
 ### 4.6 `release_notes`
 
-| Column                     | SQL shape                                     | Rules                                                      |
-| -------------------------- | --------------------------------------------- | ---------------------------------------------------------- |
-| `id`                       | `uuid primary key default gen_random_uuid()`  | Immutable.                                                 |
-| `release_id`               | `uuid not null references releases(id)`       | Parent release.                                            |
-| `note_type`                | `release_note_type not null`                  | Canonical enum.                                            |
-| `public_title`             | `text not null`                               | Trimmed, 1–160 characters.                                 |
-| `public_body`              | `text not null`                               | Trimmed, 1–4,000 characters; canonical safe Markdown only. |
-| `technical_notes`          | `text`                                        | Private; max 20,000 characters.                            |
-| `platforms`                | `release_platform[] not null`                 | One or both canonical platforms; no duplicates.            |
-| `is_public`                | `boolean not null default false`              | Generated and new notes start private.                     |
-| `sort_order`               | `integer not null`                            | Zero-based, contiguous within active notes for a release.  |
-| `source_prd_id`            | `uuid references release_prds(id)`            | Optional provenance.                                       |
-| `source_conversion_run_id` | `uuid references release_conversion_runs(id)` | Required for generated notes.                              |
-| `created_by`               | `uuid not null`                               | Verified external PVS actor identifier.                    |
-| `updated_by`               | `uuid not null`                               | Verified external PVS actor identifier.                    |
-| `row_version`              | `bigint not null default 1`                   | Incremented atomically on update.                          |
-| `created_at`               | `timestamptz not null default now()`          | Immutable.                                                 |
-| `updated_at`               | `timestamptz not null default now()`          | Updated by trigger.                                        |
-| `archived_at`              | `timestamptz`                                 | Null while active.                                         |
-| `archived_by`              | `uuid`                                        | External PVS actor identifier; required when archived.     |
+| Column                     | SQL shape                                     | Rules                                                         |
+| -------------------------- | --------------------------------------------- | ------------------------------------------------------------- |
+| `id`                       | `uuid primary key default gen_random_uuid()`  | Immutable.                                                    |
+| `release_id`               | `uuid not null references releases(id)`       | Parent release.                                               |
+| `note_type`                | `release_note_type not null`                  | Canonical enum.                                               |
+| `public_title`             | `text not null`                               | Trimmed, 1–160 characters.                                    |
+| `public_body`              | `text not null`                               | Trimmed, 1–4,000 characters; canonical safe Markdown only.    |
+| `technical_notes`          | `text`                                        | Private; max 20,000 characters.                               |
+| `platforms`                | `release_platform[] not null`                 | One or both canonical platforms; no duplicates.               |
+| `is_public`                | `boolean not null default true`               | New highlights start public; team-only is an explicit choice. |
+| `sort_order`               | `integer not null`                            | Zero-based, contiguous within active notes for a release.     |
+| `source_prd_id`            | `uuid references release_prds(id)`            | Optional provenance.                                          |
+| `source_conversion_run_id` | `uuid references release_conversion_runs(id)` | Required for generated notes.                                 |
+| `created_by`               | `uuid not null`                               | Verified external PVS actor identifier.                       |
+| `updated_by`               | `uuid not null`                               | Verified external PVS actor identifier.                       |
+| `row_version`              | `bigint not null default 1`                   | Incremented atomically on update.                             |
+| `created_at`               | `timestamptz not null default now()`          | Immutable.                                                    |
+| `updated_at`               | `timestamptz not null default now()`          | Updated by trigger.                                           |
+| `archived_at`              | `timestamptz`                                 | Null while active.                                            |
+| `archived_by`              | `uuid`                                        | External PVS actor identifier; required when archived.        |
 
 Checks enforce text lengths, `sort_order >= 0`, one or two unique platforms, matching archive fields, and paired source provenance. A deferred trigger verifies that source records belong to the same release.
 
@@ -823,6 +837,8 @@ For every aggregate mutation, the server locks the release row and re-evaluates 
 
 | Method and path                                         | Access       | Contract                                                                                                                                                          |
 | ------------------------------------------------------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `POST /api/admin/releases/editor`                       | PVS operator | Canonical atomic create. Accepts release fields plus the complete ordered highlight set; returns 201.                                                             |
+| `POST /api/admin/releases/:releaseId/editor`            | PVS operator | Canonical atomic update with matching `If-Match`; rejects duplicate highlight IDs and rolls back the complete save on any error.                                  |
 | `GET /api/admin/releases`                               | PVS operator | Cursor list with filters `lifecycle`, `visibility`, `releaseType`, `platform`, `version`, `archived`, `limit`, `cursor`; default sort `updated_at desc, id desc`. |
 | `POST /api/admin/releases`                              | PVS operator | Accepts `CreateReleaseRequest`; returns 201 with `AdminRelease`; always creates `draft + private`.                                                                |
 | `GET /api/admin/releases/:releaseId`                    | PVS operator | Returns `AdminReleaseDetail` with active notes and sources.                                                                                                       |
@@ -1375,7 +1391,9 @@ The backend owns a `ReleasePublicCacheInvalidator` interface with adapters for i
 - edit public summary, title, slug, timing, released timestamp, or type on visible content;
 - create, edit, archive, public-toggle, or reorder notes under visible content.
 
-Invalidation targets `/api/domani/releases/coming-soon`, `/api/domani/releases/changelog`, `/coming-soon`, and `/changelog` as applicable. Calls include a signed server-to-server secret and release ID, contain no private content, and are idempotent by job ID plus target.
+Invalidation targets `/api/domani/releases/coming-soon`, `/api/domani/releases/changelog`, `/coming-soon`, and `/changelog` as applicable. The dispatcher posts `{ jobId, releaseId, target }` to the landing site's `/api/revalidate/releases` receiver. It signs the exact raw JSON body using HMAC-SHA256 and sends `x-release-invalidation-signature: sha256=<hex>`. Both deployments must hold the same server-only `RELEASE_CACHE_INVALIDATION_SECRET`; the secret is never exposed through a `NEXT_PUBLIC_` variable. Calls contain no private content and are idempotent by job ID plus target.
+
+The receiver rejects missing or invalid signatures, malformed UUIDs, and targets outside the four-entry allowlist. It maps API and page targets to the corresponding Next.js page cache and calls `revalidatePath` only after verification.
 
 The state mutation, audit event, and durable invalidation job are inserted in one database transaction. If the outbox insert fails, the whole transaction rolls back and the API returns 500; no successful state transition exists to repeat. The request does not wait for external cache/CDN delivery after commit. It returns the normal 200 or 201 success with the updated resource, aggregate `rowVersion`, matching `ETag`/`X-Release-ETag` headers, and `meta.cacheInvalidation` containing the durable job ID, applicable targets, and status `pending` (or `delivered` only if an in-transaction local adapter completed without external I/O).
 

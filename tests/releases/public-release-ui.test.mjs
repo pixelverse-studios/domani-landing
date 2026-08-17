@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { createHmac } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 
@@ -23,6 +24,22 @@ const transpiledHelper = ts.transpileModule(helperSource, {
 const helperModule = await import(
   `data:text/javascript;base64,${Buffer.from(transpiledHelper.outputText).toString('base64')}`
 );
+const revalidationSource = await readFile(
+  new URL('../../src/lib/releases/revalidation.ts', import.meta.url),
+  'utf8'
+);
+const transpiledRevalidation = ts.transpileModule(revalidationSource, {
+  compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 },
+  fileName: 'revalidation.ts',
+});
+const revalidationModule = await import(
+  `data:text/javascript;base64,${Buffer.from(transpiledRevalidation.outputText).toString('base64')}`
+);
+const {
+  parseReleaseInvalidationPayload,
+  releasePageForInvalidationTarget,
+  verifyReleaseInvalidationSignature,
+} = revalidationModule;
 const {
   filterReleaseNotes,
   PUBLIC_MARKDOWN_ELEMENTS,
@@ -131,4 +148,38 @@ test('public release routes use the contract cache lifetime', () => {
     assert.match(source, /export const revalidate = 300;/);
     assert.doesNotMatch(source, /force-dynamic/);
   }
+});
+
+test('release invalidation requires a valid HMAC and accepted payload', () => {
+  const secret = 'test-release-invalidation-secret';
+  const body = JSON.stringify({
+    jobId: 'a1000000-0000-4000-8000-000000000010',
+    releaseId: 'a1000000-0000-4000-8000-000000000001',
+    target: '/api/domani/releases/coming-soon',
+  });
+  const signature = `sha256=${createHmac('sha256', secret).update(body).digest('hex')}`;
+
+  assert.equal(verifyReleaseInvalidationSignature(body, signature, secret), true);
+  assert.equal(verifyReleaseInvalidationSignature(body, `${signature}0`, secret), false);
+  assert.equal(
+    parseReleaseInvalidationPayload(body)?.releaseId,
+    'a1000000-0000-4000-8000-000000000001'
+  );
+  assert.equal(
+    releasePageForInvalidationTarget('/api/domani/releases/coming-soon'),
+    '/coming-soon'
+  );
+});
+
+test('release invalidation rejects unknown targets and malformed identifiers', () => {
+  assert.equal(
+    parseReleaseInvalidationPayload(
+      JSON.stringify({
+        jobId: 'not-a-uuid',
+        releaseId: 'a1000000-0000-4000-8000-000000000001',
+        target: '/admin',
+      })
+    ),
+    null
+  );
 });
