@@ -7,7 +7,34 @@ Epic: DEV-1004
 Architecture gate: DEV-1005
 
 Milestone: `1.1-changelog`
-Last updated: 2026-08-05
+Last updated: 2026-08-17
+
+## 2026-08-17 final workflow amendment
+
+This amendment supersedes every older lifecycle, visibility, slug, note-default, calendar, and mutation example in this document where they conflict.
+
+- The dashboard exposes exactly two release statuses: `Draft` and `Published`. The richer database lifecycle and visibility values remain internal compatibility fields derived by the server.
+- Saving `Draft` maps to `draft + private`. Saving `Published` with an exact date on or before the current Domani business date maps to changelog-visible `released + published`; a future date, month, or TBD timing maps to coming-soon-visible `planned + public_preview`.
+- Public placement rolls from Coming Soon to Changelog automatically at the New York date boundary. The stored date or month never changes automatically.
+- The business calendar is `America/New_York` everywhere: validation, destination derivation, public API eligibility, and displayed release dates.
+- `slug` is hidden and server-derived from `version + title` while a release has never been published. Draft identity edits regenerate it. The first customer-visible publication freezes it permanently, including after later unpublishing or editing.
+- New highlights are public by default. An operator must intentionally mark a highlight as team-only.
+- The canonical write is one atomic editor save containing release fields and the complete ordered highlight set. Duplicate highlight IDs are rejected before any write.
+- The landing receiver is `POST /api/revalidate/releases`. It requires the exact raw JSON body signed as `sha256=<hex HMAC-SHA256>` in `x-release-invalidation-signature`, using the shared server-only `RELEASE_CACHE_INVALIDATION_SECRET`.
+- List and editor copy uses human terms—Draft, Published, Coming Soon, and Changelog. Internal lifecycle/visibility enum names are not shown as operator choices.
+
+## 2026-08-13 release-authoring amendment
+
+This amendment is binding where it conflicts with older field-level examples below.
+
+- `version` is a canonical `X.Y.Z` semantic version. `releaseType` is derived: a non-zero patch is `patch`, otherwise a non-zero minor is `minor`, otherwise `major`.
+- `slug` follows `version + title` while the release has never been published, then freezes permanently on first customer-visible publication. It is not accepted from dashboard requests.
+- `publicOverview` is the canonical rich public introduction, stored as JSONB. Supported nodes are document, paragraph, level-two/level-three heading, bullet list, ordered list, list item, and text. Text marks are limited to bold, italic, and `http`/`https`/`mailto` links. Media, embeds, code, quotes, raw HTML, and arbitrary attributes are rejected.
+- `publicSummary` remains a server-generated plain-text compatibility excerpt derived from `publicOverview`; dashboard clients do not edit it directly.
+- Create/update requests no longer accept `confirmedDate` or `releasedAt`. `confirmedDate` remains readable for legacy records only.
+- Releasing is an explicit `POST /api/admin/releases/:releaseId/mark-released` action with `{ "releasedDate": "YYYY-MM-DD" }`. The date may be today or historical, never future.
+- Newly selected `targetMonth` values must be the current month or later. Newly selected `targetDate` values must be today or later. Existing historical values remain readable and do not block unrelated edits.
+- New releases remain private by default. Visibility changes only through explicit preview, publish, return-private, and unpublish actions.
 
 ## 1. Authority and change control
 
@@ -45,29 +72,29 @@ Implementation order:
 
 ## 3. Canonical vocabulary and scalar formats
 
-| Name               | Values or format                                                                                                                                                    |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Release version    | `major.minor` or `major.minor.patch`; canonical decimal components from 0 through 999,999,999; no leading zero unless the component is exactly `0`; no leading `v`. |
-| Release type       | `major`, `minor`, `patch`, `roadmap`.                                                                                                                               |
-| Lifecycle status   | `draft`, `planned`, `in_progress`, `released`, `canceled`.                                                                                                          |
-| Visibility         | `private`, `public_preview`, `published`.                                                                                                                           |
-| Note type          | `feature`, `improvement`, `fix`, `breaking`.                                                                                                                        |
-| Platform           | `ios`, `android`. A note has one or both; `web` is invalid in v1.                                                                                                   |
-| Source type        | `linear_epic`, `linear_ticket`, `milestone`, `manual`.                                                                                                              |
-| Intended surface   | `changelog`, `coming_soon`, `both`.                                                                                                                                 |
-| Conversion status  | `raw`, `needs_review`, `approved`, `failed`, `superseded`. `Converted` is a UI event label, not a stored state.                                                     |
-| Dashboard role     | `viewer`, `editor`, `admin`.                                                                                                                                        |
-| Calendar date      | ISO `YYYY-MM-DD`, interpreted without a time zone.                                                                                                                  |
-| Target month       | API string `YYYY-MM`; stored as the first day of that month in a SQL `date`.                                                                                        |
-| Timestamp          | UTC ISO 8601, such as `2026-08-05T14:30:00.000Z`.                                                                                                                   |
-| Identifier         | UUID v4 generated by PostgreSQL.                                                                                                                                    |
-| Optimistic version | Positive `bigint`, beginning at `1` and increasing by one on every mutation.                                                                                        |
+| Name               | Values or format                                                                                                                                   |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Release version    | Canonical `major.minor.patch`; decimal components from 0 through 999,999,999; no leading zero unless the component is exactly `0`; no leading `v`. |
+| Release type       | Derived from the version: `major`, `minor`, or `patch`. Clients never submit it independently.                                                     |
+| Lifecycle status   | `draft`, `planned`, `in_progress`, `released`, `canceled`.                                                                                         |
+| Visibility         | `private`, `public_preview`, `published`.                                                                                                          |
+| Note type          | `feature`, `improvement`, `fix`, `breaking`.                                                                                                       |
+| Platform           | `ios`, `android`. A note has one or both; `web` is invalid in v1.                                                                                  |
+| Source type        | `linear_epic`, `linear_ticket`, `milestone`, `manual`.                                                                                             |
+| Intended surface   | `changelog`, `coming_soon`, `both`.                                                                                                                |
+| Conversion status  | `raw`, `needs_review`, `approved`, `failed`, `superseded`. `Converted` is a UI event label, not a stored state.                                    |
+| Dashboard access   | Any user already authenticated into the existing PixelVerse dashboard. No Domani or release-specific sign-in or role enrollment exists.            |
+| Calendar date      | ISO `YYYY-MM-DD`, interpreted without a time zone.                                                                                                 |
+| Target month       | API string `YYYY-MM`; stored as the first day of that month in a SQL `date`.                                                                       |
+| Timestamp          | UTC ISO 8601, such as `2026-08-05T14:30:00.000Z`.                                                                                                  |
+| Identifier         | UUID v4 generated by PostgreSQL.                                                                                                                   |
+| Optimistic version | Positive `bigint`, beginning at `1` and increasing by one on every mutation.                                                                       |
 
 PostgreSQL `timestamptz` defaults and update triggers use `now()` directly. PostgreSQL stores the resulting instant independently of the session display time zone; wrapping `now()` in `timezone('utc', ...)` would first discard its time-zone information and can shift the stored instant in non-UTC sessions.
 
-Version comparison is semantic numeric comparison, not lexical comparison. `1.10` sorts after `1.9`, and `1.2.1` sorts after `1.2.0`.
+Version comparison is semantic numeric comparison, not lexical comparison. `1.10.0` sorts after `1.9.0`, and `1.2.1` sorts after `1.2.0`.
 
-The canonical regex is `^(0|[1-9][0-9]{0,8})\.(0|[1-9][0-9]{0,8})(?:\.(0|[1-9][0-9]{0,8}))?$`. Patch releases use three components. Major, minor, and roadmap releases use two components. Canonical formatting rejects aliases such as `01.2`, while the release-type rule distinguishes `1.2` from patch version `1.2.0`.
+The canonical regex is `^(0|[1-9][0-9]{0,8})\.(0|[1-9][0-9]{0,8})\.(0|[1-9][0-9]{0,8})$`. Type derivation is deterministic: `X.0.0` is major, `X.Y.0` with `Y > 0` is minor, and any version with a patch component greater than zero is patch. Roadmap/coming-soon behavior is represented by lifecycle and visibility, not a release type.
 
 ## 4. SQL-oriented storage contract
 
@@ -76,7 +103,7 @@ DEV-1006 owns the migration. Names below are canonical. PostgreSQL enums may be 
 ### 4.1 Required enum types
 
 ```sql
-create type release_type as enum ('major', 'minor', 'patch', 'roadmap');
+create type release_type as enum ('major', 'minor', 'patch');
 create type release_lifecycle_status as enum ('draft', 'planned', 'in_progress', 'released', 'canceled');
 create type release_visibility as enum ('private', 'public_preview', 'published');
 create type release_note_type as enum ('feature', 'improvement', 'fix', 'breaking');
@@ -87,23 +114,13 @@ create type release_conversion_status as enum ('raw', 'needs_review', 'approved'
 create type dashboard_role as enum ('viewer', 'editor', 'admin');
 ```
 
-### 4.2 `dashboard_user_roles`
+### 4.2 Cross-project identity boundary
 
-This is the shared release-management authorization source. Authentication still comes from Supabase Auth.
+The existing PixelVerse Supabase project remains the sole authentication source for dashboard operators. The Domani Supabase project owns only Domani product and release data; it must not receive a duplicate dashboard user, session, role, or sign-in table.
 
-| Column       | SQL shape                                                      | Rules                                   |
-| ------------ | -------------------------------------------------------------- | --------------------------------------- |
-| `user_id`    | `uuid primary key references auth.users(id) on delete cascade` | Verified Supabase Auth user.            |
-| `role`       | `dashboard_role not null`                                      | Effective dashboard permission.         |
-| `is_active`  | `boolean not null default true`                                | Disabled rows receive 403.              |
-| `created_at` | `timestamptz not null default now()`                           | Audit timestamp.                        |
-| `updated_at` | `timestamptz not null default now()`                           | Updated by trigger.                     |
-| `created_by` | `uuid references auth.users(id)`                               | Provisioning actor when available.      |
-| `updated_by` | `uuid references auth.users(id)`                               | Last provisioning actor when available. |
+`pixelverse-studios-server` validates the PVS access token before using its server-only Domani service client. Verified PVS actor UUIDs and email snapshots may be stored in Domani release rows for ownership and audit, but those UUID columns intentionally have no foreign key to Domani `auth.users`: they identify users from a different Supabase project.
 
-No authenticated dashboard user is implicitly granted release access. Initial admin rows must be inserted explicitly by an administrator through a reviewed migration or secure operational process.
-
-Indexes: `(role, is_active)` and `(is_active, updated_at desc)`.
+The `dashboard_role` enum remains an internal response/audit compatibility value. Existing PVS dashboard operators receive the full `admin` capability envelope after token verification; it is not backed by a second role lookup.
 
 ### 4.3 `releases`
 
@@ -125,20 +142,20 @@ Indexes: `(role, is_active)` and `(is_active, updated_at desc)`.
 | `target_date`      | `date`                                              | Optional calendar date.                                              |
 | `confirmed_date`   | `date`                                              | Optional calendar date.                                              |
 | `released_at`      | `timestamptz`                                       | Required for published releases.                                     |
-| `owner_user_id`    | `uuid references auth.users(id)`                    | Private ownership metadata.                                          |
-| `created_by`       | `uuid not null references auth.users(id)`           | Verified actor.                                                      |
-| `updated_by`       | `uuid not null references auth.users(id)`           | Verified actor.                                                      |
+| `owner_user_id`    | `uuid`                                              | Optional external PVS actor identifier; no Domani Auth FK.           |
+| `created_by`       | `uuid not null`                                     | Verified external PVS actor identifier.                              |
+| `updated_by`       | `uuid not null`                                     | Verified external PVS actor identifier.                              |
 | `row_version`      | `bigint not null default 1`                         | Incremented atomically on update.                                    |
 | `created_at`       | `timestamptz not null default now()`                | Immutable.                                                           |
 | `updated_at`       | `timestamptz not null default now()`                | Updated by trigger.                                                  |
 | `archived_at`      | `timestamptz`                                       | Null while active.                                                   |
-| `archived_by`      | `uuid references auth.users(id)`                    | Required when archived.                                              |
+| `archived_by`      | `uuid`                                              | External PVS actor identifier; required when archived.               |
 
 Database checks:
 
 ```sql
-check (version ~ '^(0|[1-9][0-9]{0,8})\.(0|[1-9][0-9]{0,8})(\.(0|[1-9][0-9]{0,8}))?$')
-check ((release_type = 'patch' and version_patch is not null) or (release_type <> 'patch' and version_patch is null))
+check (version ~ '^(0|[1-9][0-9]{0,8})\.(0|[1-9][0-9]{0,8})\.(0|[1-9][0-9]{0,8})$')
+check (release_type = case when version_patch > 0 then 'patch' when version_minor > 0 then 'minor' else 'major' end)
 check (slug ~ '^[a-z0-9]+(-[a-z0-9]+)*$')
 check (char_length(btrim(title)) between 1 and 160)
 check (public_summary is null or char_length(public_summary) <= 2000)
@@ -147,7 +164,7 @@ check (target_month is null or extract(day from target_month) = 1)
 check ((archived_at is null and archived_by is null) or (archived_at is not null and archived_by is not null))
 check (
   (visibility = 'private')
-  or (visibility = 'public_preview' and lifecycle_status in ('planned', 'in_progress') and release_type in ('major', 'minor', 'roadmap'))
+  or (visibility = 'public_preview' and lifecycle_status in ('planned', 'in_progress') and release_type in ('major', 'minor'))
   or (visibility = 'published' and lifecycle_status = 'released' and released_at is not null)
 )
 check (release_type <> 'patch' or visibility <> 'public_preview')
@@ -192,8 +209,8 @@ Clients and the server never accept or write the generated component columns dir
 | `latest_conversion_run_id` | `uuid`                                                  | Added as a deferred FK after `release_conversion_runs` exists. |
 | `conversion_error_code`    | `text`                                                  | Stable private machine code for latest failure.                |
 | `conversion_error_message` | `text`                                                  | Sanitized private diagnostic; never public.                    |
-| `created_by`               | `uuid not null references auth.users(id)`               | Verified actor.                                                |
-| `updated_by`               | `uuid not null references auth.users(id)`               | Verified actor.                                                |
+| `created_by`               | `uuid not null`                                         | Verified external PVS actor identifier.                        |
+| `updated_by`               | `uuid not null`                                         | Verified external PVS actor identifier.                        |
 | `row_version`              | `bigint not null default 1`                             | Incremented atomically on status or metadata update.           |
 | `created_at`               | `timestamptz not null default now()`                    | Immutable.                                                     |
 | `updated_at`               | `timestamptz not null default now()`                    | Updated by trigger.                                            |
@@ -227,7 +244,7 @@ This table preserves provenance and makes reruns non-destructive.
 | `error_code`            | `text`                                        | Stable private machine code.                                   |
 | `error_message`         | `text`                                        | Sanitized private diagnostic.                                  |
 | `superseded_by_run_id`  | `uuid references release_conversion_runs(id)` | Set when a newer run succeeds.                                 |
-| `created_by`            | `uuid not null references auth.users(id)`     | Verified actor.                                                |
+| `created_by`            | `uuid not null`                               | Verified external PVS actor identifier.                        |
 | `started_at`            | `timestamptz not null default now()`          | Start time.                                                    |
 | `completed_at`          | `timestamptz`                                 | Required for terminal states.                                  |
 
@@ -237,26 +254,26 @@ Indexes: `(prd_id, started_at desc)` and `(release_id, started_at desc)`.
 
 ### 4.6 `release_notes`
 
-| Column                     | SQL shape                                     | Rules                                                      |
-| -------------------------- | --------------------------------------------- | ---------------------------------------------------------- |
-| `id`                       | `uuid primary key default gen_random_uuid()`  | Immutable.                                                 |
-| `release_id`               | `uuid not null references releases(id)`       | Parent release.                                            |
-| `note_type`                | `release_note_type not null`                  | Canonical enum.                                            |
-| `public_title`             | `text not null`                               | Trimmed, 1–160 characters.                                 |
-| `public_body`              | `text not null`                               | Trimmed, 1–4,000 characters; canonical safe Markdown only. |
-| `technical_notes`          | `text`                                        | Private; max 20,000 characters.                            |
-| `platforms`                | `release_platform[] not null`                 | One or both canonical platforms; no duplicates.            |
-| `is_public`                | `boolean not null default false`              | Generated and new notes start private.                     |
-| `sort_order`               | `integer not null`                            | Zero-based, contiguous within active notes for a release.  |
-| `source_prd_id`            | `uuid references release_prds(id)`            | Optional provenance.                                       |
-| `source_conversion_run_id` | `uuid references release_conversion_runs(id)` | Required for generated notes.                              |
-| `created_by`               | `uuid not null references auth.users(id)`     | Verified actor.                                            |
-| `updated_by`               | `uuid not null references auth.users(id)`     | Verified actor.                                            |
-| `row_version`              | `bigint not null default 1`                   | Incremented atomically on update.                          |
-| `created_at`               | `timestamptz not null default now()`          | Immutable.                                                 |
-| `updated_at`               | `timestamptz not null default now()`          | Updated by trigger.                                        |
-| `archived_at`              | `timestamptz`                                 | Null while active.                                         |
-| `archived_by`              | `uuid references auth.users(id)`              | Required when archived.                                    |
+| Column                     | SQL shape                                     | Rules                                                         |
+| -------------------------- | --------------------------------------------- | ------------------------------------------------------------- |
+| `id`                       | `uuid primary key default gen_random_uuid()`  | Immutable.                                                    |
+| `release_id`               | `uuid not null references releases(id)`       | Parent release.                                               |
+| `note_type`                | `release_note_type not null`                  | Canonical enum.                                               |
+| `public_title`             | `text not null`                               | Trimmed, 1–160 characters.                                    |
+| `public_body`              | `text not null`                               | Trimmed, 1–4,000 characters; canonical safe Markdown only.    |
+| `technical_notes`          | `text`                                        | Private; max 20,000 characters.                               |
+| `platforms`                | `release_platform[] not null`                 | One or both canonical platforms; no duplicates.               |
+| `is_public`                | `boolean not null default true`               | New highlights start public; team-only is an explicit choice. |
+| `sort_order`               | `integer not null`                            | Zero-based, contiguous within active notes for a release.     |
+| `source_prd_id`            | `uuid references release_prds(id)`            | Optional provenance.                                          |
+| `source_conversion_run_id` | `uuid references release_conversion_runs(id)` | Required for generated notes.                                 |
+| `created_by`               | `uuid not null`                               | Verified external PVS actor identifier.                       |
+| `updated_by`               | `uuid not null`                               | Verified external PVS actor identifier.                       |
+| `row_version`              | `bigint not null default 1`                   | Incremented atomically on update.                             |
+| `created_at`               | `timestamptz not null default now()`          | Immutable.                                                    |
+| `updated_at`               | `timestamptz not null default now()`          | Updated by trigger.                                           |
+| `archived_at`              | `timestamptz`                                 | Null while active.                                            |
+| `archived_by`              | `uuid`                                        | External PVS actor identifier; required when archived.        |
 
 Checks enforce text lengths, `sort_order >= 0`, one or two unique platforms, matching archive fields, and paired source provenance. A deferred trigger verifies that source records belong to the same release.
 
@@ -283,7 +300,7 @@ where archived_at is null;
 | Column          | SQL shape                                    | Rules                                                        |
 | --------------- | -------------------------------------------- | ------------------------------------------------------------ |
 | `id`            | `uuid primary key default gen_random_uuid()` | Immutable event.                                             |
-| `actor_user_id` | `uuid not null references auth.users(id)`    | Verified actor.                                              |
+| `actor_user_id` | `uuid not null`                              | Verified external PVS actor identifier; no Domani Auth FK.   |
 | `actor_email`   | `text not null`                              | Verified email snapshot.                                     |
 | `actor_role`    | `dashboard_role not null`                    | Effective role snapshot.                                     |
 | `action`        | `text not null`                              | Canonical lower-case dotted action name defined below.       |
@@ -363,35 +380,35 @@ Indexes: `(status, next_attempt_at)` and `(release_id, created_at desc)`.
 
 ### 5.1 Valid combinations
 
-| Lifecycle     | Private | Public preview                           | Published                                                                  |
-| ------------- | ------- | ---------------------------------------- | -------------------------------------------------------------------------- |
-| `draft`       | Valid   | Invalid                                  | Invalid                                                                    |
-| `planned`     | Valid   | Valid for `major`, `minor`, or `roadmap` | Invalid                                                                    |
-| `in_progress` | Valid   | Valid for `major`, `minor`, or `roadmap` | Invalid                                                                    |
-| `released`    | Valid   | Invalid                                  | Valid when `released_at` exists and at least one active public note exists |
-| `canceled`    | Valid   | Invalid                                  | Invalid                                                                    |
+| Lifecycle     | Private | Public preview               | Published                                                                  |
+| ------------- | ------- | ---------------------------- | -------------------------------------------------------------------------- |
+| `draft`       | Valid   | Invalid                      | Invalid                                                                    |
+| `planned`     | Valid   | Valid for `major` or `minor` | Invalid                                                                    |
+| `in_progress` | Valid   | Valid for `major` or `minor` | Invalid                                                                    |
+| `released`    | Valid   | Invalid                      | Valid when `released_at` exists and at least one active public note exists |
+| `canceled`    | Valid   | Invalid                      | Invalid                                                                    |
 
 `patch` releases can be private or `released + published`; they can never be public preview.
 
 ### 5.2 Permitted actions
 
-| Action                    | Minimum role | Preconditions                                                                                     | Result                                                                        |
-| ------------------------- | ------------ | ------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| Create release            | Editor       | Valid version, slug, title, and type                                                              | `draft + private`, `row_version = 1`.                                         |
-| Edit draft metadata       | Editor       | Active release and matching `If-Match`                                                            | Requested valid fields; version increments.                                   |
-| Set planned               | Editor       | Current lifecycle `draft` or `in_progress`; visibility private                                    | `planned + private`.                                                          |
-| Set in progress           | Editor       | Current lifecycle `planned`; visibility private or public preview                                 | `in_progress`; visibility retained if valid.                                  |
-| Publish preview           | Editor       | Planned/in-progress; major/minor/roadmap; public summary present; at least one active public note | Visibility becomes `public_preview`.                                          |
-| Return preview to private | Editor       | Planned/in-progress public preview                                                                | Visibility becomes `private`.                                                 |
-| Mark released privately   | Editor       | Planned/in-progress; visibility private; `releasedAt` supplied                                    | `released + private`.                                                         |
-| Publish                   | Admin        | Released; `released_at`; public summary; at least one active public note                          | `released + published`.                                                       |
-| Unpublish                 | Admin        | Published release                                                                                 | Lifecycle remains `released`; visibility becomes `private`; history retained. |
-| Cancel                    | Editor       | Draft/planned/in-progress and private                                                             | `canceled + private`.                                                         |
-| Archive                   | Admin        | Active release                                                                                    | Sets archive fields and visibility private atomically; history retained.      |
+| Action                    | Access       | Preconditions                                                                             | Result                                                                        |
+| ------------------------- | ------------ | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| Create release            | PVS operator | Valid version, slug, and title; type is derived                                           | `draft + private`, `row_version = 1`.                                         |
+| Edit draft metadata       | PVS operator | Active release and matching `If-Match`                                                    | Requested valid fields; version increments.                                   |
+| Set planned               | PVS operator | Current lifecycle `draft` or `in_progress`; visibility private                            | `planned + private`.                                                          |
+| Set in progress           | PVS operator | Current lifecycle `planned`; visibility private or public preview                         | `in_progress`; visibility retained if valid.                                  |
+| Publish preview           | PVS operator | Planned/in-progress; major/minor; public summary present; at least one active public note | Visibility becomes `public_preview`.                                          |
+| Return preview to private | PVS operator | Planned/in-progress public preview                                                        | Visibility becomes `private`.                                                 |
+| Mark released privately   | PVS operator | Planned/in-progress; visibility private; `releasedAt` supplied                            | `released + private`.                                                         |
+| Publish                   | PVS operator | Released; `released_at`; public summary; at least one active public note                  | `released + published`.                                                       |
+| Unpublish                 | PVS operator | Published release                                                                         | Lifecycle remains `released`; visibility becomes `private`; history retained. |
+| Cancel                    | PVS operator | Draft/planned/in-progress and private                                                     | `canceled + private`.                                                         |
+| Archive                   | PVS operator | Active release                                                                            | Sets archive fields and visibility private atomically; history retained.      |
 
 Arbitrary lifecycle and visibility pairs are not accepted in a generic patch. The PATCH endpoint may edit metadata and may request a permitted private lifecycle transition, but public-preview, publish, unpublish, and archive changes use explicit action endpoints.
 
-Timeline slips are never automatic. Dates remain unchanged until an editor explicitly updates them.
+Timeline slips are never automatic. Dates remain unchanged until a PVS dashboard operator explicitly updates them.
 
 ## 6. Timeline derivation
 
@@ -419,7 +436,7 @@ export type ReleaseTimeline =
 The server owns the canonical definitions. Frontends may duplicate them in generated or manually synchronized API type modules until a shared package exists, but names and shapes must remain equivalent.
 
 ```ts
-export type ReleaseType = 'major' | 'minor' | 'patch' | 'roadmap';
+export type ReleaseType = 'major' | 'minor' | 'patch';
 export type ReleaseLifecycle = 'draft' | 'planned' | 'in_progress' | 'released' | 'canceled';
 export type ReleaseVisibility = 'private' | 'public_preview' | 'published';
 export type ReleaseNoteType = 'feature' | 'improvement' | 'fix' | 'breaking';
@@ -582,6 +599,11 @@ export interface AdminReleaseDetail extends AdminRelease {
   >;
 }
 
+export interface AdminReleaseCapabilities {
+  canCreateRelease: boolean;
+  canViewArchivedReleases: boolean;
+}
+
 export type ReleaseAuditEntityType = 'release' | 'note' | 'source' | 'conversion_run';
 
 export type ReleaseAuditAction =
@@ -630,7 +652,6 @@ export interface CreateReleaseRequest {
   version: string;
   slug: string;
   title: string;
-  releaseType: ReleaseType;
   publicSummary?: string | null;
   internalSummary?: string | null;
   targetMonth?: string | null;
@@ -642,7 +663,6 @@ export interface CreateReleaseRequest {
 export interface UpdateReleaseRequest {
   title?: string;
   slug?: string;
-  releaseType?: ReleaseType;
   lifecycleStatus?: ReleaseLifecycle;
   publicSummary?: string | null;
   internalSummary?: string | null;
@@ -694,29 +714,19 @@ export interface ApproveConvertedSourceResponse {
 
 ## 8. Authentication, authorization, and request identity
 
-The PVS dashboard already uses Supabase Auth. Release management reuses that identity and adds server-owned authorization.
+The PVS dashboard already uses its own PixelVerse Supabase Auth project. Release management reuses that working session without adding a Domani login, release-specific sign-in, or separate role enrollment.
 
 1. `pvs-site` obtains the current Supabase access token.
 2. It sends `Authorization: Bearer <access-token>` to every admin release endpoint.
-3. `pixelverse-studios-server` validates the token against Supabase Auth on every request and uses only the returned user ID and email.
-4. The server loads that user ID from `dashboard_user_roles` and requires an active row.
-5. Middleware attaches `{ userId, email, role }` to the request.
+3. `pixelverse-studios-server` validates the token against PixelVerse Supabase Auth on every request and uses only the returned user ID and email.
+4. Middleware attaches `{ userId, email, role: 'admin' }` to the request; `admin` represents the existing dashboard's uniform operator capability and is not loaded from Domani.
+5. The server performs release reads and writes through its separate server-only Domani Supabase client.
 
-Missing, malformed, expired, or unverifiable tokens return 401. A verified user without an active role returns 403. An insufficient role returns 403. Client-supplied identity or role fields are ignored and rejected when present in mutation payloads.
+Missing, malformed, expired, or unverifiable PVS tokens return 401. Client-supplied identity or role fields are ignored and rejected when present in mutation payloads. The Domani database never validates dashboard sessions and never contains dashboard authentication or role records.
 
 The existing `pvs_media_admin_session` cookie remains limited to media administration and does not authorize release endpoints.
 
-Permission matrix:
-
-| Capability                                                          | Viewer | Editor | Admin |
-| ------------------------------------------------------------------- | ------ | ------ | ----- |
-| List/detail/audit read                                              | Yes    | Yes    | Yes   |
-| Create/edit private or public-preview releases and notes            | No     | Yes    | Yes   |
-| Import Markdown and convert                                         | No     | Yes    | Yes   |
-| Manage public preview                                               | No     | Yes    | Yes   |
-| Mutate a published release aggregate, including sources/conversions | No     | No     | Yes   |
-| Publish or unpublish changelog                                      | No     | No     | Yes   |
-| Archive release or note                                             | No     | No     | Yes   |
+Every authenticated PVS dashboard operator may list, create, edit, import, convert, preview, publish, unpublish, and archive release content. State-transition, optimistic-concurrency, input-validation, and audit rules remain server-authoritative.
 
 Admin API CORS allowlists only configured PVS dashboard origins. Bearer authentication does not use ambient cookies, so release mutations do not rely on cookie-based CSRF protection.
 
@@ -729,7 +739,7 @@ Eligibility:
 - `archived_at is null`
 - `visibility = public_preview`
 - `lifecycle_status in (planned, in_progress)`
-- `release_type in (major, minor, roadmap)`
+- `release_type in (major, minor)`
 - active notes only, with `is_public = true`
 
 Ordering:
@@ -752,7 +762,7 @@ Example response:
     "releases": [
       {
         "id": "5f75ab8d-8b70-4d26-a414-bc75abef882d",
-        "version": "1.2",
+        "version": "1.2.0",
         "slug": "smarter-evening-planning",
         "title": "Smarter evening planning setup",
         "releaseType": "minor",
@@ -821,22 +831,24 @@ Vary: Accept-Encoding
 
 All routes require a verified dashboard actor. Existing-record mutations require `If-Match: "<row_version>"` for the primary mutated resource. Missing `If-Match` returns 428 `PRECONDITION_REQUIRED`; malformed values return 400; stale values return 409 `VERSION_CONFLICT` and include no private current record in the error. Multi-resource operations also carry explicitly named related row versions in their body and validate all versions before writing.
 
-The roles in the endpoint tables are the normal minimums. For every aggregate mutation, the server locks the release row and re-evaluates its stored visibility before authorization and version validation. If visibility is `published`, every release PATCH, note create/update/archive/reorder, Markdown import, conversion, approval, and other aggregate mutation requires Admin and an Editor receives 403 `PUBLISHED_CONTENT_ADMIN_REQUIRED`; there is no field-level or private-source exception. This prevents a nominally private field, generated note, or mixed payload from bypassing the publication boundary and ensures all changes to a published aggregate receive Admin review. To let an Editor revise it, an Admin must first unpublish it to `private`; the Editor may then edit, import, convert, or approve, and an Admin must publish again. `allowedActions` is calculated from both role and current stored state, so mutation actions are absent for an Editor viewing a published release.
+For every aggregate mutation, the server locks the release row and re-evaluates its stored state before transition and version validation. `allowedActions` is calculated from the current stored state for the verified PVS operator; client code must not invent additional authentication or authorization state.
 
 ### 10.1 Release endpoints
 
-| Method and path                                         | Role   | Contract                                                                                                                                                          |
-| ------------------------------------------------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `GET /api/admin/releases`                               | Viewer | Cursor list with filters `lifecycle`, `visibility`, `releaseType`, `platform`, `version`, `archived`, `limit`, `cursor`; default sort `updated_at desc, id desc`. |
-| `POST /api/admin/releases`                              | Editor | Accepts `CreateReleaseRequest`; returns 201 with `AdminRelease`; always creates `draft + private`.                                                                |
-| `GET /api/admin/releases/:releaseId`                    | Viewer | Returns `AdminReleaseDetail` with active notes and sources; `includeArchived=true` is admin-only.                                                                 |
-| `GET /api/admin/releases/:releaseId/audit`              | Viewer | Cursor audit list with `action`, `entityType`, `limit`, and `cursor`; default sort `created_at desc, id desc`.                                                    |
-| `PATCH /api/admin/releases/:releaseId`                  | Editor | Accepts `UpdateReleaseRequest` and matching `If-Match`; returns updated detail.                                                                                   |
-| `POST /api/admin/releases/:releaseId/archive`           | Admin  | Matching `If-Match`; non-destructive archive and private visibility.                                                                                              |
-| `POST /api/admin/releases/:releaseId/publish-preview`   | Editor | Matching `If-Match`; validates preview rules.                                                                                                                     |
-| `POST /api/admin/releases/:releaseId/return-to-private` | Editor | Matching `If-Match`; removes public preview only.                                                                                                                 |
-| `POST /api/admin/releases/:releaseId/publish`           | Admin  | Matching `If-Match`; validates and publishes released content atomically.                                                                                         |
-| `POST /api/admin/releases/:releaseId/unpublish`         | Admin  | Matching `If-Match`; retains released lifecycle and history.                                                                                                      |
+| Method and path                                         | Access       | Contract                                                                                                                                                          |
+| ------------------------------------------------------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `POST /api/admin/releases/editor`                       | PVS operator | Canonical atomic create. Accepts release fields plus the complete ordered highlight set; returns 201.                                                             |
+| `POST /api/admin/releases/:releaseId/editor`            | PVS operator | Canonical atomic update with matching `If-Match`; rejects duplicate highlight IDs and rolls back the complete save on any error.                                  |
+| `GET /api/admin/releases`                               | PVS operator | Cursor list with filters `lifecycle`, `visibility`, `releaseType`, `platform`, `version`, `archived`, `limit`, `cursor`; default sort `updated_at desc, id desc`. |
+| `POST /api/admin/releases`                              | PVS operator | Accepts `CreateReleaseRequest`; returns 201 with `AdminRelease`; always creates `draft + private`.                                                                |
+| `GET /api/admin/releases/:releaseId`                    | PVS operator | Returns `AdminReleaseDetail` with active notes and sources.                                                                                                       |
+| `GET /api/admin/releases/:releaseId/audit`              | PVS operator | Cursor audit list with `action`, `entityType`, `limit`, and `cursor`; default sort `created_at desc, id desc`.                                                    |
+| `PATCH /api/admin/releases/:releaseId`                  | PVS operator | Accepts `UpdateReleaseRequest` and matching `If-Match`; returns updated detail.                                                                                   |
+| `POST /api/admin/releases/:releaseId/archive`           | PVS operator | Matching `If-Match`; non-destructive archive and private visibility.                                                                                              |
+| `POST /api/admin/releases/:releaseId/publish-preview`   | PVS operator | Matching `If-Match`; validates preview rules.                                                                                                                     |
+| `POST /api/admin/releases/:releaseId/return-to-private` | PVS operator | Matching `If-Match`; removes public preview only.                                                                                                                 |
+| `POST /api/admin/releases/:releaseId/publish`           | PVS operator | Matching `If-Match`; validates and publishes released content atomically.                                                                                         |
+| `POST /api/admin/releases/:releaseId/unpublish`         | PVS operator | Matching `If-Match`; retains released lifecycle and history.                                                                                                      |
 
 List response:
 
@@ -844,6 +856,10 @@ List response:
 {
   "data": {
     "releases": [],
+    "capabilities": {
+      "canCreateRelease": true,
+      "canViewArchivedReleases": true
+    },
     "filters": {
       "lifecycle": null,
       "visibility": null,
@@ -861,6 +877,8 @@ List response:
 }
 ```
 
+`capabilities` is derived from the verified PVS dashboard actor on every list request. Both values are `true` for an authenticated dashboard operator. The dashboard must still use these server-derived booleans so future platform-level capability changes do not require client-side auth inference.
+
 The admin `platform` filter selects releases having at least one active note containing that platform. `action` accepts `ReleaseAuditAction` and is an exact, case-sensitive match against the canonical lower-case dotted value; unknown values return 400 `VALIDATION_ERROR`. `entityType` accepts `release`, `note`, `source`, or `conversion_run`. Audit pagination defaults to 20, caps at 100, and uses the shared signed cursor rules. Audit serializers expose only `AdminReleaseAuditEvent`: before/after payloads are field allowlists and must exclude raw Markdown, tokens, credentials, provider prompts/responses, and internal exception data.
 
 Audit response example:
@@ -874,8 +892,8 @@ Audit response example:
         "releaseId": "5f75ab8d-8b70-4d26-a414-bc75abef882d",
         "actor": {
           "userId": "168a4e31-74c4-487d-ad0d-131dd45bcf8a",
-          "email": "editor@pixelversestudios.com",
-          "role": "editor"
+          "email": "operator@pixelversestudios.com",
+          "role": "admin"
         },
         "action": "note.updated",
         "entityType": "note",
@@ -914,10 +932,9 @@ Create request and response:
 
 ```json
 {
-  "version": "1.2",
+  "version": "1.2.0",
   "slug": "smarter-evening-planning",
   "title": "Smarter evening planning setup",
-  "releaseType": "minor",
   "publicSummary": "A calmer first-plan experience with clearer guidance.",
   "internalSummary": "Coordinate API and onboarding rollout.",
   "targetMonth": "2026-08"
@@ -929,7 +946,7 @@ Create request and response:
   "data": {
     "release": {
       "id": "5f75ab8d-8b70-4d26-a414-bc75abef882d",
-      "version": "1.2",
+      "version": "1.2.0",
       "slug": "smarter-evening-planning",
       "title": "Smarter evening planning setup",
       "releaseType": "minor",
@@ -958,12 +975,12 @@ Create request and response:
 
 ### 10.2 Release-note endpoints
 
-| Method and path                                             | Role   | Contract                                                                                                  |
-| ----------------------------------------------------------- | ------ | --------------------------------------------------------------------------------------------------------- |
-| `POST /api/admin/releases/:releaseId/notes`                 | Editor | Requires release `If-Match`; creates a private note by default at the next contiguous order.              |
-| `PATCH /api/admin/releases/:releaseId/notes/:noteId`        | Editor | Requires note `If-Match` plus body `releaseRowVersion`; updates allowlisted fields.                       |
-| `POST /api/admin/releases/:releaseId/notes/:noteId/archive` | Admin  | Requires note `If-Match` plus body `releaseRowVersion`; archives and compacts remaining order atomically. |
-| `POST /api/admin/releases/:releaseId/notes/reorder`         | Editor | Requires release `If-Match`; body contains every active note exactly once with each note row version.     |
+| Method and path                                             | Access       | Contract                                                                                                  |
+| ----------------------------------------------------------- | ------------ | --------------------------------------------------------------------------------------------------------- |
+| `POST /api/admin/releases/:releaseId/notes`                 | PVS operator | Requires release `If-Match`; creates a private note by default at the next contiguous order.              |
+| `PATCH /api/admin/releases/:releaseId/notes/:noteId`        | PVS operator | Requires note `If-Match` plus body `releaseRowVersion`; updates allowlisted fields.                       |
+| `POST /api/admin/releases/:releaseId/notes/:noteId/archive` | PVS operator | Requires note `If-Match` plus body `releaseRowVersion`; archives and compacts remaining order atomically. |
+| `POST /api/admin/releases/:releaseId/notes/reorder`         | PVS operator | Requires release `If-Match`; body contains every active note exactly once with each note row version.     |
 
 Reorder request:
 
@@ -1031,7 +1048,7 @@ The response is HTTP 201 with a standard envelope whose `data.note` is the compl
 
 `POST /api/admin/releases/import-markdown`
 
-Minimum role: Editor.
+Access: existing authenticated PVS dashboard operator.
 
 Supported media types:
 
@@ -1048,7 +1065,6 @@ export interface ImportMarkdownJsonRequest {
   releaseVersion?: string;
   releaseTitle?: string;
   releaseSlug?: string;
-  releaseType?: ReleaseType;
   sourceType: ReleaseSourceType;
   sourceReference: string;
   intendedSurface?: ReleaseIntendedSurface;
@@ -1062,7 +1078,7 @@ export interface ImportMarkdownResponse {
 }
 ```
 
-Exactly one of `releaseId` or `releaseVersion` is accepted. If `releaseVersion` does not exist, the request also supplies `releaseTitle`, `releaseSlug`, and `releaseType`, and the server creates a private draft release in the same transaction. If an existing version is found, it is linked rather than recreated.
+Exactly one of `releaseId` or `releaseVersion` is accepted. If `releaseVersion` does not exist, the request also supplies `releaseTitle` and `releaseSlug`; the server derives the release type and creates a private draft release in the same transaction. If an existing version is found, it is linked rather than recreated.
 
 Importing into an existing release requires that release's `If-Match`. The server locks and validates the aggregate release version before inserting a new source, then increments it once and returns the updated release. Creating a new release needs no `If-Match`; its initial source is part of creation and the returned release starts at version 1. A duplicate import is read-only, does not increment either version, and returns the existing release/source. Reusing the same idempotency tuple with a conflicting `intendedSurface` returns 409 `IDEMPOTENCY_CONFLICT`.
 
@@ -1091,7 +1107,7 @@ Example new-source response:
   "data": {
     "release": {
       "id": "5f75ab8d-8b70-4d26-a414-bc75abef882d",
-      "version": "1.2",
+      "version": "1.2.0",
       "slug": "smarter-evening-planning",
       "title": "Smarter evening planning setup",
       "releaseType": "minor",
@@ -1144,7 +1160,7 @@ Raw Markdown is returned only by authenticated admin detail/import responses and
 
 `POST /api/admin/releases/:releaseId/prds/:prdId/convert`
 
-Minimum role: Editor. The request requires `If-Match` for the source record.
+Access: existing authenticated PVS dashboard operator. The request requires `If-Match` for the source record.
 
 ```ts
 export interface ConvertMarkdownRequest {
@@ -1277,7 +1293,7 @@ Conversion may start from `raw`, `needs_review`, `approved`, or `failed`. Rerunn
 
 ### 12.2 Approval endpoint
 
-`POST /api/admin/releases/:releaseId/prds/:prdId/approve` requires Editor and source `If-Match`. Its body is `ApproveConvertedSourceRequest`:
+`POST /api/admin/releases/:releaseId/prds/:prdId/approve` requires an authenticated PVS dashboard operator and source `If-Match`. Its body is `ApproveConvertedSourceRequest`:
 
 ```json
 {
@@ -1349,7 +1365,7 @@ Status mapping:
 | ---- | ------------------------------------------------------------------------------------- |
 | 400  | Malformed JSON, invalid cursor, malformed `If-Match`, invalid scalar syntax.          |
 | 401  | Missing, expired, malformed, or unverifiable bearer token.                            |
-| 403  | Missing/inactive role or insufficient role.                                           |
+| 403  | Authenticated request rejected by a server-owned operation or state restriction.      |
 | 404  | Missing or inaccessible release, note, or source.                                     |
 | 409  | Version conflict, unique version/slug conflict, or incompatible idempotency conflict. |
 | 413  | Decoded Markdown exceeds 1 MiB.                                                       |
@@ -1359,7 +1375,7 @@ Status mapping:
 | 500  | Unexpected internal failure with sanitized message.                                   |
 | 503  | A requested provider-assisted rewrite is temporarily unavailable before any commit.   |
 
-Stable codes include `VALIDATION_ERROR`, `UNSAFE_PUBLIC_MARKDOWN`, `AUTH_REQUIRED`, `AUTH_INVALID`, `ROLE_REQUIRED`, `FORBIDDEN`, `PUBLISHED_CONTENT_ADMIN_REQUIRED`, `NOT_FOUND`, `VERSION_CONFLICT`, `VERSION_ALREADY_EXISTS`, `SLUG_ALREADY_EXISTS`, `IDEMPOTENCY_CONFLICT`, `INVALID_STATE_TRANSITION`, `PUBLIC_NOTE_REQUIRED`, `PRECONDITION_REQUIRED`, `MARKDOWN_TOO_LARGE`, `MARKDOWN_INVALID_UTF8`, `MARKDOWN_FILE_REQUIRED`, `MARKDOWN_FILE_TYPE_INVALID`, `IMPORT_CONVERSION_NOT_SUPPORTED`, and `CONVERSION_FAILED`.
+Stable codes include `VALIDATION_ERROR`, `UNSAFE_PUBLIC_MARKDOWN`, `AUTH_REQUIRED`, `AUTH_INVALID`, `FORBIDDEN`, `NOT_FOUND`, `VERSION_CONFLICT`, `VERSION_ALREADY_EXISTS`, `SLUG_ALREADY_EXISTS`, `IDEMPOTENCY_CONFLICT`, `INVALID_STATE_TRANSITION`, `PUBLIC_NOTE_REQUIRED`, `PRECONDITION_REQUIRED`, `MARKDOWN_TOO_LARGE`, `MARKDOWN_INVALID_UTF8`, `MARKDOWN_FILE_REQUIRED`, `MARKDOWN_FILE_TYPE_INVALID`, `IMPORT_CONVERSION_NOT_SUPPORTED`, and `CONVERSION_FAILED`.
 
 Cursor pagination uses an opaque base64url-encoded, signed payload containing the active filters, ordered values, record ID, and API version. A cursor cannot be reused with different filters. Limit defaults to 20 and is capped at 100. Responses never expose total counts unless the query can supply them without a separate unbounded scan.
 
@@ -1375,7 +1391,9 @@ The backend owns a `ReleasePublicCacheInvalidator` interface with adapters for i
 - edit public summary, title, slug, timing, released timestamp, or type on visible content;
 - create, edit, archive, public-toggle, or reorder notes under visible content.
 
-Invalidation targets `/api/domani/releases/coming-soon`, `/api/domani/releases/changelog`, `/coming-soon`, and `/changelog` as applicable. Calls include a signed server-to-server secret and release ID, contain no private content, and are idempotent by job ID plus target.
+Invalidation targets `/api/domani/releases/coming-soon`, `/api/domani/releases/changelog`, `/coming-soon`, and `/changelog` as applicable. The dispatcher posts `{ jobId, releaseId, target }` to the landing site's `/api/revalidate/releases` receiver. It signs the exact raw JSON body using HMAC-SHA256 and sends `x-release-invalidation-signature: sha256=<hex>`. Both deployments must hold the same server-only `RELEASE_CACHE_INVALIDATION_SECRET`; the secret is never exposed through a `NEXT_PUBLIC_` variable. Calls contain no private content and are idempotent by job ID plus target.
+
+The receiver rejects missing or invalid signatures, malformed UUIDs, and targets outside the four-entry allowlist. It maps API and page targets to the corresponding Next.js page cache and calls `revalidatePath` only after verification.
 
 The state mutation, audit event, and durable invalidation job are inserted in one database transaction. If the outbox insert fails, the whole transaction rolls back and the API returns 500; no successful state transition exists to repeat. The request does not wait for external cache/CDN delivery after commit. It returns the normal 200 or 201 success with the updated resource, aggregate `rowVersion`, matching `ETag`/`X-Release-ETag` headers, and `meta.cacheInvalidation` containing the durable job ID, applicable targets, and status `pending` (or `delivered` only if an in-transaction local adapter completed without external I/O).
 
@@ -1421,8 +1439,9 @@ The local mockups in `docs/planning/mockups/` are visual sources of truth for la
 - Use API DTOs and bearer auth; do not import the service-role key or query release tables.
 - Preserve the loaded `rowVersion` and send it through `If-Match` for every mutation.
 - On 409, preserve unsaved local edits, show a conflict state, and offer refresh/review instead of silently retrying.
-- Permission-gate controls using the actor role, while treating server authorization as authoritative.
-- Viewer controls are read-only. Editor controls exclude publish/unpublish/archive and all release/note mutation controls while the release is published. Admin receives the server-provided allowed actions. The dashboard must use `allowedActions` from the current detail response instead of deriving state-sensitive permissions from role alone.
+- Reuse the existing dashboard session and never introduce a Domani or release-specific login.
+- Use the release-list `capabilities` object to gate the New Release control, direct access to the create screen, and archived-release navigation; do not infer these permissions from local auth metadata or release contents.
+- Use `allowedActions` from the current detail response instead of deriving state-sensitive permissions in the browser.
 - Import shows file validation and raw Markdown preview before submission.
 - Conversion review keeps source Markdown visible beside editable private note drafts.
 - Publish actions require an explicit confirmation summarizing the public effect.
@@ -1438,8 +1457,8 @@ The four dashboard mockups in `docs/planning/mockups/dashboard/` are visual sour
 - Test canonical version boundaries, leading-zero rejection, generated component values, and semantic-version uniqueness.
 - Verify anon/authenticated clients cannot select private tables directly.
 - Verify public serializers use allowlists and never emit forbidden field names.
-- Test all state transitions, role boundaries, audit writes, row-version conflicts, and atomic reorder rollback.
-- For every Editor-capable aggregate mutation route, verify an Editor succeeds on private/public-preview content, receives 403 `PUBLISHED_CONTENT_ADMIN_REQUIRED` on published content, and an Admin succeeds when otherwise valid. Cover release/note management, import, conversion, and approval, while retaining the separate Admin-only archive rules. Include a race test proving authorization uses visibility read under the aggregate row lock rather than stale client state.
+- Test all state transitions, PVS-token boundaries, audit writes, row-version conflicts, and atomic reorder rollback.
+- Verify every admin route accepts the existing PVS dashboard session, rejects missing or invalid PVS tokens, never queries Domani Auth, and performs all release persistence through the Domani service client.
 - Test concurrent note create/edit/archive/reorder and source import/convert/approve operations against the aggregate release version, including complete rollback on a stale child or parent.
 - Test JSON and multipart import, UTF-8 validation, NUL rejection, 1 MiB boundary, idempotency, and `convert=true` rejection.
 - Test replacement-source supersession, exact-hash duplicates of current and historical sources, and preservation of prior runs and notes.

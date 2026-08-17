@@ -21,6 +21,7 @@ const footerSections: FooterSection[] = [
       { label: 'Pricing', href: '/pricing' },
       { label: 'Coming Soon', href: '/coming-soon' },
       { label: 'Changelog', href: '/changelog' },
+      { label: 'About', href: '/about' },
     ],
   },
   {
