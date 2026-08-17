@@ -22,6 +22,36 @@ const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-
 export const isReleaseInvalidationPayloadSizeAllowed = (body: string): boolean =>
   Buffer.byteLength(body, 'utf8') <= MAX_RELEASE_INVALIDATION_BYTES;
 
+export const readReleaseInvalidationBody = async (
+  body: ReadableStream<Uint8Array> | null
+): Promise<string | null> => {
+  if (!body) return '';
+
+  const reader = body.getReader();
+  const chunks: Uint8Array[] = [];
+  let totalBytes = 0;
+
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      if (!value) continue;
+
+      totalBytes += value.byteLength;
+      if (totalBytes > MAX_RELEASE_INVALIDATION_BYTES) {
+        await reader.cancel();
+        return null;
+      }
+
+      chunks.push(value);
+    }
+  } finally {
+    reader.releaseLock();
+  }
+
+  return Buffer.concat(chunks, totalBytes).toString('utf8');
+};
+
 export const verifyReleaseInvalidationSignature = (
   body: string,
   signature: string | null,

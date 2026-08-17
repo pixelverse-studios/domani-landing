@@ -5,6 +5,7 @@ import {
   isReleaseInvalidationPayloadSizeAllowed,
   MAX_RELEASE_INVALIDATION_BYTES,
   parseReleaseInvalidationPayload,
+  readReleaseInvalidationBody,
   releasePageForInvalidationTarget,
   verifyReleaseInvalidationSignature,
 } from '@/lib/releases/revalidation';
@@ -20,8 +21,8 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Revalidation request is too large.' }, { status: 413 });
   }
 
-  const body = await request.text();
-  if (!isReleaseInvalidationPayloadSizeAllowed(body)) {
+  const body = await readReleaseInvalidationBody(request.body);
+  if (body === null || !isReleaseInvalidationPayloadSizeAllowed(body)) {
     return NextResponse.json({ error: 'Revalidation request is too large.' }, { status: 413 });
   }
 

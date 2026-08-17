@@ -38,6 +38,7 @@ const revalidationModule = await import(
 const {
   isReleaseInvalidationPayloadSizeAllowed,
   parseReleaseInvalidationPayload,
+  readReleaseInvalidationBody,
   releasePageForInvalidationTarget,
   verifyReleaseInvalidationSignature,
 } = revalidationModule;
@@ -188,4 +189,18 @@ test('release invalidation rejects unknown targets and malformed identifiers', (
 test('release invalidation rejects oversized request bodies', () => {
   assert.equal(isReleaseInvalidationPayloadSizeAllowed('{}'), true);
   assert.equal(isReleaseInvalidationPayloadSizeAllowed('x'.repeat(4_097)), false);
+});
+
+test('release invalidation stops reading an oversized chunked request body', async () => {
+  let pullCount = 0;
+  const body = new ReadableStream({
+    pull(controller) {
+      pullCount += 1;
+      controller.enqueue(new Uint8Array(2_048));
+      if (pullCount === 4) controller.close();
+    },
+  });
+
+  assert.equal(await readReleaseInvalidationBody(body), null);
+  assert.equal(pullCount, 3);
 });
