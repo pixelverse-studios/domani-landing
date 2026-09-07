@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.baitedz.domaniapp",
+      "sha256_cert_fingerprints": [
+        "6F:C2:31:37:D4:54:41:94:A1:EC:FC:D4:ED:8C:9D:09:D2:A4:EE:74:D4:14:2A:92:98:60:C0:B8:E5:F7:67:7F"
+      ]
+    }
+  }
+]
