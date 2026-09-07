@@ -5,7 +5,7 @@ import test from 'node:test';
 const APPLE_APP_ID = 'V5P5GK2HMF.com.baitedz.domani-app';
 const ANDROID_PACKAGE = 'com.baitedz.domaniapp';
 const ANDROID_CERTIFICATE =
-  '6F:C2:31:37:D4:54:41:94:A1:EC:FC:D4:ED:8C:9D:09:D2:A4:EE:74:D4:14:2A:92:98:60:C0:B8:E5:F7:67:7F';
+  'C0:B6:E5:D1:D5:60:73:57:7D:8B:7E:96:7D:B8:6A:95:C6:7C:CE:11:1F:1E:8D:CC:D2:E6:23:0C:94:60:AE:C4';
 
 test('Apple association delegates only the OAuth callback to Domani', async () => {
   const association = JSON.parse(
