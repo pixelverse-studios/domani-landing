@@ -1,7 +1,7 @@
 # Netlify deployment configuration for Domani Landing
 
 [build]
-  command = "npm run build"
+  command = "npm run test:associations && npm run build"
   publish = ".next"
 
 # Enable Next.js plugin for proper API route handling

@@ -32,6 +32,12 @@ test('Android association delegates the OAuth callback host to the signed app', 
 test('Netlify serves both association endpoints as JSON without content sniffing', async () => {
   const netlifyConfig = await readFile('netlify.toml', 'utf8');
 
+  assert.match(
+    netlifyConfig,
+    /command = "npm run test:associations && npm run build"/,
+    'Netlify must validate association files before building'
+  );
+
   for (const endpoint of [
     '/.well-known/apple-app-site-association',
     '/.well-known/assetlinks.json',
